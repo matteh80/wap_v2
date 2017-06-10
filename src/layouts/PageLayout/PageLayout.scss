@@ -1,8 +1,18 @@
 .page-layout__viewport {
+  position: relative;
+  left: 0;
   padding-top: 4rem;
+
+  transition: left 250ms ease;
 }
 
 .page-layout__nav-item--active {
   font-weight: bold;
   text-decoration: underline;
+}
+
+body.menu-expanded {
+  .page-layout__viewport {
+    left: 210px;
+  }
 }

@@ -1,0 +1,11 @@
+module.exports = {
+  LOAD: 'auth/LOAD',
+  LOAD_SUCCESS: 'auth/LOAD_SUCCESS',
+  LOAD_FAIL: 'auth/LOAD_FAIL',
+  LOGIN: 'auth/LOGIN',
+  LOGIN_SUCCESS: 'auth/LOGIN_SUCCESS',
+  LOGIN_FAIL: 'auth/LOGIN_FAIL',
+  LOGOUT: 'auth/LOGOUT',
+  LOGOUT_SUCCESS: 'auth/LOGOUT_SUCCESS',
+  LOGOUT_FAIL: 'auth/LOGOUT_FAIL'
+}

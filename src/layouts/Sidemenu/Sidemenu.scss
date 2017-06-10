@@ -1,4 +1,5 @@
 @import "../../styles/variables/variables";
+@import "../../styles/variables/colors";
 
 .sidemenuWrapper {
   margin-top: $header-height - 1px;
@@ -11,10 +12,25 @@
   top: 0;
   right: auto;
   overflow: hidden;
+  transition: left 250ms ease;
 
   .sidemenu {
     height: calc(100% - 50px);
     position: relative;
     width: 100%;
+
+    ul.menu-items {
+      list-style: none;
+      margin: 0;
+      padding: 10px 0 0;
+    }
+
+
+  }
+}
+
+body.menu-expanded {
+  .sidemenuWrapper {
+    left: -0px;
   }
 }

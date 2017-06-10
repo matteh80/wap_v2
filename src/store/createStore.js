@@ -2,18 +2,22 @@ import { applyMiddleware, compose, createStore as createReduxStore } from 'redux
 import thunk from 'redux-thunk'
 import { browserHistory } from 'react-router'
 import makeRootReducer from './reducers'
-import { updateLocation } from './location'
+import { routerMiddleware } from 'react-router-redux'
+import {persistStore, autoRehydrate} from 'redux-persist'
+import { asyncSessionStorage } from 'redux-persist/storages'
 
-const createStore = (initialState = {}) => {
+export default (initialState = {}) => {
   // ======================================================
   // Middleware Configuration
   // ======================================================
-  const middleware = [thunk]
+  const routingMiddleware = routerMiddleware(browserHistory)
+  const middleware = [thunk, routingMiddleware]
 
   // ======================================================
   // Store Enhancers
   // ======================================================
-  const enhancers = []
+  const enhancers = [autoRehydrate()]
+
   let composeEnhancers = compose
 
   if (__DEV__) {
@@ -25,27 +29,37 @@ const createStore = (initialState = {}) => {
   // ======================================================
   // Store Instantiation and HMR Setup
   // ======================================================
-  const store = createReduxStore(
-    makeRootReducer(),
-    initialState,
-    composeEnhancers(
-      applyMiddleware(...middleware),
-      ...enhancers
-    )
-  )
-  store.asyncReducers = {}
+  return new Promise((resolve, reject) => {
+    try {
+      const store = createReduxStore(
+        makeRootReducer(),
+        initialState,
+        composeEnhancers(
+          applyMiddleware(...middleware),
+          ...enhancers
+        )
+      )
+      store.asyncReducers = {}
+
+      persistStore(store,
+        { storage: asyncSessionStorage }, () => resolve(store))
+
+      if (module.hot) {
+        module.hot.accept('./reducers', () => {
+          const reducers = require('./reducers').default
+          store.replaceReducer(reducers(store.asyncReducers))
+        })
+      }
+
+      return store
+    } catch (e) {
+      reject(e)
+    }
+  })
 
   // To unsubscribe, invoke `store.unsubscribeHistory()` anytime
-  store.unsubscribeHistory = browserHistory.listen(updateLocation(store))
-
-  if (module.hot) {
-    module.hot.accept('./reducers', () => {
-      const reducers = require('./reducers').default
-      store.replaceReducer(reducers(store.asyncReducers))
-    })
-  }
-
-  return store
+  // store.unsubscribeHistory = browserHistory.listen(updateLocation(store))
 }
 
-export default createStore
+// export default createStore
+

@@ -1,0 +1,73 @@
+@import "../../styles/variables/variables";
+@import "../../styles/variables/colors";
+
+li.menu-item {
+  line-height: 24px;
+
+  a {
+    display: inline-block;
+    padding: 0 3px;
+    padding-left: 32px;
+    min-height: 40px;
+    font-size: 14px;
+    clear: both;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    color: #929db1;
+
+    .text-wrapper {
+      float: left;
+
+      .title {
+        float: left;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+      .details {
+        line-height: 16px;
+        font-size: 12px;
+        opacity: 0.4;
+        display: block;
+        clear: both;
+      }
+    }
+
+    .icon-thumbnail {
+      display: inline-block;
+      background: #21252d;
+      height: 40px;
+      width: 40px;
+      line-height: 40px;
+      text-align: center;
+      vertical-align: middle;
+      position: relative;
+      left: 0;
+      float: right;
+      margin-right: 14px;
+      transition: background 250ms;
+    }
+
+    &:hover {
+      .icon-thumbnail {
+        background: $blue;
+        color: #fff;
+      }
+    }
+
+    &.menu-item--active {
+
+      .icon-thumbnail {
+        background: $pink;
+
+        .fa {
+          color: #fff;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

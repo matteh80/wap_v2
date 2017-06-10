@@ -1,0 +1,121 @@
+.wapbutton {
+  border-radius: 30px;
+  overflow: hidden;
+  background: #000;
+  height:60px;
+  display: inline-block;
+  perspective: 200px;
+  perspective-origin: 50% 50%;
+  width: 200px;
+  position: relative;
+  transform-style: preserve-3d;
+
+  &:hover {
+
+  }
+
+    div {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      line-height: 60px;
+      text-align: center;
+      transform-origin: 50% 50% -30px;
+      transition: all 300ms ease;
+      backface-visibility: hidden;
+    }
+}
+
+.wapbutton :nth-child(1) {
+  background-color: darken($themeColor, 5%);
+  transform: rotateX(90deg);
+}
+
+.wapbutton :nth-child(2) {
+  background-color: $themeColor;
+  transform: rotateX(0deg);
+}
+
+.wapbutton:hover :nth-child(1) {
+  transform: rotateX(0deg);
+}
+
+.wapbutton:hover :nth-child(2) {
+  transform: rotateX(-90deg);
+}
+
+@keyframes scale {
+  0% {
+    transform:scale(1);
+  }
+  50% {
+    transform:scale(1);
+  }
+  100%{
+    transform:scale(1);
+  }
+}
+
+
+
+.t3Button {
+  border: 0;
+  //background: $themeColor;
+  background: linear-gradient(to bottom, lighten($themeColor, 5%) 0%,lighten($themeColor, 0%) 100%);
+  border-radius: 4px;
+  box-shadow: 0 4px 0 darken($themeColor, 10%), 0 4px 7px rgba(0, 0, 0, .35);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  margin: 0;
+  outline: 0;
+  padding: 12px 20px;
+  transition: all .1s linear;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  margin-left:5px;
+  margin-right: 5px;
+  margin-top:20px;
+
+  //&.brand-danger {
+  //  background: linear-gradient(to bottom, lighten($brand-danger, 5%) 0%,lighten($brand-danger, 0%) 100%);
+  //  box-shadow: 0 4px 0 darken($brand-danger, 10%), 0 4px 7px rgba(0, 0, 0, .35);
+  //  &:hover {
+  //    background: linear-gradient(to bottom, lighten($brand-danger, 10%) 0%,lighten($brand-danger, 3%) 100%);
+  //  }
+  //  &:active {
+  //    box-shadow: 0 2px 0 darken($brand-danger, 15%);
+  //  }
+  //}
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+
+  &:first-of-type {
+    margin-left: 0;
+  }
+
+  &.inline {
+    display: inline-block;
+  }
+
+  &.block {
+    display: block;
+  }
+
+  &:hover {
+    background: linear-gradient(to bottom, lighten($themeColor, 10%) 0%,lighten($themeColor, 3%) 100%);
+  }
+
+  &:active {
+    box-shadow: 0 2px 0 darken($themeColor, 15%);
+    transform: translateY(3px);
+  }
+
+  &:disabled {
+    background: lightslategray;
+    box-shadow: 0 5px 0 darken(lightslategray, 10%);
+  }
+}
+

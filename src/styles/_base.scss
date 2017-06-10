@@ -6,7 +6,15 @@ can easily be swapped out without `core.scss` ever having to know.
 
 For example:
 
-@import './variables/colors';
+//@import './variables/colors';
 @import './variables/components';
 @import './themes/default';
 */
+@import '~bootstrap/scss/bootstrap.scss';
+@import '../../node_modules/font-awesome/css/font-awesome.css';
+
+@import './variables/colors';
+@import './variables/variables';
+
+@import 'layout';
+@import './components/button';
