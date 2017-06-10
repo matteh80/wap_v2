@@ -1,23 +1,50 @@
 import React from 'react'
 import { IndexLink, Link } from 'react-router'
+import classnames from 'classnames'
 
 import './Menuitem.scss'
+
+import { Collapse } from 'reactstrap'
 
 class Menuitem extends React.Component {
   constructor (props) {
     super(props)
+
+    this.state = {
+      collapsed: false,
+      hasChildren: !!props.children
+    }
+
+    this._handleClick = this._handleClick.bind(this)
+  }
+
+  _handleClick (e) {
+    // e.preventDefault();
+    this.setState({ collapsed: !this.state.collapsed })
+    return false
   }
 
   render () {
+    let chevronClass = classnames('has-children fa', this.state.collapsed ? 'fa-chevron-down' : 'fa-chevron-left')
+
     return (
-      <li className='menu-item'>
-        <Link to={this.props.to} activeClassName='menu-item--active'>
+      <li className='menu-item-wrapper'>
+        <Link to={this.props.to} className='menu-item' activeClassName='menu-item--active' onClick={(e) => this._handleClick(e)}>
           <div className='text-wrapper'>
             <span className='title'>{this.props.title}</span>
             <span className='details'>12 New Updates</span>
           </div>
+
           <span className='icon-thumbnail'><i className={'fa ' + this.props.icon} /></span>
+          {this.state.hasChildren && <span className={chevronClass} />}
         </Link>
+        {this.state.hasChildren &&
+        <Collapse isOpen={this.state.collapsed}>
+          <ul className='sub-menu'>
+            {this.props.children}
+          </ul>
+        </Collapse>
+        }
       </li>
     )
   }

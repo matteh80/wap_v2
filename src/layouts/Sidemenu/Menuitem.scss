@@ -1,10 +1,10 @@
 @import "../../styles/variables/variables";
 @import "../../styles/variables/colors";
 
-li.menu-item {
+li.menu-item-wrapper {
   line-height: 24px;
 
-  a {
+  .menu-item {
     display: inline-block;
     padding: 0 3px;
     padding-left: 32px;
@@ -15,7 +15,7 @@ li.menu-item {
     overflow: hidden;
     text-overflow: ellipsis;
     width: 100%;
-    color: #929db1;
+    color: #929db1 !important;
 
     .text-wrapper {
       float: left;
@@ -34,6 +34,13 @@ li.menu-item {
         display: block;
         clear: both;
       }
+    }
+    
+    .has-children {
+      float: right;
+      line-height: 40px;
+      margin-right: 30px;
+      font-size: 10px;
     }
 
     .icon-thumbnail {
@@ -68,6 +75,23 @@ li.menu-item {
           font-size: 14px;
         }
       }
+    }
+  }
+  ul.sub-menu {
+    //display: none;
+    list-style: none;
+    clear: both;
+    margin: 0 0 10px 0;
+    background-color: #21252d;
+    padding: 18px 0 10px 0;
+
+    .icon-thumbnail {
+      background: #2b303b;
+      height: 30px;
+      width: 30px;
+      line-height: 30px;
+      margin-right: 19px;
+      transition: background 250ms;
     }
   }
 }

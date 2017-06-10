@@ -26,6 +26,16 @@ export default class Sidemenu extends React.Component {
           <ul className='menu-items'>
             <Menuitem to='/' icon='fa-home' title='Dashboard' />
             <Menuitem to='/profile' icon='fa-user' title='Profil' />
+            <Menuitem icon='fa-building' title='Work'>
+              <Menuitem to='/employments' icon='fa-briefcase' title='Anställningar' />
+              <Menuitem to='/educations' icon='fa-graduation-cap' title='Utbildningar' />
+              <Menuitem to='/skills' icon='fa-flash' title='Kompetenser' />
+            </Menuitem>
+            <Menuitem icon='fa-rocket' title='Passion'>
+              <Menuitem to='/employments' icon='fa-briefcase' title='Anställningar' />
+              <Menuitem to='/educations' icon='fa-graduation-cap' title='Utbildningar' />
+              <Menuitem to='/skills' icon='fa-briefcase' title='Kompetenser' />
+            </Menuitem>
           </ul>
         </div>
       </div>
