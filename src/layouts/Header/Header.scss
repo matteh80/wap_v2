@@ -1,0 +1,14 @@
+@import "../../styles/variables/colors";
+@import "../../styles/variables/variables";
+
+.header {
+  position: relative;
+  display: block;
+  height: $header-height;
+  width: 100%;
+  padding: 0 20px 0 0;
+  z-index: 800;
+  background-color: $themeColor;
+  box-shadow: 0 -5px inset darken($themeColor, 15%);
+  border-bottom: 1px solid rgba(230,230,230,0.7);
+}

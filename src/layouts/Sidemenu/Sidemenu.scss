@@ -1,0 +1,20 @@
+@import "../../styles/variables/variables";
+
+.sidemenuWrapper {
+  margin-top: $header-height - 1px;
+  width: 280px;
+  background-color: #2b303b;
+  z-index: 1000;
+  left: -210px;
+  position: fixed;
+  bottom: 0;
+  top: 0;
+  right: auto;
+  overflow: hidden;
+
+  .sidemenu {
+    height: calc(100% - 50px);
+    position: relative;
+    width: 100%;
+  }
+}
