@@ -1,7 +1,4 @@
 const {
-  LOAD,
-  LOAD_SUCCESS,
-  LOAD_FAIL,
   LOGIN,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -15,31 +12,13 @@ const initialState = {
 }
 export default function reducer (state = initialState, action = {}) {
   switch (action.type) {
-    case LOAD:
-      return {
-        ...state,
-        loading: true
-      }
-    case LOAD_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        loaded: true,
-        user: action
-      }
-    case LOAD_FAIL:
-      return {
-        ...state,
-        loading: false,
-        loaded: false,
-        error: action.error
-      }
     case LOGIN:
       return {
         ...state,
         loggingIn: true
       }
     case LOGIN_SUCCESS:
+      console.log('login success')
       return {
         ...state,
         loggingIn: false,
@@ -53,7 +32,9 @@ export default function reducer (state = initialState, action = {}) {
         loginError: action.error
       }
     case LOGOUT:
+      console.log('logout')
       return {
+        ...state,
         loggingOut: true,
         token: null
       }

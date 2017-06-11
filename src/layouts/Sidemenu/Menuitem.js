@@ -29,10 +29,14 @@ class Menuitem extends React.Component {
 
     return (
       <li className='menu-item-wrapper'>
-        <Link to={this.props.to} className='menu-item' activeClassName='menu-item--active' onClick={(e) => this._handleClick(e)}>
+        <Link to={this.props.to}
+          className='menu-item'
+          activeClassName='menu-item--active'
+          onClick={(e) => this._handleClick(e)}
+          onlyActiveOnIndex={this.props.onlyActiveOnIndex}>
           <div className='text-wrapper'>
             <span className='title'>{this.props.title}</span>
-            <span className='details'>12 New Updates</span>
+            <span className='details'>{this.props.details}</span>
           </div>
 
           <span className='icon-thumbnail'><i className={'fa ' + this.props.icon} /></span>

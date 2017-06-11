@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { login } from '../../store/actions/auth'
 import { getProfile } from '../../store/actions/profile'
+import { getAllEmployments } from '../../store/actions/employments'
 import ThreeDButton from '../../components/buttons/ThreeDButton'
 
 import {
@@ -15,16 +16,27 @@ import {
   Label,
   Input
 } from 'reactstrap'
+import Loader from '../../components/Misc/Loader/Loader'
 
 class Login extends React.Component {
   constructor (props) {
     super(props)
 
+    this.state = {
+      loadsave: false
+    }
+
     this._handleLogin = this._handleLogin.bind(this)
+    this.finalize = this.finalize.bind(this)
   }
 
   _handleLogin (e) {
     e.preventDefault()
+
+    this.setState({
+      loadsave: true
+    })
+
     let { dispatch } = this.props
     let email = ReactDOM.findDOMNode(this.email)
     let password = ReactDOM.findDOMNode(this.password)
@@ -34,12 +46,32 @@ class Login extends React.Component {
       password: password.value
     }
 
+    dispatch(login(creds))
+      .then((result) => {
+        this.finalize()
+      })
+      .catch((error) => {
+        console.log(error)
+        this.setState({
+          loadsave: false
+        })
+      })
+  }
+
+  finalize () {
+    let { dispatch } = this.props
     let redirect = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.query.redirect : null
 
-    dispatch(login(creds)).then((result) => {
-      this.props.auth.token && dispatch(getProfile(this.props.auth.token)).then(() => {
-        console.log('redirect')
-        this.props.router.push(redirect || '/')
+    Promise.all([
+      this.props.auth.token && dispatch(getProfile(this.props.auth.token)),
+      dispatch(getAllEmployments())
+    ]).then(() => {
+      console.log('redirect')
+      this.props.router.push(redirect || '/')
+    }).catch((error) => {
+      console.log(error)
+      this.setState({
+        loadsave: false
       })
     })
   }
@@ -47,6 +79,7 @@ class Login extends React.Component {
   render () {
     return (
       <Container className='h-100'>
+        <Loader active={this.state.loadsave} />
         <Row className='justify-content-center align-items-center h-100 flex-column'>
           <Col xs={12} sm={8} md={6}>
             <Row>

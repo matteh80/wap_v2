@@ -24,14 +24,14 @@ export function login (creds) {
         apiClient.defaults.headers = {
           'Authorization': 'Token ' + cookies.get('token')
         }
-        dispatch({
+        return dispatch({
           type: LOGIN_SUCCESS,
           ...result.data,
           receivedAt: Date.now()
         })
       })
       .catch(function (error) {
-        dispatch({
+        return dispatch({
           type: LOGIN_FAIL,
           error: error.text,
           receivedAt: Date.now()
@@ -40,10 +40,10 @@ export function login (creds) {
   }
 }
 
-function logout () {
-  cookies.remove('token', { path: '/' })
-  return {
-    type: LOGOUT
+export function logout () {
+  return (dispatch, getState) => {
+    dispatch({
+      type: LOGOUT
+    })
   }
 }
-

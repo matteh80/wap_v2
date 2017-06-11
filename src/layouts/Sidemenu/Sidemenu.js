@@ -1,11 +1,16 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import $ from 'jquery'
 import Menuitem from './Menuitem'
 import './Sidemenu.scss'
 
-export default class Sidemenu extends React.Component {
+class Sidemenu extends React.Component {
   constructor (props) {
     super(props)
+
+    this.state = {
+      employmentCount: 0
+    }
   }
 
   componentDidMount () {
@@ -17,6 +22,10 @@ export default class Sidemenu extends React.Component {
       let $body = $('body')
       $body.removeClass('menu-expanded')
     })
+
+    this.setState({
+      employmentCount: this.props.employments.employments.length
+    })
   }
 
   render () {
@@ -24,10 +33,10 @@ export default class Sidemenu extends React.Component {
       <div className='sidemenuWrapper'>
         <div className='sidemenu'>
           <ul className='menu-items'>
-            <Menuitem to='/' icon='fa-home' title='Dashboard' />
+            <Menuitem to='/' icon='fa-home' title='Dashboard' onlyActiveOnIndex />
             <Menuitem to='/profile' icon='fa-user' title='Profil' />
             <Menuitem icon='fa-building' title='Work'>
-              <Menuitem to='/employments' icon='fa-briefcase' title='Anställningar' />
+              <Menuitem to='/work/employments' icon='fa-briefcase' title='Anställningar' details={this.state.employmentCount + ' anställningar'} />
               <Menuitem to='/educations' icon='fa-graduation-cap' title='Utbildningar' />
               <Menuitem to='/skills' icon='fa-flash' title='Kompetenser' />
             </Menuitem>
@@ -42,3 +51,5 @@ export default class Sidemenu extends React.Component {
     )
   }
 }
+
+export default connect((state) => state)(Sidemenu)

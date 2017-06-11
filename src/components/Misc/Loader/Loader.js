@@ -11,12 +11,11 @@ export default class Loader extends React.Component {
   }
 
   render () {
-    let { type } = this.props
     let { active } = this.props
 
     return (
       <div id='loaderContainer' style={active ? loaderContainer : hidden}>
-        <div id='loader' className={type}><div /><div /><div /></div>
+        <div id='loader' className='ball-scale-ripple-multiple'><div /><div /><div /></div>
       </div>
     )
   }

@@ -10,7 +10,7 @@ export const PageLayout = ({ children }) => (
   <div>
     <Sidemenu />
     <Header />
-    <div className='container text-center'>
+    <div className='container-fluid' style={{ marginLeft: 70 }}>
       <div className='page-layout__viewport'>
         {children}
       </div>
