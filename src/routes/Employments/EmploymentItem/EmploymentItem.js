@@ -1,18 +1,46 @@
 import React from 'react'
 import {
-  Card
+  Card,
+  CardBlock,
+  CardTitle,
+  CardSubtitle,
+  CardText
 } from 'reactstrap'
 
 class EmploymentItem extends React.Component {
   constructor (props) {
     super(props)
+
+    this._getStartEndDate = this._getStartEndDate.bind(this)
+  }
+
+  _getStartEndDate (startDate, endDate, current) {
+    let moment = require('moment')
+    moment.locale('sv-SE')
+    console.log(moment.locales())
+    if (current) {
+      return moment(startDate).format('MMM YYYY') + ' - Nuvarande anställning'
+    } else {
+      return moment(startDate).format('MMM YYYY') + ' - ' + moment(endDate).format('MMM YYYY')
+    }
   }
 
   render () {
-    let { employment } = this.props
+    let { id, title, employer, occupation, start_date, end_date, description, current } = this.props.employment;
     return (
       <div className='timeline-item'>
-        { employment.title }
+        <div className='timeline-fulldate'>
+          {this._getStartEndDate(start_date, end_date, current)}
+        </div>
+        <div className='timeline-img'>
+        </div>
+        <Card className='timeline-content'>
+          <CardBlock>
+            <CardTitle>{title}</CardTitle>
+            <CardSubtitle>{employer}</CardSubtitle>
+            <CardText>{description}</CardText>
+          </CardBlock>
+        </Card>
       </div>
     )
   }

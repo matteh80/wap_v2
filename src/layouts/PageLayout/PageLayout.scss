@@ -1,8 +1,13 @@
+@import '../../styles/variables/variables';
+
 .page-layout__viewport {
   position: relative;
   left: 0;
-  padding-top: 4rem;
-
+  padding-top: $header-height * 2;
+  min-height: 100%;
+  @media screen and (min-width: 992px) {
+    margin-left: 70px;
+  }
   transition: left 250ms ease;
 }
 

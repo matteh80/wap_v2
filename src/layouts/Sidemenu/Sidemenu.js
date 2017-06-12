@@ -14,17 +14,21 @@ class Sidemenu extends React.Component {
   }
 
   componentDidMount () {
-    $('.sidemenuWrapper').mouseenter(function () {
-      let $body = $('body')
+    let $sidemenu = $('.sidemenuWrapper')
+    let $navbarToggle = $('.navbar-toggle ')
+    let $body = $('body')
+
+    $sidemenu.mouseenter(function () {
       $body.addClass('menu-expanded')
+      $navbarToggle.removeClass('collapsed')
     })
-    $('.sidemenuWrapper').mouseleave(function () {
-      let $body = $('body')
+    $sidemenu.mouseleave(function () {
       $body.removeClass('menu-expanded')
+      $navbarToggle.addClass('collapsed')
     })
 
     this.setState({
-      employmentCount: this.props.employments.employments.length
+      employmentCount: this.props.employments.employments ? this.props.employments.employments.length : 0
     })
   }
 

@@ -10,13 +10,18 @@ For example:
 @import './variables/components';
 @import './themes/default';
 */
+@import url('https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i');
+
 @import '~bootstrap/scss/bootstrap.scss';
 @import '../../node_modules/font-awesome/css/font-awesome.css';
 
 @import './variables/colors';
 @import './variables/variables';
 
+@import 'type';
 @import 'layout';
-@import 'card';
 @import 'timeline';
+@import 'card';
+
 @import './components/button';

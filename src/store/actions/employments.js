@@ -8,6 +8,7 @@ const {
 export function getAllEmployments () {
   return (dispatch, getState) => {
     return apiClient.get('me/employments').then((result) => {
+      console.log(result)
       return dispatch({
         type: GET_ALL_EMPLOYMENTS,
         employments: result.data,

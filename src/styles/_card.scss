@@ -1,5 +1,10 @@
 .card {
   box-shadow: 0 -3px inset rgba(0,0,0,0.2);
-  border:none;
+  border:none !important;
   margin-bottom: 30px;
+
+  .card-subtitle {
+    margin-top: -5px;
+    margin-bottom: 10px
+  }
 }

@@ -2,11 +2,14 @@
 @import "../../styles/variables/colors";
 
 .sidemenuWrapper {
-  margin-top: $header-height - 1px;
+  padding-top: $header-height - 1px;
   width: 280px;
   background-color: #2b303b;
   z-index: 1000;
-  left: -210px;
+  left: -280px;
+  @media screen and (min-width: 992px) {
+    left: -210px;
+  }
   position: fixed;
   bottom: 0;
   top: 0;

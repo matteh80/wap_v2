@@ -14,7 +14,7 @@ function employments (state = [], action) {
     case GET_ALL_EMPLOYMENTS:
       return {
         receivedAt: action.receivedAt,
-        employments: action.data
+        ...action
       }
     default:
       return state

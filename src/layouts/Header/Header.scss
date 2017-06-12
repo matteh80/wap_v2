@@ -2,15 +2,19 @@
 @import "../../styles/variables/variables";
 
 .header {
-  position: relative;
+  position: fixed;
+  z-index: 1001;
   display: block;
   height: $header-height;
   width: 100%;
   padding: 0;
-  z-index: 800;
   background-color: $themeColor;
   box-shadow: 0 -5px inset darken($themeColor, 15%);
-  border-bottom: 1px solid rgba(230,230,230,0.7);
+
+  #menu-btn {
+    color: #fff;
+    font-size: 30px;
+  }
 
   .profile-picture {
     width:$header-height - 1px;
@@ -56,4 +60,63 @@
       right:0;
     }
   }
+}
+
+
+.navbar-toggle * {
+  transition: all 0.4s ease;
+}
+.navbar-toggle {
+  color: #fff;
+  height: 20px;
+  width: $barwidth;
+  cursor: pointer;
+  padding: 0px;
+  border-radius: 0px;
+  border: none;
+  position: fixed;
+  left: 20px;
+  top: 10px;
+  z-index: 999;
+  transition: top 400ms ease;
+}
+.navbar-toggle span {
+  height: 1px;
+  margin: 7px 0;
+  width: $barwidth;
+  background-color: white; // Close
+  display: block;
+}
+
+.navbar-toggle span.bar1 {
+  transform: rotate(45deg);
+  transform-origin: 1px 3px;
+  width: 32px;
+}
+.navbar-toggle span.bar2 {
+  transform: rotate(-360deg) scale(0);
+}
+
+.navbar-toggle span.bar3 {
+  transform: rotate(-45deg);
+  transform-origin: 9px 2px;
+  width: 32px;
+}
+
+.navbar-toggle.collapsed {
+  top:18px;
+}
+
+.navbar-toggle.collapsed span.bar1,
+.navbar-toggle.collapsed span.bar2,
+.navbar-toggle.collapsed span.bar3,
+.navbar-toggle.collapsed span.bar4 {
+  transform: none;
+  width: $barwidth;
+  background-color: white; // Open
+}
+
+.navbar-toggle {
+  //float: right;
+  //margin: 10px auto;
 }
