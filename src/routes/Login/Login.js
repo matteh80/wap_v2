@@ -5,6 +5,8 @@ import { withRouter } from 'react-router'
 import { login, socialLogin } from '../../store/actions/auth'
 import { getProfile } from '../../store/actions/profile'
 import { getAllEmployments } from '../../store/actions/employments'
+import { getAllEducations } from '../../store/actions/educations'
+import { getAllOccupations } from '../../store/actions/occupations'
 import ThreeDButton from '../../components/buttons/ThreeDButton'
 import './Login.scss'
 import $ from 'jquery'
@@ -16,7 +18,6 @@ import {
   CardBlock,
   CardTitle,
   CardSubtitle,
-  CardText,
   Container,
   Row,
   Col,
@@ -44,6 +45,7 @@ class Login extends React.Component {
     this.finalize = this.finalize.bind(this)
     this.loginLinkedIn = this.loginLinkedIn.bind(this)
     this.getLinkedInData = this.getLinkedInData.bind(this)
+    this.setUpProfileFromLinkedIn = this.setUpProfileFromLinkedIn.bind(this)
     this.loadFB = this.loadFB.bind(this)
     this.loginFB = this.loginFB.bind(this)
     this.loadGoogle = this.loadGoogle.bind(this)
@@ -113,17 +115,27 @@ class Login extends React.Component {
   }
 
   getLinkedInData () {
+    let _self = this
     IN.User.authorize(function () {
       IN.API.Profile('me').fields(
         [
-          'firstName', 'lastName', 'headline', 'positions:(company,title,summary,startDate,endDate,isCurrent)', 'industry',
+          'firstName', 'lastName', 'formatted-name', 'specialties', 'headline', 'summary', 'positions:(company,title,summary,startDate,endDate,isCurrent)', 'industry',
           'location:(name,country:(code))', 'pictureUrl', 'publicProfileUrl', 'emailAddress',
           'educations', 'dateOfBirth'
         ]
       ).result(function (profiles) {
-        console.log(profiles)
+        _self.setUpProfileFromLinkedIn(profiles.values[0])
       })
     })
+  }
+
+  setUpProfileFromLinkedIn (p) {
+    console.log(p)
+    let mProfile = {
+      first_name: p.firstName,
+      last_name: p.lastName,
+      title: p.headline,
+    }
   }
 
   loginLinkedIn () {
@@ -241,9 +253,10 @@ class Login extends React.Component {
     this.props.auth.token && dispatch(getProfile(this.props.auth.token)).then((result) => {
       if (result.tos_accepted) {
         let redirect = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.query.redirect : null
-
         Promise.all([
-          dispatch(getAllEmployments())
+          dispatch(getAllEmployments()),
+          dispatch(getAllEducations()),
+          dispatch(getAllOccupations())
         ]).then(() => {
           console.log('redirect')
           this.props.router.push(redirect || '/')

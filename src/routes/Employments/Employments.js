@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import EmploymentItem from './EmploymentItem/EmploymentItem'
 import EmploymentForm from './EmploymentForm/EmploymentForm'
+import { getAllEmployments } from '../../store/actions/employments'
 
 import {
   Container,
@@ -12,6 +13,9 @@ import {
 class Employments extends React.Component {
   constructor (props) {
     super(props)
+
+    let { dispatch } = this.props
+    dispatch(getAllEmployments())
   }
 
   render () {

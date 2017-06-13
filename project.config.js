@@ -30,4 +30,9 @@ module.exports = {
     'redux-thunk',
     'react-router',
   ],
+  resolve: {
+    alias: {
+      pace: 'pace-progress'
+    }
+  }
 }
