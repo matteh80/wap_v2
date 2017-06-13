@@ -17,7 +17,6 @@ class EmploymentItem extends React.Component {
   _getStartEndDate (startDate, endDate, current) {
     let moment = require('moment')
     moment.locale('sv-SE')
-    console.log(moment.locales())
     if (current) {
       return moment(startDate).format('MMM YYYY') + ' - Nuvarande anställning'
     } else {

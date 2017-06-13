@@ -13,6 +13,8 @@ export const routes = (store) => (
       <Route path='/work/employments' component={Employments} />
     </Route>
     <Route path='/login' component={Login} name='Login' />
+    <Route path='/login/facebook' component={Login} />
+    <Route path='/login/linkedin' component={Login} />
   </Route>
 )
 export default routes

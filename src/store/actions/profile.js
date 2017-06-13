@@ -14,7 +14,7 @@ export function getProfile () {
         apiClient.defaults.headers = {
           'Authorization': 'Token ' + cookies.get('token')
         }
-        dispatch({
+        return dispatch({
           type: GET_PROFILE,
           ...result.data,
           receivedAt: Date.now()

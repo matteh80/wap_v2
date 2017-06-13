@@ -1,0 +1,32 @@
+@import '../../styles/variables/colors';
+
+.social {
+  font-size: 3rem;
+  text-align: center;
+
+  > div {
+    display: inline-block;
+  }
+
+  i {
+    width:5rem;
+    height:5rem;
+    line-height: 5rem;
+    background-color: #fff;
+    border-radius: 50%;
+    display: inline-block;
+    margin: auto 10px;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  #facebook-btn {
+    background-color: $facebook_color;
+  }
+  #linkedin-btn {
+    background-color: $linkedin_color;
+  }
+  #google-btn {
+    background-color: $google_plus_color;
+  }
+}

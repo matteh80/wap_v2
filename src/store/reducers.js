@@ -4,6 +4,7 @@ import { routerReducer } from 'react-router-redux'
 import auth from './reducers/auth'
 import profile from './reducers/profile'
 import employments from './reducers/employments'
+import occupations from './reducers/occupations'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
@@ -11,6 +12,7 @@ export const makeRootReducer = (asyncReducers) => {
     auth: auth,
     profile: profile,
     employments: employments,
+    occupations: occupations,
     ...asyncReducers
   })
 }

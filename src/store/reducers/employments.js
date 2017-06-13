@@ -1,7 +1,10 @@
 const {
   EMPLOYMENTS_FAIL,
-  GET_ALL_EMPLOYMENTS
+  GET_ALL_EMPLOYMENTS,
+  CREATE_EMPLOYMENT
 } = require('../actions/actionTypes/employments')
+
+let index = -1
 
 function employments (state = [], action) {
   if (action.error) {
@@ -14,6 +17,17 @@ function employments (state = [], action) {
     case GET_ALL_EMPLOYMENTS:
       return {
         receivedAt: action.receivedAt,
+        ...action
+      }
+
+    case CREATE_EMPLOYMENT:
+      return {
+        ...state,
+        ...action
+      }
+
+    case EMPLOYMENTS_FAIL:
+      return {
         ...action
       }
     default:

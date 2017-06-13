@@ -22,7 +22,7 @@ export default class ProfilePicture extends React.Component {
 
   render () {
     return (
-      <img src={this.state.imageUrl} className='img-fluid' />
+      <img src={this.state.imageUrl} className='img-fluid' onError={this.onError} />
     )
   }
 }

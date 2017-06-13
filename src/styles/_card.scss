@@ -3,6 +3,12 @@
   border:none !important;
   margin-bottom: 30px;
 
+  .card-header {
+    .card-title {
+      margin-bottom: 0;
+    }
+  }
+
   .card-subtitle {
     margin-top: -5px;
     margin-bottom: 10px

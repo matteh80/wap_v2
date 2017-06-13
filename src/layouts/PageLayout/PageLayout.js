@@ -7,7 +7,7 @@ import UserIsAuthenticated from '../../routes/auth'
 import { connect } from 'react-redux'
 
 export const PageLayout = ({ children }) => (
-  <div>
+  <div style={{background: 'rgb(171, 185, 195)' }}>
     <Sidemenu />
     <Header />
     <div className='container-fluid'>
