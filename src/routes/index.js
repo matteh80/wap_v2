@@ -6,6 +6,7 @@ import Dashboard from './Dashboard/Dashboard'
 import Login from './Login/Login'
 import Employments from './Employments/Employments'
 import Educations from './Educations/Educations'
+import Occupations from './Occupations/Occupations'
 
 import 'pace-progress'
 
@@ -15,6 +16,7 @@ export const routes = (store) => (
       <IndexRoute component={Dashboard} />
       <Route path='/work/employments' component={Employments} />
       <Route path='/work/educations' component={Educations} />
+      <Route path='/work/occupations' component={Occupations} />
     </Route>
     <Route path='/login' component={Login} name='Login' />
     <Route path='/login/facebook' component={Login} />

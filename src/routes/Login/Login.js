@@ -6,7 +6,7 @@ import { login, socialLogin } from '../../store/actions/auth'
 import { getProfile } from '../../store/actions/profile'
 import { getAllEmployments } from '../../store/actions/employments'
 import { getAllEducations } from '../../store/actions/educations'
-import { getAllOccupations } from '../../store/actions/occupations'
+import { getAllOccupations, getMyOccupations } from '../../store/actions/occupations'
 import ThreeDButton from '../../components/buttons/ThreeDButton'
 import './Login.scss'
 import $ from 'jquery'
@@ -256,7 +256,8 @@ class Login extends React.Component {
         Promise.all([
           dispatch(getAllEmployments()),
           dispatch(getAllEducations()),
-          dispatch(getAllOccupations())
+          dispatch(getAllOccupations()),
+          dispatch(getMyOccupations())
         ]).then(() => {
           console.log('redirect')
           this.props.router.push(redirect || '/')

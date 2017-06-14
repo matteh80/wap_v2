@@ -13,7 +13,6 @@ import {
   CardTitle,
   Form,
   FormGroup,
-  InputGroup,
   Label,
   Input
 } from 'reactstrap'

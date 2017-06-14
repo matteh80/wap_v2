@@ -49,22 +49,19 @@ class EmploymentForm extends React.Component {
   }
 
   _getOptions () {
-    let { occupations, useroccupations } = this.props.occupations
+    let { occupations, userOccupations } = this.props.occupations
     let optiondata = []
     let index = -1
 
     $.each(occupations, function (i, categoryitem) {
       $.each(categoryitem.occupations, function (x, item) {
-        index = $.inArray(item.id, useroccupations)
-        if (index === -1) {
-          optiondata.push({
-            label: item.name + ' (' + categoryitem.name + ')',
-            value: item.id,
-            name: item.name,
-            id: item.id,
-            parent_name: categoryitem.name,
-          })
-        }
+        optiondata.push({
+          label: item.name + ' (' + categoryitem.name + ')',
+          value: item.id,
+          name: item.name,
+          id: item.id,
+          parent_name: categoryitem.name,
+        })
       })
     })
 

@@ -31,6 +31,7 @@ class Sidemenu extends React.Component {
     this.setState({
       employmentCount: this.props.employments.employments ? this.props.employments.employments.length : 0,
       educationCount: this.props.educations.educations ? this.props.educations.educations.length : 0,
+      occupationCount: this.props.occupations.userOccupations ? this.props.occupations.userOccupations.length : 0,
     })
   }
 
@@ -42,8 +43,9 @@ class Sidemenu extends React.Component {
             <Menuitem to='/' icon='fa-home' title='Dashboard' onlyActiveOnIndex />
             <Menuitem to='/profile' icon='fa-user' title='Profil' />
             <Menuitem icon='fa-building' title='Work'>
-              <Menuitem to='/work/employments' icon='fa-briefcase' title='Anställningar' details={this.state.employmentCount + ' anställningar'} />
+              <Menuitem to='/work/employments' icon='fa-building' title='Anställningar' details={this.state.employmentCount + ' anställningar'} />
               <Menuitem to='/work/educations' icon='fa-graduation-cap' title='Utbildningar' details={this.state.educationCount + ' utbildningar'} />
+              <Menuitem to='/work/occupations' icon='fa-briefcase' title='Befattningar' details={this.state.occupationCount + ' befattningar'} />
               <Menuitem to='/skills' icon='fa-flash' title='Kompetenser' />
             </Menuitem>
             <Menuitem icon='fa-rocket' title='Passion'>

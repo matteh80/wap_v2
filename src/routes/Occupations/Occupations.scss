@@ -1,0 +1,56 @@
+@import '../../styles/variables/colors';
+
+.sortableWrapper {
+
+  .sortableList {
+
+    .card-block {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      .trashcan {
+        opacity:0;
+        font-size: 26px;
+        position: absolute;
+        right:10px;
+        top: 12px;
+        color: #cdcdcd;
+
+        &:hover {
+          transform: scale(1.2,1.2);
+          color: $red;
+          cursor: pointer;
+        }
+      }
+
+      &:hover {
+        padding-right: 30px;
+        cursor: move;
+
+        .trashcan {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+.dragHandle {
+  margin-right: 5px;
+  color: #cdcdcd;
+}
+
+.moving {
+  .card {
+    opacity: 0.5;
+    .card-block {
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+
+      .trashcan {
+        display: none;
+      }
+    }
+  }
+}
+

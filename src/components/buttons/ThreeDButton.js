@@ -52,7 +52,7 @@ export default class ThreeDButton extends React.Component {
         type={this.props.type}
         onClick={this.props.onClick}
         onTouchEnd={this.props.onTouchEnd}
-        className={btnClass + ' ' + this.props.className}
+        className={btnClass + ' mb-5 ' + this.props.className}
         style={style}>{this.props.text ? this.props.text : this.props.children}</button>
     )
   }
