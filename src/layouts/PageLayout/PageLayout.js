@@ -18,14 +18,15 @@ class PageLayout extends React.Component {
       <div style={{ background: 'rgb(171, 185, 195)' }}>
         <Sidemenu />
         <Header />
-        <Breadcrumbs
-          setDocumentTitle={true}
-          separator={<i className='fa fa-chevron-right' style={{ margin: '0 5px' }} />}
-          routes={this.props.routes}
-          params={this.props.params}
-        />
+
         <div className='container-fluid'>
           <div className='page-layout__viewport'>
+            <Breadcrumbs
+              setDocumentTitle={true}
+              separator={<i className='fa fa-chevron-right' style={{ margin: '0 5px' }} />}
+              routes={this.props.routes}
+              params={this.props.params}
+            />
             {this.props.children}
           </div>
         </div>
