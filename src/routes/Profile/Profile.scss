@@ -1,0 +1,31 @@
+@import '../../styles/variables/colors';
+
+.profileCard {
+  position: relative;
+  .edit-btn {
+    position: absolute;
+    z-index: 9;
+    top:0;
+    right:0;
+    width:40px;
+    height:40px;
+    background: #cdcdcd;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 250ms;
+
+    &:hover {
+      background: $pink;
+    }
+
+    &.editing {
+      background: green;
+
+      &:hover {
+        background: darken(green, 5%);
+      }
+    }
+  }
+}

@@ -6,6 +6,7 @@ import { logout } from '../../store/actions/auth'
 import $ from 'jquery'
 
 import {
+  Row,
   Dropdown,
   DropdownMenu,
   DropdownItem
@@ -50,8 +51,10 @@ class Header extends React.Component {
   render () {
     return (
       <div className='header'>
-        <div className='hidden-md-down pull-left h-100 p-2 ml-1'>
-          <img src='/img/bee_100.png' style={{ maxHeight: '100%', width: 'auto' }} />
+        <div className='hidden-md-down pull-left h-100 logo'>
+          <Row className='justify-content-center align-items-center h-100'>
+            <img src='/img/bee_100.png' style={{ maxHeight: '100%', width: 'auto' }} />
+          </Row>
         </div>
         <div className='navbar-toggle hidden-lg-up pull-xs-left collapsed' aria-label='Toggle navigation' onClick={() => this._toggleMenu()}>
           <span className='bar1' />

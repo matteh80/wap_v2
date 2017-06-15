@@ -39,6 +39,7 @@ class Sidemenu extends React.Component {
       occupationCount: newProps.occupations.userOccupations ? newProps.occupations.userOccupations.length : 0,
       skillCount: newProps.skills.userSkills ? newProps.skills.userSkills.length : 0,
       languageCount: newProps.languages.userLanguages ? newProps.languages.userLanguages.length : 0,
+      motivationCount: newProps.motivations.userMotivations ? newProps.motivations.userMotivations.length : 0,
     })
   }
 
@@ -57,6 +58,8 @@ class Sidemenu extends React.Component {
             </Menuitem>
             <Menuitem icon='fa-cloud' title='Passion'>
               <Menuitem to='/passion/occupations' icon='fa-briefcase' title='Befattningar' count={this.state.occupationCount} details={this.state.occupationCount + ' befattningar'} />
+              <Menuitem to='/passion/motivations' icon='fa-road' title='Drivkrafter' count={this.state.motivationCount} details={this.state.motivationCount === 0 ? 'Inga drivkrafter' : null} />
+
             </Menuitem>
           </ul>
         </div>

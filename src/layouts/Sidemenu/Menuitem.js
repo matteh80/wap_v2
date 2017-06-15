@@ -40,9 +40,10 @@ class Menuitem extends React.Component {
             <span className='title'>{this.props.title}</span>
             <span className='details'>{this.props.details}</span>
           </div>
-
-          <span className={doneClass}><i className={'fa ' + this.props.icon} /></span>
-          {this.state.hasChildren && <span className={chevronClass} />}
+          <div>
+            <span className={doneClass}><i className={'fa ' + this.props.icon} /></span>
+            {this.state.hasChildren && <span className={chevronClass} />}
+          </div>
         </Link>
         {this.state.hasChildren &&
         <Collapse isOpen={this.state.collapsed}>

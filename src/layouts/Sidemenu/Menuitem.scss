@@ -16,9 +16,14 @@ li.menu-item-wrapper {
     text-overflow: ellipsis;
     width: 100%;
     color: #929db1 !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
 
     .text-wrapper {
       float: left;
+      line-height: 1;
 
       .title {
         float: left;

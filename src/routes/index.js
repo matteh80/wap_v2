@@ -9,6 +9,7 @@ import Educations from './Educations/Educations'
 import Occupations from './Occupations/Occupations'
 import Skills from './Skills/Skills'
 import Languages from './Languages/Languages'
+import Profile from './Profile/Profile'
 
 import 'pace-progress'
 
@@ -16,6 +17,7 @@ export const routes = (store) => (
   <Route>
     <Route path='/' component={CoreLayout} name='Dashboard'>
       <IndexRoute component={Dashboard} name='Dashboard' />
+      <Route path='/profile' component={Profile} name='Profil' />
       <Route path='work' name='Work'>
         <Route path='/work/employments' component={Employments} name='Anställningar' />
         <Route path='/work/educations' component={Educations} name='Utbildningar' />

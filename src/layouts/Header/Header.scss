@@ -11,6 +11,16 @@
   background-color: $themeColor;
   box-shadow: 0 -5px inset darken($themeColor, 15%);
 
+  .logo {
+    width:70px;
+
+    > .row {
+      padding:5px 5px 10px;
+      > img {
+      }
+    }
+  }
+
   #menu-btn {
     color: #fff;
     font-size: 30px;

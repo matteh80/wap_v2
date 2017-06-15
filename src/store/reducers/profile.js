@@ -1,5 +1,6 @@
 const {
-  GET_PROFILE
+  GET_PROFILE,
+  UPDATE_PROFILE
 } = require('../actions/actionTypes/profile')
 
 function profile (state = {}, action) {
@@ -11,6 +12,13 @@ function profile (state = {}, action) {
   }
   switch (action.type) {
     case GET_PROFILE:
+      console.log(state)
+      return {
+        ...state,
+        ...action
+      }
+
+    case UPDATE_PROFILE:
       console.log(state)
       return {
         ...state,
