@@ -7,6 +7,7 @@ import employments from './reducers/employments'
 import occupations from './reducers/occupations'
 import educations from './reducers/educations'
 import skills from './reducers/skills'
+import languages from './reducers/languages'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
@@ -17,6 +18,7 @@ export const makeRootReducer = (asyncReducers) => {
     occupations: occupations,
     educations: educations,
     skills: skills,
+    languages: languages,
     ...asyncReducers
   })
 }

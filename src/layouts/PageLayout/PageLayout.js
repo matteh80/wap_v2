@@ -13,7 +13,8 @@ class PageLayout extends React.Component {
   }
 
   render () {
-    document.title = this.props.routes[2].name + ' | wap card'
+    let activeRouteItem = Object.assign([], this.props.routes).reverse()
+    document.title = activeRouteItem[0].name + ' | wap card'
     return (
       <div style={{ background: 'rgb(171, 185, 195)' }}>
         <Sidemenu />

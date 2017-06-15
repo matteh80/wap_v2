@@ -38,6 +38,7 @@ class Sidemenu extends React.Component {
       educationCount: newProps.educations.educations ? newProps.educations.educations.length : 0,
       occupationCount: newProps.occupations.userOccupations ? newProps.occupations.userOccupations.length : 0,
       skillCount: newProps.skills.userSkills ? newProps.skills.userSkills.length : 0,
+      languageCount: newProps.languages.userLanguages ? newProps.languages.userLanguages.length : 0,
     })
   }
 
@@ -48,16 +49,14 @@ class Sidemenu extends React.Component {
           <ul className='menu-items'>
             <Menuitem to='/' icon='fa-home' title='Dashboard' onlyActiveOnIndex />
             <Menuitem to='/profile' icon='fa-user' title='Profil' />
-            <Menuitem icon='fa-building' title='Work'>
+            <Menuitem icon='fa-briefcase' title='Work'>
               <Menuitem to='/work/employments' icon='fa-building' title='Anställningar' count={this.state.employmentCount} details={this.state.employmentCount + ' anställningar'} />
               <Menuitem to='/work/educations' icon='fa-graduation-cap' title='Utbildningar' count={this.state.educationCount} details={this.state.educationCount + ' utbildningar'} />
-              <Menuitem to='/work/occupations' icon='fa-briefcase' title='Befattningar' count={this.state.occupationCount} details={this.state.occupationCount + ' befattningar'} />
               <Menuitem to='/work/skills' icon='fa-flash' title='Kompetenser' count={this.state.skillCount} details={this.state.skillCount + ' kompetenser'} />
+              <Menuitem to='/work/languages' icon='fa-comment' title='Språk' count={this.state.languageCount} details={this.state.languageCount + ' språk'} />
             </Menuitem>
-            <Menuitem icon='fa-rocket' title='Passion'>
-              <Menuitem to='/employments' icon='fa-briefcase' title='Anställningar' />
-              <Menuitem to='/educations' icon='fa-graduation-cap' title='Utbildningar' />
-              <Menuitem to='/skills' icon='fa-briefcase' title='Kompetenser' />
+            <Menuitem icon='fa-cloud' title='Passion'>
+              <Menuitem to='/passion/occupations' icon='fa-briefcase' title='Befattningar' count={this.state.occupationCount} details={this.state.occupationCount + ' befattningar'} />
             </Menuitem>
           </ul>
         </div>
