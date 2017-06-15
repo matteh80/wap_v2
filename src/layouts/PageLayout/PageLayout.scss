@@ -1,9 +1,29 @@
 @import '../../styles/variables/variables';
+@import '../../styles/variables/colors';
 
+.breadcrumbs {
+  background: #fff;
+  padding-top: $header-height + 10px;
+  padding-bottom: 10px;
+  @media screen and (min-width: 992px) {
+    padding-left: 100px;
+  }
+  margin-bottom: $header-height * 1;
+  text-transform: uppercase;
+  
+  a {
+    color: $themeColor;
+    font-weight: 300;
+  }
+
+  span {
+    color: #343434;
+    font-weight: 900;
+  }
+}
 .page-layout__viewport {
   position: relative;
   left: 0;
-  padding-top: $header-height * 2;
   min-height: 100%;
   @media screen and (min-width: 992px) {
     margin-left: 70px;

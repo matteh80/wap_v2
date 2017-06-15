@@ -56,6 +56,16 @@ li.menu-item-wrapper {
       float: right;
       margin-right: 14px;
       transition: background 250ms;
+
+      &.done {
+        background: #2b432f;
+      }
+      &.undone {
+        background: #663132;
+        .fa {
+          //color: #fff;
+        }
+      }
     }
 
     &:hover {

@@ -15,7 +15,7 @@ class Employments extends React.Component {
     super(props)
 
     let { dispatch } = this.props
-    dispatch(getAllEmployments())
+    dispatch(getAllEmployments()).then(() => { console.log('hej')})
   }
 
   render () {

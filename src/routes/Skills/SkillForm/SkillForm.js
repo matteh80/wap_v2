@@ -1,22 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Select from 'react-select'
-import { getMyOccupations, getAllOccupations, addOccupation } from '../../../store/actions/occupations'
 import $ from 'jquery'
 import classNames from 'classnames'
 
 import {
+  Collapse,
   Card,
   CardBlock,
   CardHeader,
   CardTitle,
   Form,
   FormGroup,
-  Label,
-  Collapse
 } from 'reactstrap'
 
-class OccupationForm extends React.Component {
+class SkillForm extends React.Component {
   constructor (props) {
     super(props)
 
@@ -27,22 +25,20 @@ class OccupationForm extends React.Component {
       collapse: !this.props.notEmpty
     }
 
-    this.props.occupations.length === 0 && dispatch(getAllOccupations())
-    dispatch(getMyOccupations())
-
     this.toggleCollapse = this.toggleCollapse.bind(this)
     this._getOptions = this._getOptions.bind(this)
-    this._handleOccupationChange = this._handleOccupationChange.bind(this)
+    this._handleSkillChange = this._handleSkillChange.bind(this)
   }
 
   _getOptions () {
-    let { occupations, userOccupations } = this.props.occupations
+    let { skills } = this.props.skills
+    let { userSkills } = this.props
     let optiondata = []
     let index = -1
 
-    $.each(occupations, function (i, categoryitem) {
-      $.each(categoryitem.occupations, function (x, item) {
-        index = userOccupations.findIndex(userOccupations => userOccupations.id === item.id)
+    $.each(skills, function (i, categoryitem) {
+      $.each(categoryitem.skills, function (x, item) {
+        index = userSkills.findIndex(userSkills => userSkills.id === item.id)
         if (index === -1) {
           optiondata.push({
             label: item.name + ' (' + categoryitem.name + ')',
@@ -64,8 +60,8 @@ class OccupationForm extends React.Component {
     return optiondata
   }
 
-  _handleOccupationChange (value) {
-    this.props.onAdd(value)
+  _handleSkillChange (value) {
+
   }
 
   toggleCollapse () {
@@ -73,26 +69,28 @@ class OccupationForm extends React.Component {
   }
 
   render () {
+    let { userSkills } = this.props.skills
     let chevronClass = classNames('fa pull-right', this.state.collapse ? 'fa-chevron-down' : 'fa-chevron-up')
 
     return (
       <Card>
         <CardHeader onClick={() => this.toggleCollapse()} className='add-items'>
-          <CardTitle className='pull-left'>Lägg till befattning</CardTitle>
+          <CardTitle className='pull-left'>Lägg till kompetens</CardTitle>
           <i className={chevronClass} style={{ fontSize: 20 }} />
         </CardHeader>
         <Collapse isOpen={this.state.collapse}>
           <CardBlock>
             <Form>
               <FormGroup>
-                {/*<Label for='occupation'>Yrkeskategori *</Label>*/}
+                {/* <Label for='skill'>Kompetens</Label> */}
+                {this.props.skills.userSkills &&
                 <Select
                   options={this._getOptions()}
                   clearable
-                  onChange={this._handleOccupationChange}
-                  placeholder='Välj yrke'
+                  onChange={this.props.onAdd}
+                  placeholder='Välj kompetens'
                   value={this.state.selectValue}
-                />
+                />}
               </FormGroup>
             </Form>
           </CardBlock>
@@ -102,4 +100,4 @@ class OccupationForm extends React.Component {
   }
 }
 
-export default connect((state) => state)(OccupationForm)
+export default connect((state) => state)(SkillForm)

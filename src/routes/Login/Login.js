@@ -7,6 +7,7 @@ import { getProfile } from '../../store/actions/profile'
 import { getAllEmployments } from '../../store/actions/employments'
 import { getAllEducations } from '../../store/actions/educations'
 import { getAllOccupations, getMyOccupations } from '../../store/actions/occupations'
+import { getAllSkills, getMySkills } from '../../store/actions/skills'
 import ThreeDButton from '../../components/buttons/ThreeDButton'
 import './Login.scss'
 import $ from 'jquery'
@@ -257,7 +258,9 @@ class Login extends React.Component {
           dispatch(getAllEmployments()),
           dispatch(getAllEducations()),
           dispatch(getAllOccupations()),
-          dispatch(getMyOccupations())
+          dispatch(getMyOccupations()),
+          dispatch(getAllSkills()),
+          dispatch(getMySkills())
         ]).then(() => {
           console.log('redirect')
           this.props.router.push(redirect || '/')

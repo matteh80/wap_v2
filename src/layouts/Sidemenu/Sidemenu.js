@@ -10,7 +10,9 @@ class Sidemenu extends React.Component {
 
     this.state = {
       employmentCount: 0,
-      educationCount: 0
+      educationCount: 0,
+      occupationCount: 0,
+      skillCount: 0,
     }
   }
 
@@ -27,11 +29,15 @@ class Sidemenu extends React.Component {
       $body.removeClass('menu-expanded')
       $navbarToggle.addClass('collapsed')
     })
+  }
 
+  componentWillReceiveProps (newProps) {
+    console.log(newProps)
     this.setState({
-      employmentCount: this.props.employments.employments ? this.props.employments.employments.length : 0,
-      educationCount: this.props.educations.educations ? this.props.educations.educations.length : 0,
-      occupationCount: this.props.occupations.userOccupations ? this.props.occupations.userOccupations.length : 0,
+      employmentCount: newProps.employments.employments ? newProps.employments.employments.length : 0,
+      educationCount: newProps.educations.educations ? newProps.educations.educations.length : 0,
+      occupationCount: newProps.occupations.userOccupations ? newProps.occupations.userOccupations.length : 0,
+      skillCount: newProps.skills.userSkills ? newProps.skills.userSkills.length : 0,
     })
   }
 
@@ -43,10 +49,10 @@ class Sidemenu extends React.Component {
             <Menuitem to='/' icon='fa-home' title='Dashboard' onlyActiveOnIndex />
             <Menuitem to='/profile' icon='fa-user' title='Profil' />
             <Menuitem icon='fa-building' title='Work'>
-              <Menuitem to='/work/employments' icon='fa-building' title='Anställningar' details={this.state.employmentCount + ' anställningar'} />
-              <Menuitem to='/work/educations' icon='fa-graduation-cap' title='Utbildningar' details={this.state.educationCount + ' utbildningar'} />
-              <Menuitem to='/work/occupations' icon='fa-briefcase' title='Befattningar' details={this.state.occupationCount + ' befattningar'} />
-              <Menuitem to='/skills' icon='fa-flash' title='Kompetenser' />
+              <Menuitem to='/work/employments' icon='fa-building' title='Anställningar' count={this.state.employmentCount} details={this.state.employmentCount + ' anställningar'} />
+              <Menuitem to='/work/educations' icon='fa-graduation-cap' title='Utbildningar' count={this.state.educationCount} details={this.state.educationCount + ' utbildningar'} />
+              <Menuitem to='/work/occupations' icon='fa-briefcase' title='Befattningar' count={this.state.occupationCount} details={this.state.occupationCount + ' befattningar'} />
+              <Menuitem to='/work/skills' icon='fa-flash' title='Kompetenser' count={this.state.skillCount} details={this.state.skillCount + ' kompetenser'} />
             </Menuitem>
             <Menuitem icon='fa-rocket' title='Passion'>
               <Menuitem to='/employments' icon='fa-briefcase' title='Anställningar' />

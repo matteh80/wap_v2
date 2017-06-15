@@ -12,7 +12,8 @@ class Menuitem extends React.Component {
 
     this.state = {
       collapsed: false,
-      hasChildren: !!props.children
+      hasChildren: !!props.children,
+      count: this.props.count
     }
 
     this._handleClick = this._handleClick.bind(this)
@@ -26,6 +27,7 @@ class Menuitem extends React.Component {
 
   render () {
     let chevronClass = classnames('has-children fa', this.state.collapsed ? 'fa-chevron-down' : 'fa-chevron-left')
+    let doneClass = classnames('icon-thumbnail', this.props.count === 0 && 'undone')
 
     return (
       <li className='menu-item-wrapper'>
@@ -39,7 +41,7 @@ class Menuitem extends React.Component {
             <span className='details'>{this.props.details}</span>
           </div>
 
-          <span className='icon-thumbnail'><i className={'fa ' + this.props.icon} /></span>
+          <span className={doneClass}><i className={'fa ' + this.props.icon} /></span>
           {this.state.hasChildren && <span className={chevronClass} />}
         </Link>
         {this.state.hasChildren &&
