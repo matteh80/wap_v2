@@ -1,0 +1,16 @@
+.modal {
+  .modal-dialog {
+    .modal-content {
+      border:none;
+      border-radius: 0;
+
+      .modal-header {}
+      .modal-body {
+        &.no-padding {
+          padding: 0;
+        }
+      }
+      .modal-footer {}
+    }
+  }
+}

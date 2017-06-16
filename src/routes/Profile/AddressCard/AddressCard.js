@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import ProfilePicture from '../../../components/Misc/ProfilePicture'
+import ProfilePicture from '../../../components/Misc/ProfilePicture/ProfilePicture'
 import '../Profile.scss'
 import classNames from 'classnames'
 import GoogleMapReact from 'google-map-react'
@@ -40,20 +40,22 @@ class AddressCard extends React.Component {
     this.setMap = this.setMap.bind(this)
     this.onChange = this.onChange.bind(this)
     this._resizeMapWrapper = this._resizeMapWrapper.bind(this)
+    this.revertChanges = this.revertChanges.bind(this)
   }
 
   componentDidMount () {
-    $(window).on("resize", this._resizeMapWrapper())
+    $(window).on('resize', this._resizeMapWrapper)
     this._resizeMapWrapper()
   }
 
   componentWillUnmount () {
-    $(window).off("resize", this._resizeMapWrapper())
+    $(window).off('resize', this._resizeMapWrapper)
   }
 
   _resizeMapWrapper () {
-      let $mapWrapper = $('#mapWrapper')
-      $mapWrapper.height($mapWrapper.width() * 0.5)
+    console.log('resize')
+    let $mapWrapper = $('#mapWrapper')
+    $mapWrapper.height($mapWrapper.width() * 0.555555)
   }
 
   toggleEditMode () {
@@ -70,6 +72,7 @@ class AddressCard extends React.Component {
     this.setState({
       editMode: !this.state.editMode,
     })
+    this.props.onOpen()
   }
 
   createMapOptions (maps) {
@@ -78,7 +81,7 @@ class AddressCard extends React.Component {
       panControl: false,
       mapTypeControl: false,
       scrollwheel: false,
-      styles: [{ stylers: [{ 'saturation': -100 }, { 'gamma': 0.8 }, { 'lightness': 4 }, { 'visibility': 'on' }] }]
+      styles: [{ stylers: [{ 'saturation': -20 }, { 'gamma': 0.8 }, { 'lightness': 4 }, { 'visibility': 'on' }] }]
     }
   }
 
@@ -107,15 +110,26 @@ class AddressCard extends React.Component {
     this.geoCodeDestination(profile.address + ' ' + profile.zip_code + ' ' + profile.city)
   }
 
+  revertChanges () {
+    this.setState({
+      editMode: !this.state.editMode
+    })
+    this.props.revertChanges()
+  }
+
   render () {
     let { profile } = this.props
 
+    let wrapperClass = classNames('btn-wrapper', this.state.editMode && 'editing')
     let editBtnClass = classNames('edit-btn fa', this.state.editMode ? 'fa-check editing' : 'fa-pencil')
 
     return (
-      <Col xs={12} sm={6} lg={4} xl={3}>
+      <Col xs={12} sm={6} md={8} lg={4} xl={3}>
         <Card className='profileCard'>
-          <i className={editBtnClass} onClick={() => this.toggleEditMode()} />
+          <div className={wrapperClass}>
+            <i className={editBtnClass} onClick={() => this.toggleEditMode()} />
+            <i className='fa fa-times cancel-btn' onClick={() => this.revertChanges()} />
+          </div>
           <div id='mapWrapper'>
             <GoogleMapReact
               onGoogleApiLoaded={({ map, maps }) => this.setMap(map, maps)}
@@ -126,11 +140,12 @@ class AddressCard extends React.Component {
               }}
               center={this.state.center}
               defaultZoom={this.state.zoom}
-              // options={this.createMapOptions}
+              options={this.createMapOptions}
             />
           </div>
           {!this.state.editMode &&
           <CardBlock>
+            {profile.care_of && <CardSubtitle className='text-center'>c/o {profile.care_of}</CardSubtitle>}
             <CardTitle className='text-center'>{profile.address}</CardTitle>
             <CardSubtitle className='text-center'>{profile.zip_code} {profile.city}</CardSubtitle>
           </CardBlock>
@@ -140,18 +155,23 @@ class AddressCard extends React.Component {
           <CardBlock>
             <Form>
               <FormGroup>
-                <Label for='address'>Förnamn</Label>
+                <Label for='care_of'>C/o</Label>
+                <Input type='care_of' name='care_of' id='care_of' defaultValue={profile.care_of}
+                       ref={(input) => { this.care_of = input }} onChange={this.onChange} />
+              </FormGroup>
+              <FormGroup>
+                <Label for='address'>Adress</Label>
                 <Input type='address' name='address' id='address' defaultValue={profile.address}
                   ref={(input) => { this.address = input }} onChange={this.onChange} />
               </FormGroup>
               <FormGroup>
-                <Label for='zip_code'>Efternamn</Label>
+                <Label for='zip_code'>Postnummer</Label>
                 <Input type='zip_code' name='zip_code' id='zip_code' defaultValue={profile.zip_code}
                   ref={(input) => { this.zip_code = input }} onChange={this.onChange} />
               </FormGroup>
 
               <FormGroup>
-                <Label for='city'>Epost</Label>
+                <Label for='city'>Postort</Label>
                 <Input type='city' name='city' id='city' defaultValue={profile.city}
                   ref={(input) => { this.city = input }} onChange={this.onChange} />
               </FormGroup>

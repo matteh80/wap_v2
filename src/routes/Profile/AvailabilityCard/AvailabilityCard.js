@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import '../Profile.scss'
 import classNames from 'classnames'
-import { Range } from 'rc-slider'
+import Slider from 'rc-slider'
 
 import {
   Col,
@@ -12,18 +12,19 @@ import {
   CardSubtitle,
 } from 'reactstrap'
 
-class SalaryCard extends React.Component {
+class AvailabilityCard extends React.Component {
   constructor (props) {
     super(props)
 
     this.state = {
       editMode: false,
-      salary: [this.props.profile.salary_expectations_min, this.props.profile.salary_expectations_max]
+      availability: this.props.profile.availability
     }
 
     this.toggleEditMode = this.toggleEditMode.bind(this)
-    this.onSalaryChange = this.onSalaryChange.bind(this)
+    this.onAvailabilityChange = this.onAvailabilityChange.bind(this)
     this.revertChanges = this.revertChanges.bind(this)
+    this.getAvailabilityString = this.getAvailabilityString.bind(this)
   }
 
   toggleEditMode () {
@@ -34,9 +35,9 @@ class SalaryCard extends React.Component {
     this.props.onOpen()
   }
 
-  onSalaryChange (values) {
+  onAvailabilityChange (value) {
     this.setState({
-      salary: values
+      availability: value
     })
   }
 
@@ -45,6 +46,21 @@ class SalaryCard extends React.Component {
       editMode: !this.state.editMode
     })
     this.props.revertChanges()
+  }
+
+  getAvailabilityString () {
+    switch (this.state.availability) {
+      case 0:
+        return 'Omgående'
+      case 1:
+        return '1 månad'
+      case 2:
+        return '2 månader'
+      case 3:
+        return '3 månader'
+      case 4:
+        return ' över 3 månader'
+    }
   }
 
   render () {
@@ -60,18 +76,16 @@ class SalaryCard extends React.Component {
             <i className={editBtnClass} onClick={() => this.toggleEditMode()} />
             <i className='fa fa-times cancel-btn' onClick={() => this.revertChanges()} />
           </div>
-          <img src='/img/cash.jpg' className='img-fluid' />
+          <img src='/img/clock.jpg' className='img-fluid' />
           <CardBlock>
-            <CardTitle className='text-center'>Lön</CardTitle>
-            <CardSubtitle className='text-center'>{this.state.salary[0]}
-              - {this.state.salary[1]}</CardSubtitle>
+            <CardTitle className='text-center'>Tillgänglighet</CardTitle>
+            <CardSubtitle className='text-center'>{this.getAvailabilityString()}</CardSubtitle>
             {this.state.editMode &&
-            <Range
-              min={15000}
-              max={95000}
-              step={500}
-              defaultValue={this.state.salary}
-              onChange={this.onSalaryChange}
+            <Slider
+              min={0}
+              max={4}
+              defaultValue={this.state.availability}
+              onChange={this.onAvailabilityChange}
               onAfterChange={this.props.onChange}
             />
             }
@@ -82,4 +96,4 @@ class SalaryCard extends React.Component {
   }
 }
 
-export default connect((state) => state)(SalaryCard)
+export default connect((state) => state)(AvailabilityCard)

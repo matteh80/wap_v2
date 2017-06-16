@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import ProfilePicture from '../../components/Misc/ProfilePicture'
+import ProfilePicture from '../../components/Misc/ProfilePicture/ProfilePicture'
 import './Header.scss'
 import { logout } from '../../store/actions/auth'
 import $ from 'jquery'

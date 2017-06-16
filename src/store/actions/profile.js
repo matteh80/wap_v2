@@ -50,3 +50,20 @@ export function updateProfile (profile) {
       })
   }
 }
+
+export function uploadProfilePic (data) {
+  return (dispatch, getState) => {
+    return apiClient.post('me/picture/',
+      data
+    )
+      .then((result) => {
+        dispatch({
+          type: GET_PROFILE,
+          picture: result.data.size
+        })
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
+}

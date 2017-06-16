@@ -19,6 +19,9 @@ For example:
 @import '../../node_modules/react-datetime/css/react-datetime.css';
 @import '../../node_modules/pace-progress/themes/pink/pace-theme-flash.css';
 @import '../../node_modules/rc-slider/assets/index.css';
+//@import '../../node_modules/react-image-crop/dist/ReactCrop.css';
+@import '../../node_modules/cropperjs/dist/cropper.min.css';
+@import '../../node_modules/react-datepicker/dist/react-datepicker.min.css';
 
 @import './variables/colors';
 @import './variables/variables';
@@ -28,5 +31,7 @@ For example:
 @import 'layout';
 @import 'timeline';
 @import 'card';
+@import 'modal';
 
 @import './components/button';
+@import './components/loaders';
