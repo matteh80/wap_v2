@@ -13,6 +13,9 @@ class Sidemenu extends React.Component {
       educationCount: 0,
       occupationCount: 0,
       skillCount: 0,
+      languageCount: 0,
+      motivationCount: 0,
+      personalityCount: 0
     }
   }
 
@@ -40,6 +43,7 @@ class Sidemenu extends React.Component {
       skillCount: newProps.skills.userSkills ? newProps.skills.userSkills.length : 0,
       languageCount: newProps.languages.userLanguages ? newProps.languages.userLanguages.length : 0,
       motivationCount: newProps.motivations.userMotivations ? newProps.motivations.userMotivations.length : 0,
+      personalityCount: newProps.personalities.userPersonalities ? newProps.personalities.userPersonalities.length : 0,
     })
   }
 
@@ -58,8 +62,8 @@ class Sidemenu extends React.Component {
             </Menuitem>
             <Menuitem icon='fa-cloud' title='Passion'>
               <Menuitem to='/passion/occupations' icon='fa-briefcase' title='Befattningar' count={this.state.occupationCount} details={this.state.occupationCount + ' befattningar'} />
-              <Menuitem to='/passion/motivations' icon='fa-road' title='Drivkrafter' count={this.state.motivationCount} details={this.state.motivationCount === 0 ? 'Inga drivkrafter' : null} />
-
+              <Menuitem to='/passion/motivations' icon='fa-road' title='Drivkrafter' count={this.state.motivationCount} details={this.state.motivationCount + ' drivkrafter'} />
+              <Menuitem to='/passion/personalities' icon='fa-user-circle' title='Personlighet' count={this.state.personalitiyCount} details={this.state.personalityCount + ' personlighetsdrag'} />
             </Menuitem>
           </ul>
         </div>

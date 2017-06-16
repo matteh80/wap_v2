@@ -10,6 +10,8 @@ import Occupations from './Occupations/Occupations'
 import Skills from './Skills/Skills'
 import Languages from './Languages/Languages'
 import Profile from './Profile/Profile'
+import Motivations from './Motivations/Motivations'
+import Personalities from './Personalities/Personalities'
 
 import 'pace-progress'
 
@@ -26,6 +28,8 @@ export const routes = (store) => (
       </Route>
       <Route path='passion' name='Passion'>
         <Route path='/passion/occupations' component={Occupations} name='Befattningar' />
+        <Route path='/passion/motivations' component={Motivations} name='Drivkrafter' />
+        <Route path='/passion/personalities' component={Personalities} name='Personlighet' />
       </Route>
     </Route>
     <Route path='/login' component={Login} name='Login' />

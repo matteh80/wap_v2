@@ -35,11 +35,11 @@ export default class Dashboard extends React.Component {
         ref={function (c) { this.masonry = this.masonry || c.masonry }.bind(this)}
       >
 
-        <Col xs={12} lg={4} xl={3}>
+        <Col xs={12} sm={6} lg={4} xl={3}>
           <TestCard />
         </Col>
 
-        <Col xs={12} lg={4} xl={3}>
+        <Col xs={12} sm={6} lg={4} xl={3}>
           <RecruiterCard />
         </Col>
 
