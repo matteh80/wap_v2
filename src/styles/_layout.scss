@@ -1,8 +1,8 @@
 body, html {
   overflow-x: hidden;
+  background: $bg-color;
 }
 #root {
   height:100%;
-  background: rgb(171, 185, 195);
   //background: linear-gradient(to bottom right, #74bfdc 0%, #49d2b7 100%);
 }

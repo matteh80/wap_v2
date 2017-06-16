@@ -55,7 +55,7 @@ class LanguageItem extends React.Component {
     let { language } = this.props
     return (
       <Col xs={12} sm={6} md={4} xl={3}>
-        <Card>
+        <Card className='withTrashcan'>
           <CardBlock>
             <CardTitle>{language.name}</CardTitle>
             <i className='fa fa-trash trashcan' onClick={() => this.props.onRemove(language.id)} />

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import '../Profile.scss'
 import classNames from 'classnames'
-import Slider, { Range } from 'rc-slider';
+import { Range } from 'rc-slider'
 
 import {
   Col,
@@ -17,16 +17,24 @@ class SalaryCard extends React.Component {
     super(props)
 
     this.state = {
-      editMode: false
+      editMode: false,
+      salary: [this.props.profile.salary_expectations_min, this.props.profile.salary_expectations_max]
     }
 
     this.toggleEditMode = this.toggleEditMode.bind(this)
+    this.onSalaryChange = this.onSalaryChange.bind(this)
   }
 
   toggleEditMode () {
     this.state.editMode && this.props.onSave()
     this.setState({
       editMode: !this.state.editMode
+    })
+  }
+
+  onSalaryChange (values) {
+    this.setState({
+      salary: values
     })
   }
 
@@ -40,18 +48,21 @@ class SalaryCard extends React.Component {
         <Card className='profileCard'>
           <i className={editBtnClass} onClick={() => this.toggleEditMode()} />
           <img src='/img/cash.jpg' className='img-fluid' />
-          {!this.state.editMode &&
           <CardBlock>
             <CardTitle className='text-center'>Lön</CardTitle>
-            <CardSubtitle className='text-center'>{profile.salary_expectations_min} - {profile.salary_expectations_max}</CardSubtitle>
+            <CardSubtitle className='text-center'>{this.state.salary[0]}
+              - {this.state.salary[1]}</CardSubtitle>
+            {this.state.editMode &&
+            <Range
+              min={15000}
+              max={95000}
+              step={500}
+              defaultValue={this.state.salary}
+              onChange={this.onSalaryChange}
+              onAfterChange={this.props.onChange}
+            />
+            }
           </CardBlock>
-          }
-
-          {this.state.editMode &&
-          <CardBlock>
-            <Range />
-          </CardBlock>
-          }
         </Card>
       </Col>
     )

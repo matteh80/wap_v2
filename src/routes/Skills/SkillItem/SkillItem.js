@@ -17,7 +17,7 @@ class SkillItem extends React.Component {
     let { skill } = this.props
     return (
       <Col xs={12} sm={6} md={4} xl={3}>
-        <Card className='skillItem'>
+        <Card className='withTrashcan'>
           <CardBlock>
             <CardTitle>{skill.name}</CardTitle>
             <i className='fa fa-trash trashcan' onClick={() => this.props.onRemove(skill.id)} />

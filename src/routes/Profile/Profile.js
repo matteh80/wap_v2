@@ -20,6 +20,7 @@ class Profile extends React.Component {
     }
 
     this.onProfileChange = this.onProfileChange.bind(this)
+    this.onSalaryChange = this.onSalaryChange.bind(this)
     this.onProfileSave = this.onProfileSave.bind(this)
   }
 
@@ -32,6 +33,16 @@ class Profile extends React.Component {
       profile: {
         ...this.state.profile,
         [name]: value
+      }
+    })
+  }
+
+  onSalaryChange (values) {
+    this.setState({
+      profile: {
+        ...this.state.profile,
+        salary_expectations_min: values[0],
+        salary_expectations_max: values[1]
       }
     })
   }
@@ -55,7 +66,7 @@ class Profile extends React.Component {
         >
           <InfoCard onChange={this.onProfileChange} onSave={this.onProfileSave} />
           <AddressCard onChange={this.onProfileChange} onSave={this.onProfileSave} />
-          <SalaryCard onChange={this.onProfileChange} onSave={this.onProfileSave} />
+          <SalaryCard onChange={this.onSalaryChange} onSave={this.onProfileSave} />
         </Masonry>
       </Container>
     )
