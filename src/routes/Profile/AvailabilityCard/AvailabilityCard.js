@@ -43,7 +43,8 @@ class AvailabilityCard extends React.Component {
 
   revertChanges () {
     this.setState({
-      editMode: !this.state.editMode
+      editMode: !this.state.editMode,
+      availability: this.props.profile.availability
     })
     this.props.revertChanges()
   }
@@ -84,6 +85,7 @@ class AvailabilityCard extends React.Component {
             <Slider
               min={0}
               max={4}
+              value={this.state.availability}
               defaultValue={this.state.availability}
               onChange={this.onAvailabilityChange}
               onAfterChange={this.props.onChange}
