@@ -8,6 +8,70 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+  overflow: hidden;
+
+  .btn-wrapper {
+    position: absolute;
+    z-index: 9;
+    top:0;
+    width:80px;
+    height:40px;
+    display: flex;
+    right:-40px;
+    transition: right 250ms;
+
+    &.editing {
+      right:0;
+    }
+
+    .edit-btn {
+      width:40px;
+      height:40px;
+      background: #2b303b;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 250ms;
+      box-shadow: inset 0 0 rgba(0,0,0,0.2);
+
+      &:hover {
+        background: $pink;
+      }
+
+      &.editing {
+        background: green;
+        box-shadow: inset 0 -5px rgba(0,0,0,0.2);
+
+        &:hover {
+          background: darken(green, 5%);
+        }
+      }
+    }
+
+    .cancel-btn {
+      width:40px;
+      height:40px;
+      background: #cd002d;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 250ms;
+      box-shadow: inset 0 -5px rgba(0,0,0,0.2);
+
+      &:hover {
+        background: darken(#cd002d, 5%);
+      }
+    }
+  }
+
+  .card-title {
+    .gender-icon {
+      margin-left: 5px;
+      color: #ababab;
+    }
+  }
 
   .card-bg {
     background-repeat: no-repeat;
@@ -22,7 +86,7 @@
 
 
   .card-header {
-
+    height: 40px;
     background: darken($themeColor, 15%);
     color: #fff;
 

@@ -10,6 +10,7 @@ import skills from './reducers/skills'
 import languages from './reducers/languages'
 import motivations from './reducers/motivations'
 import personalities from './reducers/personalities'
+import wapfilm from './reducers/wapfilm'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
@@ -23,6 +24,7 @@ export const makeRootReducer = (asyncReducers) => {
     languages: languages,
     motivations: motivations,
     personalities: personalities,
+    wapfilm: wapfilm,
     ...asyncReducers
   })
 }

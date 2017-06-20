@@ -1,5 +1,4 @@
 import { apiClient } from '../axios.config'
-import axios from 'axios'
 
 const {
   SKILLS_FAIL,

@@ -11,6 +11,7 @@ import { getAllSkills, getMySkills } from '../../store/actions/skills'
 import { getAllLanguages, getMyLanguages } from '../../store/actions/languages'
 import { getAllMotivations, getMyMotivations } from '../../store/actions/motivations'
 import { getAllPersonalities, getMyPersonalities } from '../../store/actions/personalities'
+import { getVideoInfo } from '../../store/actions/wapfilm'
 import ThreeDButton from '../../components/buttons/ThreeDButton'
 import './Login.scss'
 import $ from 'jquery'
@@ -268,7 +269,8 @@ class Login extends React.Component {
           dispatch(getAllMotivations()),
           dispatch(getMyMotivations()),
           dispatch(getAllPersonalities()),
-          dispatch(getMyPersonalities())
+          dispatch(getMyPersonalities()),
+          dispatch(getVideoInfo()),
         ]).then(() => {
           console.log('redirect')
           this.props.router.push(redirect || '/')

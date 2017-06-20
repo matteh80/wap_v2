@@ -15,7 +15,8 @@ class Sidemenu extends React.Component {
       skillCount: 0,
       languageCount: 0,
       motivationCount: 0,
-      personalityCount: 0
+      personalityCount: 0,
+      videoCount: 0
     }
   }
 
@@ -44,6 +45,7 @@ class Sidemenu extends React.Component {
       languageCount: newProps.languages.userLanguages ? newProps.languages.userLanguages.length : 0,
       motivationCount: newProps.motivations.userMotivations ? newProps.motivations.userMotivations.length : 0,
       personalityCount: newProps.personalities.userPersonalities ? newProps.personalities.userPersonalities.length : 0,
+      videoCount: newProps.wapfilm.video ? 1 : 0,
     })
   }
 
@@ -63,9 +65,10 @@ class Sidemenu extends React.Component {
             <Menuitem icon='fa-cloud' title='Passion'>
               <Menuitem to='/passion/occupations' icon='fa-briefcase' title='Befattningar' count={this.state.occupationCount} details={this.state.occupationCount + ' befattningar'} />
               <Menuitem to='/passion/motivations' icon='fa-road' title='Drivkrafter' count={this.state.motivationCount} details={this.state.motivationCount + ' drivkrafter'} />
-              <Menuitem to='/passion/personalities' icon='fa-user-circle' title='Personlighet' count={this.state.personalitiyCount} details={this.state.personalityCount + ' personlighetsdrag'} />
+              <Menuitem to='/passion/personalities' icon='fa-user-circle' title='Personlighet' count={this.state.personalityCount} details={this.state.personalityCount + ' personlighetsdrag'} />
             </Menuitem>
-            <Menuitem to='/wapfilm' icon='fa-video-camera' title='wap film' details='Ladda upp en film' />
+            <Menuitem to='/wapfilm' icon='fa-video-camera' title='wap film' count={this.state.videoCount}
+              details={this.state.videoCount === 0 && 'Ladda upp en film'} />
           </ul>
         </div>
       </div>
