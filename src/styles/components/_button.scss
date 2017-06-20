@@ -70,7 +70,7 @@
   margin: 0;
   outline: 0;
   padding: 12px 20px;
-  transition: all .1s linear;
+  transition: all .2s linear, background 250ms;
   margin-bottom: 6px;
   text-transform: uppercase;
   margin-left:5px;
@@ -114,8 +114,9 @@
   }
 
   &:disabled {
-    background: lightslategray;
-    box-shadow: 0 5px 0 darken(lightslategray, 10%);
+    background: linear-gradient(to bottom, lighten(#cdcdcd, 5%) 0%,lighten(#cdcdcd, 0%) 100%);
+    box-shadow: 0 2px 0 darken(#cdcdcd, 15%);
+    transform: translateY(3px);
   }
 }
 

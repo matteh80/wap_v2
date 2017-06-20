@@ -1,3 +1,5 @@
+import { REHYDRATE } from 'redux-persist/constants'
+
 const {
   LOGIN,
   LOGIN_SUCCESS,
@@ -6,6 +8,9 @@ const {
   LOGOUT_SUCCESS,
   LOGOUT_FAIL
 } = require('../actions/actionTypes/auth')
+
+let nestedKey = 'blacklisted'
+let getNestedKey = () => nestedKey
 
 const initialState = {
   loaded: false

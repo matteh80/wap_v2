@@ -3,7 +3,7 @@ import thunk from 'redux-thunk'
 import { browserHistory } from 'react-router'
 import makeRootReducer from './reducers'
 import { routerMiddleware } from 'react-router-redux'
-import {persistStore, autoRehydrate} from 'redux-persist'
+import { persistStore, autoRehydrate } from 'redux-persist'
 import { asyncSessionStorage } from 'redux-persist/storages'
 
 export default (initialState = {}) => {
@@ -41,7 +41,7 @@ export default (initialState = {}) => {
       )
       store.asyncReducers = {}
 
-      persistStore(store,
+      const persistor = persistStore(store,
         { storage: asyncSessionStorage }, () => resolve(store))
 
       if (module.hot) {

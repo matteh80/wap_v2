@@ -65,6 +65,7 @@ class Sidemenu extends React.Component {
               <Menuitem to='/passion/motivations' icon='fa-road' title='Drivkrafter' count={this.state.motivationCount} details={this.state.motivationCount + ' drivkrafter'} />
               <Menuitem to='/passion/personalities' icon='fa-user-circle' title='Personlighet' count={this.state.personalitiyCount} details={this.state.personalityCount + ' personlighetsdrag'} />
             </Menuitem>
+            <Menuitem to='/wapfilm' icon='fa-video-camera' title='wap film' details='Ladda upp en film' />
           </ul>
         </div>
       </div>

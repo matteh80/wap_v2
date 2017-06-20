@@ -2,7 +2,7 @@ import React from 'react'
 
 import {
   Card,
-  CardImg,
+  CardText,
   CardBlock,
   CardTitle,
   CardSubtitle
@@ -16,13 +16,11 @@ class TestCard extends React.Component {
 
   render () {
     return (
-      <Card>
-        <div style={{ background: '#ffd55c', padding: '0 20%' }}>
-          <CardImg top src='img/test_graphics.png' className='img-fluid' alt='Personlighetstest' />
-        </div>
+      <Card style={{ background: '#ffd55c url("img/test_graphics.png")' }}>
         <CardBlock>
           <CardTitle>Personlighetstest</CardTitle>
           <CardSubtitle>TalentQ</CardSubtitle>
+          <CardText>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquam lorem et ligula finibus, a euismod dolor posuere. Praesent et enim at eros tristique interdum. Praesent volutpat non velit vel bibendum.</CardText>
           <ThreeDButton small>Starta testet</ThreeDButton>
         </CardBlock>
       </Card>

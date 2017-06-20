@@ -1,9 +1,25 @@
 @import './variables/colors';
 
 .card {
+  position: relative;
   box-shadow: 0 -3px inset rgba(0,0,0,0.2);
   border:none !important;
   margin-bottom: 30px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+
+  .card-bg {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
 
   .card-header {
 
@@ -17,6 +33,10 @@
     .card-title {
       margin-bottom: 0;
     }
+  }
+
+  .card-block {
+    position: relative;
   }
 
   .card-subtitle {

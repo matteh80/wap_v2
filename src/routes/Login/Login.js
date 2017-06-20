@@ -28,7 +28,8 @@ import {
   Form,
   FormGroup,
   Label,
-  Input
+  Input,
+  Alert
 } from 'reactstrap'
 import Loader from '../../components/Misc/Loader/Loader'
 
@@ -173,9 +174,9 @@ class Login extends React.Component {
         this.finalize()
       })
       .catch((error) => {
-        console.log(error)
         this.setState({
-          loadsave: false
+          loadsave: false,
+          loginError: true
         })
       })
   }
@@ -246,8 +247,6 @@ class Login extends React.Component {
   }
 
   auth () {
-    let { dispatch } = this.props
-
     console.log('auth')
     gapi.auth2.getAuthInstance().grantOfflineAccess().then(this.signInCallback)
   }
@@ -292,10 +291,10 @@ class Login extends React.Component {
           <Container>
             <Row className='justify-content-center align-items-center'>
               <Col xs={12} sm={8} md={6}>
-                <img src='/img/wap_logga.png' className='img-fluid' />
+                <img src='/img/wap_logga.png' className='img-fluid mx-auto d-block' />
               </Col>
               {!this.state.linkedIn &&
-              <Col xs={12}>
+              <Col xs={10}>
                 <Row className='social justify-content-center align-items-center my-5'>
                   <i className='fa fa-facebook' id='facebook-btn' onClick={() => this.loginFB()} />
                   <i className='fa fa-linkedin mx-4' id='linkedin-btn' onClick={() => this.loginLinkedIn()} />
@@ -305,18 +304,24 @@ class Login extends React.Component {
               }
               {!this.state.linkedIn &&
               <Col xs={8}>
+                {this.state.loginError &&
+                <Alert color='danger'>
+                  <strong>Ajdå!</strong> Det gick inte att logga in med den här användarnamnet och lösenordet.
+                  Kontrollera dina uppgifter och försök igen!
+                </Alert>
+                }
                 <Form className='w-100' onSubmit={(e) => this._handleLogin(e)}>
                   <FormGroup>
                     <Label for='email'>Email</Label>
                     <Input type='email' name='email' id='email' placeholder='E-post'
-                      ref={(input) => this.email = input} />
+                      ref={(input) => { this.email = input }} required />
                   </FormGroup>
                   <FormGroup>
                     <Label for='password'>Password</Label>
                     <Input type='password' name='password' id='password' placeholder='Lösenord'
-                      ref={(input) => this.password = input} />
+                      ref={(input) => { this.password = input }} required minLength='8' />
                   </FormGroup>
-                  <ThreeDButton type='submit' className='w-100'>Logga in</ThreeDButton>
+                  <ThreeDButton type='submit' className='w-100' loading={this.state.loadsave}>Logga in</ThreeDButton>
                 </Form>
               </Col>
               }

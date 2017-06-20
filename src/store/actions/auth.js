@@ -30,13 +30,6 @@ export function login (creds) {
           receivedAt: Date.now()
         })
       })
-      .catch(function (error) {
-        return dispatch({
-          type: LOGIN_FAIL,
-          error: error.text,
-          receivedAt: Date.now()
-        })
-      })
   }
 }
 

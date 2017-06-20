@@ -48,12 +48,17 @@ export default class ThreeDButton extends React.Component {
 
     return (
       <button id={this.props.id}
-        disabled={this.props.disabled}
+        disabled={this.props.loading}
         type={this.props.type}
         onClick={this.props.onClick}
         onTouchEnd={this.props.onTouchEnd}
         className={btnClass + ' mb-5 ' + this.props.className}
-        style={style}>{this.props.text ? this.props.text : this.props.children}</button>
+        style={style}>
+        {this.props.text ? this.props.text : this.props.children}
+        {this.props.loading &&
+          <i className='fa fa-spinner fa-spin' style={{ marginLeft: 5 }} />
+        }
+      </button>
     )
   }
 }
