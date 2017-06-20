@@ -42,7 +42,8 @@ class SalaryCard extends React.Component {
 
   revertChanges () {
     this.setState({
-      editMode: !this.state.editMode
+      editMode: !this.state.editMode,
+      salary: [this.props.profile.salary_expectations_min, this.props.profile.salary_expectations_max]
     })
     this.props.revertChanges()
   }
@@ -70,6 +71,7 @@ class SalaryCard extends React.Component {
               min={15000}
               max={95000}
               step={500}
+              value={this.state.salary}
               defaultValue={this.state.salary}
               onChange={this.onSalaryChange}
               onAfterChange={this.props.onChange}
