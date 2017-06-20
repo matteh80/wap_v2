@@ -1,14 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import ProfilePicture from '../../../components/Misc/ProfilePicture/ProfilePicture'
 import '../Profile.scss'
 import classNames from 'classnames'
 import GoogleMapReact from 'google-map-react'
 import $ from 'jquery'
 
 import {
-  Row,
   Col,
   Card,
   CardBlock,
@@ -19,10 +17,13 @@ import {
   Input,
   Label
 } from 'reactstrap'
-import ThreeDButton from '../../../components/buttons/ThreeDButton'
 
 let map = null
 let maps = null
+
+const MarkerComponent = () => <div>
+  <i className='fa fa-map-marker' style={{ fontSize: 30, marginTop: -60, color: '#3fa5c5' }} />
+</div>
 
 class AddressCard extends React.Component {
   constructor (props) {
@@ -56,6 +57,9 @@ class AddressCard extends React.Component {
     console.log('resize')
     let $mapWrapper = $('#mapWrapper')
     $mapWrapper.height($mapWrapper.width() * 0.555555)
+    if (map) {
+      map.setCenter(this.state.center)
+    }
   }
 
   toggleEditMode () {
@@ -141,7 +145,12 @@ class AddressCard extends React.Component {
               center={this.state.center}
               defaultZoom={this.state.zoom}
               options={this.createMapOptions}
-            />
+            >
+              <MarkerComponent
+                lat={this.state.center.lat}
+                lng={this.state.center.lng}
+              />
+            </GoogleMapReact>
           </div>
           {!this.state.editMode &&
           <CardBlock>
