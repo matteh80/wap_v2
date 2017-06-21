@@ -13,6 +13,7 @@ import Profile from './Profile/Profile'
 import Motivations from './Motivations/Motivations'
 import Personalities from './Personalities/Personalities'
 import WapFilm from './WapFilm/WapFilm'
+import CVBuilder from './CVBuilder/CVBuilder'
 
 import 'pace-progress'
 
@@ -32,7 +33,8 @@ export const routes = (store) => (
         <Route path='/passion/motivations' component={Motivations} name='Drivkrafter' />
         <Route path='/passion/personalities' component={Personalities} name='Personlighet' />
       </Route>
-      <Route path='/wapfilm' component={WapFilm} name='wap film' />
+      <Route path='/wapfilm' component={WapFilm} name='Wap film' />
+      <Route path='/cvbuilder' component={CVBuilder} name='CV Builder' />
     </Route>
     <Route path='/login' component={Login} name='Login' />
     <Route path='/login/facebook' component={Login} />

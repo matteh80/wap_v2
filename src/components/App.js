@@ -20,7 +20,7 @@ class App extends React.Component {
 
     return (
       <Provider store={this.props.store}>
-          <Router history={history} children={this.props.routes} />
+        <Router history={history} children={this.props.routes} />
       </Provider>
     )
   }
