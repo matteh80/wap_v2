@@ -12,8 +12,7 @@ import SkillSection from './components/SkillSection'
 import LanguageSection from './components/LanguageSection'
 import HeaderSection from './components/HeaderSection'
 
-let maxPages = 100
-let pageCount = 0
+let originalChildren = []
 
 class Template1 extends React.Component {
   constructor (props) {
@@ -27,18 +26,16 @@ class Template1 extends React.Component {
   }
 
   componentDidUpdate (prevProps, prevState) {
-
     let _self = this
+    $('.A4').not(':first').remove()
+    $('.A4').append(originalChildren)
     $('.A4').each(function (index, elem) {
       _self.snipMe($(this))
     })
   }
 
   componentDidMount () {
-    this.setState({
-      numPages: 1
-    })
-
+    originalChildren = $('.A4').first().children().toArray()
     let _self = this
 
     $('.A4').each(function (index, elem) {
@@ -48,17 +45,27 @@ class Template1 extends React.Component {
   }
 
   snipMe (elem) {
-    console.log('snipme')
+    // let totalHeight = 0
     let long = elem[0].scrollHeight - Math.ceil(elem.innerHeight())
-
+    // elem.children().each(function () {
+    //   totalHeight = totalHeight + $(this).outerHeight(true)
+    // })
+    // console.log('totalHeight: ' + totalHeight)
+    // let long = totalHeight - Math.ceil(elem.innerHeight())
+    // console.log('long: ' + long)
     let children = elem.children().toArray()
     let removed = []
     while (long > 0 && children.length > 0) {
       let child = children.pop()
       $(child).detach()
       removed.unshift(child)
+      // totalHeight = 0
+      // elem.children().each(function () {
+      //   totalHeight = totalHeight + $(this).outerHeight(true)
+      // })
       long = elem[0].scrollHeight - Math.ceil(elem.innerHeight())
-      console.log(elem[0].scrollHeight + ' - ' + elem.innerHeight())
+      // console.log('totalHeight: ' + totalHeight)
+      // long = totalHeight - Math.ceil(elem.innerHeight())
     }
     if (removed.length > 0) {
       let a4 = $('<div class="A4 templateWrapper container-fluid"></div>')
@@ -68,23 +75,16 @@ class Template1 extends React.Component {
     }
   }
 
-  getContent () {
-    return (
-      <Container fluid className='templateWrapper A4'>
-        <HeaderSection profile={this.props.profile} />
-        <EmploymentSection employments={this.props.employments} />
-        <EducationSection educations={this.props.educations} />
-        <SkillSection skills={this.props.skills} />
-        <LanguageSection languages={this.props.languages} />
-      </Container>
-    )
-  }
-
   render () {
-
     return (
       <div id='hiddenCV'>
-        {this.getContent()}
+        <Container fluid className='templateWrapper A4'>
+          <HeaderSection profile={this.props.profile} />
+          <EmploymentSection employments={this.props.employments} />
+          <EducationSection educations={this.props.educations} />
+          <SkillSection skills={this.props.skills} />
+          <LanguageSection languages={this.props.languages} />
+        </Container>
       </div>
     )
   }

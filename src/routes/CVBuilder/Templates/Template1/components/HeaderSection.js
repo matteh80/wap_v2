@@ -45,8 +45,8 @@ export default class HeaderSection extends React.Component {
             {/* <div className="img-circle" id="CVprofilePic" style={{background: 'url('+this.props.picPath.picPath+')', width: '100%', backgroundSize: 'cover'}}/> */}
           </Col>
           <Col xs={4} id='info'>
-            <h2 id='first_name'>{profile && profile.first_name}</h2>
-            <h2 id='last_name'>{profile && profile.last_name}</h2>
+            <h3 id='first_name'>{profile && profile.first_name}</h3>
+            <h3 id='last_name'>{profile && profile.last_name}</h3>
             <h6 id='title'>{profile && profile.title}</h6>
           </Col>
           <Col xs={6} id='contact'>
