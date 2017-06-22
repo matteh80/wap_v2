@@ -70,7 +70,7 @@ class LanguageForm extends React.Component {
     let chevronClass = classNames('fa pull-right', this.state.collapse ? 'fa-chevron-down' : 'fa-chevron-up')
 
     return (
-      <Card>
+      <Card className='formCard'>
         <CardHeader onClick={() => this.toggleCollapse()} className='add-items'>
           <CardTitle className='pull-left'>Lägg till språk</CardTitle>
           <i className={chevronClass} style={{ fontSize: 20 }} />

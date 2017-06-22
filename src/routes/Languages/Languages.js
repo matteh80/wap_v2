@@ -38,7 +38,6 @@ class Languages extends React.Component {
     this.onAdd = this.onAdd.bind(this)
     this.onRemove = this.onRemove.bind(this)
     this._saveToServer = this._saveToServer.bind(this)
-    this._revertChanges = this._revertChanges.bind(this)
   }
 
   componentWillUpdate (nextProps, nextState) {
@@ -47,7 +46,14 @@ class Languages extends React.Component {
     }
   }
 
+  componentDidUpdate (prevProps, prevState) {
+    if (this.state.userLanguages !== prevState.userLanguages) {
+      this._saveToServer()
+    }
+  }
+
   onLanguageChange (language) {
+    let _self = this
     let index = this.state.userLanguages.findIndex(languages => languages.id === language.id)
     if (index === -1) return false
 
@@ -79,17 +85,10 @@ class Languages extends React.Component {
     })
   }
 
-  _revertChanges () {
-    this.setState({
-      userLanguages: this.props.languages.userLanguages ? this.props.languages.userLanguages : [],
-      changes: false
-    })
-  }
-  
   render () {
     let { userLanguages } = this.props.languages
     let notEmpty = userLanguages && userLanguages.length > 0
-    
+
     return (
       <Container fluid>
         <Row>
@@ -108,12 +107,6 @@ class Languages extends React.Component {
             return <LanguageItem key={language.id} language={language} onChange={this.onLanguageChange} onRemove={this.onRemove} />
           })}
         </Masonry>
-        <Row>
-          <Col>
-            {this.state.changes && <ThreeDButton small onClick={() => this._saveToServer()}>Spara</ThreeDButton>}
-            {this.state.changes && <ThreeDButton small className='cancel-btn' onClick={() => this._revertChanges()}>Ångra</ThreeDButton>}
-          </Col>
-        </Row>
       </Container>
     )
   }

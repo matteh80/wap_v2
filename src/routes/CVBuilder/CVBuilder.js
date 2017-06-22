@@ -32,6 +32,18 @@ class CVBuilder extends React.Component {
       languages: Object.assign([], this.props.languages.userLanguages)
     }
 
+    this.state.employments.sort(function (a, b) {
+      if (a.start_date < b.start_date) return 1
+      if (a.start_date > b.start_date) return -1
+      return 0
+    })
+
+    this.state.educations.sort(function (a, b) {
+      if (a.start_date < b.start_date) return 1
+      if (a.start_date > b.start_date) return -1
+      return 0
+    })
+
     this.createPdf = this.createPdf.bind(this)
     this.onEmploymentChange = this.onEmploymentChange.bind(this)
     this.onEducationChange = this.onEducationChange.bind(this)
@@ -70,10 +82,6 @@ class CVBuilder extends React.Component {
             onrendered: function (canvas) {
               let img = canvas.toDataURL('image/jpg')
               images[index] = img
-              // doc.setPage((index + 1))
-              // doc.addPage()
-              // doc.addImage(img, 'JPEG', 0, 0)
-              // console.log('addedImage ' + (index + 1))
               resolve('Valid')
               console.log('Valid')
             }
@@ -95,6 +103,7 @@ class CVBuilder extends React.Component {
         })
         doc.save('cv_' + profile.first_name + '_' + profile.last_name + '.pdf')
         $body.css('overflow-x', 'hidden')
+        $content.css('width', 'auto')
         $content.appendTo('#cvWrapper')
       })
     }
@@ -111,11 +120,6 @@ class CVBuilder extends React.Component {
     } else {
       array.push(item)
     }
-    array.sort(function (a, b) {
-      if (a.start_date < b.start_date) return 1
-      if (a.start_date > b.start_date) return -1
-      return 0
-    })
 
     this.setState({
       languages: array
@@ -131,11 +135,6 @@ class CVBuilder extends React.Component {
     } else {
       array.push(item)
     }
-    array.sort(function (a, b) {
-      if (a.start_date < b.start_date) return 1
-      if (a.start_date > b.start_date) return -1
-      return 0
-    })
 
     this.setState({
       skills: array

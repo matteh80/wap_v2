@@ -1,5 +1,24 @@
+@import '../../../styles/variables/colors';
+
 .rc-slider {
+  width:90%;
+  margin-bottom: 15px;
   &:nth-of-type(1) {
-    margin-bottom: 15px;
+    margin-top:25px;
+    margin-bottom: 25px;
+  }
+
+  .rc-slider-handle {
+    .fa {
+      font-size: 16px;
+    }
+  }
+}
+
+.languageInfo {
+
+  .fa {
+    font-size: 40px;
+    color: $lightgray;
   }
 }

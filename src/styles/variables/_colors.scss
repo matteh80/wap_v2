@@ -1,6 +1,10 @@
 $blue: #248fb8;
 $pink: #ea5888;
 $red: #e24c4c;
+$darkgray: #2b303b;
+$darklightgray: #292b2c;
+
+$lightgray: lighten($darkgray, 15%);
 
 $themeColor: $blue;
 $brand-primary: $themeColor;
