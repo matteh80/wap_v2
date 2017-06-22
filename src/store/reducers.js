@@ -11,6 +11,7 @@ import languages from './reducers/languages'
 import motivations from './reducers/motivations'
 import personalities from './reducers/personalities'
 import wapfilm from './reducers/wapfilm'
+import drivinglicenses from './reducers/drivinglicenses'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
@@ -25,6 +26,7 @@ export const makeRootReducer = (asyncReducers) => {
     motivations: motivations,
     personalities: personalities,
     wapfilm: wapfilm,
+    drivinglicenses: drivinglicenses,
     ...asyncReducers
   })
 }
