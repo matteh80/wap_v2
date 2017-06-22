@@ -5,9 +5,9 @@ import Cropper from 'react-cropper'
 import './ProfilePIcture.scss'
 import Loader from '../../../components/Misc/Loader/Loader'
 import { uploadProfilePic } from '../../../store/actions/profile'
+import classNames from 'classnames'
 import {
   Modal,
-  ModalHeader,
   ModalBody,
   ModalFooter,
   Button
@@ -31,6 +31,11 @@ class ProfilePicture extends React.Component {
     this.toggleModal = this.toggleModal.bind(this)
     this._crop = this._crop.bind(this)
     this.dataURItoBlob = this.dataURItoBlob.bind(this)
+    this.convertImageToCanvas = this.convertImageToCanvas.bind(this)
+  }
+
+  componentDidMount () {
+    this.props.canvas && this.convertImageToCanvas()
   }
 
   componentWillReceiveProps (newProps) {
@@ -101,7 +106,24 @@ class ProfilePicture extends React.Component {
     return new Blob([ia], { type:mimeString })
   }
 
+  convertImageToCanvas () {
+    let mCanvas = document.getElementById('mCanvas')
+    console.log(mCanvas)
+    mCanvas.width = 500
+    mCanvas.height = 500
+    let mContext = mCanvas.getContext('2d')
+    let mImage = new Image()
+    mImage.setAttribute('crossOrigin', '')
+    mImage.src = this.state.imageUrl
+
+    mImage.onload = function () {
+      mContext.drawImage(mImage, 0, 0, 500, 500)
+    }
+  }
+
   render () {
+    let imgClass = classNames('img-fluid', this.props.className)
+
     return (
       <div className='profilePicture'>
         {this.props.editMode &&
@@ -115,12 +137,15 @@ class ProfilePicture extends React.Component {
               <i className='fa fa-camera-retro' />
             </Dropzone>
           </div>}
-        <img src={this.state.imageUrl} className='img-fluid' style={{ width: '100%' }} onError={this.onError} />
+
+        {this.props.canvas
+        ? <canvas style={{ width: '100%' }} onError={this.onError} id='mCanvas' />
+        : <img src={this.state.imageUrl} className={imgClass} style={{ width: '100%' }} onError={this.onError} />
+        }
 
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <Loader active={this.state.loadsave} />
           <ModalBody className='no-padding'>
-            {/* <img src='http://via.placeholder.com/1920x1080' className='img-fluid' /> */}
             <Cropper
               ref='cropper'
               src={this.state.tmpImage}
