@@ -40,42 +40,42 @@ class CVBuilder extends React.Component {
   }
 
   createPdf () {
-    this.setState({
-      loadsave: true
-    })
     let promises = []
+    let images = new Array($('.A4').length)
     let { profile } = this.props
-    $('body').css('overflow', 'visible')
-    $('#hiddenCV').appendTo('body')
-    let content = $('#hiddenCV'),
-      cache_width = content.width(),
+    let
+      $content = $('#hiddenCV'),
+      $body = $('body'),
+      cacheWidth = $content.width(),
       a4 = [595.28, 841.89]  // for a4 size paper width and height
-    console.log(content)
 
-    content.css('visibility', 'visible')
-    $('body').scrollTop(0)
+    $body.css('overflow', 'visible')
+    $content.appendTo('body')
+
+    $content.css('visibility', 'visible')
+    $body.scrollTop(0)
 
     function getCanvas () {
-      content.width((a4[0] * 1.33333)).css('max-width', 'none')
+      $content.width((a4[0] * 1.33333)).css('max-width', 'none')
       let doc = new jsPDF({
         unit: 'px',
         format: 'a4'
       })
 
       $.each($('.A4'), function (index, elem) {
-        console.log($(this))
+        console.log(index)
         let promise = new Promise((resolve, reject) => {
           return html2canvas($(this), {
-            imageTimeout: 5000,
-            removeContainer: true,
+            imageTimeout: 2000,
             onrendered: function (canvas) {
               let img = canvas.toDataURL('image/jpg')
-              doc.addPage()
-              doc.setPage(index + 1)
-              doc.addImage(img, 'JPEG', 0, 0)
-              console.log('addedImage')
-              // doc.save('cv_' + profile.first_name + '_' + profile.last_name + '.pdf')
+              images[index] = img
+              // doc.setPage((index + 1))
+              // doc.addPage()
+              // doc.addImage(img, 'JPEG', 0, 0)
+              // console.log('addedImage ' + (index + 1))
               resolve('Valid')
+              console.log('Valid')
             }
           })
             .catch(err => {
@@ -86,15 +86,16 @@ class CVBuilder extends React.Component {
       })
 
       Promise.all(promises).then((result) => {
-        console.log('save')
-        doc.save('cv_' + profile.first_name + '_' + profile.last_name + '.pdf')
-        content.width(cache_width)
-        content.css('width', 'auto')
-        $('body').css('overflow-x', 'hidden')
-        $('#hiddenCV').appendTo('#cv_root')
-        this.setState({
-          loadsave: false
+        images.forEach((image, index) => {
+          if (index > 0) {
+            doc.addPage()
+            doc.setPage((index + 1))
+          }
+          doc.addImage(image, 'JPEG', 0, 0)
         })
+        doc.save('cv_' + profile.first_name + '_' + profile.last_name + '.pdf')
+        $body.css('overflow-x', 'hidden')
+        $content.appendTo('#cvWrapper')
       })
     }
 
@@ -240,7 +241,7 @@ class CVBuilder extends React.Component {
               </CardBlock>
             </Card>
           </Col>
-          
+
         </Masonry>
         <ThreeDButton onClick={() => this.createPdf()} text='Skapa PDF' loading={this.state.loadsave} />
         <Template1

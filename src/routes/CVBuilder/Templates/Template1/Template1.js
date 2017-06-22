@@ -65,15 +65,15 @@ class Template1 extends React.Component {
 
   render () {
     return (
-      <div>
+      <div id='cvWrapper'>
         <div id='hiddenCV'>
           <Container fluid className='templateWrapper A4'>
             <HeaderSection profile={this.props.profile} />
             <EmploymentSection employments={this.props.employments} />
             <SkillSection skills={this.props.skills} />
             <EducationSection educations={this.props.educations} />
-            {/*<LanguageSection languages={this.props.languages} />*/}
-            {/*<DrivingLicenseSection drivinglicenses={this.props.drivinglicenses} />*/}
+            <LanguageSection languages={this.props.languages} />
+            <DrivingLicenseSection drivinglicenses={this.props.drivinglicenses} />
           </Container>
         </div>
       </div>
