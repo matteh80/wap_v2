@@ -26,14 +26,16 @@ class CVBuilder extends React.Component {
 
     this.state = {
       employments: Object.assign([], this.props.employments.employments),
-      educatations: this.props.educations.educations,
-      skills: this.props.skills.userSkills,
-      occupations: this.props.occupations.userOccupations,
-      languages: this.props.languages.userLanguages
+      educations: Object.assign([], this.props.educations.educations),
+      skills: Object.assign([], this.props.skills.userSkills),
+      languages: Object.assign([], this.props.languages.userLanguages)
     }
 
     this.createPdf = this.createPdf.bind(this)
     this.onEmploymentChange = this.onEmploymentChange.bind(this)
+    this.onEducationChange = this.onEducationChange.bind(this)
+    this.onSkillChange = this.onSkillChange.bind(this)
+    this.onLanguageChange = this.onLanguageChange.bind(this)
   }
 
   createPdf () {
@@ -90,14 +92,72 @@ class CVBuilder extends React.Component {
     getCanvas()
   }
 
+  onLanguageChange (e, item) {
+    let array = this.state.languages
+    let index = this.state.languages.findIndex(languages => languages.id === item.id)
+
+    if (index > -1) {
+      array.splice(index, 1)
+    } else {
+      array.push(item)
+    }
+    array.sort(function (a, b) {
+      if (a.start_date < b.start_date) return 1
+      if (a.start_date > b.start_date) return -1
+      return 0
+    })
+
+    this.setState({
+      languages: array
+    })
+  }
+
+  onSkillChange (e, item) {
+    let array = this.state.skills
+    let index = this.state.skills.findIndex(skills => skills.id === item.id)
+
+    if (index > -1) {
+      array.splice(index, 1)
+    } else {
+      array.push(item)
+    }
+    array.sort(function (a, b) {
+      if (a.start_date < b.start_date) return 1
+      if (a.start_date > b.start_date) return -1
+      return 0
+    })
+
+    this.setState({
+      skills: array
+    })
+  }
+
+  onEducationChange (e, item) {
+    let array = this.state.educations
+    let index = this.state.educations.findIndex(educations => educations.id === item.id)
+
+    if (index > -1) {
+      array.splice(index, 1)
+    } else {
+      array.push(item)
+    }
+    array.sort(function (a, b) {
+      if (a.start_date < b.start_date) return 1
+      if (a.start_date > b.start_date) return -1
+      return 0
+    })
+
+    this.setState({
+      educations: array
+    })
+  }
+
   onEmploymentChange (e, item) {
     let array = this.state.employments
     let index = this.state.employments.findIndex(employments => employments.id === item.id)
-    // console.log(index)
-    // console.log(array)
+
     if (index > -1) {
       array.splice(index, 1)
-      // console.log(array)
     } else {
       array.push(item)
     }
@@ -114,7 +174,10 @@ class CVBuilder extends React.Component {
 
   render () {
     let {
-      employments
+      employments,
+      educations,
+      skills,
+      languages
     } = this.props
 
     return (
@@ -125,41 +188,56 @@ class CVBuilder extends React.Component {
             this.masonry = this.masonry || c.masonry
           }.bind(this)}
         >
-          <Col xs={12} md={6}>
+          <Col xs={12} md={6} lg={4}>
             <Card>
               <CardHeader>Anställningar</CardHeader>
               <CardBlock>
                 {employments.employments && employments.employments.map((employment) => {
-                  return <CheckboxItem item={employment} label={employment.title} onChange={this.onEmploymentChange} />
+                  return <CheckboxItem item={employment} label={employment.title + ' / ' + employment.employer} onChange={this.onEmploymentChange} />
                 })}
               </CardBlock>
             </Card>
           </Col>
 
-          <Col xs={12} md={6}>
+          <Col xs={12} md={6} lg={4}>
             <Card>
               <CardHeader>Utbildningar</CardHeader>
               <CardBlock>
-                Hej
+                {educations.educations && educations.educations.map((education) => {
+                  return <CheckboxItem item={education} label={education.orientation + ' / ' + education.school} onChange={this.onEducationChange} />
+                })}
               </CardBlock>
             </Card>
           </Col>
 
-          <Col xs={12} md={6}>
+          <Col xs={12} md={6} lg={4}>
             <Card>
               <CardHeader>Kompetenser</CardHeader>
               <CardBlock>
-                Hej
+                {skills.userSkills && skills.userSkills.map((skill) => {
+                  return <CheckboxItem item={skill} label={skill.name + ' / ' + skill.experience} onChange={this.onSkillChange} />
+                })}
               </CardBlock>
             </Card>
           </Col>
+
+          <Col xs={12} md={6} lg={4}>
+            <Card>
+              <CardHeader>Språk</CardHeader>
+              <CardBlock>
+                {languages.userLanguages && languages.userLanguages.map((language) => {
+                  return <CheckboxItem item={language} label={language.name} onChange={this.onLanguageChange} />
+                })}
+              </CardBlock>
+            </Card>
+          </Col>
+          
         </Masonry>
         <ThreeDButton onClick={() => this.createPdf()} text='Skapa PDF' />
         <Template1
           employments={this.state.employments}
-          educations={this.state.educatations}
+          educations={this.state.educations}
           skills={this.state.skills}
-          occupations={this.state.occupations}
           languages={this.state.languages}
           profile={this.props.profile}
         />

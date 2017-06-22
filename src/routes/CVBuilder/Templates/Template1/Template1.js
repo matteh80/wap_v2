@@ -45,27 +45,14 @@ class Template1 extends React.Component {
   }
 
   snipMe (elem) {
-    // let totalHeight = 0
     let long = elem[0].scrollHeight - Math.ceil(elem.innerHeight())
-    // elem.children().each(function () {
-    //   totalHeight = totalHeight + $(this).outerHeight(true)
-    // })
-    // console.log('totalHeight: ' + totalHeight)
-    // let long = totalHeight - Math.ceil(elem.innerHeight())
-    // console.log('long: ' + long)
     let children = elem.children().toArray()
     let removed = []
     while (long > 0 && children.length > 0) {
       let child = children.pop()
       $(child).detach()
       removed.unshift(child)
-      // totalHeight = 0
-      // elem.children().each(function () {
-      //   totalHeight = totalHeight + $(this).outerHeight(true)
-      // })
       long = elem[0].scrollHeight - Math.ceil(elem.innerHeight())
-      // console.log('totalHeight: ' + totalHeight)
-      // long = totalHeight - Math.ceil(elem.innerHeight())
     }
     if (removed.length > 0) {
       let a4 = $('<div class="A4 templateWrapper container-fluid"></div>')
@@ -81,8 +68,8 @@ class Template1 extends React.Component {
         <Container fluid className='templateWrapper A4'>
           <HeaderSection profile={this.props.profile} />
           <EmploymentSection employments={this.props.employments} />
-          <EducationSection educations={this.props.educations} />
           <SkillSection skills={this.props.skills} />
+          <EducationSection educations={this.props.educations} />
           <LanguageSection languages={this.props.languages} />
         </Container>
       </div>
