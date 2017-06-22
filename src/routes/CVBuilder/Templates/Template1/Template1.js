@@ -11,6 +11,7 @@ import EducationSection from './components/EducationSection'
 import SkillSection from './components/SkillSection'
 import LanguageSection from './components/LanguageSection'
 import HeaderSection from './components/HeaderSection'
+import DrivingLicenseSection from './components/DrivingLicenseSection'
 
 let originalChildren = []
 
@@ -22,7 +23,7 @@ class Template1 extends React.Component {
       numPages: 0
     }
 
-    this.snipMe = this.snipMe.bind(this)
+    this.alignSections = this.alignSections.bind(this)
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -30,7 +31,7 @@ class Template1 extends React.Component {
     $('.A4').not(':first').remove()
     $('.A4').append(originalChildren)
     $('.A4').each(function (index, elem) {
-      _self.snipMe($(this))
+      _self.alignSections($(this))
     })
   }
 
@@ -40,11 +41,11 @@ class Template1 extends React.Component {
 
     $('.A4').each(function (index, elem) {
       console.log(index)
-      _self.snipMe($(this))
+      _self.alignSections($(this))
     })
   }
 
-  snipMe (elem) {
+  alignSections (elem) {
     let long = elem[0].scrollHeight - Math.ceil(elem.innerHeight())
     let children = elem.children().toArray()
     let removed = []
@@ -58,20 +59,23 @@ class Template1 extends React.Component {
       let a4 = $('<div class="A4 templateWrapper container-fluid"></div>')
       a4.append(removed)
       elem.after(a4)
-      this.snipMe(a4)
+      this.alignSections(a4)
     }
   }
 
   render () {
     return (
-      <div id='hiddenCV'>
-        <Container fluid className='templateWrapper A4'>
-          <HeaderSection profile={this.props.profile} />
-          <EmploymentSection employments={this.props.employments} />
-          <SkillSection skills={this.props.skills} />
-          <EducationSection educations={this.props.educations} />
-          <LanguageSection languages={this.props.languages} />
-        </Container>
+      <div>
+        <div id='hiddenCV'>
+          <Container fluid className='templateWrapper A4'>
+            <HeaderSection profile={this.props.profile} />
+            <EmploymentSection employments={this.props.employments} />
+            <SkillSection skills={this.props.skills} />
+            <EducationSection educations={this.props.educations} />
+            {/*<LanguageSection languages={this.props.languages} />*/}
+            {/*<DrivingLicenseSection drivinglicenses={this.props.drivinglicenses} />*/}
+          </Container>
+        </div>
       </div>
     )
   }

@@ -25,6 +25,7 @@ class CVBuilder extends React.Component {
     super(props)
 
     this.state = {
+      loadsave: false,
       employments: Object.assign([], this.props.employments.employments),
       educations: Object.assign([], this.props.educations.educations),
       skills: Object.assign([], this.props.skills.userSkills),
@@ -39,6 +40,9 @@ class CVBuilder extends React.Component {
   }
 
   createPdf () {
+    this.setState({
+      loadsave: true
+    })
     let promises = []
     let { profile } = this.props
     $('body').css('overflow', 'visible')
@@ -59,9 +63,11 @@ class CVBuilder extends React.Component {
       })
 
       $.each($('.A4'), function (index, elem) {
+        console.log($(this))
         let promise = new Promise((resolve, reject) => {
           return html2canvas($(this), {
-            imageTimeout: 2000,
+            imageTimeout: 5000,
+            removeContainer: true,
             onrendered: function (canvas) {
               let img = canvas.toDataURL('image/jpg')
               doc.addPage()
@@ -86,6 +92,9 @@ class CVBuilder extends React.Component {
         content.css('width', 'auto')
         $('body').css('overflow-x', 'hidden')
         $('#hiddenCV').appendTo('#cv_root')
+        this.setState({
+          loadsave: false
+        })
       })
     }
 
@@ -177,7 +186,7 @@ class CVBuilder extends React.Component {
       employments,
       educations,
       skills,
-      languages
+      languages,
     } = this.props
 
     return (
@@ -233,12 +242,13 @@ class CVBuilder extends React.Component {
           </Col>
           
         </Masonry>
-        <ThreeDButton onClick={() => this.createPdf()} text='Skapa PDF' />
+        <ThreeDButton onClick={() => this.createPdf()} text='Skapa PDF' loading={this.state.loadsave} />
         <Template1
           employments={this.state.employments}
           educations={this.state.educations}
           skills={this.state.skills}
           languages={this.state.languages}
+          drivinglicenses={this.props.drivinglicenses.userLicenses}
           profile={this.props.profile}
         />
       </Container>

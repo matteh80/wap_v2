@@ -36,8 +36,8 @@ export default class HeaderSection extends React.Component {
 
     return (
       <section>
-        <Row id='header' style={{ display: 'flex', alignItems: 'center' }}>
-          <Col xs={2} style={{ position: 'relative' }}>
+        <Row id='header' className='align-items-center'>
+          <Col xs={2} style={{ position: 'relative', padding: 0 }}>
             {/*<canvas id='mCanvas' width={500} height={500} className='img-responsive' />*/}
             <ProfilePicture />
             {/* <div style={{boxShadow: "inset 0 -5px 0 rgba(0,0,0,0.2)", height: '100%', width: '100%'}} /> */}
