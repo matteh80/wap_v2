@@ -4,11 +4,13 @@ import { withRouter } from 'react-router'
 import Select from 'react-select'
 import $ from 'jquery'
 import moment from 'moment'
+import classNames from 'classnames'
 
 import { getAllOccupations } from '../../../store/actions/occupations'
 import { createEmployment, getAllEmployments } from '../../../store/actions/employments'
 
 import {
+  Collapse,
   Card,
   CardBlock,
   CardHeader,
@@ -28,6 +30,7 @@ class EmploymentForm extends React.Component {
     let { dispatch } = this.props
 
     this.state = {
+      collapse: false,
       loadsave: false,
       selectValue: null,
       employment: {
@@ -130,44 +133,55 @@ class EmploymentForm extends React.Component {
     })
   }
 
+  toggleCollapse () {
+    this.setState({
+      collapse: !this.state.collapse
+    })
+  }
+
   render () {
     let { employment } = this.props
+    let chevronClass = classNames('fa pull-right', this.state.collapse ? 'fa-chevron-down' : 'fa-chevron-up')
+
     return (
       <Card>
-        <CardHeader>
-          <CardTitle>Ny anställning</CardTitle>
+        <CardHeader className='add-items' onClick={() => this.toggleCollapse()}>
+          <CardTitle className='pull-left'>Ny anställning</CardTitle>
+          <i className={chevronClass} style={{ fontSize: 20 }} />
         </CardHeader>
-        <CardBlock>
-          <Form id='employmentForm' onSubmit={(e) => this._handleSubmit(e)}>
-            <FormGroup>
-              <Label for='employer'>Företag *</Label>
-              <Input type='text' name='employer' id='employer' defaultValue={employment ? employment.employer : ''}
-                ref={(input) => this.employer = input} onChange={this._handleInputChange} />
-            </FormGroup>
-            <FormGroup>
-              <Label for='title'>Befattning *</Label>
-              <Input type='text' name='title' id='title' defaultValue={employment ? employment.title : ''}
-                ref={(input) => this.title = input} onChange={this._handleInputChange} />
-            </FormGroup>
-            <FormGroup>
-              <Label for='occupation'>Yrkeskategori *</Label>
-              <Select
-                options={this._getOptions()}
-                clearable
-                onChange={this._handleOccupationChange}
-                placeholder='Välj yrke'
-                value={this.state.selectValue}
-              />
-            </FormGroup>
-            <StartEndDate withCurrent onChange={this._handleDateChange} />
-            <FormGroup>
-              <Label for='description'>Jag bidrar / bidrog med *</Label>
-              <Input type='textarea' name='description' id='description' rows='4' defaultValue={employment ? employment.description : ''}
-                     ref={(input) => this.description = input} onChange={this._handleInputChange} />
-            </FormGroup>
-            <ThreeDButton small>Lägg till anställning</ThreeDButton>
-          </Form>
-        </CardBlock>
+        <Collapse isOpen={this.state.collapse}>
+          <CardBlock>
+            <Form id='employmentForm' onSubmit={(e) => this._handleSubmit(e)}>
+              <FormGroup>
+                <Label for='employer'>Företag *</Label>
+                <Input type='text' name='employer' id='employer' defaultValue={employment ? employment.employer : ''}
+                  ref={(input) => this.employer = input} onChange={this._handleInputChange} />
+              </FormGroup>
+              <FormGroup>
+                <Label for='title'>Befattning *</Label>
+                <Input type='text' name='title' id='title' defaultValue={employment ? employment.title : ''}
+                  ref={(input) => this.title = input} onChange={this._handleInputChange} />
+              </FormGroup>
+              <FormGroup>
+                <Label for='occupation'>Yrkeskategori *</Label>
+                <Select
+                  options={this._getOptions()}
+                  clearable
+                  onChange={this._handleOccupationChange}
+                  placeholder='Välj yrke'
+                  value={this.state.selectValue}
+                />
+              </FormGroup>
+              <StartEndDate withCurrent onChange={this._handleDateChange} />
+              <FormGroup>
+                <Label for='description'>Jag bidrar / bidrog med *</Label>
+                <Input type='textarea' name='description' id='description' rows='4' defaultValue={employment ? employment.description : ''}
+                       ref={(input) => this.description = input} onChange={this._handleInputChange} />
+              </FormGroup>
+              <ThreeDButton small>Lägg till anställning</ThreeDButton>
+            </Form>
+          </CardBlock>
+        </Collapse>
       </Card>
     )
   }

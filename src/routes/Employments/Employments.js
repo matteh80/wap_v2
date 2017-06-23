@@ -51,15 +51,17 @@ class Employments extends React.Component {
     return (
       <Container fluid>
         <Row>
-          <Col xs={12} lg={8}>
+          <Col xs={12} sm={12} md={6} xl={5}>
+            <EmploymentForm />
+          </Col>
+        </Row>
+        <Row>
+          <Col lg={10}>
             <div className='timeline'>
               {mEmployments && mEmployments.map((employment) => {
                 return <EmploymentItem key={employment.id} employment={employment} occupations={this.props.occupations} onChange={this.updateEmployment} />
               })}
             </div>
-          </Col>
-          <Col>
-            <EmploymentForm />
           </Col>
         </Row>
       </Container>
