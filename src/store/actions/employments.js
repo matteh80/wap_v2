@@ -3,7 +3,8 @@ import { apiClient } from '../axios.config'
 const {
   EMPLOYMENTS_FAIL,
   GET_ALL_EMPLOYMENTS,
-  CREATE_EMPLOYMENT
+  CREATE_EMPLOYMENT,
+  UPDATE_EMPLOYMENT
 } = require('./actionTypes/employments')
 
 export function getAllEmployments () {
@@ -42,6 +43,31 @@ export function createEmployment (employment) {
           error: error.text,
           receivedAt: Date.now()
         })
+      })
+  }
+}
+
+export function updateEmployment (employment) {
+  return dispatch => {
+    return apiClient.put('me/employments/' + employment.id + '/', {
+      'title': employment.title,
+      'employer': employment.employer,
+      'occupation': employment.occupation,
+      'start_date': employment.start_date,
+      'end_date': employment.end_date,
+      'description': employment.description,
+      'current': employment.current,
+      'public': employment.public,
+    })
+      .then((result) => {
+        console.log(result)
+        return dispatch({
+          type: UPDATE_EMPLOYMENT,
+          employment: result.data,
+        })
+      })
+      .catch(function (error) {
+        console.log(error)
       })
   }
 }

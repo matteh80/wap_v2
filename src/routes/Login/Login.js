@@ -315,7 +315,7 @@ class Login extends React.Component {
                   Kontrollera dina uppgifter och försök igen!
                 </Alert>
                 }
-                <Form className='w-100' onSubmit={(e) => this._handleLogin(e)}>
+                <Form className='w-100 loginForm' onSubmit={(e) => this._handleLogin(e)}>
                   <FormGroup>
                     <Label for='email'>Email</Label>
                     <Input type='email' name='email' id='email' placeholder='E-post'

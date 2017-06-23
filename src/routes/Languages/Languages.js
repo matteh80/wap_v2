@@ -38,6 +38,7 @@ class Languages extends React.Component {
     this.onAdd = this.onAdd.bind(this)
     this.onRemove = this.onRemove.bind(this)
     this._saveToServer = this._saveToServer.bind(this)
+    this.layout = this.layout.bind(this)
   }
 
   componentWillUpdate (nextProps, nextState) {
@@ -85,6 +86,10 @@ class Languages extends React.Component {
     })
   }
 
+  layout () {
+    this.masonry.layout()
+  }
+
   render () {
     let { userLanguages } = this.props.languages
     let notEmpty = userLanguages && userLanguages.length > 0
@@ -104,7 +109,7 @@ class Languages extends React.Component {
           }.bind(this)}
         >
           {this.state.userLanguages && this.state.userLanguages.map((language) => {
-            return <LanguageItem key={language.id} language={language} onChange={this.onLanguageChange} onRemove={this.onRemove} />
+            return <LanguageItem key={language.id} language={language} onChange={this.onLanguageChange} onRemove={this.onRemove} layout={this.layout} />
           })}
         </Masonry>
       </Container>

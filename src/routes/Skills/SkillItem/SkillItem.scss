@@ -38,3 +38,18 @@
   }
 }
 
+.rc-slider {
+  width:90%;
+  margin-bottom: 15px;
+  &:nth-of-type(1) {
+    margin-top:25px;
+    margin-bottom: 25px;
+  }
+
+  .rc-slider-handle {
+    .fa {
+      font-size: 16px;
+    }
+  }
+}
+

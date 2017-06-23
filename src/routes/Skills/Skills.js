@@ -36,7 +36,7 @@ class Skills extends React.Component {
     this.onAdd = this.onAdd.bind(this)
     this.onRemove = this.onRemove.bind(this)
     this._saveToServer = this._saveToServer.bind(this)
-    this._revertChanges = this._revertChanges.bind(this)
+    this.layout = this.layout.bind(this)
   }
 
   componentDidMount () {
@@ -49,12 +49,18 @@ class Skills extends React.Component {
     }
   }
 
-  onSkillChange (value, id) {
-    let index = this.state.userSkills.findIndex(skills => skills.id === id)
+  componentDidUpdate (prevProps, prevState) {
+    if (this.state.userSkills !== prevState.userSkills) {
+      this._saveToServer()
+    }
+  }
+
+  onSkillChange (skill) {
+    let index = this.state.userSkills.findIndex(skills => skills.id === skill.id)
     if (index === -1) return false
 
     this.setState({
-      userSkills: update(this.state.userSkills, { [index]: { experience: { $set: value } } })
+      userSkills: update(this.state.userSkills, { [index]: { $set: skill } })
     })
   }
 
@@ -81,11 +87,8 @@ class Skills extends React.Component {
     })
   }
 
-  _revertChanges () {
-    this.setState({
-      userSkills: this.props.skills.userSkills ? this.props.skills.userSkills : [],
-      changes: false
-    })
+  layout () {
+    this.masonry.layout()
   }
 
   render () {
@@ -96,7 +99,7 @@ class Skills extends React.Component {
       <Container fluid>
         <Row>
           <Col xs={12} sm={12} md={6} xl={5}>
-            <SkillForm notEmpty={notEmpty} onAdd={this.onAdd} userSkills={this.state.userSkills} />
+            <SkillForm notEmpty={notEmpty} onAdd={this.onAdd} userSkills={this.state.userSkills} onOpen={this.onOpen} />
           </Col>
         </Row>
         <Masonry
@@ -107,15 +110,9 @@ class Skills extends React.Component {
           }.bind(this)}
         >
           {this.state.userSkills && this.state.userSkills.map((skill) => {
-            return <SkillItem key={skill.id} skill={skill} onChange={this.onSkillChange} onRemove={this.onRemove}/>
+            return <SkillItem key={skill.id} skill={skill} onChange={this.onSkillChange} onRemove={this.onRemove} layout={this.layout} />
           })}
         </Masonry>
-        <Row>
-          <Col>
-            {this.state.changes && <ThreeDButton small onClick={() => this._saveToServer()}>Spara</ThreeDButton>}
-            {this.state.changes && <ThreeDButton small className='cancel-btn' onClick={() => this._revertChanges()}>Ångra</ThreeDButton>}
-          </Col>
-        </Row>
       </Container>
     )
   }

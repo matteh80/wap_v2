@@ -9,7 +9,8 @@ import {
   Col,
   Card,
   CardBlock,
-  CardTitle
+  CardTitle,
+  Progress
 } from 'reactstrap'
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip
@@ -45,6 +46,12 @@ class LanguageItem extends React.Component {
     }
 
     this.onChange = this.onChange.bind(this)
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    if (this.state.editMode !== prevState.editMode) {
+      this.props.layout()
+    }
   }
 
   onChange (value, type) {
@@ -104,10 +111,24 @@ class LanguageItem extends React.Component {
             </div>
             }
             {!this.state.editMode &&
-            <Row className='languageInfo align-items-center justify-content-around'>
-              <i className='fa fa-comments'> {language.spoken}</i>
-              <i className='fa fa-pencil'> {language.written}</i>
-            </Row>
+              <div className='languageInfo'>
+                <div className='mb-2'>
+                  <i className='fa fa-comment float-left mr-1' />
+                  <Progress
+                    min={1}
+                    max={5}
+                    value={language.spoken === 1 ? 1.25 : language.spoken}
+                    color='info' />
+                </div>
+                <div>
+                  <i className='fa fa-pencil float-left mr-1' />
+                  <Progress
+                    min={1}
+                    max={5}
+                    value={language.written === 1 ? 1.25 : language.written}
+                    color='info' />
+                </div>
+              </div>
             }
           </CardBlock>
         </Card>
