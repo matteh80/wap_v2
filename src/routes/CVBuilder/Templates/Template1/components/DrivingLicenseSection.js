@@ -31,7 +31,7 @@ class CVDrivinglicenseItem extends React.Component {
     let { drivinglicense } = this.props
 
     return (
-      <Col key={drivinglicense.id} xs={3} className='licenseItem'>
+      <Col key={drivinglicense.id} xs={2} className='licenseItem'>
         <div
           className={'licenseicon-korkort-' + drivinglicense.name.replace(' ', '-').replace(' ', '-').replace('å', 'a').toLowerCase() + ' licenseIcon'} />
         <h5 className='licenseName' style={{ display: 'block' }}>{drivinglicense.name}</h5>

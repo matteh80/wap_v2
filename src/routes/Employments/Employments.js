@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import EmploymentItem from './EmploymentItem/EmploymentItem'
 import EmploymentForm from './EmploymentForm/EmploymentForm'
 import { getAllEmployments, createEmployment, updateEmployment } from '../../store/actions/employments'
+import Masonry from 'react-masonry-component'
 
 import {
   Container,
@@ -22,6 +23,7 @@ class Employments extends React.Component {
     dispatch(getAllEmployments()).then(() => { console.log('hej') })
 
     this.updateEmployment = this.updateEmployment.bind(this)
+    this.layout = this.layout.bind(this)
   }
 
   addEmployment (employment) {
@@ -44,6 +46,10 @@ class Employments extends React.Component {
     })
   }
 
+  layout () {
+    this.masonry.layout()
+  }
+
   render () {
     let { employments } = this.props.employments
     let mEmployments = Object.assign([], employments).reverse()
@@ -58,9 +64,18 @@ class Employments extends React.Component {
         <Row>
           <Col lg={10}>
             <div className='timeline'>
-              {mEmployments && mEmployments.map((employment) => {
-                return <EmploymentItem key={employment.id} employment={employment} occupations={this.props.occupations} onChange={this.updateEmployment} />
-              })}
+              <Masonry
+                onClick={this.handleClick}
+                className='row'
+                ref={function (c) {
+                  this.masonry = this.masonry || c.masonry
+                }.bind(this)}
+              >
+                {mEmployments && mEmployments.map((employment) => {
+                  return <EmploymentItem key={employment.id} employment={employment} occupations={this.props.occupations}
+                    onChange={this.updateEmployment} layout={this.layout} />
+                })}
+              </Masonry>
             </div>
           </Col>
         </Row>

@@ -2,7 +2,9 @@ import React from 'react'
 import Select from 'react-select'
 import classNames from 'classnames'
 import $ from 'jquery'
+import moment from 'moment'
 import {
+  Col,
   Card,
   CardBlock,
   CardTitle,
@@ -22,7 +24,8 @@ class EmploymentItem extends React.Component {
     this.state = {
       editMode: false,
       employment: Object.assign({}, this.props.employment),
-      occupations: []
+      occupations: [],
+      selectValue: this.props.employment.occupation
     }
 
     this._getStartEndDate = this._getStartEndDate.bind(this)
@@ -30,8 +33,15 @@ class EmploymentItem extends React.Component {
     this.revertChanges = this.revertChanges.bind(this)
     this._handleInputChange = this._handleInputChange.bind(this)
     this._handleOccupationChange = this._handleOccupationChange.bind(this)
+    this._handleDateChange = this._handleDateChange.bind(this)
     this._getOptions = this._getOptions.bind(this)
     this.getOccupationName = this.getOccupationName.bind(this)
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    if (this.state.editMode !== prevState.editMode) {
+      this.props.layout()
+    }
   }
 
   _getStartEndDate (startDate, endDate, current) {
@@ -118,6 +128,18 @@ class EmploymentItem extends React.Component {
     })
   }
 
+  _handleDateChange (startDate, endDate, hasError, current) {
+    this.setState({
+      employment: {
+        ...this.state.employment,
+        start_date: moment(startDate).format('YYYY-MM-DD'),
+        end_date: moment(endDate).format('YYYY-MM-DD'),
+        hasError: hasError,
+        current: current
+      }
+    })
+  }
+
   getOccupationName () {
     let occupations = this._getOptions()
     let { employment } = this.props
@@ -134,7 +156,7 @@ class EmploymentItem extends React.Component {
     let editBtnClass = classNames('edit-btn fa', this.state.editMode ? 'fa-check editing' : 'fa-pencil')
 
     return (
-      <div className='timeline-item'>
+      <Col className='timeline-item'>
         <div className='timeline-fulldate'>
           {this._getStartEndDate(start_date, end_date, current)}
         </div>
@@ -160,7 +182,7 @@ class EmploymentItem extends React.Component {
                 <FormGroup>
                   <Label for='employer'>Företag *</Label>
                   <Input type='text' name='employer' id='employer' defaultValue={employment ? employment.employer : ''}
-                    ref={(input) => this.employer = input} onChange={this._handleInputChange} />
+                    ref={(input) => { this.employer = input }} onChange={this._handleInputChange} />
                 </FormGroup>
                 <FormGroup>
                   <Label for='title'>Befattning *</Label>
@@ -177,7 +199,7 @@ class EmploymentItem extends React.Component {
                     value={this.state.selectValue}
                 />
                 </FormGroup>
-                <StartEndDate withCurrent onChange={this._handleDateChange} />
+                <StartEndDate withCurrent foo={this.state.employment} onChange={this._handleDateChange} />
                 <FormGroup>
                   <Label for='description'>Jag bidrar / bidrog med *</Label>
                   <Input type='textarea' name='description' id='description' rows='4' defaultValue={employment ? employment.description : ''}
@@ -189,7 +211,7 @@ class EmploymentItem extends React.Component {
           }
           </Card>
         </div>
-      </div>
+      </Col>
     )
   }
 }
