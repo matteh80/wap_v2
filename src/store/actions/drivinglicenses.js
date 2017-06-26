@@ -44,3 +44,24 @@ export function getMyLicenses () {
       })
   }
 }
+
+export function saveLicensesToServer (licenses) {
+  console.log(licenses)
+  return (dispatch, getState) => {
+    return apiClient.post('me/driving-licenses/', licenses).then((result) => {
+      console.log(result)
+      return dispatch({
+        type: SAVE_LICENSES_TO_SERVER,
+        userLicenses: result.data,
+        receivedAt: Date.now()
+      })
+    })
+      .catch(function (error) {
+        return dispatch({
+          type: LICENSES_FAIL,
+          error: error.text,
+          receivedAt: Date.now()
+        })
+      })
+  }
+}

@@ -31,6 +31,7 @@ function drivinglicenses (state = [], action) {
       return {
         ...action
       }
+
     default:
       return state
   }
