@@ -8,9 +8,7 @@ import {
   Collapse,
   Card,
   CardBlock,
-  CardHeader,
   CardTitle,
-  Row,
   Form,
   FormGroup,
   UncontrolledTooltip
@@ -70,6 +68,12 @@ class SkillForm extends React.Component {
     this.setState({ collapse: !this.state.collapse })
   }
 
+  componentDidUpdate (prevProps, prevState) {
+    if (this.state.collapse !== prevState.collapse) {
+      this.props.layout()
+    }
+  }
+
   render () {
     let { userSkills } = this.props.skills
     let chevronClass = classNames('fa add-btn', this.state.collapse ? 'fa-chevron-down bg-orange' : 'fa-plus bg-green')
@@ -77,9 +81,6 @@ class SkillForm extends React.Component {
 
     return (
       <Card className='fakeItem' style={{ minHeight: newHeight }}>
-
-        {/* <CardTitle className='pull-left'>Lägg till kompetens</CardTitle> */}
-        {/* <i className={chevronClass} style={{ fontSize: 20 }} /> */}
 
         <div className='btn-wrapper'>
           <UncontrolledTooltip placement='left' target='add-btn'>

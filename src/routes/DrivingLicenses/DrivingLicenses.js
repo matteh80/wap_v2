@@ -66,7 +66,7 @@ class DrivingLicenses extends React.Component {
   }
 
   onAdd (item) {
-    let mLicense = Object.assign({}, item, { spoken: item.spoken ? item.spoken : 1, written: item.written ? item.written : 1 })
+    let mLicense = Object.assign({}, item)
     this.setState({
       userLicenses: update(this.state.userLicenses, { $push: [mLicense] })
     })
@@ -98,11 +98,6 @@ class DrivingLicenses extends React.Component {
 
     return (
       <Container fluid>
-        <Row>
-          <Col xs={12} sm={12} md={6} xl={5}>
-            <LicenseForm notEmpty={notEmpty} onAdd={this.onAdd} userLicenses={this.state.userLicenses} />
-          </Col>
-        </Row>
         <Masonry
           onClick={this.handleClick}
           className='row'
@@ -113,6 +108,9 @@ class DrivingLicenses extends React.Component {
           {this.state.userLicenses && this.state.userLicenses.map((license) => {
             return <LicenseItem key={license.id} license={license} onChange={this.onLicenseChange} onRemove={this.onRemove} layout={this.layout} />
           })}
+
+          <LicenseForm notEmpty={notEmpty} onAdd={this.onAdd} userLicenses={this.state.userLicenses} layout={this.layout} />
+
         </Masonry>
       </Container>
     )

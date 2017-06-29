@@ -96,11 +96,6 @@ class Languages extends React.Component {
 
     return (
       <Container fluid>
-        <Row>
-          <Col xs={12} sm={12} md={6} xl={5}>
-            <LanguageForm notEmpty={notEmpty} onAdd={this.onAdd} userLanguages={this.state.userLanguages} />
-          </Col>
-        </Row>
         <Masonry
           onClick={this.handleClick}
           className='row'
@@ -111,6 +106,9 @@ class Languages extends React.Component {
           {this.state.userLanguages && this.state.userLanguages.map((language) => {
             return <LanguageItem key={language.id} language={language} onChange={this.onLanguageChange} onRemove={this.onRemove} layout={this.layout} />
           })}
+          <Col xs={12} sm={6} md={4} xl={3}>
+            <LanguageForm notEmpty={notEmpty} onAdd={this.onAdd} userLanguages={this.state.userLanguages} layout={this.layout} />
+          </Col>
         </Masonry>
       </Container>
     )

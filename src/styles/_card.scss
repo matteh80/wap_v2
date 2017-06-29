@@ -10,6 +10,12 @@
   background-position: center;
   //overflow-x: hidden;
 
+  &:hover {
+    .btn-wrapper {
+      opacity: 1;
+    }
+  }
+
   &.formCard {
     overflow: visible;
   }
@@ -24,6 +30,11 @@
     right:0;
     overflow: hidden;
     transition: width 250ms;
+    opacity: 0;
+
+    &:hover {
+      opacity:1;
+    }
 
     &.hasRemove {
       //width:120px;
@@ -33,6 +44,7 @@
     &.editing {
       right:0;
       width:80px;
+      opacity: 1 !important;
 
       &.hasRemove {
         width:120px;

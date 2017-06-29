@@ -27,6 +27,13 @@ function drivinglicenses (state = [], action) {
         ...action
       }
 
+    case SAVE_LICENSES_TO_SERVER:
+      return {
+        ...state,
+        receivedAt: action.receivedAt,
+        ...action
+      }
+
     case LICENSES_FAIL:
       return {
         ...action

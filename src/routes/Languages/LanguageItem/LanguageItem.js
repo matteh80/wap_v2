@@ -80,7 +80,7 @@ class LanguageItem extends React.Component {
     let editBtnClass = classNames('edit-btn fa', this.state.editMode ? 'fa-check editing' : 'fa-pencil')
 
     return (
-      <Col xs={12} sm={6} md={4} xl={3}>
+      <Col xs={12} sm={6} md={4} xl={3} className='languageItem'>
         <Card>
           <div className={wrapperClass}>
             <i className={editBtnClass} onClick={() => this.toggleEditMode()} />

@@ -8,8 +8,8 @@ import {
   Collapse,
   Card,
   CardBlock,
-  CardHeader,
   CardTitle,
+  UncontrolledTooltip,
   Form,
   FormGroup,
 } from 'reactstrap'
@@ -65,33 +65,46 @@ class LanguageForm extends React.Component {
     this.setState({ collapse: !this.state.collapse })
   }
 
+  componentDidUpdate (prevProps, prevState) {
+    if (this.state.collapse !== prevState.collapse) {
+      this.props.layout()
+    }
+  }
+
   render () {
     let { userLanguages } = this.props.languages
-    let chevronClass = classNames('fa pull-right', this.state.collapse ? 'fa-chevron-down' : 'fa-chevron-up')
+    let chevronClass = classNames('fa add-btn', this.state.collapse ? 'fa-chevron-down bg-orange' : 'fa-plus bg-green')
+    let newHeight = $('.languageItem .card').height()
 
     return (
-      <Card className='formCard'>
-        <CardHeader onClick={() => this.toggleCollapse()} className='add-items'>
-          <CardTitle className='pull-left'>Lägg till språk</CardTitle>
-          <i className={chevronClass} style={{ fontSize: 20 }} />
-        </CardHeader>
-        <Collapse isOpen={this.state.collapse}>
-          <CardBlock>
+      <Card className='formCard fakeItem'>
+        <div className='btn-wrapper'>
+          <UncontrolledTooltip placement='left' target='add-btn'>
+            Lägg till nytt språk
+          </UncontrolledTooltip>
+          <i className={chevronClass} id='add-btn' onClick={() => this.toggleCollapse()} />
+        </div>
+
+        <CardBlock>
+          {!this.state.collapse ? <div className='fakeTitle' /> : <CardTitle>Nytt språk</CardTitle>}
+          {!this.state.collapse && <div className='mb-2'><div className='fakeSlider' /></div>}
+          {!this.state.collapse && <div><div className='fakeSlider secondSlider' /></div>}
+          <Collapse isOpen={this.state.collapse}>
             <Form>
               <FormGroup>
                 {/* <Label for='language'>Kompetens</Label> */}
                 {this.props.languages.userLanguages &&
-                <Select
-                  options={this._getOptions()}
-                  clearable
-                  onChange={this.props.onAdd}
-                  placeholder='Välj språk'
-                  value={this.state.selectValue}
+                  <Select
+                    options={this._getOptions()}
+                    clearable
+                    onChange={this.props.onAdd}
+                    placeholder='Välj språk'
+                    value={this.state.selectValue}
                 />}
               </FormGroup>
             </Form>
-          </CardBlock>
-        </Collapse>
+          </Collapse>
+        </CardBlock>
       </Card>
     )
   }

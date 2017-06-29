@@ -108,7 +108,7 @@ class Skills extends React.Component {
             return <SkillItem key={skill.id} skill={skill} onChange={this.onSkillChange} onRemove={this.onRemove} layout={this.layout} />
           })}
           <Col xs={12} sm={6} md={4} xl={3}>
-            <SkillForm notEmpty={notEmpty} onAdd={this.onAdd} userSkills={this.state.userSkills} onOpen={this.onOpen} />
+            <SkillForm notEmpty={notEmpty} onAdd={this.onAdd} userSkills={this.state.userSkills} onOpen={this.onOpen} layout={this.layout} />
           </Col>
         </Masonry>
       </Container>
