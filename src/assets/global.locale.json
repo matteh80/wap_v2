@@ -1,0 +1,14 @@
+{
+  "sidemenu": {
+    "dashboard": ["Dashboard", "Dashboard"],
+    "profile": ["Profil", "Profile"],
+    "employments": ["Anställningar", "Employments"],
+    "educations": ["Utbildningar", "Educations"],
+    "skills": ["Kompetenser", "Skills"],
+    "languages": ["Språk", "Languages"],
+    "drivingLicenses": ["Körkort", "Driving licenses"]
+  },
+  "header": {
+    "logout": ["Logga ut", "Log out"]
+  }
+}

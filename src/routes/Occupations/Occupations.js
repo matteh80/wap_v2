@@ -1,7 +1,6 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { getAllOccupations, getMyOccupations, orderOccupations, removeOccupation, saveOccupationsToServer } from '../../store/actions/occupations'
+import { getAllOccupations, getMyOccupations, saveOccupationsToServer } from '../../store/actions/occupations'
 import OccupationForm from './OccupationForm/OccupationForm'
 import { SortableContainer, SortableElement, arrayMove, SortableHandle } from 'react-sortable-hoc'
 import './Occupations.scss'
@@ -14,11 +13,10 @@ import {
   Card,
   CardBlock
 } from 'reactstrap'
-import ThreeDButton from '../../components/buttons/ThreeDButton'
 
 const DragHandle = SortableHandle(() => <i className='fa fa-bars dragHandle' />)
 
-const SortableList = SortableContainer(({ items, onRemove }) => {
+const SortableList = SortableContainer(({ items, onRemove, onAdd }) => {
   return (
     <Masonry
       onClick={this.handleClick}
@@ -31,13 +29,16 @@ const SortableList = SortableContainer(({ items, onRemove }) => {
         return <SortableItem key={`item-${index}`} mIndex={index} index={index} id={item.id} value={index + 1 + '. ' + item.name} onRemove={onRemove} />
       }
       )}
+      <Col xs={12} sm={6} md={4} xl={3}>
+        <OccupationForm onAdd={onAdd} />
+      </Col>
     </Masonry>
   )
 })
 
 const SortableItem = SortableElement(({ value, index, onRemove, id, mIndex }) => {
   return (
-    <Col xs={12} sm={6} md={4} xl={3}>
+    <Col xs={12} sm={6} md={4} xl={3} className='occupationItem'>
       <Card>
         <CardBlock>
           <DragHandle />
@@ -112,17 +113,18 @@ class Occupations extends React.Component {
     }
   }
 
+  componentDidUpdate (prevProps, prevState) {
+    if (this.state.items !== prevState.items) {
+      this._saveToServer()
+    }
+  }
+
   render () {
     let { userOccupations } = this.props.occupations
     let notEmpty = userOccupations && userOccupations.length > 0
 
     return (
       <Container fluid>
-        <Row>
-          <Col xs={12} sm={12} md={6} xl={5}>
-            <OccupationForm onAdd={this.onAdd} notEmpty={notEmpty} />
-          </Col>
-        </Row>
         <Row>
           <Col xs={12}>
             <div className='sortableWrapper'>
@@ -135,14 +137,9 @@ class Occupations extends React.Component {
                 onSortStart={this.onSortStart}
                 onSortEnd={this.onSortEnd}
                 onRemove={this.onRemove}
+                onAdd={this.onAdd}
               />}
             </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            {this.state.changes && <ThreeDButton small onClick={() => this._saveToServer()}>Spara</ThreeDButton>}
-            {this.state.changes && <ThreeDButton small className='cancel-btn' onClick={() => this._revertChanges()}>Ångra</ThreeDButton>}
           </Col>
         </Row>
       </Container>

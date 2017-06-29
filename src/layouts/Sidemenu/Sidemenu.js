@@ -51,18 +51,20 @@ class Sidemenu extends React.Component {
   }
 
   render () {
+    let { translate } = this.props
+
     return (
       <div className='sidemenuWrapper'>
         <div className='sidemenu'>
           <ul className='menu-items'>
             <Menuitem to='/' icon='fa-home' title='Dashboard' onlyActiveOnIndex />
-            <Menuitem to='/profile' icon='fa-user' title='Profil' />
+            <Menuitem to='/profile' icon='fa-user' title={translate('sidemenu.profile')} />
             <Menuitem icon='fa-briefcase' title='Work'>
-              <Menuitem to='/work/employments' icon='fa-building' title='Anställningar' count={this.state.employmentCount} details={this.state.employmentCount + ' anställningar'} />
-              <Menuitem to='/work/educations' icon='fa-graduation-cap' title='Utbildningar' count={this.state.educationCount} details={this.state.educationCount + ' utbildningar'} />
-              <Menuitem to='/work/skills' icon='fa-flash' title='Kompetenser' count={this.state.skillCount} details={this.state.skillCount + ' kompetenser'} />
-              <Menuitem to='/work/languages' icon='fa-comment' title='Språk' count={this.state.languageCount} details={this.state.languageCount + ' språk'} />
-              <Menuitem to='/work/drivinglicenses' icon='fa-car' title='Körkort' count={this.state.drivinglicenseCount} details={this.state.drivinglicenseCount + ' körkort'} />
+              <Menuitem to='/work/employments' icon='fa-building' title={translate('sidemenu.employments')} count={this.state.employmentCount} details={this.state.employmentCount + ' anställningar'} />
+              <Menuitem to='/work/educations' icon='fa-graduation-cap' title={translate('sidemenu.educations')} count={this.state.educationCount} details={this.state.educationCount + ' utbildningar'} />
+              <Menuitem to='/work/skills' icon='fa-flash' title={translate('sidemenu.skills')} count={this.state.skillCount} details={this.state.skillCount + ' kompetenser'} />
+              <Menuitem to='/work/languages' icon='fa-comment' title={translate('sidemenu.languages')} count={this.state.languageCount} details={this.state.languageCount + ' språk'} />
+              <Menuitem to='/work/drivinglicenses' icon='fa-car' title={translate('sidemenu.drivingLicenses')} count={this.state.drivinglicenseCount} details={this.state.drivinglicenseCount + ' körkort'} />
             </Menuitem>
             <Menuitem icon='fa-cloud' title='Passion'>
               <Menuitem to='/passion/occupations' icon='fa-briefcase' title='Befattningar' count={this.state.occupationCount} details={this.state.occupationCount + ' befattningar'} />
@@ -74,7 +76,7 @@ class Sidemenu extends React.Component {
               details={this.state.videoCount === 0 && 'Ladda upp en film'} />
             <Menuitem to='/personalitytest' icon='fa fa-bar-chart' title='Personlighetstest' />
             <hr />
-            <Menuitem to='/cvbuilder' icon='fa fa-file-text' title='CV Builder' details="Skapa ett CV" />
+            <Menuitem to='/cvbuilder' icon='fa fa-file-text' title='CV Builder' details='Skapa ett CV' />
           </ul>
         </div>
       </div>

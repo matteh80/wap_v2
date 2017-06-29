@@ -4,6 +4,7 @@ import ProfilePicture from '../../components/Misc/ProfilePicture/ProfilePicture'
 import './Header.scss'
 import { logout } from '../../store/actions/auth'
 import $ from 'jquery'
+import { setActiveLanguage, getTranslate, getActiveLanguage } from 'react-localize-redux'
 
 import {
   Row,
@@ -31,6 +32,18 @@ class Header extends React.Component {
     })
   }
 
+  toggleLocale () {
+    let { dispatch } = this.props
+    switch (this.props.currentLanguage) {
+      case 'sv':
+        dispatch(setActiveLanguage('en'))
+        break
+      case 'en':
+        dispatch(setActiveLanguage('sv'))
+        break
+    }
+  }
+
   handleLogout () {
     let { dispatch } = this.props
     dispatch(logout())
@@ -49,6 +62,7 @@ class Header extends React.Component {
   }
 
   render () {
+    let { translate } = this.props
     return (
       <div className='header'>
         <div className='hidden-md-down pull-left h-100 logo'>
@@ -69,16 +83,24 @@ class Header extends React.Component {
             </div>
 
             <DropdownMenu>
-              <DropdownItem>Another Action</DropdownItem>
-              <DropdownItem>Another Action</DropdownItem>
-              <DropdownItem onClick={(e) => this.handleLogout(e)}>Logga ut</DropdownItem>
+              <DropdownItem onClick={(e) => this.handleLogout(e)}>{translate('header.logout')}</DropdownItem>
             </DropdownMenu>
           </Dropdown>
-
         </div>
+
+        <div className='locale pull-right' onClick={() => this.toggleLocale()}>
+          <img src={'/img/locale_' + this.props.currentLanguage + '.png'} className='img-fluid' style={{height: 60}} />
+        </div>
+
       </div>
     )
   }
 }
 
-export default connect((state) => state)(Header)
+const mapStateToProps = state => ({
+  translate: getTranslate(state.localeReducer),
+  currentLanguage: getActiveLanguage(state.localeReducer) ? getActiveLanguage(state.localeReducer).code : 'sv',
+  ...state
+})
+
+export default connect(mapStateToProps)(Header)

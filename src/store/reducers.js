@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
+import { localeReducer } from 'react-localize-redux'
 
 import auth from './reducers/auth'
 import profile from './reducers/profile'
@@ -16,6 +17,7 @@ import drivinglicenses from './reducers/drivinglicenses'
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
     routing: routerReducer,
+    localeReducer: localeReducer,
     auth: auth,
     profile: profile,
     employments: employments,

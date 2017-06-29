@@ -3,7 +3,9 @@ import { apiClient } from '../axios.config'
 const {
   EDUCATIONS_FAIL,
   GET_ALL_EDUCATIONS,
-  CREATE_EDUCATION
+  CREATE_EDUCATION,
+  UPDATE_EDUCATION,
+  REMOVE_EDUCATION
 } = require('./actionTypes/educations')
 
 export function getAllEducations () {
@@ -44,6 +46,40 @@ export function createEducation (education) {
           error: error.text,
           receivedAt: Date.now()
         })
+      })
+  }
+}
+
+export function updateEducation (education) {
+  return dispatch => {
+    return apiClient.put('me/educations/' + education.id + '/',
+      education
+    )
+      .then((result) => {
+        return dispatch({
+          type: UPDATE_EDUCATION,
+          education: result.data,
+        })
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
+}
+
+export function removeEducation (education) {
+  return dispatch => {
+    return apiClient.delete('me/educations/' + education.id + '/',
+      education
+    )
+      .then((result) => {
+        return dispatch({
+          type: REMOVE_EDUCATION,
+          id: education.id
+        })
+      })
+      .catch(function (error) {
+        console.log(error)
       })
   }
 }

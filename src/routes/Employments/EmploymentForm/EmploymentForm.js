@@ -13,18 +13,18 @@ import {
   Collapse,
   Card,
   CardBlock,
-  CardHeader,
   CardTitle,
-  Form,
+  Col,
   FormGroup,
   Label,
-  Input
+  Input,
+  UncontrolledTooltip
 } from 'reactstrap'
 import { AvForm, AvGroup, AvField } from 'availity-reactstrap-validation'
 import StartEndDate from '../../../components/Misc/StartEndDate/StartEndDate'
 import ThreeDButton from '../../../components/buttons/ThreeDButton'
 
-let defaultValue
+let occupationDefault = {}
 class EmploymentForm extends React.Component {
   constructor (props) {
     super(props)
@@ -34,7 +34,7 @@ class EmploymentForm extends React.Component {
     let categoryitem = occupations[0]
     let item = occupations[0].occupations[0]
 
-    let occupationDefault = {
+    occupationDefault = {
       label: item.name + ' (' + categoryitem.name + ')',
       value: item.id,
       name: item.name,
@@ -50,6 +50,7 @@ class EmploymentForm extends React.Component {
         description: '',
         start_date: this.props.employment ? this.props.employment.start_date : moment().format('YYYY-MM-DD'),
         end_date: this.props.employment ? this.props.employment.end_date : moment().format('YYYY-MM-DD'),
+        occupation: occupationDefault.id,
         public: false,
         current:  this.props.employment ? this.props.employment.current : false
       }
@@ -141,62 +142,87 @@ class EmploymentForm extends React.Component {
       let { dispatch } = this.props
       dispatch(createEmployment(this.state.employment)).then(() => {
         dispatch(getAllEmployments())
-        document.getElementById('employmentForm').reset()
+        document.getElementById('addEmploymentForm').reset()
+        this._resetForm()
       })
     }
   }
 
   toggleCollapse () {
+    let _self = this
     this.setState({
-      collapse: !this.state.collapse
+      collapse: !this.state.collapse,
     })
+    setTimeout(function () {
+      _self.props.layout()
+    }, 300)
   }
+
+  componentDidUpdate (prevProps, prevState) {
+    if (this.state.collapse !== prevState.collapse) {
+      // this.props.layout()
+    }
+  }
+
+  // TODO: Reset form after submit
 
   render () {
     let { employment } = this.props
-    let chevronClass = classNames('fa pull-right', this.state.collapse ? 'fa-chevron-down' : 'fa-chevron-up')
+    let chevronClass = classNames('fa add-btn', this.state.collapse ? 'fa-chevron-down bg-orange' : 'fa-plus bg-green')
+    let timelineClass = classNames('timeline-item fakeTimelineItem', this.state.collapse && 'fullOpacity')
 
     return (
-      <Card>
-        <CardHeader className='add-items' onClick={() => this.toggleCollapse()}>
-          <CardTitle className='pull-left'>Ny anställning</CardTitle>
-          <i className={chevronClass} style={{ fontSize: 20 }} />
-        </CardHeader>
-        <Collapse isOpen={this.state.collapse}>
-          <CardBlock>
-            <AvForm id='employmentForm' onSubmit={this._handleSubmit}>
-              <AvGroup>
-                <Label for='employer'>Företag *</Label>
-                <AvField type='text' name='employer' id='employer' defaultValue={employment ? employment.employer : ''}
-                  ref={(input) => { this.employer = input }} onChange={this._handleInputChange} required />
-              </AvGroup>
-              <AvGroup>
-                <Label for='title'>Befattning *</Label>
-                <AvField type='text' name='title' id='title' defaultValue={employment ? employment.title : ''}
-                  ref={(input) => { this.title = input }} onChange={this._handleInputChange} required />
-              </AvGroup>
-              <FormGroup>
-                <Label for='occupation'>Yrkeskategori *</Label>
-                <Select
-                  options={this._getOptions()}
-                  clearable
-                  onChange={this._handleOccupationChange}
-                  placeholder='Välj yrke'
-                  value={this.state.selectValue}
-                  required
-                />
-              </FormGroup>
-              <StartEndDate withCurrent onChange={this._handleDateChange} />
-              <FormGroup>
-                <Label for='description'>Jag bidrar / bidrog med</Label>
-                <Input type='textarea' name='description' id='description' rows='4' defaultValue={employment ? employment.description : ''}
-                  ref={(input) => { this.description = input }} onChange={this._handleInputChange} />
-              </FormGroup>
-              <ThreeDButton small>Lägg till anställning</ThreeDButton>
-            </AvForm>
-          </CardBlock>
-        </Collapse>
-      </Card>
+      <Col className={timelineClass}>
+        <div className='timeline-img' />
+        <div className='timeline-content'>
+          <Card className='fakeItem'>
+            <div className='btn-wrapper'>
+              <UncontrolledTooltip placement='left' target='add-btn'>
+                Lägg till ny anställning
+              </UncontrolledTooltip>
+              <i className={chevronClass} id='add-btn' onClick={() => this.toggleCollapse()} />
+            </div>
+            <CardBlock>
+              {!this.state.collapse ? <div className='fakeTitle' /> : <CardTitle>Ny anställning</CardTitle>}
+              {!this.state.collapse && <div className='fakeSubtitle' />}
+              {!this.state.collapse && <div className='fakeSubtitle w-100 mt-0' />}
+              {!this.state.collapse && <div className='fakeSubtitle w-25' />}
+              <Collapse isOpen={this.state.collapse}>
+                <AvForm id='addEmploymentForm' onSubmit={this._handleSubmit}>
+                  <AvGroup>
+                    <Label for='employer'>Företag *</Label>
+                    <AvField type='text' name='employer' id='employer'
+                      ref={(input) => { this.employer = input }} onChange={this._handleInputChange} required />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label for='title'>Befattning *</Label>
+                    <AvField type='text' name='title' id='title'
+                      ref={(input) => { this.title = input }} onChange={this._handleInputChange} required />
+                  </AvGroup>
+                  <FormGroup>
+                    <Label for='occupation'>Yrkeskategori *</Label>
+                    <Select
+                      options={this._getOptions()}
+                      clearable
+                      onChange={this._handleOccupationChange}
+                      placeholder='Välj yrke'
+                      value={this.state.selectValue}
+                      required
+                    />
+                  </FormGroup>
+                  <StartEndDate withCurrent onChange={this._handleDateChange} />
+                  <FormGroup>
+                    <Label for='description'>Jag bidrar / bidrog med</Label>
+                    <Input type='textarea' name='description' id='description' rows='4'
+                      ref={(input) => { this.description = input }} onChange={this._handleInputChange} />
+                  </FormGroup>
+                  <ThreeDButton small>Lägg till anställning</ThreeDButton>
+                </AvForm>
+              </Collapse>
+            </CardBlock>
+          </Card>
+        </div>
+      </Col>
     )
   }
 }

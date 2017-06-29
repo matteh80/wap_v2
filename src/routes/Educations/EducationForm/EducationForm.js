@@ -3,19 +3,24 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import $ from 'jquery'
 import moment from 'moment'
+import classNames from 'classnames'
 
 import { createEducation, getAllEducations } from '../../../store/actions/educations'
 
 import {
   Card,
   CardBlock,
-  CardHeader,
   CardTitle,
+  CardSubtitle,
+  UncontrolledTooltip,
   Form,
   FormGroup,
   Label,
-  Input
+  Input,
+  Col,
+  Collapse
 } from 'reactstrap'
+import { AvForm, AvGroup, AvField } from 'availity-reactstrap-validation'
 import StartEndDate from '../../../components/Misc/StartEndDate/StartEndDate'
 import ThreeDButton from '../../../components/buttons/ThreeDButton'
 
@@ -26,6 +31,7 @@ class EducationForm extends React.Component {
     let { dispatch } = this.props
 
     this.state = {
+      collapse: false,
       loadsave: false,
       selectValue: null,
       education: {
@@ -118,45 +124,73 @@ class EducationForm extends React.Component {
     })
   }
 
+  toggleCollapse () {
+    let _self = this
+    this.setState({
+      collapse: !this.state.collapse,
+    })
+    setTimeout(function () {
+      _self.props.layout()
+    }, 300)
+  }
+
+  // TODO: Reset form after submit
+
   render () {
     let { education } = this.props
+    let chevronClass = classNames('fa add-btn', this.state.collapse ? 'fa-chevron-down bg-orange' : 'fa-plus bg-green')
+    let timelineClass = classNames('timeline-item fakeTimelineItem', this.state.collapse && 'fullOpacity')
+
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Ny utbildning</CardTitle>
-        </CardHeader>
-        <CardBlock>
-          <Form id='educationForm' onSubmit={(e) => this._handleSubmit(e)}>
-            <FormGroup>
-              <Label>Typ av skola</Label>
-              <Input type='select' ref={(select) => this.type = select} name='type'
-                defaultValue={this.props.foo && this.props.education.type} onChange={this._handleInputChange}>
-                <option value='university'>Högskola / Universitet</option>
-                <option value='vocational'>YH / Övrig utbildning</option>
-                <option value='single_courses'>Enstaka kurser</option>
-                <option value='high_school'>Gymnasium</option>
-              </Input>
-            </FormGroup>
-            <FormGroup>
-              <Label for='orientation'>Inriktning *</Label>
-              <Input type='text' name='orientation' id='orientation' defaultValue={education ? education.orientation : ''}
-                ref={(input) => this.orientation = input} onChange={this._handleInputChange} />
-            </FormGroup>
-            <FormGroup>
-              <Label for='school'>Skola *</Label>
-              <Input type='text' name='school' id='school' defaultValue={education ? education.school : ''}
-                ref={(input) => this.school = input} onChange={this._handleInputChange} />
-            </FormGroup>
-            <StartEndDate onChange={this._handleDateChange} />
-            <FormGroup>
-              <Label for='description'>Beskrivning</Label>
-              <Input type='textarea' name='description' id='description' rows='4' defaultValue={education ? education.description : ''}
-                ref={(input) => this.description = input} onChange={this._handleInputChange} />
-            </FormGroup>
-            <ThreeDButton small>Lägg till utbildning</ThreeDButton>
-          </Form>
-        </CardBlock>
-      </Card>
+      <Col className={timelineClass}>
+        <div className='timeline-img' />
+        <div className='timeline-content'>
+          <Card className='fakeItem'>
+            <div className='btn-wrapper'>
+              <UncontrolledTooltip placement='left' target='add-btn'>
+            Lägg till ny anställning
+          </UncontrolledTooltip>
+              <i className={chevronClass} id='add-btn' onClick={() => this.toggleCollapse()} />
+            </div>
+            <CardBlock>
+              {!this.state.collapse ? <div className='fakeTitle' /> : <CardTitle>Ny anställning</CardTitle>}
+              {!this.state.collapse && <div className='fakeSubtitle' />}
+              {!this.state.collapse && <div className='fakeSubtitle w-100 mt-0' />}
+              <Collapse isOpen={this.state.collapse}>
+                <AvForm id='educationForm' onSubmit={(e) => this._handleSubmit(e)}>
+                  <AvGroup>
+                    <Label>Typ av skola</Label>
+                    <AvField type='select' ref={(select) => this.type = select} name='type'
+                      onChange={this._handleInputChange}>
+                      <option value='university'>Högskola / Universitet</option>
+                      <option value='vocational'>YH / Övrig utbildning</option>
+                      <option value='single_courses'>Enstaka kurser</option>
+                      <option value='high_school'>Gymnasium</option>
+                    </AvField>
+                  </AvGroup>
+                  <AvGroup>
+                    <Label for='orientation'>Inriktning *</Label>
+                    <AvField type='text' name='orientation' id='orientation'
+                      ref={(input) => this.orientation = input} onChange={this._handleInputChange} required />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label for='school'>Skola *</Label>
+                    <AvField type='text' name='school' id='school'
+                      ref={(input) => this.school = input} onChange={this._handleInputChange} required />
+                  </AvGroup>
+                  <StartEndDate onChange={this._handleDateChange} />
+                  <AvGroup>
+                    <Label for='description'>Beskrivning</Label>
+                    <AvField type='textarea' name='description' id='description' rows='4'
+                      ref={(input) => this.description = input} onChange={this._handleInputChange} required />
+                  </AvGroup>
+                  <ThreeDButton small>Lägg till utbildning</ThreeDButton>
+                </AvForm>
+              </Collapse>
+            </CardBlock>
+          </Card>
+        </div>
+      </Col>
     )
   }
 }

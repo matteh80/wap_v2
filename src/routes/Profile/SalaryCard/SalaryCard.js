@@ -49,7 +49,7 @@ class SalaryCard extends React.Component {
   }
 
   render () {
-    let { profile } = this.props
+    let { profile, translate } = this.props
 
     let wrapperClass = classNames('btn-wrapper', this.state.editMode && 'editing')
     let editBtnClass = classNames('edit-btn fa', this.state.editMode ? 'fa-check editing' : 'fa-pencil')
@@ -63,7 +63,7 @@ class SalaryCard extends React.Component {
           </div>
           <img src='/img/cash.jpg' className='img-fluid' />
           <CardBlock>
-            <CardTitle className='text-center'>Lön</CardTitle>
+            <CardTitle className='text-center'>{translate('salary.salary')}</CardTitle>
             <CardSubtitle className='text-center'>{this.state.salary[0]}
               - {this.state.salary[1]}</CardSubtitle>
             {this.state.editMode &&

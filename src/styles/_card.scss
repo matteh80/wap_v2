@@ -10,6 +10,22 @@
   background-position: center;
   //overflow-x: hidden;
 
+  &.speechBubble {
+    position: relative;
+    box-shadow: none;
+    &:after {
+      content: "";
+      position: absolute;
+      border-style: solid;
+      width: 0;
+      height: 0;
+      bottom: -77px;
+      right: 40px;
+      border-width: 40px 30px;
+      border-color: #fff transparent transparent;
+    }
+  }
+
   &:hover {
     .btn-wrapper {
       opacity: 1;

@@ -154,7 +154,6 @@ class EmploymentItem extends React.Component {
         ...this.state.employment,
         start_date: moment(startDate).format('YYYY-MM-DD'),
         end_date: moment(endDate).format('YYYY-MM-DD'),
-        hasError: hasError,
         current: current
       }
     })

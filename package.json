@@ -45,6 +45,7 @@
     "react-dom": "^15.5.4",
     "react-dropzone": "^3.13.2",
     "react-image-crop": "^2.0.5",
+    "react-localize-redux": "^2.0.1",
     "react-masonry-component": "^5.0.7",
     "react-notification-system": "^0.2.14",
     "react-redux": "^5.0.4",
@@ -58,6 +59,7 @@
     "redux-auth-wrapper": "^1.1.0",
     "redux-persist": "^4.8.0",
     "redux-thunk": "^2.2.0",
+    "reselect": "^3.0.1",
     "universal-cookie": "^2.0.8",
     "url-search-params": "^0.9.0",
     "whatwg-fetch": "^2.0.3"

@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import EducationItem from './EducationItem/EducationItem'
 import EducationForm from './EducationForm/EducationForm'
-import { getAllEducations } from '../../store/actions/educations'
+import { getAllEducations, createEducation, updateEducation, removeEducation } from '../../store/actions/educations'
+import Masonry from 'react-masonry-component'
 
 import {
   Container,
@@ -14,8 +15,48 @@ class Educations extends React.Component {
   constructor (props) {
     super(props)
 
+    this.state = {
+      educations: Object.assign([], this.props.educations.educations)
+    }
+
     let { dispatch } = this.props
     dispatch(getAllEducations())
+
+    this.layout = this.layout.bind(this)
+    this.updateEducation = this.updateEducation.bind(this)
+    this.removeEducation = this.removeEducation.bind(this)
+  }
+
+  addEducation (education) {
+    let { dispatch } = this.props
+    dispatch(createEducation(education)).then(() => {
+      dispatch(getAllEducations())
+      document.getElementById('educationForm').reset()
+    }).catch((error) => {
+      alert(error)
+    })
+  }
+
+  updateEducation (education) {
+    let { dispatch } = this.props
+    dispatch(updateEducation(education))
+      .then(() => {
+        dispatch(getAllEducations())
+        // document.getElementById('educationForm').reset()
+      }).catch((error) => {
+        alert(error)
+      })
+  }
+
+  removeEducation (e, education) {
+    console.log(e.target)
+    let { dispatch } = this.props
+    // this.masonry.remove($(e.target).closest('.timeline-item')).masonry('layout')
+    dispatch(removeEducation(education))
+  }
+
+  layout () {
+    this.masonry.layout()
   }
 
   render () {
@@ -25,15 +66,22 @@ class Educations extends React.Component {
     return (
       <Container fluid>
         <Row>
-          <Col xs={12} lg={8}>
+          <Col lg={10}>
             <div className='timeline'>
-              {mEducations && mEducations.map((education) => {
-                return <EducationItem key={education.id} education={education} />
-              })}
+              <Masonry
+                onClick={this.handleClick}
+                className='row'
+                ref={function (c) {
+                  this.masonry = this.masonry || c.masonry
+                }.bind(this)}
+              >
+                <EducationForm layout={this.layout} />
+                {mEducations && mEducations.map((education) => {
+                  return <EducationItem key={education.id} education={education} layout={this.layout}
+                    onChange={this.updateEducation} onRemove={this.removeEducation} />
+                })}
+              </Masonry>
             </div>
-          </Col>
-          <Col>
-            <EducationForm />
           </Col>
         </Row>
       </Container>

@@ -8,11 +8,10 @@ import classNames from 'classnames'
 import {
   Card,
   CardBlock,
-  CardHeader,
   CardTitle,
+  UncontrolledTooltip,
   Form,
   FormGroup,
-  Label,
   Collapse
 } from 'reactstrap'
 
@@ -24,7 +23,7 @@ class OccupationForm extends React.Component {
 
     this.state = {
       selectValue: null,
-      collapse: !this.props.notEmpty
+      collapse: false
     }
 
     this.props.occupations.length === 0 && dispatch(getAllOccupations())
@@ -73,19 +72,24 @@ class OccupationForm extends React.Component {
   }
 
   render () {
-    let chevronClass = classNames('fa pull-right', this.state.collapse ? 'fa-chevron-down' : 'fa-chevron-up')
+    let chevronClass = classNames('fa add-btn', this.state.collapse ? 'fa-chevron-down bg-orange' : 'fa-plus bg-green')
+    let newHeight = $('.occupationItem .card').height()
 
     return (
-      <Card>
-        <CardHeader onClick={() => this.toggleCollapse()} className='add-items'>
-          <CardTitle className='pull-left'>Lägg till befattning</CardTitle>
-          <i className={chevronClass} style={{ fontSize: 20 }} />
-        </CardHeader>
-        <Collapse isOpen={this.state.collapse}>
-          <CardBlock>
+      <Card className='fakeItem' style={{ minHeight: newHeight }}>
+        <div className='btn-wrapper'>
+          <UncontrolledTooltip placement='left' target='add-btn'>
+            Lägg till ny befattning
+          </UncontrolledTooltip>
+          <i className={chevronClass} id='add-btn' onClick={() => this.toggleCollapse()} />
+        </div>
+
+        <CardBlock>
+          {!this.state.collapse ? <div className='fakeTitle mb-0' /> : <CardTitle>Ny kompetens</CardTitle>}
+          <Collapse isOpen={this.state.collapse}>
             <Form>
               <FormGroup>
-                {/*<Label for='occupation'>Yrkeskategori *</Label>*/}
+                {/* <Label for='occupation'>Yrkeskategori *</Label> */}
                 <Select
                   options={this._getOptions()}
                   clearable
@@ -95,8 +99,8 @@ class OccupationForm extends React.Component {
                 />
               </FormGroup>
             </Form>
-          </CardBlock>
-        </Collapse>
+          </Collapse>
+        </CardBlock>
       </Card>
     )
   }

@@ -23,6 +23,37 @@ $accent: $pink;
     width: 100%;
     margin-bottom: 20px;
 
+    &.fakeTimelineItem {
+      .timeline-content {
+        &:after {
+          opacity:0.5;
+          transition: opacity 250ms;
+        }
+      }
+      &:hover {
+        .timeline-content {
+          &:after {
+            opacity:1 !important;
+          }
+        }
+      }
+
+      .timeline-img {
+        //background: $green !important;
+      }
+    }
+
+    &.fullOpacity {
+      .timeline-content {
+        &:after {
+          opacity:1;
+        }
+      }
+      .fakeItem {
+        opacity:1;
+      }
+    }
+
     &:nth-child(even) {
       .timeline-fulldate {
         @include media-breakpoint-up(lg) {

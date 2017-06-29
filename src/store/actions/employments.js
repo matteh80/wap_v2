@@ -78,19 +78,15 @@ export function updateEmployment (employment) {
 
 export function removeEmployment (employment) {
   return dispatch => {
-    return dispatch({
-      type: REMOVE_EMPLOYMENT,
-      id: employment.id
-    })
-    // return apiClient.delete('me/employments/' + employment.id + '/')
-    //   .then((result) => {
-    //     return dispatch({
-    //       type: REMOVE_EMPLOYMENT,
-    //       id: employment.id
-    //     })
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error)
-    //   })
+    return apiClient.delete('me/employments/' + employment.id + '/')
+      .then((result) => {
+        return dispatch({
+          type: REMOVE_EMPLOYMENT,
+          id: employment.id
+        })
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
   }
 }

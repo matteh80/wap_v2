@@ -92,7 +92,7 @@ class Profile extends React.Component {
   }
 
   render () {
-    let { profile } = this.props
+    let { profile, translate } = this.props
 
     return (
       <Container fluid>
@@ -105,7 +105,7 @@ class Profile extends React.Component {
         >
           <InfoCard onChange={this.onProfileChange} onSave={this.onProfileSave} onOpen={this.onOpenCard} revertChanges={this.onRevertChanges} onDateChange={this.onDateChange} />
           <AddressCard onChange={this.onProfileChange} onSave={this.onProfileSave} onOpen={this.onOpenCard} revertChanges={this.onRevertChanges} />
-          <SalaryCard onChange={this.onSalaryChange} onSave={this.onProfileSave} onOpen={this.onOpenCard} revertChanges={this.onRevertChanges} />
+          <SalaryCard onChange={this.onSalaryChange} onSave={this.onProfileSave} onOpen={this.onOpenCard} revertChanges={this.onRevertChanges} translate={translate} />
           <AvailabilityCard onChange={this.onAvailabilityChange} onSave={this.onProfileSave} onOpen={this.onOpenCard} revertChanges={this.onRevertChanges} />
         </Masonry>
       </Container>

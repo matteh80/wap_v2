@@ -5,9 +5,9 @@
   .sortableList {
 
     .card-block {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      //white-space: nowrap;
+      //overflow-x: hidden;
+      //text-overflow: ellipsis;
 
       .trashcan {
         opacity:0;
@@ -25,7 +25,7 @@
       }
 
       &:hover {
-        padding-right: 30px;
+        //padding-right: 30px;
         cursor: move;
 
         .trashcan {
