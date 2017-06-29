@@ -36,7 +36,7 @@ class Sidemenu extends React.Component {
   }
 
   componentWillReceiveProps (newProps) {
-    console.log(newProps)
+    // console.log(newProps)
     this.setState({
       employmentCount: newProps.employments.employments ? newProps.employments.employments.length : 0,
       educationCount: newProps.educations.educations ? newProps.educations.educations.length : 0,

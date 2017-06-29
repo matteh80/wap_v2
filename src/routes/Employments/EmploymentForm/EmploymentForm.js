@@ -20,19 +20,32 @@ import {
   Label,
   Input
 } from 'reactstrap'
+import { AvForm, AvGroup, AvField } from 'availity-reactstrap-validation'
 import StartEndDate from '../../../components/Misc/StartEndDate/StartEndDate'
 import ThreeDButton from '../../../components/buttons/ThreeDButton'
 
+let defaultValue
 class EmploymentForm extends React.Component {
   constructor (props) {
     super(props)
 
     let { dispatch } = this.props
+    let { occupations } = this.props.occupations
+    let categoryitem = occupations[0]
+    let item = occupations[0].occupations[0]
+
+    let occupationDefault = {
+      label: item.name + ' (' + categoryitem.name + ')',
+      value: item.id,
+      name: item.name,
+      id: item.id,
+      parent_name: categoryitem.name,
+    }
 
     this.state = {
       collapse: false,
       loadsave: false,
-      selectValue: null,
+      selectValue: occupationDefault,
       employment: {
         description: '',
         start_date: this.props.employment ? this.props.employment.start_date : moment().format('YYYY-MM-DD'),
@@ -121,16 +134,16 @@ class EmploymentForm extends React.Component {
     })
   }
 
-  _handleSubmit (e) {
-    e.preventDefault()
+  _handleSubmit (e, errors, values) {
+    this.setState({ errors, values })
 
-    let { dispatch } = this.props
-    dispatch(createEmployment(this.state.employment)).then(() => {
-      dispatch(getAllEmployments())
-      document.getElementById('employmentForm').reset()
-    }).catch((error) => {
-      alert(error)
-    })
+    if (errors.length === 0) {
+      let { dispatch } = this.props
+      dispatch(createEmployment(this.state.employment)).then(() => {
+        dispatch(getAllEmployments())
+        document.getElementById('employmentForm').reset()
+      })
+    }
   }
 
   toggleCollapse () {
@@ -151,17 +164,17 @@ class EmploymentForm extends React.Component {
         </CardHeader>
         <Collapse isOpen={this.state.collapse}>
           <CardBlock>
-            <Form id='employmentForm' onSubmit={(e) => this._handleSubmit(e)}>
-              <FormGroup>
+            <AvForm id='employmentForm' onSubmit={this._handleSubmit}>
+              <AvGroup>
                 <Label for='employer'>Företag *</Label>
-                <Input type='text' name='employer' id='employer' defaultValue={employment ? employment.employer : ''}
-                  ref={(input) => this.employer = input} onChange={this._handleInputChange} />
-              </FormGroup>
-              <FormGroup>
+                <AvField type='text' name='employer' id='employer' defaultValue={employment ? employment.employer : ''}
+                  ref={(input) => { this.employer = input }} onChange={this._handleInputChange} required />
+              </AvGroup>
+              <AvGroup>
                 <Label for='title'>Befattning *</Label>
-                <Input type='text' name='title' id='title' defaultValue={employment ? employment.title : ''}
-                  ref={(input) => this.title = input} onChange={this._handleInputChange} />
-              </FormGroup>
+                <AvField type='text' name='title' id='title' defaultValue={employment ? employment.title : ''}
+                  ref={(input) => { this.title = input }} onChange={this._handleInputChange} required />
+              </AvGroup>
               <FormGroup>
                 <Label for='occupation'>Yrkeskategori *</Label>
                 <Select
@@ -170,16 +183,17 @@ class EmploymentForm extends React.Component {
                   onChange={this._handleOccupationChange}
                   placeholder='Välj yrke'
                   value={this.state.selectValue}
+                  required
                 />
               </FormGroup>
               <StartEndDate withCurrent onChange={this._handleDateChange} />
               <FormGroup>
-                <Label for='description'>Jag bidrar / bidrog med *</Label>
+                <Label for='description'>Jag bidrar / bidrog med</Label>
                 <Input type='textarea' name='description' id='description' rows='4' defaultValue={employment ? employment.description : ''}
-                       ref={(input) => this.description = input} onChange={this._handleInputChange} />
+                  ref={(input) => { this.description = input }} onChange={this._handleInputChange} />
               </FormGroup>
               <ThreeDButton small>Lägg till anställning</ThreeDButton>
-            </Form>
+            </AvForm>
           </CardBlock>
         </Collapse>
       </Card>

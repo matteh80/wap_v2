@@ -10,8 +10,10 @@ import {
   CardBlock,
   CardHeader,
   CardTitle,
+  Row,
   Form,
   FormGroup,
+  UncontrolledTooltip
 } from 'reactstrap'
 
 class SkillForm extends React.Component {
@@ -70,16 +72,27 @@ class SkillForm extends React.Component {
 
   render () {
     let { userSkills } = this.props.skills
-    let chevronClass = classNames('fa pull-right', this.state.collapse ? 'fa-chevron-down' : 'fa-chevron-up')
+    let chevronClass = classNames('fa add-btn', this.state.collapse ? 'fa-chevron-down bg-orange' : 'fa-plus bg-green')
+    let newHeight = $('.skillItem .card').height()
 
     return (
-      <Card>
-        <CardHeader onClick={() => this.toggleCollapse()} className='add-items'>
-          <CardTitle className='pull-left'>Lägg till kompetens</CardTitle>
-          <i className={chevronClass} style={{ fontSize: 20 }} />
-        </CardHeader>
-        <Collapse isOpen={this.state.collapse}>
-          <CardBlock>
+      <Card className='fakeItem' style={{ minHeight: newHeight }}>
+
+        {/* <CardTitle className='pull-left'>Lägg till kompetens</CardTitle> */}
+        {/* <i className={chevronClass} style={{ fontSize: 20 }} /> */}
+
+        <div className='btn-wrapper'>
+          <UncontrolledTooltip placement='left' target='add-btn'>
+            Lägg till ny kompetens
+          </UncontrolledTooltip>
+          <i className={chevronClass} id='add-btn' onClick={() => this.toggleCollapse()} />
+        </div>
+
+        <CardBlock>
+          {!this.state.collapse ? <div className='fakeTitle' /> : <CardTitle>Ny kompetens</CardTitle>}
+          {!this.state.collapse && <div className='fakeSlider' />}
+
+          <Collapse isOpen={this.state.collapse}>
             <Form>
               <FormGroup>
                 {/* <Label for='skill'>Kompetens</Label> */}
@@ -93,8 +106,9 @@ class SkillForm extends React.Component {
                 />}
               </FormGroup>
             </Form>
-          </CardBlock>
-        </Collapse>
+          </Collapse>
+        </CardBlock>
+
       </Card>
     )
   }

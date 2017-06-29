@@ -12,4 +12,11 @@ if (cookies.get('token')) {
   }
 }
 
+instance.interceptors.request.use((config) => {
+  if (config.url[config.url.length - 1] !== '/') {
+    config.url += '/'
+  }
+  return config
+})
+
 export const apiClient = instance

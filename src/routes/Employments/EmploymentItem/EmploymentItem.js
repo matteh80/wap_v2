@@ -16,6 +16,9 @@ import {
   Input
 } from 'reactstrap'
 import StartEndDate from '../../../components/Misc/StartEndDate/StartEndDate'
+import Loader from '../../../components/Misc/Loader/Loader'
+
+let _ = require('lodash')
 
 class EmploymentItem extends React.Component {
   constructor (props) {
@@ -25,7 +28,8 @@ class EmploymentItem extends React.Component {
       editMode: false,
       employment: Object.assign({}, this.props.employment),
       occupations: [],
-      selectValue: this.props.employment.occupation
+      selectValue: this.props.employment.occupation,
+      loadsave: false
     }
 
     this._getStartEndDate = this._getStartEndDate.bind(this)
@@ -44,6 +48,14 @@ class EmploymentItem extends React.Component {
     }
   }
 
+  componentWillReceiveProps (newProps) {
+    if (_.isEqual(this.state.employment, newProps.employment) && this.state.loadsave) {
+      this.setState({
+        loadsave: false
+      })
+    }
+  }
+
   _getStartEndDate (startDate, endDate, current) {
     let moment = require('moment')
     moment.locale('sv-SE')
@@ -55,10 +67,18 @@ class EmploymentItem extends React.Component {
   }
 
   toggleEditMode () {
-    this.state.editMode && this.props.onChange(this.state.employment)
-    this.setState({
-      editMode: !this.state.editMode
-    })
+    if (this.state.editMode && !_.isEqual(this.state.employment, this.props.employment)) {
+      this.props.onChange(this.state.employment)
+      this.setState({
+        loadsave: true,
+        editMode: false,
+      })
+    } else {
+      this.setState({
+        loadsave: false,
+        editMode: !this.state.editMode,
+      })
+    }
   }
 
   revertChanges () {
@@ -163,17 +183,18 @@ class EmploymentItem extends React.Component {
         <div className='timeline-img' />
         <div className='timeline-content'>
           <Card>
+            <Loader active={this.state.loadsave} />
             <div className={wrapperClass}>
               <i className={editBtnClass} onClick={() => this.toggleEditMode()} />
               <i className='fa fa-mail-reply cancel-btn' onClick={() => this.revertChanges()} />
-              <i className='fa fa-times remove-btn' onClick={() => this.props.onRemove(employment.id)} />
+              <i className='fa fa-times remove-btn' onClick={(e) => this.props.onRemove(e, employment)} />
             </div>
             {!this.state.editMode &&
             <CardBlock>
               <CardTitle>{title}</CardTitle>
               <CardSubtitle>{employer}</CardSubtitle>
               <CardText>{description}</CardText>
-              <CardText>{this.getOccupationName()}</CardText>
+              <CardText className='occupationText'>{this.getOccupationName()}</CardText>
             </CardBlock>
           }
             {this.state.editMode &&

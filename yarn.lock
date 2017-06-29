@@ -241,6 +241,15 @@ autoprefixer@^6.3.1:
     postcss "^5.2.16"
     postcss-value-parser "^3.2.3"
 
+availity-reactstrap-validation@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/availity-reactstrap-validation/-/availity-reactstrap-validation-1.4.3.tgz#f8e87ac30a890369e6bcabd8a67e57758ace5754"
+  dependencies:
+    babel-polyfill "^6.13.0"
+    classnames "^2.2.3"
+    lodash "^4.17.4"
+    moment "^2.14.1"
+
 aws-sign2@~0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.6.0.tgz#14342dd38dbcc94d0e5b87d763cd63612c0e794f"
@@ -717,6 +726,14 @@ babel-plugin-transform-strict-mode@^6.24.1:
   dependencies:
     babel-runtime "^6.22.0"
     babel-types "^6.24.1"
+
+babel-polyfill@^6.13.0:
+  version "6.23.0"
+  resolved "https://registry.yarnpkg.com/babel-polyfill/-/babel-polyfill-6.23.0.tgz#8364ca62df8eafb830499f699177466c3b03499d"
+  dependencies:
+    babel-runtime "^6.22.0"
+    core-js "^2.4.0"
+    regenerator-runtime "^0.10.0"
 
 babel-preset-env@^1.4.0:
   version "1.4.0"
@@ -4031,7 +4048,7 @@ mocha@^3.2.0:
     mkdirp "0.5.1"
     supports-color "3.1.2"
 
-moment@^2.17.1, moment@^2.18.1:
+moment@^2.14.1, moment@^2.17.1, moment@^2.18.1:
   version "2.18.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
 

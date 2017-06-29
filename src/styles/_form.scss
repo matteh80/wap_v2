@@ -9,5 +9,15 @@
     font-family: $headings-font-family;
     font-size: 11px;
     color: #929db1;
+
+    &.error {
+      color: #d9534f;
+    }
+  }
+}
+
+.has-danger {
+  .Select .Select-control {
+    border-color: #d9534f;
   }
 }

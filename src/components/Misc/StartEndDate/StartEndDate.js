@@ -30,45 +30,49 @@ export default class StartEndDate extends React.Component {
 
   handleInputChange (date) {
     let that = this
-    let startDate = this.refs.start_date.state.selectedDate.format('YYYY-MM-DD')
-    let endDate = this.refs.end_date.state.selectedDate.format('YYYY-MM-DD')
+    if (this.refs.start_date.state.selectedDate && this.refs.end_date.state.selectedDate) {
+      let startDate = this.refs.start_date.state.selectedDate.format('YYYY-MM-DD')
+      let endDate = this.refs.end_date.state.selectedDate.format('YYYY-MM-DD')
 
-    this.setState({
-      startDate: startDate,
-      endDate: endDate
-    })
-
-    if (moment(endDate) >= moment(startDate)) {
-      $(this.refs.end_date_wrapper).find('input').removeClass('error')
       this.setState({
-        endError: false
+        startDate: startDate,
+        endDate: endDate
       })
+
+      if (moment(endDate) >= moment(startDate)) {
+        $(this.refs.end_date_wrapper).find('input').removeClass('error')
+        this.setState({
+          endError: false
+        })
+      } else {
+        $(this.refs.end_date_wrapper).find('input').addClass('error')
+        this.setState({
+          endError: true
+        })
+      }
+
+      if (moment() >= moment(startDate)) {
+        $(this.refs.start_date_wrapper).find('input').removeClass('error')
+        this.setState({
+          startError: false
+        })
+      } else {
+        $(this.refs.start_date_wrapper).find('input').addClass('error')
+        this.setState({
+          startError: true
+        })
+      }
+
+      this.setState({
+        hasError: this.state.startError || this.state.endError
+      })
+
+      setTimeout(function () {
+        that.props.onChange(startDate, endDate, that.state.startError || that.state.endError, that.state.current)
+      }, 500)
     } else {
-      $(this.refs.end_date_wrapper).find('input').addClass('error')
-      this.setState({
-        endError: true
-      })
+
     }
-
-    if (moment() >= moment(startDate)) {
-      $(this.refs.start_date_wrapper).find('input').removeClass('error')
-      this.setState({
-        startError: false
-      })
-    } else {
-      $(this.refs.start_date_wrapper).find('input').addClass('error')
-      this.setState({
-        startError: true
-      })
-    }
-
-    this.setState({
-      hasError: this.state.startError || this.state.endError
-    })
-
-    setTimeout(function () {
-      that.props.onChange(startDate, endDate, that.state.startError || that.state.endError, that.state.current)
-    }, 500)
   }
 
   handleCurrentChange (event) {
@@ -93,6 +97,15 @@ export default class StartEndDate extends React.Component {
   }
 
   render () {
+    let _self = this
+    let vStartDate = moment().endOf('month')
+    let validStart = function (current) {
+      return current.isBefore(vStartDate)
+    }
+    let validEnd = function (current) {
+      return current.isAfter(_self.state.startDate)
+    }
+
     return (
       <Row>
         <Col xs={12} sm={6}>
@@ -107,6 +120,7 @@ export default class StartEndDate extends React.Component {
                 required
                 dateFormat='YYYY-MM'
                 timeFormat={false}
+                isValidDate={validStart}
               />
               {this.state.startError &&
               <label id='start_date-error' className='error'>Startdatum får inte vara i framtiden</label>
@@ -126,6 +140,7 @@ export default class StartEndDate extends React.Component {
                 required
                 dateFormat='YYYY-MM'
                 timeFormat={false}
+                isValidDate={validEnd}
               />
               {this.state.endError &&
               <label id='end_date-error' className='error'>Slutdatum måste vara efter startdatum</label>
