@@ -12,6 +12,7 @@ import SkillSection from './components/SkillSection'
 import LanguageSection from './components/LanguageSection'
 import HeaderSection from './components/HeaderSection'
 import DrivingLicenseSection from './components/DrivingLicenseSection'
+import ResumeSection from './components/ResumeSection'
 
 let originalChildren = []
 
@@ -69,6 +70,7 @@ class Template1 extends React.Component {
         <div id='hiddenCV'>
           <Container fluid className='templateWrapper A4'>
             <HeaderSection profile={this.props.profile} />
+            <ResumeSection visible={this.props.resume} profile={this.props.profile} />
             <EmploymentSection employments={this.props.employments} />
             <SkillSection skills={this.props.skills} />
             <EducationSection educations={this.props.educations} />

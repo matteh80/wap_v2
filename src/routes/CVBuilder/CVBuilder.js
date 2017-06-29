@@ -5,10 +5,10 @@ import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
 import Masonry from 'react-masonry-component'
 import $ from 'jquery'
+import classNames from 'classnames'
 
 import {
   Container,
-  Row,
   Col,
   Card,
   CardHeader,
@@ -29,7 +29,8 @@ class CVBuilder extends React.Component {
       employments: Object.assign([], this.props.employments.employments),
       educations: Object.assign([], this.props.educations.educations),
       skills: Object.assign([], this.props.skills.userSkills),
-      languages: Object.assign([], this.props.languages.userLanguages)
+      languages: Object.assign([], this.props.languages.userLanguages),
+      resume: true
     }
 
     this.state.employments.sort(function (a, b) {
@@ -49,6 +50,7 @@ class CVBuilder extends React.Component {
     this.onEducationChange = this.onEducationChange.bind(this)
     this.onSkillChange = this.onSkillChange.bind(this)
     this.onLanguageChange = this.onLanguageChange.bind(this)
+    this.onResumeChange = this.onResumeChange.bind(this)
   }
 
   createPdf () {
@@ -181,6 +183,12 @@ class CVBuilder extends React.Component {
     })
   }
 
+  onResumeChange () {
+    this.setState({
+      resume: !this.state.resume
+    })
+  }
+
   render () {
     let {
       employments,
@@ -188,6 +196,8 @@ class CVBuilder extends React.Component {
       skills,
       languages,
     } = this.props
+
+    let chevronClass = classNames('fa pull-right', this.state.collapse ? 'fa-chevron-down' : 'fa-chevron-up')
 
     return (
       <Container fluid className='cvBuilder'>
@@ -199,10 +209,13 @@ class CVBuilder extends React.Component {
         >
           <Col xs={12} md={6} lg={4}>
             <Card>
-              <CardHeader>Anställningar</CardHeader>
+              <CardHeader>
+                Anställningar
+                {/*<i className={chevronClass} style={{ fontSize: 20 }} />*/}
+              </CardHeader>
               <CardBlock>
                 {employments.employments && employments.employments.map((employment) => {
-                  return <CheckboxItem item={employment} label={employment.title + ' / ' + employment.employer} onChange={this.onEmploymentChange} />
+                  return <CheckboxItem key={employment.id} item={employment} label={employment.title + ' / ' + employment.employer} onChange={this.onEmploymentChange} />
                 })}
               </CardBlock>
             </Card>
@@ -213,7 +226,7 @@ class CVBuilder extends React.Component {
               <CardHeader>Utbildningar</CardHeader>
               <CardBlock>
                 {educations.educations && educations.educations.map((education) => {
-                  return <CheckboxItem item={education} label={education.orientation + ' / ' + education.school} onChange={this.onEducationChange} />
+                  return <CheckboxItem key={education.id} item={education} label={education.orientation + ' / ' + education.school} onChange={this.onEducationChange} />
                 })}
               </CardBlock>
             </Card>
@@ -224,7 +237,7 @@ class CVBuilder extends React.Component {
               <CardHeader>Kompetenser</CardHeader>
               <CardBlock>
                 {skills.userSkills && skills.userSkills.map((skill) => {
-                  return <CheckboxItem item={skill} label={skill.name + ' / ' + skill.experience} onChange={this.onSkillChange} />
+                  return <CheckboxItem key={skill.id} item={skill} label={skill.name + ' / ' + skill.experience} onChange={this.onSkillChange} />
                 })}
               </CardBlock>
             </Card>
@@ -235,8 +248,20 @@ class CVBuilder extends React.Component {
               <CardHeader>Språk</CardHeader>
               <CardBlock>
                 {languages.userLanguages && languages.userLanguages.map((language) => {
-                  return <CheckboxItem item={language} label={language.name} onChange={this.onLanguageChange} />
+                  return <CheckboxItem key={language.id} item={language} label={language.name} onChange={this.onLanguageChange} />
                 })}
+              </CardBlock>
+            </Card>
+          </Col>
+
+          <Col xs={12} md={6} lg={4}>
+            <Card>
+              <CardHeader>
+                Resumé
+                {/*<i className={chevronClass} style={{ fontSize: 20 }} />*/}
+              </CardHeader>
+              <CardBlock>
+                <CheckboxItem label='Visa resumé / personlig info' checked={this.state.resume} onChange={this.onResumeChange} />
               </CardBlock>
             </Card>
           </Col>
@@ -250,6 +275,7 @@ class CVBuilder extends React.Component {
           languages={this.state.languages}
           drivinglicenses={this.props.drivinglicenses.userLicenses}
           profile={this.props.profile}
+          resume={this.state.resume}
         />
       </Container>
     )
