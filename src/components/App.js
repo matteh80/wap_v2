@@ -4,8 +4,7 @@ import { Provider } from 'react-redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { syncHistoryWithStore } from 'react-router-redux'
-import { addTranslation, setLanguages, setActiveLanguage, getActiveLanguage, getTranslate } from 'react-localize-redux'
-import $ from 'jquery'
+import { getActiveLanguage, getTranslate } from 'react-localize-redux'
 
 class App extends React.Component {
   static propTypes = {
@@ -17,13 +16,6 @@ class App extends React.Component {
     super (props)
 
     let { dispatch } = this.props
-    const globalJson = require('../assets/global.locale.json')
-    const profileJson = require('../assets/profile.locale.json')
-    const json = $.extend(globalJson, profileJson)
-
-    dispatch(setLanguages(['sv', 'en']))
-    dispatch(setActiveLanguage(this.props.currentLanguage))
-    dispatch(addTranslation(json))
   }
 
   shouldComponentUpdate () {
@@ -44,7 +36,7 @@ class App extends React.Component {
 
 const mapStateToProps = state => ({
   translate: getTranslate(state.localeReducer),
-  currentLanguage: getActiveLanguage(state.localeReducer) ? getActiveLanguage(state.localeReducer).code : 'sv',
+  currentLanguage: getActiveLanguage(state.localeReducer).code,
   ...state
 })
 

@@ -2,7 +2,6 @@ import React from 'react'
 
 import {
   Row,
-  Col,
 } from 'reactstrap'
 
 export default class ResumeSection extends React.Component {

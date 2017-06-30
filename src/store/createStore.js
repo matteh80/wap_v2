@@ -50,7 +50,6 @@ export default (initialState = {}) => {
           store.replaceReducer(reducers(store.asyncReducers))
         })
       }
-
       return store
     } catch (e) {
       reject(e)
@@ -62,4 +61,3 @@ export default (initialState = {}) => {
 }
 
 // export default createStore
-
