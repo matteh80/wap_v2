@@ -29,6 +29,7 @@ class Menuitem extends React.Component {
     let chevronClass = classnames('has-children fa', this.state.collapsed ? 'fa-chevron-down' : 'fa-chevron-left')
     let doneClass = classnames('icon-thumbnail', this.props.count === 0 && 'undone')
 
+
     return (
       <li className='menu-item-wrapper'>
         <Link to={this.props.to}

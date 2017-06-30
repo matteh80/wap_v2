@@ -22,7 +22,7 @@ class SkillForm extends React.Component {
 
     this.state = {
       selectValue: null,
-      collapse: !this.props.notEmpty
+      collapse: this.props.skills.userSkills.length === 0
     }
 
     this.toggleCollapse = this.toggleCollapse.bind(this)
@@ -78,9 +78,10 @@ class SkillForm extends React.Component {
     let { userSkills } = this.props.skills
     let chevronClass = classNames('fa add-btn', this.state.collapse ? 'fa-chevron-down bg-orange' : 'fa-plus bg-green')
     let newHeight = $('.skillItem .card').height()
+    let itemClass = classNames('fakeItem', this.state.collapse && 'fullOpacity')
 
     return (
-      <Card className='fakeItem' style={{ minHeight: newHeight }}>
+      <Card className={itemClass} style={{ minHeight: newHeight }}>
 
         <div className='btn-wrapper'>
           <UncontrolledTooltip placement='left' target='add-btn'>

@@ -10,8 +10,15 @@ For example:
 @import './variables/components';
 @import './themes/default';
 */
-@import url('https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:100,200,300,300i,400,400i,500,700');
+
+@import './variables/colors';
+@import './variables/variables';
+
+//@import url('https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500');
+//@import url('https://fonts.googleapis.com/css?family=Open+Sans:100,200,300,300i,400,400i,500,700');
+//@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
+//@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700');
 @import 'fonts/drivinglicense/styles.css';
 
 @import '~bootstrap/scss/bootstrap.scss';
@@ -23,9 +30,6 @@ For example:
 //@import '../../node_modules/react-image-crop/dist/ReactCrop.css';
 @import '../../node_modules/cropperjs/dist/cropper.min.css';
 @import '../../node_modules/react-datepicker/dist/react-datepicker.min.css';
-
-@import './variables/colors';
-@import './variables/variables';
 
 @import 'global';
 @import 'form';

@@ -16,7 +16,8 @@ class Sidemenu extends React.Component {
       languageCount: 0,
       motivationCount: 0,
       personalityCount: 0,
-      videoCount: 0
+      videoCount: 0,
+      referenceCount: 0
     }
   }
 
@@ -47,6 +48,7 @@ class Sidemenu extends React.Component {
       personalityCount: newProps.personalities.userPersonalities ? newProps.personalities.userPersonalities.length : 0,
       videoCount: newProps.wapfilm.video ? 1 : 0,
       drivinglicenseCount: newProps.drivinglicenses.userLicenses ? newProps.drivinglicenses.userLicenses.length : 0,
+      referenceCount: newProps.references.references ? newProps.references.references.length : 0,
     })
   }
 
@@ -65,6 +67,7 @@ class Sidemenu extends React.Component {
               <Menuitem to='/work/skills' icon='fa-flash' title={translate('sidemenu.skills')} count={this.state.skillCount} details={this.state.skillCount + ' kompetenser'} />
               <Menuitem to='/work/languages' icon='fa-comment' title={translate('sidemenu.languages')} count={this.state.languageCount} details={this.state.languageCount + ' språk'} />
               <Menuitem to='/work/drivinglicenses' icon='fa-car' title={translate('sidemenu.drivingLicenses')} count={this.state.drivinglicenseCount} details={this.state.drivinglicenseCount + ' körkort'} />
+              <Menuitem to='/work/references' icon='fa-address-book' title={translate('sidemenu.references')} count={this.state.referenceCount} details={translate('sidemenu.referencesCount', { count: this.state.referenceCount })} />
             </Menuitem>
             <Menuitem icon='fa-cloud' title='Passion'>
               <Menuitem to='/passion/occupations' icon='fa-briefcase' title='Befattningar' count={this.state.occupationCount} details={this.state.occupationCount + ' befattningar'} />

@@ -15,6 +15,7 @@ import Personalities from './Personalities/Personalities'
 import WapFilm from './WapFilm/WapFilm'
 import CVBuilder from './CVBuilder/CVBuilder'
 import DrivingLicenses from './DrivingLicenses/DrivingLicenses'
+import References from './References/References'
 
 import 'pace-progress'
 
@@ -29,6 +30,7 @@ export const routes = (store) => (
         <Route path='/work/skills' component={Skills} name='Kompetenser' />
         <Route path='/work/languages' component={Languages} name='Språk' />
         <Route path='/work/drivinglicenses' component={DrivingLicenses} name='Körkort' />
+        <Route path='/work/references' component={References} name='Referenser' />
       </Route>
       <Route path='passion' name='Passion'>
         <Route path='/passion/occupations' component={Occupations} name='Befattningar' />
