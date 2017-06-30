@@ -1,0 +1,47 @@
+@import '../../styles/variables/colors';
+@import '../../styles/variables/variables';
+
+.dreamjobWrapper {
+  .bubble {
+    .speechBubble.left {
+      &:after {
+        right: -57px;
+        top: 12px;
+        border-width: 20px 30px;
+        border-color: transparent transparent transparent #fff;
+      }
+    }
+
+    .speechBubble.right {
+      &:after {
+        left: -57px;
+        top: 12px;
+        border-width: 20px 30px;
+        border-color: transparent #fff transparent transparent;
+      }
+    }
+
+    .speechBubble.top {
+      margin-top: 50px;
+      &:after {
+        left: 46%;
+        top: -57px;
+        border-width: 30px 20px;
+        border-color: transparent transparent #fff transparent;
+      }
+    }
+  }
+
+  .editable {
+    color: $pink;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .inlineEdit {
+    font-size: 1.75rem;
+    font-family: $headings-font-family;
+    display: inline-block;
+  }
+}

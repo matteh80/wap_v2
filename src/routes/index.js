@@ -16,6 +16,7 @@ import WapFilm from './WapFilm/WapFilm'
 import CVBuilder from './CVBuilder/CVBuilder'
 import DrivingLicenses from './DrivingLicenses/DrivingLicenses'
 import References from './References/References'
+import Dreamjob from './Dreamjob/Dreamjob'
 
 import 'pace-progress'
 
@@ -36,6 +37,7 @@ export const routes = (store) => (
         <Route path='/passion/occupations' component={Occupations} name='Befattningar' />
         <Route path='/passion/motivations' component={Motivations} name='Drivkrafter' />
         <Route path='/passion/personalities' component={Personalities} name='Personlighet' />
+        <Route path='/passion/dreamjob' component={Dreamjob} name='Drömjobb' />
       </Route>
       <Route path='/wapfilm' component={WapFilm} name='Wap film' />
       <Route path='/cvbuilder' component={CVBuilder} name='CV Builder' />

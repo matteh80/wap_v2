@@ -101,7 +101,7 @@ class ReferenceItem extends React.Component {
             <Col xs={12}>
               {reference.phone &&
               <Row className='align-items-center'>
-                <i className='fa fa-phone'/><a href={'tel:' + reference.phone}>{reference.phone}</a>
+                <i className='fa fa-phone' /><a href={'tel:' + reference.phone}>{reference.phone}</a>
               </Row>
               }
               <Row className='align-items-center'>

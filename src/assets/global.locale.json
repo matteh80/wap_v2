@@ -11,7 +11,9 @@
     "referencesCount": [
       "${ count } referenser",
       "${ count } references"
-    ]
+    ],
+    "dreamjob": ["Drömjob", "Dreamjob"],
+    "whats_your_dreamjob": ["Vad är ditt drömjobb?", "What's your dream job?"]
   },
   "header": {
     "logout": ["Logga ut", "Log out"]

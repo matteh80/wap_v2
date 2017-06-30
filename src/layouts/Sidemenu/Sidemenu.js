@@ -73,6 +73,7 @@ class Sidemenu extends React.Component {
               <Menuitem to='/passion/occupations' icon='fa-briefcase' title='Befattningar' count={this.state.occupationCount} details={this.state.occupationCount + ' befattningar'} />
               <Menuitem to='/passion/motivations' icon='fa-road' title='Drivkrafter' count={this.state.motivationCount} details={this.state.motivationCount + ' drivkrafter'} />
               <Menuitem to='/passion/personalities' icon='fa-user-circle' title='Personlighet' count={this.state.personalityCount} details={this.state.personalityCount + ' personlighetsdrag'} />
+              <Menuitem to='/passion/dreamjob' icon='fa-rocket' title='Drömjobb' details={translate('sidemenu.whats_your_dreamjob')} />
             </Menuitem>
             <hr />
             <Menuitem to='/wapfilm' icon='fa-video-camera' title='Wap film' count={this.state.videoCount}
