@@ -1,3 +1,5 @@
+$white_btn: #ededed;
+
 .wapbutton {
   border-radius: 30px;
   overflow: hidden;
@@ -85,6 +87,18 @@
     }
     &:active {
       box-shadow: 0 2px 0 darken($brand-danger, 15%);
+    }
+  }
+
+  &.btn-white {
+    background: linear-gradient(to bottom, lighten($white_btn, 5%) 0%,lighten($white_btn, 0%) 100%);
+    box-shadow: 0 4px 0 darken($white_btn, 10%), 0 4px 7px rgba(0, 0, 0, .35);
+    color: #000;
+    &:hover {
+      background: linear-gradient(to bottom, lighten($white_btn, 10%) 0%,lighten($white_btn, 3%) 100%);
+    }
+    &:active {
+      box-shadow: 0 2px 0 darken($white_btn, 15%);
     }
   }
 

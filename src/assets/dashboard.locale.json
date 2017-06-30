@@ -1,0 +1,11 @@
+{
+  "testcard": {
+    "title": ["Personlighetstest", "Personality test"],
+    "start_test": ["Starta testet", "Start test"]
+  },
+  "recruitercard": {
+    "title": ["Personlig rekryterare", "Personal recruiter"],
+    "subtitle": ["Din hjälp till drömjobbet", "Your help for your dream job"],
+    "btn_text": ["Ansök", "Apply"]
+  }
+}

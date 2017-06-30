@@ -11,13 +11,17 @@ async function init () {
   const store = await createStore(window.__INITIAL_STATE__)
 
   if (store.getState().localeReducer.languages.length === 0) {
-    const globalJson = require('./assets/global.locale.json')
-    const profileJson = require('./assets/profile.locale.json')
-    const json = $.extend(globalJson, profileJson)
-
     store.dispatch(setLanguages(['sv', 'en']))
-    store.dispatch(addTranslation(json))
   }
+  const globalJson = require('./assets/global.locale.json')
+  const profileJson = require('./assets/profile.locale.json')
+  const dashboardJson = require('./assets/dashboard.locale.json')
+  const json = $.extend(
+    globalJson,
+    profileJson,
+    dashboardJson,
+  )
+  store.dispatch(addTranslation(json))
 
 // Render Setup
 // ------------------------------------

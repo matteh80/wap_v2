@@ -15,13 +15,14 @@ class TestCard extends React.Component {
   }
 
   render () {
+    let { translate } = this.props
     return (
       <Card style={{ background: '#ffd55c url("img/test_graphics.png")' }}>
         <CardBlock>
-          <CardTitle>Personlighetstest</CardTitle>
+          <CardTitle>{translate('testcard.title')}</CardTitle>
           <CardSubtitle>TalentQ</CardSubtitle>
           <CardText>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquam lorem et ligula finibus, a euismod dolor posuere. Praesent et enim at eros tristique interdum. Praesent volutpat non velit vel bibendum.</CardText>
-          <ThreeDButton small>Starta testet</ThreeDButton>
+          <ThreeDButton className='btn-white' small>{translate('testcard.start_test')}</ThreeDButton>
         </CardBlock>
       </Card>
     )

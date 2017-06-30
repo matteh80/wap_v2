@@ -27,6 +27,8 @@ export default class Dashboard extends React.Component {
       display: 'flex'
     }
 
+    let { translate } = this.props
+
     return (
       <Masonry
         options={masonryOptions}
@@ -36,11 +38,11 @@ export default class Dashboard extends React.Component {
       >
 
         <Col xs={12} sm={6} lg={4} xl={3}>
-          <TestCard />
+          <TestCard translate={translate} />
         </Col>
 
         <Col xs={12} sm={6} lg={4} xl={3}>
-          <RecruiterCard />
+          <RecruiterCard translate={translate} />
         </Col>
 
       </Masonry>

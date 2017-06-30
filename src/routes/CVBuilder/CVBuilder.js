@@ -207,7 +207,7 @@ class CVBuilder extends React.Component {
             this.masonry = this.masonry || c.masonry
           }.bind(this)}
         >
-          <Col xs={12} md={6} lg={4}>
+          <Col xs={12} md={6} lg={4} xl={3}>
             <Card>
               <CardHeader>
                 Anställningar
@@ -221,7 +221,7 @@ class CVBuilder extends React.Component {
             </Card>
           </Col>
 
-          <Col xs={12} md={6} lg={4}>
+          <Col xs={12} md={6} lg={4} xl={3}>
             <Card>
               <CardHeader>Utbildningar</CardHeader>
               <CardBlock>
@@ -232,7 +232,7 @@ class CVBuilder extends React.Component {
             </Card>
           </Col>
 
-          <Col xs={12} md={6} lg={4}>
+          <Col xs={12} md={6} lg={4} xl={3}>
             <Card>
               <CardHeader>Kompetenser</CardHeader>
               <CardBlock>
@@ -243,7 +243,7 @@ class CVBuilder extends React.Component {
             </Card>
           </Col>
 
-          <Col xs={12} md={6} lg={4}>
+          <Col xs={12} md={6} lg={4} xl={3}>
             <Card>
               <CardHeader>Språk</CardHeader>
               <CardBlock>
@@ -254,7 +254,7 @@ class CVBuilder extends React.Component {
             </Card>
           </Col>
 
-          <Col xs={12} md={6} lg={4}>
+          <Col xs={12} md={6} lg={4} xl={3}>
             <Card>
               <CardHeader>
                 Resumé
