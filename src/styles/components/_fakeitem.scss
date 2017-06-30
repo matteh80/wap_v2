@@ -4,6 +4,10 @@ $fakegray: #dcdcdc;
   opacity: 0.5;
   transition: opacity 250ms;
 
+  &.fullOpacity {
+    opacity: 1;
+  }
+
   &:hover {
     opacity: 1;
   }

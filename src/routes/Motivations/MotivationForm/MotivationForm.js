@@ -8,11 +8,10 @@ import classNames from 'classnames'
 import {
   Card,
   CardBlock,
-  CardHeader,
   CardTitle,
+  UncontrolledTooltip,
   Form,
   FormGroup,
-  Label,
   Collapse
 } from 'reactstrap'
 
@@ -21,10 +20,9 @@ class MotivationForm extends React.Component {
     super(props)
 
     let { dispatch } = this.props
-
     this.state = {
       selectValue: null,
-      collapse: !this.props.notEmpty
+      collapse: this.props.motivations.userMotivations.length === 0
     }
 
     this.props.motivations.length === 0 && dispatch(getAllMotivations())
@@ -70,16 +68,23 @@ class MotivationForm extends React.Component {
   }
 
   render () {
-    let chevronClass = classNames('fa pull-right', this.state.collapse ? 'fa-chevron-down' : 'fa-chevron-up')
+    let chevronClass = classNames('fa add-btn', this.state.collapse ? 'fa-chevron-down bg-orange' : 'fa-plus bg-green')
+    let newHeight = $('.occupationItem .card').height()
+    let itemClass = classNames('fakeItem', this.state.collapse && 'fullOpacity')
 
     return (
-      <Card>
-        <CardHeader onClick={() => this.toggleCollapse()} className='add-items'>
-          <CardTitle className='pull-left'>Lägg till drivkrafter</CardTitle>
-          <i className={chevronClass} style={{ fontSize: 20 }} />
-        </CardHeader>
-        <Collapse isOpen={this.state.collapse}>
-          <CardBlock>
+      <Card className={itemClass} style={{ minHeight: newHeight }}>
+        <div className='btn-wrapper'>
+          <UncontrolledTooltip placement='left' target='add-btn'>
+            Lägg till ny befattning
+          </UncontrolledTooltip>
+          <i className={chevronClass} id='add-btn' onClick={() => this.toggleCollapse()} />
+        </div>
+
+        <CardBlock>
+          {!this.state.collapse && <div className='fakeTitle mb-0 mr-1' style={{ width: 20, height: 16, float: 'left' }} />}
+          {!this.state.collapse ? <div className='fakeTitle mb-0' style={{ float: 'left', height: 16 }} /> : <CardTitle>Ny drivkraft</CardTitle>}
+          <Collapse isOpen={this.state.collapse}>
             <Form>
               <FormGroup>
                 <Select
@@ -91,8 +96,8 @@ class MotivationForm extends React.Component {
                 />
               </FormGroup>
             </Form>
-          </CardBlock>
-        </Collapse>
+          </Collapse>
+        </CardBlock>
       </Card>
     )
   }

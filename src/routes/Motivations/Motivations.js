@@ -17,7 +17,7 @@ import ThreeDButton from '../../components/buttons/ThreeDButton'
 
 const DragHandle = SortableHandle(() => <i className='fa fa-bars dragHandle' />)
 
-const SortableList = SortableContainer(({ items, onRemove }) => {
+const SortableList = SortableContainer(({ items, onRemove, onAdd }) => {
   return (
     <Masonry
       onClick={this.handleClick}
@@ -27,9 +27,12 @@ const SortableList = SortableContainer(({ items, onRemove }) => {
       }.bind(this)}
     >
       {items.map((item, index) => {
-          return <SortableItem key={`item-${index}`} mIndex={index} index={index} id={item.id} value={index + 1 + '. ' + item.name} onRemove={onRemove} />
-        }
+        return <SortableItem key={`item-${index}`} mIndex={index} index={index} id={item.id} value={index + 1 + '. ' + item.name} onRemove={onRemove} />
+      }
       )}
+      <Col xs={12} sm={6} md={4} xl={3}>
+        <MotivationForm onAdd={onAdd} />
+      </Col>
     </Masonry>
   )
 })
@@ -41,7 +44,9 @@ const SortableItem = SortableElement(({ value, index, onRemove, id, mIndex }) =>
         <CardBlock>
           <DragHandle />
           {value}
-          <i className='fa fa-trash trashcan' onClick={() => onRemove(mIndex)} />
+          <div className='btn-wrapper'>
+            <i className='fa fa-times remove-btn' onClick={() => onRemove(mIndex)} />
+          </div>
         </CardBlock>
       </Card>
     </Col>
@@ -54,7 +59,8 @@ class Motivations extends React.Component {
 
     this.state = {
       items: this.props.motivations.userMotivations ? this.props.motivations.userMotivations : [],
-      changes: false
+      changes: false,
+      originalItems: this.props.motivations.userMotivations ? Object.assign([], this.props.motivations.userMotivations) : []
     }
 
     let { dispatch } = this.props
@@ -93,14 +99,12 @@ class Motivations extends React.Component {
 
   _saveToServer () {
     let { dispatch } = this.props
-    dispatch(saveMotivationsToServer(this.state.items)).then(() => {
-      this.setState({ changes: false })
-    })
+    dispatch(saveMotivationsToServer(this.state.items))
   }
 
   _revertChanges () {
     this.setState({
-      items: this.props.motivations.userMotivations ? this.props.motivations.userMotivations : [],
+      items: this.state.originalItems,
       changes: false
     })
   }
@@ -111,17 +115,21 @@ class Motivations extends React.Component {
     }
   }
 
+  componentDidUpdate (prevProps, prevState) {
+    if (this.state.items !== prevState.items) {
+      this._saveToServer()
+    }
+    if (this.state.items === this.state.originalItems && this.state.changes) {
+      this.setState({ changes: false })
+    }
+  }
+
   render () {
     let { userMotivations } = this.props.motivations
     let notEmpty = userMotivations && userMotivations.length > 0
 
     return (
       <Container fluid>
-        <Row>
-          <Col xs={12} sm={12} md={6} xl={5}>
-            <MotivationForm onAdd={this.onAdd} notEmpty={notEmpty} />
-          </Col>
-        </Row>
         <Row>
           <Col xs={12}>
             <div className='sortableWrapper'>
@@ -134,14 +142,16 @@ class Motivations extends React.Component {
                 onSortStart={this.onSortStart}
                 onSortEnd={this.onSortEnd}
                 onRemove={this.onRemove}
+                onAdd={this.onAdd}
               />}
             </div>
           </Col>
         </Row>
         <Row>
           <Col>
-            {this.state.changes && <ThreeDButton small onClick={() => this._saveToServer()}>Spara</ThreeDButton>}
-            {this.state.changes && <ThreeDButton small className='cancel-btn' onClick={() => this._revertChanges()}>Ångra</ThreeDButton>}
+            {this.state.changes && <ThreeDButton small className='cancel-btn' onClick={() => this._revertChanges()}>
+              <i className='fa fa-mail-reply' />
+            </ThreeDButton>}
           </Col>
         </Row>
       </Container>

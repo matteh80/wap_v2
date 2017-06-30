@@ -13,6 +13,7 @@ import {
   Card,
   CardBlock
 } from 'reactstrap'
+import ThreeDButton from '../../components/buttons/ThreeDButton'
 
 const DragHandle = SortableHandle(() => <i className='fa fa-bars dragHandle' />)
 
@@ -43,7 +44,9 @@ const SortableItem = SortableElement(({ value, index, onRemove, id, mIndex }) =>
         <CardBlock>
           <DragHandle />
           {value}
-          <i className='fa fa-trash trashcan' onClick={() => onRemove(mIndex)} />
+          <div className='btn-wrapper'>
+            <i className='fa fa-times remove-btn' onClick={() => onRemove(mIndex)} />
+          </div>
         </CardBlock>
       </Card>
     </Col>
@@ -56,7 +59,8 @@ class Occupations extends React.Component {
 
     this.state = {
       items: this.props.occupations.userOccupations ? this.props.occupations.userOccupations : [],
-      changes: false
+      changes: false,
+      originalItems: this.props.occupations.userOccupations ? Object.assign([], this.props.occupations.userOccupations) : [],
     }
 
     let { dispatch } = this.props
@@ -95,14 +99,12 @@ class Occupations extends React.Component {
 
   _saveToServer () {
     let { dispatch } = this.props
-    dispatch(saveOccupationsToServer(this.state.items)).then(() => {
-      this.setState({ changes: false })
-    })
+    dispatch(saveOccupationsToServer(this.state.items))
   }
 
   _revertChanges () {
     this.setState({
-      items: this.props.occupations.userOccupations ? this.props.occupations.userOccupations : [],
+      items: this.state.originalItems,
       changes: false
     })
   }
@@ -116,6 +118,9 @@ class Occupations extends React.Component {
   componentDidUpdate (prevProps, prevState) {
     if (this.state.items !== prevState.items) {
       this._saveToServer()
+    }
+    if (this.state.items === this.state.originalItems && this.state.changes) {
+      this.setState({ changes: false })
     }
   }
 
@@ -140,6 +145,13 @@ class Occupations extends React.Component {
                 onAdd={this.onAdd}
               />}
             </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            {this.state.changes && <ThreeDButton small className='cancel-btn' onClick={() => this._revertChanges()}>
+              <i className='fa fa-mail-reply' />
+            </ThreeDButton>}
           </Col>
         </Row>
       </Container>

@@ -17,7 +17,7 @@ import ThreeDButton from '../../components/buttons/ThreeDButton'
 
 const DragHandle = SortableHandle(() => <i className='fa fa-bars dragHandle' />)
 
-const SortableList = SortableContainer(({ items, onRemove }) => {
+const SortableList = SortableContainer(({ items, onRemove, onAdd }) => {
   return (
     <Masonry
       onClick={this.handleClick}
@@ -27,21 +27,26 @@ const SortableList = SortableContainer(({ items, onRemove }) => {
       }.bind(this)}
     >
       {items.map((item, index) => {
-          return <SortableItem key={`item-${index}`} mIndex={index} index={index} id={item.id} value={index + 1 + '. ' + item.name} onRemove={onRemove} />
-        }
+        return <SortableItem key={`item-${index}`} mIndex={index} index={index} id={item.id} value={index + 1 + '. ' + item.name} onRemove={onRemove} />
+      }
       )}
+      <Col xs={12} sm={6} md={4} xl={3}>
+        <PersonalityForm onAdd={onAdd} />
+      </Col>
     </Masonry>
   )
 })
 
 const SortableItem = SortableElement(({ value, index, onRemove, id, mIndex }) => {
   return (
-    <Col xs={12} sm={6} md={4} xl={3}>
+    <Col xs={12} sm={6} md={4} xl={3} className='personalityItem'>
       <Card>
         <CardBlock>
           <DragHandle />
           {value}
-          <i className='fa fa-trash trashcan' onClick={() => onRemove(mIndex)} />
+          <div className='btn-wrapper'>
+            <i className='fa fa-times remove-btn' onClick={() => onRemove(mIndex)} />
+          </div>
         </CardBlock>
       </Card>
     </Col>
@@ -54,7 +59,8 @@ class Personalities extends React.Component {
 
     this.state = {
       items: this.props.personalities.userPersonalities ? this.props.personalities.userPersonalities : [],
-      changes: false
+      changes: false,
+      originalItems: this.props.personalities.userPersonalities ? Object.assign([], this.props.personalities.userPersonalities) : []
     }
 
     let { dispatch } = this.props
@@ -93,14 +99,12 @@ class Personalities extends React.Component {
 
   _saveToServer () {
     let { dispatch } = this.props
-    dispatch(savePersonalitiesToServer(this.state.items)).then(() => {
-      this.setState({ changes: false })
-    })
+    dispatch(savePersonalitiesToServer(this.state.items))
   }
 
   _revertChanges () {
     this.setState({
-      items: this.props.personalities.userPersonalities ? this.props.personalities.userPersonalities : [],
+      items: this.state.originalItems,
       changes: false
     })
   }
@@ -108,6 +112,15 @@ class Personalities extends React.Component {
   componentWillUpdate (nextProps, nextState) {
     if (this.state.items !== nextState.items) {
       this.setState({ changes: true })
+    }
+    if (nextState.items === this.state.originalItems && this.state.changes) {
+      this.setState({ changes: false })
+    }
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    if (this.state.items !== prevState.items) {
+      this._saveToServer()
     }
   }
 
@@ -117,11 +130,6 @@ class Personalities extends React.Component {
 
     return (
       <Container fluid>
-        <Row>
-          <Col xs={12} sm={12} md={6} xl={5}>
-            <PersonalityForm onAdd={this.onAdd} notEmpty={notEmpty} />
-          </Col>
-        </Row>
         <Row>
           <Col xs={12}>
             <div className='sortableWrapper'>
@@ -134,14 +142,16 @@ class Personalities extends React.Component {
                 onSortStart={this.onSortStart}
                 onSortEnd={this.onSortEnd}
                 onRemove={this.onRemove}
+                onAdd={this.onAdd}
               />}
             </div>
           </Col>
         </Row>
         <Row>
           <Col>
-            {this.state.changes && <ThreeDButton small onClick={() => this._saveToServer()}>Spara</ThreeDButton>}
-            {this.state.changes && <ThreeDButton small className='cancel-btn' onClick={() => this._revertChanges()}>Ångra</ThreeDButton>}
+            {this.state.changes && <ThreeDButton small className='cancel-btn' onClick={() => this._revertChanges()}>
+              <i className='fa fa-mail-reply' />
+            </ThreeDButton>}
           </Col>
         </Row>
       </Container>

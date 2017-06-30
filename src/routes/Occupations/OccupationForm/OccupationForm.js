@@ -23,7 +23,7 @@ class OccupationForm extends React.Component {
 
     this.state = {
       selectValue: null,
-      collapse: false
+      collapse: this.props.occupations.userOccupations.length === 0
     }
 
     this.props.occupations.length === 0 && dispatch(getAllOccupations())
@@ -74,9 +74,10 @@ class OccupationForm extends React.Component {
   render () {
     let chevronClass = classNames('fa add-btn', this.state.collapse ? 'fa-chevron-down bg-orange' : 'fa-plus bg-green')
     let newHeight = $('.occupationItem .card').height()
+    let itemClass = classNames('fakeItem', this.state.collapse && 'fullOpacity')
 
     return (
-      <Card className='fakeItem' style={{ minHeight: newHeight }}>
+      <Card className={itemClass} style={{ minHeight: newHeight }}>
         <div className='btn-wrapper'>
           <UncontrolledTooltip placement='left' target='add-btn'>
             Lägg till ny befattning
@@ -85,7 +86,8 @@ class OccupationForm extends React.Component {
         </div>
 
         <CardBlock>
-          {!this.state.collapse ? <div className='fakeTitle mb-0' /> : <CardTitle>Ny kompetens</CardTitle>}
+          {!this.state.collapse && <div className='fakeTitle mb-0 mr-1' style={{ width: 20, height: 16, float: 'left' }} />}
+          {!this.state.collapse ? <div className='fakeTitle mb-0' style={{ float: 'left', height: 16 }} /> : <CardTitle>Ny kompetens</CardTitle>}
           <Collapse isOpen={this.state.collapse}>
             <Form>
               <FormGroup>

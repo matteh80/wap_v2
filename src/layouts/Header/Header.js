@@ -84,6 +84,11 @@ class Header extends React.Component {
 
             <DropdownMenu>
               <DropdownItem onClick={(e) => this.handleLogout(e)}>{translate('header.logout')}</DropdownItem>
+              <DropdownItem>
+                <div className='locale pull-right' onClick={() => this.toggleLocale()}>
+                  <img src={'/img/locale_' + this.props.currentLanguage + '.png'} className='img-fluid' style={{height: 20}} />
+                </div>
+              </DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </div>
