@@ -105,7 +105,7 @@ class Dreamjob extends React.Component {
             </Card>
           </Col>
 
-          <Col xs={12} md={4} className='bubble'>
+          <Col xs={12} md={4} className='bubble hidden-sm-down'>
             <Row className='justify-content-center'>
               <Col md={6}>
                 <ProfilePicture className='rounded-circle' />
