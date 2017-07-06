@@ -26,10 +26,10 @@ class PageLayout extends React.Component {
 
     return (
       <div>
-        <Sidemenu translate={translate} />
         <Header translate={translate} currentLanguage={currentLanguage} />
 
         <div className='container-fluid'>
+          <Sidemenu translate={translate} />
           <div className='page-layout__viewport'>
             <Breadcrumbs
               setDocumentTitle
