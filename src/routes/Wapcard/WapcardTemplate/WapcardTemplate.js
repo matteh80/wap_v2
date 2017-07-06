@@ -62,7 +62,7 @@ class WapcardTemplate extends React.Component {
           <Row>
             <ProfilePicture canvas />
           </Row>
-          <Row className='wpSection mt-0'>
+          <Row className='wpSection mt-4'>
             <Col xs={12}>
               <h4 className='sectionHeader'>
                 Personlighet
@@ -123,7 +123,7 @@ class WapcardTemplate extends React.Component {
             </Row>
           </div>
 
-          <Row className='wpSection mt-0'>
+          <Row className='wpSection mt-4'>
             <Col xs={12}>
               <h4 className='sectionHeader'>
                 Anställningar

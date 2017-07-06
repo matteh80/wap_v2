@@ -12,6 +12,9 @@ import { getAllEmployments } from '../../store/actions/employments'
 import { getAllEducations } from '../../store/actions/educations'
 
 import {
+  Card,
+  CardBlock,
+  CardTitle,
   Container,
   Row,
   Col
@@ -24,8 +27,11 @@ class Wapcard extends React.Component {
 
     this.state = {
       loadsave: true,
-      wapcard: null
+      wapcard: null,
+      creatingCanvas: false
     }
+
+    this.createCanvas = this.createCanvas.bind(this)
   }
 
   componentDidMount () {
@@ -39,14 +45,8 @@ class Wapcard extends React.Component {
       dispatch(getAllEducations())
     ]).then(() => {
       this.setState({
-        loadsave: false
-      })
-      html2canvas($('.wapcardTemplateWrapper'), {
-        imageTimeout: 2000,
-        onrendered: function (canvas) {
-          $('.wapPreviewWrapper').append(canvas)
-          $('.wapPreviewWrapper canvas').addClass('img-fluid wapPreviewCanvas')
-        }
+        loadsave: false,
+        creatingCanvas: true
       })
     }).catch((error) => {
       console.log(error)
@@ -56,13 +56,43 @@ class Wapcard extends React.Component {
     })
   }
 
+  componentDidUpdate (prevProps, prevState) {
+    if (!prevState.creatingCanvas && this.state.creatingCanvas) {
+      this.createCanvas()
+    }
+  }
+
+  createCanvas () {
+    $('.wapcardTemplateWrapper').addClass('creatingCanvas')
+
+    html2canvas($('.wapcardTemplateWrapper'), {
+      imageTimeout: 6000,
+      onrendered: function (canvas) {
+        $('.wapcardTemplateWrapper').removeClass('creatingCanvas')
+        $('.wapPreviewWrapper').append(canvas)
+        $('.wapPreviewWrapper canvas').addClass('img-fluid wapPreviewCanvas')
+      }
+    })
+  }
+
   render () {
+
+
     return (
       <Container fluid>
         <Row>
-          <Col xs={6}>
+          <Col xs={12} sm={12} md={12} lg={7}>
             <Loader active={this.state.loadsave} />
             <div className='wapPreviewWrapper' />
+          </Col>
+          <Col xs={12} sm={12} md={12} lg={5}>
+            <Card className='speechBubble'>
+              <CardBlock>
+                <CardTitle>Det här är ditt wap card</CardTitle>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam gravida nibh at nisi accumsan, quis luctus est euismod. Curabitur vel finibus leo. Phasellus maximus enim eget neque posuere aliquet. Aliquam id sem vitae justo semper suscipit. Nulla ullamcorper arcu urna, quis lacinia turpis scelerisque ac. Aliquam interdum nisi eget eros cursus finibus. Mauris tempus velit sem, et rutrum nulla vulputate vel. Maecenas magna nulla, rutrum at molestie eu, efficitur interdum augue.</p>
+                <p>Maecenas eu lacus imperdiet, molestie dolor nec, venenatis ipsum. Sed vitae posuere nunc. Cras vestibulum quam et diam viverra vulputate. Mauris a leo lectus. Morbi tempor imperdiet magna, vitae euismod ex imperdiet at. Nam a hendrerit quam. Nam accumsan metus sed turpis hendrerit viverra. </p>
+              </CardBlock>
+            </Card>
           </Col>
         </Row>
         <WapcardTemplate

@@ -6,6 +6,15 @@
   background: #fff;
   margin-bottom: 10mm;
   overflow: hidden;
+  position: fixed;
+  left: -2000px;
+  top: 0;
+
+  &.creatingCanvas {
+    position: relative;
+    left:0;
+    margin-top: 200vh;
+  }
 
   .leftCol {
     height:100%;
