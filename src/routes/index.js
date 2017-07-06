@@ -17,6 +17,7 @@ import CVBuilder from './CVBuilder/CVBuilder'
 import DrivingLicenses from './DrivingLicenses/DrivingLicenses'
 import References from './References/References'
 import Dreamjob from './Dreamjob/Dreamjob'
+import Wapcard from './Wapcard/Wapcard'
 
 import 'pace-progress'
 
@@ -41,6 +42,7 @@ export const routes = (store) => (
       </Route>
       <Route path='/wapfilm' component={WapFilm} name='Wap film' />
       <Route path='/cvbuilder' component={CVBuilder} name='CV Builder' />
+      <Route path='/wapcard' component={Wapcard} name='Wap card' />
     </Route>
     <Route path='/login' component={Login} name='Login' />
     <Route path='/login/facebook' component={Login} />

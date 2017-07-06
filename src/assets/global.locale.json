@@ -13,7 +13,8 @@
       "${ count } references"
     ],
     "dreamjob": ["Drömjob", "Dreamjob"],
-    "whats_your_dreamjob": ["Vad är ditt drömjobb?", "What's your dream job?"]
+    "whats_your_dreamjob": ["Vad är ditt drömjobb?", "What's your dream job?"],
+    "show_wapcard": ["Visa ditt wap card", "Show your wap card"]
   },
   "header": {
     "logout": ["Logga ut", "Log out"]

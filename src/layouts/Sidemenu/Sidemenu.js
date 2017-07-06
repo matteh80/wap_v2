@@ -80,6 +80,7 @@ class Sidemenu extends React.Component {
               details={this.state.videoCount === 0 && 'Ladda upp en film'} />
             <Menuitem to='/personalitytest' icon='fa fa-bar-chart' title='Personlighetstest' />
             <hr />
+            <Menuitem to='/wapcard' icon='fa fa-vcard' title='wap card' details={translate('sidemenu.show_wapcard')} />
             <Menuitem to='/cvbuilder' icon='fa fa-file-text' title='CV Builder' details='Skapa ett CV' />
           </ul>
         </div>

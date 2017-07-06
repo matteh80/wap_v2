@@ -3409,13 +3409,19 @@ jodid25519@^1.0.0:
   dependencies:
     jsbn "~0.1.0"
 
+jquery-circle-progress@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/jquery-circle-progress/-/jquery-circle-progress-1.2.2.tgz#260e9130ac8e2b5572eaa7a93b9e8a6b27bc8eea"
+  dependencies:
+    jquery "*"
+
 jquery-validation@^1.16.0:
   version "1.16.0"
   resolved "https://registry.yarnpkg.com/jquery-validation/-/jquery-validation-1.16.0.tgz#b6e5277ebbd67c1fabab213eb4454eea8a3095ca"
   dependencies:
     jquery "^1.7 || ^2.0 || ^3.1"
 
-jquery@>=1.9.1, "jquery@^1.7 || ^2.0 || ^3.1", jquery@^3.2.1:
+jquery@*, jquery@>=1.9.1, "jquery@^1.7 || ^2.0 || ^3.1", jquery@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.2.1.tgz#5c4d9de652af6cd0a770154a631bba12b015c787"
 
@@ -5055,6 +5061,12 @@ react-breadcrumbs@^1.6.6:
   resolved "https://registry.yarnpkg.com/react-breadcrumbs/-/react-breadcrumbs-1.6.6.tgz#ae40617a4cfa12cbb78301847c65234d8bfa81f0"
   dependencies:
     exenv "^1.2.0"
+
+react-circular-progressbar@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/react-circular-progressbar/-/react-circular-progressbar-0.1.5.tgz#fbba63650af65cfcdcd9e0b34c23e89507721475"
+  dependencies:
+    prop-types "^15.5.10"
 
 react-cropper@^0.12.0:
   version "0.12.0"

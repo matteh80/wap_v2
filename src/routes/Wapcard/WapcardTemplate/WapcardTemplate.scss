@@ -1,0 +1,113 @@
+@import '../../../styles/variables/colors';
+
+.wapcardTemplateWrapper {
+  width:210mm;
+  height:297mm;
+  background: #fff;
+  margin-bottom: 10mm;
+  overflow: hidden;
+
+  .leftCol {
+    height:100%;
+    background: linear-gradient(to bottom, #74bfdc 0%, #49d2b7 100%) !important;
+    color: #fff;
+
+    .wpSection {
+      //margin-top: 50px;
+
+      .sectionHeader {
+        color: #fff;
+        text-transform: uppercase;
+        text-align: left;
+        position: relative;
+
+        &:after {
+          content: '';
+          width: 110%;
+          height: 1px;
+          background: #ffffff;
+          position: absolute;
+          bottom: 0;
+          left: -5%;
+        }
+      }
+    }
+  }
+  
+  .rightCol {
+    color: #333333;
+
+    .profileInfo {
+      h2, h3 {
+        text-transform: uppercase;
+      }
+
+      .fa {
+        color: $themeColor;
+        width:20px;
+        text-align: center;
+      }
+    }
+
+    .wpSection {
+      //margin-top: 50px;
+
+      .sectionHeader {
+        color: #333333;
+        text-transform: uppercase;
+        text-align: left;
+        position: relative;
+
+        &:after {
+          content: '';
+          width: 100%;
+          height: 1px;
+          background: #333333;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+        }
+      }
+
+      .skillCircle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .percentValue {
+          position: absolute;
+          margin-top:-10px;
+        }
+      }
+
+      .timeline-item {
+        position: relative;
+        padding-left: 20px;
+
+        &:before {
+          content: '';
+          background: lighten($themeColor, 15%);
+          width: 2px;
+          height: 100%;
+          position: absolute;
+          left: 20px;
+        }
+
+        h5 {
+          position: relative;
+
+          &:before {
+            content: "";
+            background: #248fb8;
+            width: 13px;
+            height: 13px;
+            position: absolute;
+            left: -20px;
+            top: 4px;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+  }
+}

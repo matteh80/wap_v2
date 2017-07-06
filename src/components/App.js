@@ -12,12 +12,6 @@ class App extends React.Component {
     routes: PropTypes.object.isRequired,
   }
 
-  constructor (props) {
-    super (props)
-
-    let { dispatch } = this.props
-  }
-
   shouldComponentUpdate () {
     return false
   }
@@ -41,7 +35,3 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(App)
-
-const colors = {
-  blue: '#248fb8'
-}
