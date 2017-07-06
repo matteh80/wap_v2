@@ -63,11 +63,13 @@ class Wapcard extends React.Component {
   }
 
   createCanvas () {
+    let _self = this
     $('.wapcardTemplateWrapper').addClass('creatingCanvas')
 
     html2canvas($('.wapcardTemplateWrapper'), {
       imageTimeout: 6000,
       onrendered: function (canvas) {
+        _self.setState({ creatingCanvas: false })
         $('.wapcardTemplateWrapper').removeClass('creatingCanvas')
         $('.wapPreviewWrapper').append(canvas)
         $('.wapPreviewWrapper canvas').addClass('img-fluid wapPreviewCanvas')
@@ -77,13 +79,12 @@ class Wapcard extends React.Component {
 
   render () {
 
-
     return (
       <Container fluid>
-        <Row>
+        <Row className='flex-column-reverse flex-lg-row'>
           <Col xs={12} sm={12} md={12} lg={7}>
             <Loader active={this.state.loadsave} />
-            <div className='wapPreviewWrapper' />
+            <div className='wapPreviewWrapper mb-4' />
           </Col>
           <Col xs={12} sm={12} md={12} lg={5}>
             <Card className='speechBubble'>

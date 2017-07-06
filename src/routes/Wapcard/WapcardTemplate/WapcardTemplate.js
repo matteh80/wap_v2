@@ -1,7 +1,6 @@
 import React from 'react'
 import './WapcardTemplate.scss'
 import ProfilePicture from '../../../components/Misc/ProfilePicture/ProfilePicture'
-import CircularProgressbar from 'react-circular-progressbar'
 import $ from 'jquery'
 import 'jquery-circle-progress'
 

@@ -13,6 +13,7 @@
   &.speechBubble {
     position: relative;
     box-shadow: none;
+    margin-bottom: 80px;
     &:after {
       content: "";
       position: absolute;
