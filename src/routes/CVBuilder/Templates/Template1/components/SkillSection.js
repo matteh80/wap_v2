@@ -19,17 +19,16 @@ export default class SkillSection extends React.Component {
   render () {
     let { skills } = this.props
     return (
-      <section id='skills'>
-        <Row>
+      <section id='skills' className='row'>
+        <Col xs={12}>
           <Col xs={4} style={{ textAlign: 'right' }}>
             <h3 className='sectionTitle'>Top Skills</h3>
           </Col>
-        </Row>
-        <Row>
-          {skills && skills.map((skill) => {
-            return <CVSkillItem key={skill.id} skill={skill} />
-          })}
-        </Row>
+        </Col>
+
+        {skills && skills.map((skill) => {
+          return <CVSkillItem key={skill.id} skill={skill} />
+        })}
       </section>
     )
   }

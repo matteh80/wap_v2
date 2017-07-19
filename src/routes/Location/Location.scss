@@ -1,0 +1,14 @@
+.mapWrapper {
+  svg {
+    path {
+      vector-effect: non-scaling-stroke;
+      fill: rgb(255, 255, 255);
+      stroke: rgb(105, 105, 105);
+      transition: fill 250ms;
+
+      &:hover {
+        fill: rgb(156, 156, 156);
+      }
+    }
+  }
+}

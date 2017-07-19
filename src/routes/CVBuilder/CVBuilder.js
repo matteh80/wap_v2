@@ -30,7 +30,11 @@ class CVBuilder extends React.Component {
       educations: Object.assign([], this.props.educations.educations),
       skills: Object.assign([], this.props.skills.userSkills),
       languages: Object.assign([], this.props.languages.userLanguages),
-      resume: true
+      resume: true,
+      createPdf: false,
+      createPreview: false,
+      showTemplate: false,
+      showUpdatePreview: false
     }
 
     this.state.employments.sort(function (a, b) {
@@ -46,6 +50,8 @@ class CVBuilder extends React.Component {
     })
 
     this.createPdf = this.createPdf.bind(this)
+    this.preparePdf = this.preparePdf.bind(this)
+    this.createCanvas = this.createCanvas.bind(this)
     this.onEmploymentChange = this.onEmploymentChange.bind(this)
     this.onEducationChange = this.onEducationChange.bind(this)
     this.onSkillChange = this.onSkillChange.bind(this)
@@ -53,7 +59,34 @@ class CVBuilder extends React.Component {
     this.onResumeChange = this.onResumeChange.bind(this)
   }
 
+  componentDidUpdate (prevProps, prevState) {
+    let _self = this
+    if (!prevState.createPdf && this.state.createPdf) {
+      setTimeout(function () {
+        _self.createPdf()
+      }, 500)
+    }
+
+    if (!prevState.createPreview && this.state.createPreview) {
+      setTimeout(function () {
+        _self.createCanvas()
+      }, 500)
+    }
+
+    if (!prevState.showUpdatePreview && this.state.showUpdatePreview) {
+      $('.cvPreviewWrapper').empty()
+    }
+  }
+
+  preparePdf () {
+    this.setState({
+      createPdf: true,
+      showTemplate: true
+    })
+  }
+
   createPdf () {
+    let _self = this
     let promises = []
     let images = new Array($('.A4').length)
     let { profile } = this.props
@@ -64,7 +97,7 @@ class CVBuilder extends React.Component {
       a4 = [595.28, 841.89]  // for a4 size paper width and height
 
     $body.css('overflow', 'visible')
-    $content.appendTo('body')
+    // $content.appendTo('body')
 
     $content.css('visibility', 'visible')
     $body.scrollTop(0)
@@ -80,10 +113,9 @@ class CVBuilder extends React.Component {
         console.log(index)
         let promise = new Promise((resolve, reject) => {
           return html2canvas($(this), {
-            imageTimeout: 2000,
+            imageTimeout: 6000,
             onrendered: function (canvas) {
-              let img = canvas.toDataURL('image/jpg')
-              images[index] = img
+              images[index] = canvas.toDataURL('image/jpg')
               resolve('Valid')
               console.log('Valid')
             }
@@ -104,9 +136,7 @@ class CVBuilder extends React.Component {
           doc.addImage(image, 'JPEG', 0, 0)
         })
         doc.save('cv_' + profile.first_name + '_' + profile.last_name + '.pdf')
-        $body.css('overflow-x', 'hidden')
-        $content.css('width', 'auto')
-        $content.appendTo('#cvWrapper')
+        _self.setState({ createPdf: false, showTemplate: false })
       })
     }
 
@@ -124,7 +154,8 @@ class CVBuilder extends React.Component {
     }
 
     this.setState({
-      languages: array
+      languages: array,
+      showUpdatePreview: true
     })
   }
 
@@ -139,7 +170,8 @@ class CVBuilder extends React.Component {
     }
 
     this.setState({
-      skills: array
+      skills: array,
+      showUpdatePreview: true
     })
   }
 
@@ -159,7 +191,8 @@ class CVBuilder extends React.Component {
     })
 
     this.setState({
-      educations: array
+      educations: array,
+      showUpdatePreview: true
     })
   }
 
@@ -179,13 +212,60 @@ class CVBuilder extends React.Component {
     })
 
     this.setState({
-      employments: array
+      employments: array,
+      showUpdatePreview: true
     })
   }
 
   onResumeChange () {
     this.setState({
-      resume: !this.state.resume
+      resume: !this.state.resume,
+      showUpdatePreview: true
+    })
+  }
+
+  createCanvas () {
+    console.log('create canvas')
+    let _self = this
+    let promises = []
+    let images = []
+
+    $.each($('.A4'), function (index, elem) {
+      console.log(index)
+      let promise = new Promise((resolve, reject) => {
+        return html2canvas($(this), {
+          imageTimeout: 6000,
+          onrendered: function (canvas) {
+            images[index] = canvas
+            resolve('Valid')
+            console.log('Valid')
+          }
+        })
+          .catch(err => {
+            reject(err)
+          })
+      })
+      promises.push(promise)
+    })
+
+    Promise.all(promises).then((result) => {
+      images.forEach((image, index) => {
+        let carouselItem = $('<div class="carouselItem" />')
+        // if (index === 0) {
+        //   carouselItem = $('<div class="carousel-item active"></div>')
+        // }
+        $(image).addClass('img-fluid cvPreviewCanvas')
+        carouselItem.append(image)
+        $('.cvPreviewWrapper').append(carouselItem)
+      })
+      _self.setState({ createPreview: false, showTemplate: false })
+    })
+  }
+
+  componentDidMount () {
+    this.setState({
+      createPreview: true,
+      showTemplate: true
     })
   }
 
@@ -208,10 +288,16 @@ class CVBuilder extends React.Component {
           }.bind(this)}
         >
           <Col xs={12} md={6} lg={4} xl={3}>
+            <Card className='preview'>
+              <CardHeader>Preview</CardHeader>
+              <div className='cvPreviewWrapper' />
+            </Card>
+          </Col>
+          <Col xs={12} md={6} lg={4} xl={3}>
             <Card>
               <CardHeader>
                 Anställningar
-                {/*<i className={chevronClass} style={{ fontSize: 20 }} />*/}
+                {/* <i className={chevronClass} style={{ fontSize: 20 }} /> */}
               </CardHeader>
               <CardBlock>
                 {employments.employments && employments.employments.map((employment) => {
@@ -258,7 +344,7 @@ class CVBuilder extends React.Component {
             <Card>
               <CardHeader>
                 Resumé
-                {/*<i className={chevronClass} style={{ fontSize: 20 }} />*/}
+                {/* <i className={chevronClass} style={{ fontSize: 20 }} /> */}
               </CardHeader>
               <CardBlock>
                 <CheckboxItem label='Visa resumé / personlig info' checked={this.state.resume} onChange={this.onResumeChange} />
@@ -267,8 +353,8 @@ class CVBuilder extends React.Component {
           </Col>
 
         </Masonry>
-        <ThreeDButton onClick={() => this.createPdf()} text='Skapa PDF' loading={this.state.loadsave} />
-        <Template1
+        <ThreeDButton onClick={() => this.preparePdf()} text='Skapa PDF' loading={this.state.createPdf} />
+        {this.state.showTemplate && <Template1
           employments={this.state.employments}
           educations={this.state.educations}
           skills={this.state.skills}
@@ -276,7 +362,7 @@ class CVBuilder extends React.Component {
           drivinglicenses={this.props.drivinglicenses.userLicenses}
           profile={this.props.profile}
           resume={this.state.resume}
-        />
+        />}
       </Container>
     )
   }

@@ -18,17 +18,15 @@ export default class LanguageSection extends React.Component {
   render () {
     let { languages } = this.props
     return (
-      <section id='languages'>
-        <Row>
+      <section id='languages' className='row'>
+        <Col xs={12}>
           <Col xs={3} style={{ textAlign: 'right' }}>
             <h3 className='sectionTitle'>Språk</h3>
           </Col>
-        </Row>
-        <Row>
-          {languages && languages.map((language) => {
-            return <CVLanguageItem key={language.id} language={language} />
-          })}
-        </Row>
+        </Col>
+        {languages && languages.map((language) => {
+          return <CVLanguageItem key={language.id} language={language} />
+        })}
       </section>
     )
   }

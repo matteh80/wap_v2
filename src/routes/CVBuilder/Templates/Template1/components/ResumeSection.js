@@ -1,8 +1,5 @@
 import React from 'react'
-
-import {
-  Row,
-} from 'reactstrap'
+import $ from 'jquery'
 
 export default class ResumeSection extends React.Component {
   constructor (props) {
@@ -13,19 +10,30 @@ export default class ResumeSection extends React.Component {
     // this.setPicture(this.props.picPath)
   }
 
+  createMarkup (text) {
+    function str_replace_all (string, str_find, str_replace) {
+      try {
+        return string.replace(new RegExp(str_find, 'gi'), str_replace)
+      } catch (ex) { return string }
+    }
+
+    let mText = text.replace(/(\r\n|\r|\n){2,}/g, '$1\n')
+    mText = mText.replace(/(?:\r\n|\r|\n)/g, '<br />')
+
+    let to = mText
+    to = text.replace(/\n{2}/g, '&nbsp;</p><p>')
+    to = to.replace(/\n/g, '&nbsp;<br />')
+    to = '<p>' + to + '</p>'
+
+    return { __html: to }
+    // return { __html: text.replace(/(?:\r\n|\r|\n)/g, '<br />') }
+  }
+
   render () {
     let { profile } = this.props
-
+    $('blockquote').wrapInner('<p></p>')
     return (
-      <section>
-        {this.props.visible &&
-        <Row id='header' className='align-items-center'>
-            <blockquote>
-              {this.props.profile.personal_info}
-            </blockquote>
-        </Row>
-        }
-      </section>
+      <blockquote dangerouslySetInnerHTML={this.createMarkup(profile.personal_info)} />
     )
   }
 }
