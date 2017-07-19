@@ -6,6 +6,7 @@ import html2canvas from 'html2canvas'
 import Masonry from 'react-masonry-component'
 import $ from 'jquery'
 import classNames from 'classnames'
+import Slider from 'react-slick'
 
 import {
   Container,
@@ -34,7 +35,8 @@ class CVBuilder extends React.Component {
       createPdf: false,
       createPreview: false,
       showTemplate: false,
-      showUpdatePreview: false
+      showUpdatePreview: false,
+      images: []
     }
 
     this.state.employments.sort(function (a, b) {
@@ -74,7 +76,7 @@ class CVBuilder extends React.Component {
     }
 
     if (!prevState.showUpdatePreview && this.state.showUpdatePreview) {
-      $('.cvPreviewWrapper').empty()
+
     }
   }
 
@@ -220,7 +222,9 @@ class CVBuilder extends React.Component {
   onResumeChange () {
     this.setState({
       resume: !this.state.resume,
-      showUpdatePreview: true
+      showUpdatePreview: true,
+      showTemplate: true,
+      createPreview: true
     })
   }
 
@@ -249,16 +253,20 @@ class CVBuilder extends React.Component {
     })
 
     Promise.all(promises).then((result) => {
-      images.forEach((image, index) => {
-        let carouselItem = $('<div class="carouselItem" />')
+      let imageArray = []
+      images.forEach((canvas, index) => {
+        // let carouselItem = $('<div class="carouselItem" />')
         // if (index === 0) {
         //   carouselItem = $('<div class="carousel-item active"></div>')
         // }
-        $(image).addClass('img-fluid cvPreviewCanvas')
-        carouselItem.append(image)
-        $('.cvPreviewWrapper').append(carouselItem)
+        let image = new Image()
+        image.src = canvas.toDataURL("image/png")
+        imageArray.push(image)
+        // $(image).addClass('img-fluid cvPreviewCanvas')
+        // carouselItem.append(image)
+        // $('.cvPreviewWrapper').append(carouselItem)
       })
-      _self.setState({ createPreview: false, showTemplate: false })
+      _self.setState({ createPreview: false, showTemplate: false, images: imageArray })
     })
   }
 
@@ -279,6 +287,14 @@ class CVBuilder extends React.Component {
 
     let chevronClass = classNames('fa pull-right', this.state.collapse ? 'fa-chevron-down' : 'fa-chevron-up')
 
+    const settings = {
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1
+    }
+
     return (
       <Container fluid className='cvBuilder'>
         <Masonry
@@ -290,6 +306,11 @@ class CVBuilder extends React.Component {
           <Col xs={12} md={6} lg={4} xl={3}>
             <Card className='preview'>
               <CardHeader>Preview</CardHeader>
+              {this.state.images.length > 0 && <Slider {...settings}>
+                {this.state.images.map(function (slide, index) {
+                  return <div key={index}><img src={slide.src} className='img-fluid' /></div>
+                })}
+              </Slider> }
               <div className='cvPreviewWrapper' />
             </Card>
           </Col>
