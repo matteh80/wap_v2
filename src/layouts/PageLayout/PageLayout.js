@@ -32,7 +32,6 @@ class PageLayout extends React.Component {
           <Sidemenu translate={translate} />
           <div className='page-layout__viewport'>
             <Breadcrumbs
-              setDocumentTitle
               separator={<i className='fa fa-chevron-right' style={{ margin: '0 5px' }} />}
               routes={this.props.routes}
               params={this.props.params}

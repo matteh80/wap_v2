@@ -1,0 +1,6 @@
+module.exports = {
+  GET_ALL_JOBS: 'GET_ALL_JOBS',
+  SAVE_JOB: 'SAVE_JOB',
+  REMOVE_JOB: 'REMOVE_JOB',
+  APPLY_JOB: 'APPLY_JOB'
+}

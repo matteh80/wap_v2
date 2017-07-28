@@ -1,5 +1,7 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Masonry from 'react-masonry-component'
+import Cookies from 'universal-cookie'
 
 import TestCard from './TestCard/TestCard'
 
@@ -10,8 +12,9 @@ import {
   CardBlock
 } from 'reactstrap'
 import RecruiterCard from './RecruiterCard/RecruiterCard'
+import JobsCard from './JobsCard/JobsCard'
 
-export default class Dashboard extends React.Component {
+class Dashboard extends React.Component {
   constructor (props) {
     super(props)
 
@@ -28,6 +31,9 @@ export default class Dashboard extends React.Component {
     }
 
     let { translate } = this.props
+    let cookies = new Cookies()
+    let allSavedJobs = this.props.jobs.savedJobs
+
 
     return (
       <Masonry
@@ -36,6 +42,11 @@ export default class Dashboard extends React.Component {
         style={style}
         ref={function (c) { this.masonry = this.masonry || c.masonry }.bind(this)}
       >
+        {this.props.jobs && this.props.jobs.savedJobs && allSavedJobs.length > 0 &&
+        <Col xs={12} sm={6} lg={4} xl={3}>
+          <JobsCard translate={translate} jobs={allSavedJobs} />
+        </Col>
+        }
 
         <Col xs={12} sm={6} lg={4} xl={3}>
           <TestCard translate={translate} />
@@ -49,6 +60,8 @@ export default class Dashboard extends React.Component {
     )
   }
 }
+
+export default connect((state) => state)(Dashboard)
 
 const masonryOptions = {
   transitionDuration: 500

@@ -53,6 +53,7 @@ class CVBuilder extends React.Component {
 
     this.createPdf = this.createPdf.bind(this)
     this.preparePdf = this.preparePdf.bind(this)
+    this.preparePreview = this.preparePreview.bind(this)
     this.createCanvas = this.createCanvas.bind(this)
     this.onEmploymentChange = this.onEmploymentChange.bind(this)
     this.onEducationChange = this.onEducationChange.bind(this)
@@ -66,23 +67,26 @@ class CVBuilder extends React.Component {
     if (!prevState.createPdf && this.state.createPdf) {
       setTimeout(function () {
         _self.createPdf()
-      }, 500)
+      }, 1000)
     }
 
     if (!prevState.createPreview && this.state.createPreview) {
       setTimeout(function () {
         _self.createCanvas()
-      }, 500)
-    }
-
-    if (!prevState.showUpdatePreview && this.state.showUpdatePreview) {
-
+      }, 1000)
     }
   }
 
   preparePdf () {
     this.setState({
       createPdf: true,
+      showTemplate: true
+    })
+  }
+
+  preparePreview () {
+    this.setState({
+      createPreview: true,
       showTemplate: true
     })
   }
@@ -223,8 +227,6 @@ class CVBuilder extends React.Component {
     this.setState({
       resume: !this.state.resume,
       showUpdatePreview: true,
-      showTemplate: true,
-      createPreview: true
     })
   }
 
@@ -260,13 +262,13 @@ class CVBuilder extends React.Component {
         //   carouselItem = $('<div class="carousel-item active"></div>')
         // }
         let image = new Image()
-        image.src = canvas.toDataURL("image/png")
+        image.src = canvas.toDataURL('image/png')
         imageArray.push(image)
         // $(image).addClass('img-fluid cvPreviewCanvas')
         // carouselItem.append(image)
         // $('.cvPreviewWrapper').append(carouselItem)
       })
-      _self.setState({ createPreview: false, showTemplate: false, images: imageArray })
+      _self.setState({ createPreview: false, showTemplate: false, showUpdatePreview:false, images: imageArray })
     })
   }
 
@@ -292,7 +294,9 @@ class CVBuilder extends React.Component {
       infinite: true,
       speed: 500,
       slidesToShow: 1,
-      slidesToScroll: 1
+      slidesToScroll: 1,
+      arrows: false,
+      autoplay: true
     }
 
     return (
@@ -306,6 +310,8 @@ class CVBuilder extends React.Component {
           <Col xs={12} md={6} lg={4} xl={3}>
             <Card className='preview'>
               <CardHeader>Preview</CardHeader>
+              {this.state.showUpdatePreview &&
+              <PreviewOverlay refresh={this.preparePreview} creating={this.state.createPreview} />}
               {this.state.images.length > 0 && <Slider {...settings}>
                 {this.state.images.map(function (slide, index) {
                   return <div key={index}><img src={slide.src} className='img-fluid' /></div>
@@ -404,6 +410,24 @@ class CheckboxItem extends React.Component {
           {this.props.label}
         </Label>
       </FormGroup>
+    )
+  }
+}
+
+class PreviewOverlay extends React.Component {
+  constructor (props) {
+    super(props)
+  }
+
+  render () {
+    let mClassses = classNames('fa fa-refresh', this.props.creating && 'fa-spin')
+    return (
+      <div
+        style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(255,255,255,0.65)', zIndex: 9, display: 'flex' }}
+        className='justify-content-center align-items-center'
+      >
+        <i className={mClassses} style={{ fontSize: 50 }} onClick={() => this.props.refresh()} />
+      </div>
     )
   }
 }

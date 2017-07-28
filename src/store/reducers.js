@@ -15,6 +15,7 @@ import wapfilm from './reducers/wapfilm'
 import drivinglicenses from './reducers/drivinglicenses'
 import references from './reducers/references'
 import dreamjob from './reducers/dreamjob'
+import jobs from './reducers/jobs'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
@@ -33,6 +34,7 @@ export const makeRootReducer = (asyncReducers) => {
     drivinglicenses: drivinglicenses,
     references: references,
     dreamjob: dreamjob,
+    jobs: jobs,
     ...asyncReducers
   })
 }

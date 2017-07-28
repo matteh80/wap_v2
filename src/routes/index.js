@@ -19,6 +19,9 @@ import References from './References/References'
 import Dreamjob from './Dreamjob/Dreamjob'
 import Wapcard from './Wapcard/Wapcard'
 import Location from './Location/Location'
+import ApplyForJob from './Jobs/ApplyForJob'
+import Jobs from './Jobs/Jobs'
+import ViewedJobs from './Jobs/ViewedJobs'
 
 import 'pace-progress'
 
@@ -45,6 +48,11 @@ export const routes = (store) => (
       <Route path='/wapfilm' component={WapFilm} name='Wap film' />
       <Route path='/cvbuilder' component={CVBuilder} name='CV Builder' />
       <Route path='/wapcard' component={Wapcard} name='Wap card' />
+      <Route path='jobs' name='Jobb'>
+        <IndexRoute name='Lediga tjänster' component={Jobs} />
+        <Route path='/jobs/my' name='Visad tjänst' component={ViewedJobs} />
+        <Route path='/jobs/:jobid' name='Annons' component={ApplyForJob} />
+      </Route>
     </Route>
     <Route path='/login' component={Login} name='Login' />
     <Route path='/login/facebook' component={Login} />

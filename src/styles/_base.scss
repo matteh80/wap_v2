@@ -33,6 +33,7 @@ For example:
 @import '../../node_modules/react-circular-progressbar/docs/styles.css';
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
+@import '~react-table/react-table.css';
 
 @import 'global';
 @import 'form';
@@ -45,3 +46,4 @@ For example:
 @import './components/button';
 @import './components/loaders';
 @import './components/fakeitem';
+@import './components/table';

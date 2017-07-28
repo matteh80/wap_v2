@@ -12,7 +12,7 @@ $accent: $pink;
     width: 5px;
     height: 100%;
     position: absolute;
-    left: 20px;
+    left: 4px;
     @include media-breakpoint-up(lg) {
       left: 50%;
       transform: translateX(-50%);
@@ -107,6 +107,9 @@ $accent: $pink;
     float: left;
     margin-top: 55px;
     margin-bottom: 0 !important;
+    @include media-breakpoint-down(sm) {
+      width:100%;
+    }
     @include media-breakpoint-up(lg) {
       width: 45%;
       margin-left: 0;

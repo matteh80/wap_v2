@@ -36,6 +36,9 @@ import {
   Alert
 } from 'reactstrap'
 import Loader from '../../components/Misc/Loader/Loader'
+import Cookies from 'universal-cookie'
+
+const cookies = new Cookies()
 
 let auth2
 let redirect = null
@@ -60,6 +63,8 @@ class Login extends React.Component {
     this.loadGoogle = this.loadGoogle.bind(this)
     this.auth = this.auth.bind(this)
     this.signInCallback = this.signInCallback.bind(this)
+
+    redirect = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.query.redirect : null
   }
 
   componentDidMount () {
@@ -148,6 +153,7 @@ class Login extends React.Component {
   }
 
   loginLinkedIn () {
+    cookies.set('redirect', redirect, { path: '/', maxAge: 60 })
     if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
       // dev code
       window.location.assign('https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86fnbibk2t9g4m&redirect_uri=http%3A%2F%2Flocalhost:3000%2Flogin%2Flinkedin&state=987654321&scope=r_emailaddress,r_basicprofile')
@@ -205,6 +211,7 @@ class Login extends React.Component {
   }
 
   loginFB () {
+    cookies.set('redirect', redirect, { path: '/', maxAge: 60 })
     let mRedirectUri
     if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
       // dev code
@@ -238,6 +245,7 @@ class Login extends React.Component {
   }
 
   signInCallback (authResult) {
+    cookies.set('redirect', redirect, { path: '/', maxAge: 60 })
     let { dispatch } = this.props
 
     console.log('signInCallback')
@@ -259,7 +267,16 @@ class Login extends React.Component {
     let { dispatch } = this.props
     this.props.auth.token && dispatch(getProfile(this.props.auth.token)).then((result) => {
       if (result.tos_accepted) {
+        let cookieRedirect = cookies.get('redirect')
+        console.log(cookieRedirect)
         let redirect = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.query.redirect : null
+
+        if (cookieRedirect !== 'undefined') {
+          redirect = cookieRedirect
+        }
+
+        cookies.remove('redirect', redirect, { path: '/', maxAge: 60 })
+
         Promise.all([
           dispatch(getAllEmployments()),
           dispatch(getAllEducations()),
