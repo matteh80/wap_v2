@@ -15,7 +15,8 @@
     "dreamjob": ["Drömjob", "Dreamjob"],
     "whats_your_dreamjob": ["Vad är ditt drömjobb?", "What's your dream job?"],
     "show_wapcard": ["Visa ditt wap card", "Show your wap card"],
-    "jobs": ["Jobb", "Jobs"]
+    "jobs": ["Jobb", "Jobs"],
+    "where_location": ["Vart vill du jobba", "Where do you wanna work"]
   },
   "header": {
     "logout": ["Logga ut", "Log out"]

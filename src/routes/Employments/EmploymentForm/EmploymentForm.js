@@ -43,7 +43,7 @@ class EmploymentForm extends React.Component {
     }
 
     this.state = {
-      collapse: false,
+      collapse: this.props.collapse,
       loadsave: false,
       selectValue: occupationDefault,
       employment: {

@@ -79,10 +79,11 @@ class LicenseForm extends React.Component {
   render () {
     let chevronClass = classNames('fa add-btn', this.state.collapse ? 'fa-chevron-down bg-orange' : 'fa-plus bg-green')
     let newHeight = $('.licenseItem .card').height()
+    let itemClass = classNames('formCard fakeItem', this.state.collapse && 'fullOpacity')
 
     return (
       <Col xs={12} sm={6} md={3} xl={this.state.collapse ? 4 : 2}>
-        <Card className='formCard fakeItem' style={{ minHeight: newHeight }}>
+        <Card className={itemClass} style={{ minHeight: newHeight }}>
           <div className='btn-wrapper'>
             <UncontrolledTooltip placement='left' target='add-btn'>
               Lägg till nytt körkort

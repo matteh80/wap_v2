@@ -63,6 +63,7 @@ class Login extends React.Component {
     this.loadGoogle = this.loadGoogle.bind(this)
     this.auth = this.auth.bind(this)
     this.signInCallback = this.signInCallback.bind(this)
+    this.gotoRegister = this.gotoRegister.bind(this)
 
     redirect = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.query.redirect : null
   }
@@ -310,10 +311,15 @@ class Login extends React.Component {
     })
   }
 
+  gotoRegister (e) {
+    e.preventDefault()
+    this.props.router.push('/register')
+  }
+
   render () {
     return (
-      <Col xs={12} className='h-100'>
-        <Row className='justify-content-center align-items-center h-100'>
+      <Col>
+        <Row className='justify-content-center align-items-center flex-column' style={{ minHeight: '100vh' }}>
           <Container>
             <Row className='justify-content-center align-items-center'>
               <Col xs={12} sm={8} md={6}>
@@ -349,6 +355,7 @@ class Login extends React.Component {
                   </FormGroup>
                   <ThreeDButton type='submit' className='w-100' loading={this.state.loadsave}>Logga in</ThreeDButton>
                 </Form>
+                <p className='text-center'>Har du inget konto? <a href='/register' onClick={(e) => this.gotoRegister(e)}>Registrera</a> dig!</p>
               </Col>
               }
               {this.state.linkedIn &&

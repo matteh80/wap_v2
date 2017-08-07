@@ -31,7 +31,7 @@ class EducationForm extends React.Component {
     let { dispatch } = this.props
 
     this.state = {
-      collapse: false,
+      collapse: this.props.collapse,
       loadsave: false,
       selectValue: null,
       education: {
@@ -148,7 +148,7 @@ class EducationForm extends React.Component {
           <Card className='fakeItem'>
             <div className='btn-wrapper'>
               <UncontrolledTooltip placement='left' target='add-btn'>
-            Lägg till ny anställning
+            Lägg till ny utbildning
           </UncontrolledTooltip>
               <i className={chevronClass} id='add-btn' onClick={() => this.toggleCollapse()} />
             </div>

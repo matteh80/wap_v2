@@ -41,11 +41,11 @@ class Employments extends React.Component {
     let { dispatch } = this.props
     dispatch(updateEmployment(employment))
       .then(() => {
-      dispatch(getAllEmployments())
+        dispatch(getAllEmployments())
       // document.getElementById('employmentForm').reset()
-    }).catch((error) => {
-      alert(error)
-    })
+      }).catch((error) => {
+        alert(error)
+      })
   }
 
   removeEmployment (e, employment) {
@@ -75,7 +75,7 @@ class Employments extends React.Component {
                   this.masonry = this.masonry || c.masonry
                 }.bind(this)}
               >
-                <EmploymentForm layout={this.layout} />
+                <EmploymentForm layout={this.layout} collapse={employments.length === 0} />
                 {mEmployments && mEmployments.map((employment) => {
                   return <EmploymentItem key={employment.id} employment={employment} occupations={this.props.occupations}
                     onChange={this.updateEmployment} layout={this.layout} onRemove={this.removeEmployment} />

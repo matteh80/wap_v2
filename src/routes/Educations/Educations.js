@@ -75,7 +75,7 @@ class Educations extends React.Component {
                   this.masonry = this.masonry || c.masonry
                 }.bind(this)}
               >
-                <EducationForm layout={this.layout} />
+                <EducationForm layout={this.layout} collapse={educations.length === 0} />
                 {mEducations && mEducations.map((education) => {
                   return <EducationItem key={education.id} education={education} layout={this.layout}
                     onChange={this.updateEducation} onRemove={this.removeEducation} />

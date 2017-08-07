@@ -75,9 +75,10 @@ class LanguageForm extends React.Component {
     let { userLanguages } = this.props.languages
     let chevronClass = classNames('fa add-btn', this.state.collapse ? 'fa-chevron-down bg-orange' : 'fa-plus bg-green')
     let newHeight = $('.languageItem .card').height()
+    let itemClass = classNames('formCard fakeItem', this.state.collapse && 'fullOpacity')
 
     return (
-      <Card className='formCard fakeItem'>
+      <Card className={itemClass}>
         <div className='btn-wrapper'>
           <UncontrolledTooltip placement='left' target='add-btn'>
             Lägg till nytt språk
