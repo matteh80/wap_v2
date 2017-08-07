@@ -103,11 +103,11 @@ class Template1 extends React.Component {
           <Container fluid className='templateWrapper A4'>
             <HeaderSection profile={this.props.profile} />
             {this.props.resume && <ResumeSection profile={this.props.profile} />}
-            <EmploymentSection employments={this.props.employments} />
-            <SkillSection skills={this.props.skills} />
-            <EducationSection educations={this.props.educations} />
-            <LanguageSection languages={this.props.languages} />
-            <DrivingLicenseSection drivinglicenses={this.props.drivinglicenses} />
+            {this.props.employments.length > 0 && <EmploymentSection employments={this.props.employments} />}
+            {this.props.skills.length > 0 && <SkillSection skills={this.props.skills} />}
+            {this.props.educations.length > 0 && <EducationSection educations={this.props.educations} />}
+            {this.props.languages.length > 0 && <LanguageSection languages={this.props.languages} />}
+            {this.props.drivinglicenses.length > 0 && <DrivingLicenseSection drivinglicenses={this.props.drivinglicenses} />}
           </Container>
         </div>
       </div>

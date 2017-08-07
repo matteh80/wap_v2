@@ -1,4 +1,5 @@
 import React from 'react'
+import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import './CVBuilder.scss'
 import jsPDF from 'jspdf'
@@ -11,9 +12,11 @@ import Slider from 'react-slick'
 import {
   Container,
   Col,
+  Row,
   Card,
   CardHeader,
   CardBlock,
+  CardTitle,
   FormGroup,
   Label,
   Input
@@ -60,6 +63,7 @@ class CVBuilder extends React.Component {
     this.onSkillChange = this.onSkillChange.bind(this)
     this.onLanguageChange = this.onLanguageChange.bind(this)
     this.onResumeChange = this.onResumeChange.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -275,8 +279,14 @@ class CVBuilder extends React.Component {
   componentDidMount () {
     this.setState({
       createPreview: true,
-      showTemplate: true
+      showTemplate: true,
+      showUpdatePreview: true
     })
+  }
+
+  handleClick (e) {
+    e.preventDefault()
+    this.props.router.push(e.target.href)
   }
 
   render () {
@@ -296,106 +306,133 @@ class CVBuilder extends React.Component {
       slidesToShow: 1,
       slidesToScroll: 1,
       arrows: false,
-      autoplay: true
     }
 
     return (
       <Container fluid className='cvBuilder'>
-        <Masonry
-          className='row'
-          ref={function (c) {
-            this.masonry = this.masonry || c.masonry
-          }.bind(this)}
+        <Row className='flex-column-reverse flex-lg-row'>
+          <Col xs={12} sm={12} md={12} lg={8}>
+            <Masonry
+              className='row'
+              ref={function (c) {
+                this.masonry = this.masonry || c.masonry
+              }.bind(this)}
         >
-          <Col xs={12} md={6} lg={4} xl={3}>
-            <Card className='preview'>
-              <CardHeader>Preview</CardHeader>
-              {this.state.showUpdatePreview &&
-              <PreviewOverlay refresh={this.preparePreview} creating={this.state.createPreview} />}
-              {this.state.images.length > 0 && <Slider {...settings}>
-                {this.state.images.map(function (slide, index) {
-                  return <div key={index}><img src={slide.src} className='img-fluid' /></div>
-                })}
-              </Slider> }
-              <div className='cvPreviewWrapper' />
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} xl={3}>
-            <Card>
-              <CardHeader>
+              <Col xs={12} md={6} xl={4}>
+                <Card className='preview' style={{ minHeight: 100 }}>
+                  <CardHeader>Förhandsgranskning</CardHeader>
+                  {this.state.showUpdatePreview &&
+                  <PreviewOverlay refresh={this.preparePreview} creating={this.state.createPreview} />}
+                  {this.state.images.length > 0 && <Slider {...settings} autoplay={this.state.images.length > 1}>
+                    {this.state.images.map(function (slide, index) {
+                      return <div key={index}><img src={slide.src} className='img-fluid' /></div>
+                    })}
+                  </Slider> }
+                  <div className='cvPreviewWrapper' />
+                </Card>
+              </Col>
+              <Col xs={12} md={6} xl={4}>
+                <Card>
+                  <CardHeader>
                 Anställningar
                 {/* <i className={chevronClass} style={{ fontSize: 20 }} /> */}
-              </CardHeader>
-              <CardBlock>
-                {employments.employments && employments.employments.map((employment) => {
-                  return <CheckboxItem key={employment.id} item={employment} label={employment.title + ' / ' + employment.employer} onChange={this.onEmploymentChange} />
-                })}
-              </CardBlock>
-            </Card>
-          </Col>
+                  </CardHeader>
+                  <CardBlock>
+                    {employments.employments && employments.employments.map((employment) => {
+                      return <CheckboxItem key={employment.id} item={employment} label={employment.title + ' / ' + employment.employer} onChange={this.onEmploymentChange} />
+                    })}
+                    {employments.employments.length === 0 &&
+                    <h6>Du har inte lagt till några anställningar.</h6>}
+                  </CardBlock>
+                </Card>
+              </Col>
 
-          <Col xs={12} md={6} lg={4} xl={3}>
-            <Card>
-              <CardHeader>Utbildningar</CardHeader>
-              <CardBlock>
-                {educations.educations && educations.educations.map((education) => {
-                  return <CheckboxItem key={education.id} item={education} label={education.orientation + ' / ' + education.school} onChange={this.onEducationChange} />
-                })}
-              </CardBlock>
-            </Card>
-          </Col>
+              <Col xs={12} md={6} xl={4}>
+                <Card>
+                  <CardHeader>Utbildningar</CardHeader>
+                  <CardBlock>
+                    {educations.educations && educations.educations.map((education) => {
+                      return <CheckboxItem key={education.id} item={education} label={education.orientation + ' / ' + education.school} onChange={this.onEducationChange} />
+                    })}
+                    {educations.educations.length === 0 &&
+                    <h6>Du har inte lagt till några utbildningar.</h6>}
+                  </CardBlock>
+                </Card>
+              </Col>
 
-          <Col xs={12} md={6} lg={4} xl={3}>
-            <Card>
-              <CardHeader>Kompetenser</CardHeader>
-              <CardBlock>
-                {skills.userSkills && skills.userSkills.map((skill) => {
-                  return <CheckboxItem key={skill.id} item={skill} label={skill.name + ' / ' + skill.experience} onChange={this.onSkillChange} />
-                })}
-              </CardBlock>
-            </Card>
-          </Col>
+              <Col xs={12} md={6} xl={4}>
+                <Card>
+                  <CardHeader>Kompetenser</CardHeader>
+                  <CardBlock>
+                    {skills.userSkills && skills.userSkills.map((skill) => {
+                      return <CheckboxItem key={skill.id} item={skill} label={skill.name + ' / ' + skill.experience} onChange={this.onSkillChange} />
+                    })}
+                    {skills.userSkills.length === 0 &&
+                    <div>
+                      <h6>Du har inte lagt till några kompetenser.</h6>
+                      {/* <a href='/work/skills' className='center' onClick={(e) => this.handleClick(e)}><i className='fa fa-plus-circle' /></a> */}
+                    </div>}
+                  </CardBlock>
+                </Card>
+              </Col>
 
-          <Col xs={12} md={6} lg={4} xl={3}>
-            <Card>
-              <CardHeader>Språk</CardHeader>
-              <CardBlock>
-                {languages.userLanguages && languages.userLanguages.map((language) => {
-                  return <CheckboxItem key={language.id} item={language} label={language.name} onChange={this.onLanguageChange} />
-                })}
-              </CardBlock>
-            </Card>
-          </Col>
+              <Col xs={12} md={6} xl={4}>
+                <Card>
+                  <CardHeader>Språk</CardHeader>
+                  <CardBlock>
+                    {languages.userLanguages && languages.userLanguages.map((language) => {
+                      return <CheckboxItem key={language.id} item={language} label={language.name} onChange={this.onLanguageChange} />
+                    })}
+                    {languages.userLanguages.length === 0 &&
+                    <h6>Du har inte lagt till några språk ännu.</h6>}
+                  </CardBlock>
+                </Card>
+              </Col>
 
-          <Col xs={12} md={6} lg={4} xl={3}>
-            <Card>
-              <CardHeader>
+              <Col xs={12} md={6} xl={4}>
+                <Card>
+                  <CardHeader>
                 Resumé
                 {/* <i className={chevronClass} style={{ fontSize: 20 }} /> */}
-              </CardHeader>
+                  </CardHeader>
+                  <CardBlock>
+                    {this.props.profile.personal_info &&
+                    <CheckboxItem label='Visa resumé / personlig info' checked={this.state.resume}
+                      onChange={this.onResumeChange} />}
+                    {!this.props.profile.personal_info &&
+                    <h6>Gå till din profil och skriv lite kortfattat om dig själv</h6>}
+                  </CardBlock>
+                </Card>
+              </Col>
+            </Masonry>
+            <ThreeDButton onClick={() => this.preparePdf()} text='Skapa PDF' loading={this.state.createPdf} />
+            {this.state.showTemplate && <Template1
+              employments={this.state.employments}
+              educations={this.state.educations}
+              skills={this.state.skills}
+              languages={this.state.languages}
+              drivinglicenses={this.props.drivinglicenses.userLicenses}
+              profile={this.props.profile}
+              resume={this.props.profile.personal_info ? this.state.resume : false}
+        />}
+          </Col>
+
+          <Col xs={12} sm={12} md={12} lg={4}>
+            <Card className='speechBubble'>
               <CardBlock>
-                <CheckboxItem label='Visa resumé / personlig info' checked={this.state.resume} onChange={this.onResumeChange} />
+                <CardTitle>Har skapar du ett CV</CardTitle>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam gravida nibh at nisi accumsan, quis luctus est euismod. Curabitur vel finibus leo. Phasellus maximus enim eget neque posuere aliquet. Aliquam id sem vitae justo semper suscipit. Nulla ullamcorper arcu urna, quis lacinia turpis scelerisque ac. Aliquam interdum nisi eget eros cursus finibus. Mauris tempus velit sem, et rutrum nulla vulputate vel. Maecenas magna nulla, rutrum at molestie eu, efficitur interdum augue.</p>
+                <p>Maecenas eu lacus imperdiet, molestie dolor nec, venenatis ipsum. Sed vitae posuere nunc. Cras vestibulum quam et diam viverra vulputate. Mauris a leo lectus. Morbi tempor imperdiet magna, vitae euismod ex imperdiet at. Nam a hendrerit quam. Nam accumsan metus sed turpis hendrerit viverra. </p>
               </CardBlock>
             </Card>
           </Col>
-
-        </Masonry>
-        <ThreeDButton onClick={() => this.preparePdf()} text='Skapa PDF' loading={this.state.createPdf} />
-        {this.state.showTemplate && <Template1
-          employments={this.state.employments}
-          educations={this.state.educations}
-          skills={this.state.skills}
-          languages={this.state.languages}
-          drivinglicenses={this.props.drivinglicenses.userLicenses}
-          profile={this.props.profile}
-          resume={this.state.resume}
-        />}
+        </Row>
       </Container>
     )
   }
 }
 
-export default connect((state) => state)(CVBuilder)
+export default withRouter(connect((state) => state)(CVBuilder))
 
 class CheckboxItem extends React.Component {
   constructor (props) {
@@ -423,7 +460,7 @@ class PreviewOverlay extends React.Component {
     let mClassses = classNames('fa fa-refresh', this.props.creating && 'fa-spin')
     return (
       <div
-        style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(255,255,255,0.65)', zIndex: 9, display: 'flex' }}
+        style={{ position: 'absolute', top: 40, left: 0, right: 0, bottom: 0, background: 'rgba(255,255,255,0.65)', zIndex: 9, display: 'flex' }}
         className='justify-content-center align-items-center'
       >
         <i className={mClassses} style={{ fontSize: 50 }} onClick={() => this.props.refresh()} />
