@@ -64,8 +64,7 @@ class SalaryCard extends React.Component {
           <img src='/img/cash.jpg' className='img-fluid' />
           <CardBlock>
             <CardTitle className='text-center'>{translate('salary.salary')}</CardTitle>
-            <CardSubtitle className='text-center'>{this.state.salary[0]}
-              - {this.state.salary[1]}</CardSubtitle>
+            <CardSubtitle className='text-center'>{this.state.salary[0]} - {this.state.salary[1]} kr</CardSubtitle>
             {this.state.editMode &&
             <Range
               min={15000}

@@ -11,6 +11,7 @@ import InfoCard from './InfoCard/InfoCard'
 import AddressCard from './AddressCard/AddressCard'
 import SalaryCard from './SalaryCard/SalaryCard'
 import AvailabilityCard from './AvailabilityCard/AvailabilityCard'
+import ResumeCard from './ResumeCard/ResumeCard'
 
 class Profile extends React.Component {
   constructor (props) {
@@ -107,6 +108,7 @@ class Profile extends React.Component {
           <AddressCard onChange={this.onProfileChange} onSave={this.onProfileSave} onOpen={this.onOpenCard} revertChanges={this.onRevertChanges} />
           <SalaryCard onChange={this.onSalaryChange} onSave={this.onProfileSave} onOpen={this.onOpenCard} revertChanges={this.onRevertChanges} translate={translate} />
           <AvailabilityCard onChange={this.onAvailabilityChange} onSave={this.onProfileSave} onOpen={this.onOpenCard} revertChanges={this.onRevertChanges} />
+          <ResumeCard onChange={this.onProfileChange} onSave={this.onProfileSave} onOpen={this.onOpenCard} revertChanges={this.onRevertChanges} />
         </Masonry>
       </Container>
     )
