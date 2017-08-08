@@ -6,7 +6,6 @@ import Header from '../Header/Header'
 import UserIsAuthenticated from '../../routes/auth'
 import { connect } from 'react-redux'
 import Breadcrumbs from 'react-breadcrumbs'
-import { getTranslate, getActiveLanguage } from 'react-localize-redux'
 
 class PageLayout extends React.Component {
   constructor (props) {
@@ -14,13 +13,15 @@ class PageLayout extends React.Component {
   }
 
   render () {
-    let { dispatch, translate, currentLanguage } = this.props
+    let { dispatch } = this.props
+    let { translate, currentLanguage } = this.context
     let activeRouteItem = Object.assign([], this.props.routes).reverse()
     document.title = activeRouteItem[0].name + ' | wap card'
 
     const childrenWithProps = React.Children.map(this.props.children,
       (child) => React.cloneElement(child, {
-        translate: translate
+        translate: translate,
+        currentlanguage: currentLanguage
       })
     )
 
@@ -48,10 +49,15 @@ PageLayout.propTypes = {
   children: PropTypes.node,
 }
 
-const mapStateToProps = state => ({
-  translate: getTranslate(state.localeReducer),
-  currentLanguage: getActiveLanguage(state.localeReducer) ? getActiveLanguage(state.localeReducer).code : 'sv',
-  ...state
-})
+PageLayout.contextTypes = {
+  translate: PropTypes.func,
+  currentLanguage: PropTypes.string
+}
 
-export default UserIsAuthenticated(connect(mapStateToProps)(PageLayout))
+// const mapStateToProps = state => ({
+//   translate: getTranslate(state.localeReducer),
+//   currentLanguage: getActiveLanguage(state.localeReducer) ? getActiveLanguage(state.localeReducer).code : 'sv',
+//   ...state
+// })
+
+export default UserIsAuthenticated(connect((state) => state)(PageLayout))

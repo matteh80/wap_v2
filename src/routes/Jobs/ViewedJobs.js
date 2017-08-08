@@ -10,6 +10,7 @@ import {
   CardTitle,
   CardSubtitle
 } from 'reactstrap'
+import EditButtons from '../../components/buttons/EditButtons'
 
 class ViewedJobs extends React.Component {
 
@@ -32,9 +33,10 @@ class ViewedJobs extends React.Component {
           <Col>
             {savedJobs && savedJobs.map((job) => {
               return (
-                <Card key={job.id} onClick={() => this.handleClick(job.id)}>
+                <Card key={job.id}>
+                  <EditButtons onlyRemove translate={this.props.translate} />
                   <CardBlock>
-                    <CardTitle>
+                    <CardTitle onClick={() => this.handleClick(job.id)}>
                       {job.title}
                     </CardTitle>
                   </CardBlock>

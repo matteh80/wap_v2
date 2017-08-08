@@ -20,6 +20,7 @@ import './Login.scss'
 import $ from 'jquery'
 import graph from 'fb-react-sdk'
 import URLSearchParams from 'url-search-params'
+import PropTypes from 'prop-types'
 
 import {
   Card,
@@ -317,6 +318,7 @@ class Login extends React.Component {
   }
 
   render () {
+
     return (
       <Col>
         <Row className='justify-content-center align-items-center flex-column' style={{ minHeight: '100vh' }}>
@@ -377,6 +379,10 @@ class Login extends React.Component {
       </Col>
     )
   }
+}
+
+Login.contextTypes = {
+  translate: PropTypes.func
 }
 
 export default withRouter(connect((state) => state)(Login))

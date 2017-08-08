@@ -34,7 +34,6 @@ class Dashboard extends React.Component {
     let cookies = new Cookies()
     let allSavedJobs = this.props.jobs.savedJobs
 
-
     return (
       <Masonry
         options={masonryOptions}

@@ -49,6 +49,7 @@ class Sidemenu extends React.Component {
       videoCount: newProps.wapfilm.video ? 1 : 0,
       drivinglicenseCount: newProps.drivinglicenses.userLicenses ? newProps.drivinglicenses.userLicenses.length : 0,
       referenceCount: newProps.references.references ? newProps.references.references.length : 0,
+      jobCount: newProps.jobs.savedJobs ? newProps.jobs.savedJobs.length : 0,
     })
   }
 
@@ -86,7 +87,7 @@ class Sidemenu extends React.Component {
             <hr />
             <Menuitem icon='fa-sticky-note' title={translate('sidemenu.jobs')}>
               <Menuitem to='/jobs' icon='fa-newspaper-o' title='Lediga tjänster' />
-              <Menuitem to='/jobs/my' icon='fa-lightbulb-o' title='Visade tjänster' />
+              {this.state.jobCount > 0 && <Menuitem to='/jobs/my' icon='fa-lightbulb-o' title='Visade tjänster' />}
             </Menuitem>
           </ul>
         </div>

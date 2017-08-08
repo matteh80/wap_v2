@@ -17,6 +17,7 @@ import {
 } from 'reactstrap'
 import StartEndDate from '../../../components/Misc/StartEndDate/StartEndDate'
 import Loader from '../../../components/Misc/Loader/Loader'
+import EditButtons from '../../../components/buttons/EditButtons'
 
 let _ = require('lodash')
 
@@ -40,6 +41,7 @@ class EmploymentItem extends React.Component {
     this._handleDateChange = this._handleDateChange.bind(this)
     this._getOptions = this._getOptions.bind(this)
     this.getOccupationName = this.getOccupationName.bind(this)
+    this.onRemove = this.onRemove.bind(this)
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -168,6 +170,10 @@ class EmploymentItem extends React.Component {
     return name[0].name
   }
 
+  onRemove () {
+    this.props.onRemove(this.state.employment)
+  }
+
   render () {
     let { employment } = this.state
     let { id, title, employer, occupation, start_date, end_date, description, current } = this.props.employment
@@ -183,11 +189,7 @@ class EmploymentItem extends React.Component {
         <div className='timeline-content'>
           <Card>
             <Loader active={this.state.loadsave} />
-            <div className={wrapperClass}>
-              <i className={editBtnClass} onClick={() => this.toggleEditMode()} />
-              <i className='fa fa-mail-reply cancel-btn' onClick={() => this.revertChanges()} />
-              <i className='fa fa-times remove-btn' onClick={(e) => this.props.onRemove(e, employment)} />
-            </div>
+            <EditButtons hasRemove editMode={this.state.editMode} toggleEditMode={this.toggleEditMode} revertChanges={this.revertChanges} onRemove={this.onRemove} translate={this.props.translate} />
             {!this.state.editMode &&
             <CardBlock>
               <CardTitle>{title}</CardTitle>

@@ -167,12 +167,13 @@ class EmploymentForm extends React.Component {
   // TODO: Reset form after submit
 
   render () {
-    let { employment } = this.props
+    let { translate } = this.props
     let chevronClass = classNames('fa add-btn', this.state.collapse ? 'fa-chevron-down bg-orange' : 'fa-plus bg-green')
     let timelineClass = classNames('timeline-item fakeTimelineItem', this.state.collapse && 'fullOpacity')
 
     return (
       <Col className={timelineClass}>
+        <div className='timeline-fulldate'>{translate('employments.add_employment')}</div>
         <div className='timeline-img' />
         <div className='timeline-content'>
           <Card className='fakeItem'>

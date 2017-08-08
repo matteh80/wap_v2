@@ -48,6 +48,11 @@
     overflow: hidden;
     transition: width 250ms;
     opacity: 0;
+    
+    > div {
+      width:100%;
+      display: flex;
+    }
 
     &:hover {
       opacity:1;
@@ -56,6 +61,11 @@
     &.hasRemove {
       //width:120px;
       //right:-80px;
+    }
+
+    &.shouldRemove {
+      min-width: 100%;
+      opacity:1;
     }
 
     &.editing {
@@ -137,6 +147,17 @@
       justify-content: center;
       align-items: center;
       transition: all 250ms;
+    }
+
+    &.onlyRemove {
+      .edit-btn, .cancel-btn {
+        display: none;
+      }
+      &.shouldRemove {
+        .edit-btn {
+          display: flex;
+        }
+      }
     }
   }
 

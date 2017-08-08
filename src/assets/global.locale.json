@@ -20,5 +20,21 @@
   },
   "header": {
     "logout": ["Logga ut", "Log out"]
+  },
+  "editbuttons": {
+    "done": ["Klar", "Done"],
+    "cancel": ["Ångra", "Cancel"],
+    "remove": ["Radera", "Remove"],
+    "are_you_sure": ["Är du säker?", "Are you sure?"]
+  },
+  "cookies": {
+    "cookies_consent_msg": [
+      "Vi använder oss av kakor för en bättre upplevelse.",
+      "We use cookies to increase your experience."
+    ],
+    "btn_msg": [
+      "Jag förstår",
+      "Got it"
+    ]
   }
 }

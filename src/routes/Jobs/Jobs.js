@@ -41,7 +41,7 @@ class Jobs extends React.Component {
   render () {
     return (
       <Container fluid>
-        <Row>
+        <Row className='flex-column-reverse flex-lg-row'>
           <Col>
             <ReactTable
               className='-highlight mb-5'
@@ -73,7 +73,7 @@ class Jobs extends React.Component {
           <Col xs={12} sm={12} md={12} lg={5}>
             <Card className='speechBubble'>
               <CardBlock>
-                <p>Här finns de tjänster som du just nu kan ansöka till med ditt wap card.</p>
+                <p>Här finns de tjänster som du just nu kan ansöka direkt till med ditt wap card.</p>
                 <p>Tips: Se till att du har uppdaterat allt du kan i din profil innan du skickar din ansökan för att öka dina chanser till drömjobbet</p>
               </CardBlock>
             </Card>

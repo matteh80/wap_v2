@@ -48,8 +48,7 @@ class Employments extends React.Component {
       })
   }
 
-  removeEmployment (e, employment) {
-    console.log(e.target)
+  removeEmployment (employment) {
     let { dispatch } = this.props
     // this.masonry.remove($(e.target).closest('.timeline-item')).masonry('layout')
     dispatch(removeEmployment(employment))
@@ -75,10 +74,10 @@ class Employments extends React.Component {
                   this.masonry = this.masonry || c.masonry
                 }.bind(this)}
               >
-                <EmploymentForm layout={this.layout} collapse={employments.length === 0} />
+                <EmploymentForm layout={this.layout} collapse={employments.length === 0} translate={this.props.translate} />
                 {mEmployments && mEmployments.map((employment) => {
                   return <EmploymentItem key={employment.id} employment={employment} occupations={this.props.occupations}
-                    onChange={this.updateEmployment} layout={this.layout} onRemove={this.removeEmployment} />
+                    onChange={this.updateEmployment} layout={this.layout} onRemove={this.removeEmployment} translate={this.props.translate} />
                 })}
               </Masonry>
             </div>
