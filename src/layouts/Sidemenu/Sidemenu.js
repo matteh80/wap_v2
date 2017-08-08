@@ -92,7 +92,7 @@ class Sidemenu extends React.Component {
             <Menuitem to='/cvbuilder' icon='fa-file-text' title='CV Builder' details='Skapa ett CV' />
             <hr />
             <Menuitem icon='fa-sticky-note' title={translate('sidemenu.jobs')}>
-              <Menuitem to='/jobs' icon='fa-newspaper-o' title='Lediga tjänster' />
+              <Menuitem indexlink to='/jobs' icon='fa-newspaper-o' title='Lediga tjänster' />
               {this.state.jobCount > 0 && <Menuitem to='/jobs/my' icon='fa-lightbulb-o' title='Visade tjänster' />}
             </Menuitem>
           </ul>
