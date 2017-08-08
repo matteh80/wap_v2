@@ -1,6 +1,9 @@
 @import "../../styles/variables/variables";
 @import "../../styles/variables/colors";
 
+$title_color: #d7d7d7;
+$details_color: #cdcdcd;
+
 li.menu-item-wrapper {
   line-height: 24px;
 
@@ -9,7 +12,7 @@ li.menu-item-wrapper {
     padding: 0 3px;
     padding-left: 32px;
     min-height: 40px;
-    font-size: 14px;
+    font-size: 15px;
     clear: both;
     white-space: nowrap;
     overflow: hidden;
@@ -31,6 +34,9 @@ li.menu-item-wrapper {
         text-overflow: ellipsis;
         text-transform: capitalize;
         //overflow-x: hidden;
+        color: $title_color;
+        font-family: $headings-font-family;
+        font-weight: 100;
       }
 
       .details {
@@ -39,6 +45,7 @@ li.menu-item-wrapper {
         opacity: 0.4;
         display: block;
         clear: both;
+        color: $details_color;
       }
     }
     
@@ -62,6 +69,7 @@ li.menu-item-wrapper {
       float: right;
       margin-right: 14px;
       transition: background 250ms;
+      color: $title_color;
 
       &.done {
         background: #2b432f;
@@ -109,6 +117,12 @@ li.menu-item-wrapper {
       line-height: 30px;
       margin-right: 19px;
       transition: background 250ms;
+    }
+
+    .text-wrapper {
+      .title {
+        font-size: 13px;
+      }
     }
   }
 }
