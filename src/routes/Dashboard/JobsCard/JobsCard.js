@@ -18,7 +18,7 @@ class JobsCard extends React.Component {
         <CardBlock>
           <CardTitle>Visade jobb</CardTitle>
           {jobs.map((job) => {
-            return <h6 key={job.jaid}>{job.title}</h6>
+            return <h6 key={job.id}>{job.title}</h6>
           })}
         </CardBlock>
       </Card>

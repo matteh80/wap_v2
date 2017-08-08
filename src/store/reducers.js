@@ -17,33 +17,64 @@ import references from './reducers/references'
 import dreamjob from './reducers/dreamjob'
 import jobs from './reducers/jobs'
 
-export const makeRootReducer = (asyncReducers) => {
-  return combineReducers({
-    routing: routerReducer,
-    localeReducer: localeReducer,
-    auth: auth,
-    profile: profile,
-    employments: employments,
-    occupations: occupations,
-    educations: educations,
-    skills: skills,
-    languages: languages,
-    motivations: motivations,
-    personalities: personalities,
-    wapfilm: wapfilm,
-    drivinglicenses: drivinglicenses,
-    references: references,
-    dreamjob: dreamjob,
-    jobs: jobs,
-    ...asyncReducers
-  })
+// export const makeRootReducer = (asyncReducers) => {
+//   return combineReducers({
+//     routing: routerReducer,
+//     localeReducer: localeReducer,
+//     auth: auth,
+//     profile: profile,
+//     employments: employments,
+//     occupations: occupations,
+//     educations: educations,
+//     skills: skills,
+//     languages: languages,
+//     motivations: motivations,
+//     personalities: personalities,
+//     wapfilm: wapfilm,
+//     drivinglicenses: drivinglicenses,
+//     references: references,
+//     dreamjob: dreamjob,
+//     jobs: jobs,
+//     ...asyncReducers
+//   })
+// }
+//
+// export const injectReducer = (store, { key, reducer }) => {
+//   if (Object.hasOwnProperty.call(store.asyncReducers, key)) return
+//
+//   store.asyncReducers[key] = reducer
+//   store.replaceReducer(makeRootReducer(store.asyncReducers))
+// }
+//
+// export default makeRootReducer
+
+const appReducer = combineReducers({
+  routing: routerReducer,
+  localeReducer: localeReducer,
+  auth: auth,
+  profile: profile,
+  employments: employments,
+  occupations: occupations,
+  educations: educations,
+  skills: skills,
+  languages: languages,
+  motivations: motivations,
+  personalities: personalities,
+  wapfilm: wapfilm,
+  drivinglicenses: drivinglicenses,
+  references: references,
+  dreamjob: dreamjob,
+  jobs: jobs,
+})
+export const rootReducer = (state, action) => {
+  if (action.type === 'auth/LOGOUT' || action.type === 'auth/LOGIN') {
+    // state = undefined
+    state = {
+      routing: state.routing,
+      localeReducer: state.localeReducer
+    }
+  }
+  return appReducer(state, action)
 }
 
-export const injectReducer = (store, { key, reducer }) => {
-  if (Object.hasOwnProperty.call(store.asyncReducers, key)) return
-
-  store.asyncReducers[key] = reducer
-  store.replaceReducer(makeRootReducer(store.asyncReducers))
-}
-
-export default makeRootReducer
+export default rootReducer

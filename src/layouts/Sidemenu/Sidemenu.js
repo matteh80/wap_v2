@@ -9,15 +9,17 @@ class Sidemenu extends React.Component {
     super(props)
 
     this.state = {
-      employmentCount: 0,
-      educationCount: 0,
-      occupationCount: 0,
-      skillCount: 0,
-      languageCount: 0,
-      motivationCount: 0,
-      personalityCount: 0,
-      videoCount: 0,
-      referenceCount: 0
+      employmentCount: props.employments.employments ? props.employments.employments.length : 0,
+      educationCount: props.educations.educations ? props.educations.educations.length : 0,
+      occupationCount: props.occupations.userOccupations ? props.occupations.userOccupations.length : 0,
+      skillCount: props.skills.userSkills ? props.skills.userSkills.length : 0,
+      languageCount: props.languages.userLanguages ? props.languages.userLanguages.length : 0,
+      motivationCount: props.motivations.userMotivations ? props.motivations.userMotivations.length : 0,
+      personalityCount: props.personalities.userPersonalities ? props.personalities.userPersonalities.length : 0,
+      videoCount: props.wapfilm.video ? 1 : 0,
+      drivinglicenseCount: props.drivinglicenses.userLicenses ? props.drivinglicenses.userLicenses.length : 0,
+      referenceCount: props.references.references ? props.references.references.length : 0,
+      jobCount: props.jobs.savedJobs ? props.jobs.savedJobs.length : 0,
     }
   }
 
@@ -37,19 +39,23 @@ class Sidemenu extends React.Component {
   }
 
   componentWillReceiveProps (newProps) {
-    // console.log(newProps)
+    console.log(newProps)
+    this.setCounts(newProps)
+  }
+
+  setCounts (props) {
     this.setState({
-      employmentCount: newProps.employments.employments ? newProps.employments.employments.length : 0,
-      educationCount: newProps.educations.educations ? newProps.educations.educations.length : 0,
-      occupationCount: newProps.occupations.userOccupations ? newProps.occupations.userOccupations.length : 0,
-      skillCount: newProps.skills.userSkills ? newProps.skills.userSkills.length : 0,
-      languageCount: newProps.languages.userLanguages ? newProps.languages.userLanguages.length : 0,
-      motivationCount: newProps.motivations.userMotivations ? newProps.motivations.userMotivations.length : 0,
-      personalityCount: newProps.personalities.userPersonalities ? newProps.personalities.userPersonalities.length : 0,
-      videoCount: newProps.wapfilm.video ? 1 : 0,
-      drivinglicenseCount: newProps.drivinglicenses.userLicenses ? newProps.drivinglicenses.userLicenses.length : 0,
-      referenceCount: newProps.references.references ? newProps.references.references.length : 0,
-      jobCount: newProps.jobs.savedJobs ? newProps.jobs.savedJobs.length : 0,
+      employmentCount: props.employments.employments ? props.employments.employments.length : 0,
+      educationCount: props.educations.educations ? props.educations.educations.length : 0,
+      occupationCount: props.occupations.userOccupations ? props.occupations.userOccupations.length : 0,
+      skillCount: props.skills.userSkills ? props.skills.userSkills.length : 0,
+      languageCount: props.languages.userLanguages ? props.languages.userLanguages.length : 0,
+      motivationCount: props.motivations.userMotivations ? props.motivations.userMotivations.length : 0,
+      personalityCount: props.personalities.userPersonalities ? props.personalities.userPersonalities.length : 0,
+      videoCount: props.wapfilm.video ? 1 : 0,
+      drivinglicenseCount: props.drivinglicenses.userLicenses ? props.drivinglicenses.userLicenses.length : 0,
+      referenceCount: props.references.references ? props.references.references.length : 0,
+      jobCount: props.jobs.savedJobs ? props.jobs.savedJobs.length : 0,
     })
   }
 

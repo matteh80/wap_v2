@@ -1,7 +1,8 @@
 import { applyMiddleware, compose, createStore as createReduxStore } from 'redux'
 import thunk from 'redux-thunk'
 import { browserHistory } from 'react-router'
-import makeRootReducer from './reducers'
+// import makeRootReducer from './reducers'
+import rootReducer from './reducers'
 import { routerMiddleware } from 'react-router-redux'
 import { persistStore, autoRehydrate } from 'redux-persist'
 import { asyncSessionStorage } from 'redux-persist/storages'
@@ -32,7 +33,7 @@ export default (initialState = {}) => {
   return new Promise((resolve, reject) => {
     try {
       const store = createReduxStore(
-        makeRootReducer(),
+        rootReducer,
         initialState,
         composeEnhancers(
           applyMiddleware(...middleware),
