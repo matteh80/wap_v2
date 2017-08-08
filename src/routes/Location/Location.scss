@@ -8,7 +8,47 @@
 
       &:hover {
         fill: rgb(156, 156, 156);
+        cursor: pointer;
+      }
+
+      &.selected {
+        fill: rgb(255, 228, 90);
+      }
+
+      &.selectedAll {
+        fill: rgb(39, 184, 158);
+      }
+    }
+  }
+
+  &.locationClicked {
+    svg {
+      path {
+        fill: rgba(255, 255, 255, 0.3);
+
+        &.active {
+          fill: rgb(255, 255, 255);
+        }
+
+        &:hover {
+          fill: rgba(255, 255, 255, 0.3);
+          cursor: auto;
+        }
+
+        &.active:hover {
+          fill: rgb(255, 255, 255)
+        }
       }
     }
   }
 }
+
+#location {
+
+}
+
+//.tooltip {
+//  h6 {
+//    margin:0;
+//  }
+//}

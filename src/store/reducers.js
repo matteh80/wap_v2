@@ -16,6 +16,7 @@ import drivinglicenses from './reducers/drivinglicenses'
 import references from './reducers/references'
 import dreamjob from './reducers/dreamjob'
 import jobs from './reducers/jobs'
+import locations from './reducers/locations'
 
 // export const makeRootReducer = (asyncReducers) => {
 //   return combineReducers({
@@ -65,6 +66,7 @@ const appReducer = combineReducers({
   references: references,
   dreamjob: dreamjob,
   jobs: jobs,
+  locations: locations
 })
 export const rootReducer = (state, action) => {
   if (action.type === 'auth/LOGOUT' || action.type === 'auth/LOGIN') {
