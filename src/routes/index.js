@@ -50,7 +50,7 @@ export const routes = (store) => (
       <Route path='/wapcard' component={Wapcard} name='Wap card' />
       <Route path='jobs' name='Jobb'>
         <IndexRoute name='Lediga tjänster' component={Jobs} />
-        <Route path='/jobs/my' name='Visad tjänst' component={ViewedJobs} />
+        <Route exact path='/jobs/my' name='Visad tjänst' component={ViewedJobs} />
         <Route path='/jobs/:jobid' name='Annons' component={ApplyForJob} />
       </Route>
     </Route>

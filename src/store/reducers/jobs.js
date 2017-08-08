@@ -1,7 +1,10 @@
 const {
   GET_ALL_JOBS,
-  SAVE_JOB
+  SAVE_JOB,
+  REMOVE_JOB
 } = require('../actions/actionTypes/jobs')
+
+let index = -1
 
 function jobs (state = [], action) {
   if (action.error) {
@@ -21,7 +24,7 @@ function jobs (state = [], action) {
       let mArray
       console.log(state)
       if (state.savedJobs) {
-        let index = state.savedJobs.findIndex(savedJobs => savedJobs.id === action.jobtoSave.id)
+        index = state.savedJobs.findIndex(savedJobs => savedJobs.id === action.jobtoSave.id)
         console.log(index)
         if (index > -1) return state
         mArray = Object.assign([], state.savedJobs)
@@ -32,6 +35,17 @@ function jobs (state = [], action) {
       return {
         ...state,
         savedJobs: [...mArray, action.jobtoSave]
+      }
+
+    case REMOVE_JOB:
+      index = state.savedJobs.findIndex(savedJobs => savedJobs.id === action.jobtoRemove.id)
+      if (index === -1) return state
+
+      return {
+        savedJobs: [
+          ...state.savedJobs.slice(0, index),
+          ...state.savedJobs.slice(index + 1)
+        ],
       }
 
     default:

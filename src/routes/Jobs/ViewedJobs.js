@@ -10,6 +10,7 @@ import {
   CardTitle,
   CardSubtitle
 } from 'reactstrap'
+import { removeJob } from '../../store/actions/jobs'
 import EditButtons from '../../components/buttons/EditButtons'
 
 class ViewedJobs extends React.Component {
@@ -18,10 +19,16 @@ class ViewedJobs extends React.Component {
     super(props)
 
     this.handleClick = this.handleClick.bind(this)
+    this.onRemove = this.onRemove.bind(this)
   }
 
   handleClick (id) {
     this.props.router.push('/jobs/' + id)
+  }
+
+  onRemove (job) {
+    let { dispatch } = this.props
+    dispatch(removeJob(job))
   }
 
   render () {
@@ -34,9 +41,9 @@ class ViewedJobs extends React.Component {
             {savedJobs && savedJobs.map((job) => {
               return (
                 <Card key={job.id}>
-                  <EditButtons onlyRemove translate={this.props.translate} />
+                  <EditButtons onlyRemove onRemove={() => this.onRemove(job)} translate={this.props.translate} />
                   <CardBlock>
-                    <CardTitle onClick={() => this.handleClick(job.id)}>
+                    <CardTitle onClick={() => this.handleClick(job.id)} style={{ cursor: 'pointer' }}>
                       {job.title}
                     </CardTitle>
                   </CardBlock>

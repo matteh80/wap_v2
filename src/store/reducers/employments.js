@@ -28,7 +28,7 @@ function employments (state = [], action) {
       }
 
     case REMOVE_EMPLOYMENT:
-      let index = state.employments.findIndex(employments => employments.id === action.id)
+      index = state.employments.findIndex(employments => employments.id === action.id)
       console.log(index)
       // employment item not found in state object so return original state
       if (index === -1) return state

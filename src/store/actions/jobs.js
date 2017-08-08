@@ -57,3 +57,12 @@ export function saveJob (job) {
     })
   }
 }
+
+export function removeJob (job) {
+  return (dispatch, getState) => {
+    return dispatch({
+      type: REMOVE_JOB,
+      jobtoRemove: job
+    })
+  }
+}
