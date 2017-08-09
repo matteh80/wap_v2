@@ -2,14 +2,17 @@ import React from 'react'
 import './Location.scss'
 import { connect } from 'react-redux'
 import $ from 'jquery'
-import { getAllLocations, addOrRemoveLocation } from '../../store/actions/locations'
+import { getAllLocations, addOrRemoveLocation, saveLocationsToServer, revertChanges } from '../../store/actions/locations'
 import classNames from 'classnames'
 
 import {
   Container,
   Row,
   Col,
-  Tooltip
+  Tooltip,
+  Card,
+  CardBlock,
+  CardTitle
 } from 'reactstrap'
 
 class Location extends React.Component {
@@ -20,7 +23,9 @@ class Location extends React.Component {
       tooltipOpen: false,
       tooltipTarget: 'SE-AB',
       tooltipText: 'Stockholms län',
-      locationClicked: false
+      tooltipPosition: 'right',
+      locationClicked: false,
+      initialUserLocations: Object.assign([], this.props.locations.userLocations)
     }
 
     let { dispatch } = this.props
@@ -29,10 +34,20 @@ class Location extends React.Component {
     this.onPathClick = this.onPathClick.bind(this)
     this.onPathHover = this.onPathHover.bind(this)
     this.getParentName = this.getParentName.bind(this)
+    this.saveLocations = this.saveLocations.bind(this)
+    this.revertChanges = this.revertChanges.bind(this)
   }
 
   componentDidMount () {
     this.highlightLocations()
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    if (!prevState.locationClicked && this.state.locationClicked) {
+      this.setState({
+        tooltipText: this.getTooltipText(this.state.tooltipTarget)
+      })
+    }
   }
 
   highlightLocations () {
@@ -43,9 +58,11 @@ class Location extends React.Component {
       let selected = parent[0].municipalities.filter(municipalities => municipalities.isChecked)
       let municipalities = parent[0].municipalities
       if (selected.length > 0 && selected.length < municipalities.length) {
-        $(this).addClass('selected')
+        $(this).addClass('selected').removeClass('selectedAll')
       } else if (selected.length > 0) {
-        $(this).addClass('selectedAll')
+        $(this).addClass('selectedAll').removeClass('selected')
+      } else {
+        $(this).removeClass('selectedAll').removeClass('selected')
       }
     })
   }
@@ -55,15 +72,20 @@ class Location extends React.Component {
       this.setState({
         tooltipOpen: !this.state.tooltipOpen,
         tooltipTarget: e.target.id,
-        tooltipText: this.getTooltipText(e.target.id)
+        tooltipText: this.getTooltipText(e.target.id),
+        tooltipPosition: this.calcTooltipPosition(e.target)
       })
     }
   }
 
   onPathClick (e) {
-    $('.active').removeClass('active')
-    this.setState({ locationClicked: !this.state.locationClicked })
-    $(e.target).addClass('active')
+    if (!this.state.locationClicked) {
+      $('.active').removeClass('active')
+      $(e.target).addClass('active')
+      this.setState({
+        locationClicked: true,
+      })
+    }
   }
 
   getParentName (isoCode) {
@@ -104,9 +126,11 @@ class Location extends React.Component {
     return municipalities
   }
 
-  addLocation (location) {
+  addRemoveLocation (location) {
     let { dispatch } = this.props
-    dispatch(addOrRemoveLocation(location))
+    dispatch(addOrRemoveLocation(location)).then(() => {
+      this.setState({ tooltipText: this.getTooltipText(this.state.tooltipTarget) })
+    })
   }
 
   getTooltipText (isoCode) {
@@ -114,34 +138,80 @@ class Location extends React.Component {
     let parentName = this.getParentName(isoCode)
     let selected = this.getSelectedInParent(parentName)
     let municipalities = this.getMunicipalities(parentName)
-    content.push(<h6>{parentName}</h6>)
 
-    selected.length > 0 && municipalities.map((location) => {
-      if (location.isChecked) {
-        content.push(<span>{location.name}<br /></span>)
-      } else {
-        content.push(
-          <span
-            onClick={() => this.addLocation(location)}
-            style={{ textDecoration: 'line-through', color: '#787878' }}>
-            {location.name}<br />
-          </span>
-        )
-      }
+    this.setState({
+      numMunicipalities: municipalities.length
+    })
+
+    let titleClass = classNames('locationTitle col-12 my-1')
+    content.push(<h6 className={titleClass}>{parentName}</h6>)
+
+    municipalities.map((location, index) => {
+      let spanClass = classNames(
+        'municipality',
+        location.isChecked && 'checked',
+        !location.isChecked && 'not-checked',
+        selected.length === 0 && !this.state.locationClicked && 'hidden-xs-up',
+        municipalities.length > 20 ? 'col-4' : municipalities.length < 10 ? 'col-12' : 'col-6'
+      )
+      content.push(<span key={location.id} className={spanClass} onClick={() => this.addRemoveLocation(location)}>{location.name}<br /></span>)
+      // if (index % 2 === 0) {
+      //   leftCol.push(<span key={location.id} className={spanClass} onClick={() => this.addRemoveLocation(location)}>{location.name}<br /></span>)
+      // } else {
+      //   rightCol.push(<span key={location.id} className={spanClass} onClick={() => this.addRemoveLocation(location)}>{location.name}<br /></span>)
+      // }
     })
 
     return content
   }
 
+  saveLocations () {
+    let { dispatch } = this.props
+    dispatch(saveLocationsToServer()).then((result) => {
+      this.setState({
+        locationClicked: false,
+        tooltipOpen: false,
+        initialUserLocations: result.userLocations
+      })
+      $('.active').removeClass('active')
+      this.highlightLocations()
+    })
+  }
+
+  revertChanges () {
+    let { dispatch } = this.props
+    dispatch(revertChanges(this.state.initialUserLocations)).then(() => {
+      this.setState({
+        locationClicked: false,
+        tooltipOpen: false
+      })
+      $('.active').removeClass('active')
+      this.highlightLocations()
+    })
+  }
+
+  calcTooltipPosition (path) {
+    let $elem = $(path)
+    return $elem.offset().top > $('svg').outerHeight() / 1.5 ? 'top' : 'right'
+  }
+
   render () {
+    let btnClass = classNames('btn-wrapper flex-row justify-content-center my-2', !this.state.locationClicked && 'hidden-xs-up')
     let mapClass = classNames('mapWrapper', this.state.locationClicked && 'locationClicked')
+    let tooltipClass = classNames(this.state.numMunicipalities > 20 ? 'three-col' : this.state.numMunicipalities < 10 ? 'one-col' : 'two-col')
     return (
       <Container fluid id='location'>
-        <Tooltip placement='right' isOpen={this.state.tooltipOpen} target={this.state.tooltipTarget} className='test'>
-          {this.state.tooltipText}
+        <Tooltip placement={this.state.tooltipPosition} isOpen={this.state.tooltipOpen} target={this.state.tooltipTarget} className={tooltipClass}>
+          <Row>
+            {this.state.tooltipText}
+          </Row>
+          <div className={btnClass}>
+            <i className='ok-btn fa fa-check mr-1' onClick={() => this.saveLocations()} />
+            <i className='cancel-btn fa fa-mail-reply ml-1' onClick={() => this.revertChanges()} />
+          </div>
         </Tooltip>
         <Row>
-          <Col xs={12} md={6} xl={3} className={mapClass}>
+          <Col xs={12} md={12} xl={4} className={mapClass}>
             <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' id='parentGraphic'
               preserveAspectRatio='xMidYMid meet' viewBox='0 0 345 792' style={{ maxHeight: '80vh' }}>
               <path onMouseOut={(e) => this.onPathHover(e)} onMouseOver={(e) => this.onPathHover(e)} onClick={(e) => this.onPathClick(e)} d='m 90.133614,740.16334 2.19,0.61 0.47,0.31 0.69,0.66 0.74,1.07 0.7,0.86 3.7,0.35 1.34,0.01 1.009996,-0.12 0.82,-0.78 1.39,-1.72 2,-0.91 3.33,-0.1 2.12,-0.41 0.82,-0.29 0.45,-0.34 0.68,-0.79 0.21,-0.22 3.7,-0.2 1.22,0.05 3.74,3.86 1.88,2.58 0.58,0.87 0.67,0.53 1,0.43 2.86,0.39 2.54,-0.33 -0.3,2.12 -0.93,2.43 -0.25,0.44 -3.52,5.5 -2.03,-0.93 -0.34,-1.7 -3.09,-1.47 -1.61,-0.75 -5.88,2.68 -0.4,0.21 -0.29,-0.02 -6.23,-0.83 -0.65,-0.4 -0.16,-0.15 -0.06,-0.25 -9.599996,0.33 -0.54,0.02 -0.16,0.16 -0.11,0.24 -0.18,0.96 -0.01,0.56 0.07,0.24 0.12,0.2 0.17,0.15 0.45,0.25 0.13,0.17 0.95,1.87 0.45,1.1 -0.03,0.29 -0.75,0.91 -0.49,0.5 -2.23,-0.34 -0.39,-1.03 -0.45,-1.07 -1.18,-0.25 -0.2,0.1 -0.26,0.19 0.55,-0.7 0.25,-0.67 0.03,-0.57 0.04,-1.79 -0.2,-1.68 -0.25,-1.29 -0.15,-0.51 -0.54,-0.49 -1.76,-0.02 -0.62,0.39 -0.44,-0.25 -1.21,-3.95 0.15,-0.64 0.04,-0.16 0.77,-2.38 0.73,-1.57 z' id='SE-K' className='mapsvg-region' />
@@ -166,7 +236,15 @@ class Location extends React.Component {
               <path onMouseOut={(e) => this.onPathHover(e)} onMouseOver={(e) => this.onPathHover(e)} onClick={(e) => this.onPathClick(e)} d='m 147.64361,552.12334 0.27,0.43 0.13,0.22 0.69,0.03 0.47,-0.19 2.65,-1.62 0.14,-0.12 0.55,-0.48 0.65,-0.96 0.17,-0.51 0.02,-0.69 0.17,-0.46 1.41,-0.04 1.42,0.47 1.15,0.7 3.31,-2.52 0.17,0.31 1.24,1.9 0.52,0.59 1.77,0.81 0.63,0.41 -0.61,5.02 -0.12,0.92 -0.5,2.8 -0.49,0.81 -0.45,0.47 -2.06,1.42 -2.33,3.12 -0.03,2.89 -0.41,1.13 -0.64,1.05 -1.03,1.03 -0.52,-0.16 -1.42,-1.44 -0.47,-0.07 -2.21,0.51 -1.54,0.68 -1.38,2.63 -0.35,0.87 0.02,0.54 0.77,0.9 0.71,0.46 1.23,2.27 0.28,0.81 0.77,4.77 -1.02,-0.03 -1.04,1.38 -3.31,0.56 -0.1,-0.23 -0.92,-1.52 -0.18,-0.19 -1.35,-1.24 -0.35,-0.07 -0.27,0.05 -0.21,0.13 -0.85,0.55 -0.16,0.24 0.05,0.26 0.64,0.79 0.54,0.55 0.14,0.22 -0.04,0.32 -0.07,0.36 -0.13,0.26 -1.3,1.92 -0.44,0.23 -3.67,1.78 -4.11,-0.09 -0.25,-0.02 -1.77,-0.3 -0.26,-0.11 -0.67,-0.48 -0.59,-0.52 -0.23,-0.16 -0.26,-0.11 -0.14,0.14 0.05,0.27 0.1,0.24 0.42,0.63 0.64,0.79 0.18,0.18 0.23,0.16 0.52,0.25 0.31,0.11 1.48,0.23 0.33,0.03 2.51,-0.24 -0.4,0.08 0,1.26 0.08,1.04 0.21,0.58 -0.04,0.49 -0.7,1.35 -0.64,0.26 -1.35,0.27 -0.59,0.04 -0.53,0 -1.78,-0.17 -0.88,-0.3 -0.55,0.23 -0.58,0.43 -1.19,0.99 -1.91,2.93 -0.08,0.68 0.06,0.56 -0.08,0.63 -0.35,1.06 -0.55,0.3 -1.56,0.23 0.42,-1.93 -2.81,-0.96 -2.44,-1.49 0.32,-5.03 0.24,-0.63 1.08,0 0.74,-0.4 0.66,-0.49 0.03,-0.52 -0.26,-3.59 -0.26,-1.08 -0.22,-0.57 -2,-3.19 -0.78,-1.94 -1.27,-3.55 -0.29,-1.24 -0.41,-1.47 -0.49,-1.28 -1.79,-3.91 -0.13,-0.09 0.45,-1.02 0.66,-1.33 1.06,-1.96 0.35,-0.54 0.49,-0.19 0.85,-0.03 0.62,0.13 0.44,0.59 1.38,0.13 0.69,-0.53 0.39,-0.98 0.66,-1.93 0.14,-0.57 -0.5,-0.44 -0.46,-0.41 0.01,-0.56 0.2,-0.74 1.54,-4.95 0.95,-0.96 4.27,-1.06 1.89,-0.28 3.02,2.5 0.47,0.44 -0.23,1.09 -0.13,0.5 0.07,0.76 0.24,0.5 0.54,0.5 2.3,0.15 0.67,-0.08 1.33,-0.44 0.56,-0.27 0.61,-0.49 3.78,-2.94 2.45,-1.86 z' id='SE-U' className='mapsvg-region' />
               <path onMouseOut={(e) => this.onPathHover(e)} onMouseOver={(e) => this.onPathHover(e)} onClick={(e) => this.onPathClick(e)} d='m 168.76361,432.67334 -0.74,-0.13 -0.33,-0.13 -0.58,-0.29 -0.15,-0.24 -0.1,-0.27 -0.21,-1.17 0.04,-0.36 0.09,-0.38 -0.01,-0.32 -0.16,-0.89 -0.2,-0.52 -0.59,-0.95 -0.1,-0.27 -0.05,-0.29 0.16,-0.16 0.87,0.43 1.5,0.3 0.24,0.19 0.23,0.78 0.15,0.24 0.1,0.25 0.1,0.59 0.15,0.24 0.24,0.17 0.15,0.24 0.11,0.59 -0.07,0.32 0.06,0.29 0.1,0.27 0.02,0.65 0.39,0.41 0.15,0.24 -0.88,0.16 -0.68,0.01 z m 14.93,-17.55 -0.21,-0.13 -0.15,-0.24 -0.25,-0.51 -0.1,-0.27 -0.1,-0.59 0.09,-0.7 0.44,-1.33 0.18,-0.24 0.38,-0.24 0.27,-0.1 1.56,0.29 0.31,0.08 0.15,0.24 0.16,0.35 0.1,0.61 -0.05,0.35 -1.08,1.45 -0.18,0.24 -0.21,0.19 -1.02,0.5 -0.29,0.05 z m 33.28,-46.24 -0.33,0 -0.19,0.25 -0.16,0.3 -0.13,0.34 -0.1,0.39 0.04,1.31 0.04,0.64 -1.24,4.79 -2.83,3.87 -1.5,4.86 -0.22,0.19 -0.3,0.05 -0.26,-0.11 -1.7,-1.97 -0.15,-0.26 -0.1,-0.26 0.04,-0.37 0.01,-0.33 -0.24,-0.85 -1.39,-1.61 -0.37,-0.05 -2.06,1.28 -0.15,0.09 -0.08,0.13 -0.05,0.19 0.06,0.17 0.18,0.1 0.98,0.37 0.97,0.41 0.64,0.99 0.19,0.21 -0.47,0.88 -2.98,1.74 -0.23,-0.05 -0.39,-0.44 -0.58,0.15 -2.43,1.59 -2.12,1.35 -0.21,0.19 -0.15,0.29 -1.69,4.31 0.95,2.87 0.39,0.08 0.34,0.13 0.25,0.19 0.15,0.24 0.24,0.52 0.1,0.6 -0.1,0.26 -2.71,5.13 -0.18,0.24 -6.83,4.6 -0.24,0.14 -1.94,0.59 -1.14,-0.88 0.57,-1.33 0.65,-0.02 0.24,-0.14 0.18,-0.24 -0.01,-0.32 -0.19,-0.22 -1.7,-0.93 -0.95,-0.14 -1.38,0.98 -0.27,0.63 0.53,4.66 0.26,1.49 0.01,0.66 -1.26,1.37 -0.28,-0.03 -1.91,0.32 0.1,0.27 0.2,0.21 2.14,1.24 1.81,0.46 0.29,0.16 0.45,1.69 -0.18,0.24 -5.61,5.88 -0.21,0.19 -0.27,0.1 -0.35,-0.03 -0.59,-0.95 -0.24,-0.17 -0.35,-0.05 -1.15,0.25 -0.8,0.3 -0.21,0.19 -0.71,0.97 -0.12,0.35 0.2,0.52 0.39,0.41 0.24,0.17 -0.37,0.57 -1.38,0.21 -0.35,-0.05 -1.1,-0.3 -0.48,-0.35 -0.2,-0.21 -0.25,-0.51 -0.4,-1.05 -0.25,-0.51 -0.79,-1.16 -0.98,-1.35 -0.4,-0.41 -0.35,-0.05 -0.21,0.21 -1.77,2.43 -0.15,0.29 -0.09,0.38 0.9,6.84 0.32,1.77 0.1,0.27 2.36,3.34 0.98,0.4 1.31,0.47 0.66,0.17 1.24,0.44 0.57,0.3 0.24,0.17 -0.13,0.21 -1.31,1.02 -1.15,0.79 -0.3,-0.08 -0.2,-0.21 -0.05,-0.28 -0.52,-0.01 -0.16,0.07 -0.05,0.23 -0.65,4.26 -0.59,-0.21 -1.71,-0.47 -1.27,-0.14 -3.61,-0.36 -4.47,-0.86 -3.08,-0.68 -0.95,-0.38 -4.09,-1.12 -4.54,-0.98 -3.09,-0.64 -1.28,0.03 -0.58,0.09 -2.43,-0.05 -1.86,-0.38 -6.14,-1.42 -2.23,-0.95 -2.88,-1.28 -1.96,-0.93 -1.49,-0.52 -1.64,-0.21 -0.51,0 -2.39,0.39 -0.89,0.62 -0.94,0.99 -1.01,0.91 -1.03,0.87 -0.37,0.27 -0.49,-0.49 -0.75,-0.44 -1.24,0.04 -0.56,0.33 -1.29,1.1 -0.56,0.44 -3.1,-1.73 -2.39,-1.39 -3.829996,-5.37 -0.82,-10.56 6.789996,-0.09 0.73,0.21 0.49,0.33 0.58,0.54 1.19,0.62 0.59,-0.21 1.32,-1.02 2.89,-1.11 2.2,-0.3 0.56,-0.11 7.19,-1.94 1.47,-0.48 1.81,-1 4.95,-2.28 0.79,0.05 0.67,0.26 0.91,0.69 0.87,0.3 0.65,0.08 0.65,-0.1 4.42,-0.96 1.85,-0.93 0.23,-0.74 0.57,-1.63 0.85,-1.65 0.32,-0.53 3.13,-3.93 1.63,-1.83 1.49,-1.4 1.88,-0.6 1.77,-0.1 0.87,-0.13 1.54,-0.29 1.54,-0.66 -6.85,-8.17 -3.14,-3.66 -1.24,-1.41 -1.77,-1.8 -4.43,-3.55 -1.29,-0.93 -1.12,-0.93 -2.52,-2.14 -1.09,-0.98 -4.1,-8.58 -0.48,-2.74 -0.26,-0.86 -0.51,-0.81 -0.83,-1.22 -0.52,-0.59 -0.83,-0.76 -0.65,-0.69 -0.3,-1.29 1.39,-0.64 0.62,-0.23 1.4,-0.4 3.67,-0.48 1.84,-0.12 2.09,0.33 1.93,-0.31 4.41,-2.17 2.66,-0.65 0.58,-0.58 -0.1,-2.24 -0.1,-1 -0.14,-0.86 0.11,-0.98 0.4,-1.86 0.63,-2.15 0.18,-0.52 0.98,-2.05 0.79,-1.3 1.64,-2.27 2.4,2.47 0.61,0.4 3.24,0.45 4.06,0.85 2.83,0.62 1.51,0.27 4.84,0.73 4.17,0.38 4.39,0.25 4.07,-1.57 9.6,-4.5 1.6,-0.55 0.9,-0.12 0.54,0.27 0.5,0.38 0.18,0.65 0.07,0.65 -0.43,1.07 -0.32,0.6 -0.09,0.82 0.15,1.23 0.16,0.55 0.59,1.8 0.43,0.7 0.55,0.48 0.54,0.33 0.54,0.23 7.05,2.81 0.79,0.23 0.54,0.02 0.93,-0.38 1.11,1.14 5.18,7.69 4.06,7.57 0.29,0.77 0.25,1.43 z' id='SE-Y' className='mapsvg-region' />
             </svg>
-
+          </Col>
+          <Col xs={12} sm={12} md={12} lg={5}>
+            <Card className='speechBubble'>
+              <CardBlock>
+                <CardTitle>Vart vill du jobba?</CardTitle>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam gravida nibh at nisi accumsan, quis luctus est euismod. Curabitur vel finibus leo. Phasellus maximus enim eget neque posuere aliquet. Aliquam id sem vitae justo semper suscipit. Nulla ullamcorper arcu urna, quis lacinia turpis scelerisque ac. Aliquam interdum nisi eget eros cursus finibus. Mauris tempus velit sem, et rutrum nulla vulputate vel. Maecenas magna nulla, rutrum at molestie eu, efficitur interdum augue.</p>
+                <p>Maecenas eu lacus imperdiet, molestie dolor nec, venenatis ipsum. Sed vitae posuere nunc. Cras vestibulum quam et diam viverra vulputate. Mauris a leo lectus. Morbi tempor imperdiet magna, vitae euismod ex imperdiet at. Nam a hendrerit quam. Nam accumsan metus sed turpis hendrerit viverra. </p>
+              </CardBlock>
+            </Card>
           </Col>
         </Row>
       </Container>

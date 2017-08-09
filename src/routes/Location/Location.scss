@@ -43,8 +43,46 @@
   }
 }
 
-#location {
+.tooltip {
+  .municipality {
+    text-decoration: line-through;
+    color: #787878;
+    &.checked {
+      text-decoration: none;
+      color: #fff;
+    }
+  }
 
+  .btn-wrapper {
+    display: flex;
+
+    .fa {
+      width:20px;
+      height:20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.ok-btn {
+        background: green;
+      }
+      &.cancel-btn {
+        background: orange;
+      }
+    }
+  }
+
+  .one-col {
+    //max-width: 120px;
+  }
+
+  .two-col {
+    max-width: 220px;
+  }
+
+  .three-col {
+    max-width: 300px;
+  }
 }
 
 //.tooltip {
