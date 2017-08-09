@@ -22,6 +22,7 @@ import Location from './Location/Location'
 import ApplyForJob from './Jobs/ApplyForJob'
 import Jobs from './Jobs/Jobs'
 import ViewedJobs from './Jobs/ViewedJobs'
+import NotFound404 from './NotFound404/NotFound404'
 
 import 'pace-progress'
 
@@ -57,6 +58,8 @@ export const routes = (store) => (
     <Route path='/login' component={Login} name='Login' />
     <Route path='/login/facebook' component={Login} />
     <Route path='/login/linkedin' component={Login} />
+
+    <Route path='*' component={NotFound404} />
   </Route>
 )
 export default routes
