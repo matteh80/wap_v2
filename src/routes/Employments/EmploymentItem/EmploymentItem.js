@@ -42,6 +42,7 @@ class EmploymentItem extends React.Component {
     this._getOptions = this._getOptions.bind(this)
     this.getOccupationName = this.getOccupationName.bind(this)
     this.onRemove = this.onRemove.bind(this)
+    this._handleSubmit = this._handleSubmit.bind(this)
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -70,11 +71,7 @@ class EmploymentItem extends React.Component {
 
   toggleEditMode () {
     if (this.state.editMode && !_.isEqual(this.state.employment, this.props.employment)) {
-      this.props.onChange(this.state.employment)
-      this.setState({
-        loadsave: true,
-        editMode: false,
-      })
+      $('#mSubmitBtn').click()
     } else {
       this.setState({
         loadsave: false,
@@ -174,6 +171,16 @@ class EmploymentItem extends React.Component {
     this.props.onRemove(this.state.employment)
   }
 
+  _handleSubmit (event, errors, values) {
+    if (errors.length === 0) {
+      this.props.onChange(this.state.employment)
+      this.setState({
+        loadsave: true,
+        editMode: false,
+      })
+    }
+  }
+
   render () {
     let { employment } = this.state
     let { id, title, employer, occupation, start_date, end_date, description, current } = this.props.employment
@@ -200,20 +207,20 @@ class EmploymentItem extends React.Component {
           }
             {this.state.editMode &&
             <CardBlock>
-              <AvForm id='employmentForm' model={this.state.employment} style={{ marginTop: 40 }} onSubmit={(e) => this._handleSubmit(e)}>
+              <AvForm id='employmentForm' model={this.state.employment} style={{ marginTop: 40 }} onSubmit={this._handleSubmit}>
                 <AvGroup>
                   <Label for='employer'>Företag *</Label>
-                  <AvField type='text' name='employer' onChange={this._handleInputChange} />
+                  <AvField type='text' name='employer' onChange={this._handleInputChange} required />
                 </AvGroup>
                 <AvGroup>
                   <Label for='title'>Befattning *</Label>
-                  <AvField type='text' name='title' onChange={this._handleInputChange} />
+                  <AvField type='text' name='title' onChange={this._handleInputChange} required />
                 </AvGroup>
                 <AvGroup>
                   <Label for='occupation'>Yrkeskategori *</Label>
                   <Select
                     options={this._getOptions()}
-                    clearable
+                    clearable={false}
                     onChange={this._handleOccupationChange}
                     placeholder='Välj yrke'
                     value={this.state.selectValue}
@@ -224,8 +231,8 @@ class EmploymentItem extends React.Component {
                   <Label for='description'>Jag bidrar / bidrog med *</Label>
                   <AvField type='textarea' name='description' rows='4' onChange={this._handleInputChange} />
                 </AvGroup>
+                <button type='submit' id='mSubmitBtn' hidden />
               </AvForm>
-
             </CardBlock>
           }
           </Card>

@@ -204,7 +204,7 @@ class EmploymentForm extends React.Component {
                     <Label for='occupation'>Yrkeskategori *</Label>
                     <Select
                       options={this._getOptions()}
-                      clearable
+                      clearable={false}
                       onChange={this._handleOccupationChange}
                       placeholder='Välj yrke'
                       value={this.state.selectValue}

@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import moment from 'moment'
 import StartEndDate from '../../../components/Misc/StartEndDate/StartEndDate'
 import Loader from '../../../components/Misc/Loader/Loader'
+import $ from 'jquery'
 
 import {
   Col,
@@ -35,6 +36,7 @@ class EducationItem extends React.Component {
     this.revertChanges = this.revertChanges.bind(this)
     this._handleInputChange = this._handleInputChange.bind(this)
     this._handleDateChange = this._handleDateChange.bind(this)
+    this._handleSubmit = this._handleSubmit.bind(this)
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -76,11 +78,7 @@ class EducationItem extends React.Component {
 
   toggleEditMode () {
     if (this.state.editMode && !_.isEqual(this.state.education, this.props.education)) {
-      this.props.onChange(this.state.education)
-      this.setState({
-        loadsave: true,
-        editMode: false,
-      })
+      $('#mSubmitBtn').click()
     } else {
       this.setState({
         loadsave: false,
@@ -128,6 +126,16 @@ class EducationItem extends React.Component {
     })
   }
 
+  _handleSubmit (event, errors, values) {
+    if (errors.length === 0) {
+      this.props.onChange(this.state.education)
+      this.setState({
+        loadsave: true,
+        editMode: false,
+      })
+    }
+  }
+
   render () {
     let { education } = this.props
     let { id, type, school, orientation, start_date, end_date, description } = education
@@ -157,7 +165,7 @@ class EducationItem extends React.Component {
             }
             {this.state.editMode &&
             <CardBlock>
-              <AvForm id='educationForm' style={{ marginTop: 40 }} onSubmit={(e) => this._handleSubmit(e)}>
+              <AvForm id='educationForm' model={this.state.education} style={{ marginTop: 40 }} onSubmit={this._handleSubmit}>
                 <AvGroup>
                   <Label>Typ av skola</Label>
                   <AvField type='select' ref={(select) => { this.type = select }} name='type'
@@ -170,20 +178,18 @@ class EducationItem extends React.Component {
                 </AvGroup>
                 <AvGroup>
                   <Label for='orientation'>Inriktning *</Label>
-                  <AvField type='text' name='orientation' id='orientation' defaultValue={education ? education.orientation : ''}
-                    ref={(input) => { this.orientation = input }} onChange={this._handleInputChange} />
+                  <AvField type='text' name='orientation' onChange={this._handleInputChange} required />
                 </AvGroup>
                 <AvGroup>
                   <Label for='school'>Skola *</Label>
-                  <AvField type='text' name='school' id='school' defaultValue={education ? education.school : ''}
-                    ref={(input) => { this.school = input }} onChange={this._handleInputChange} />
+                  <AvField type='text' name='school' onChange={this._handleInputChange} required />
                 </AvGroup>
                 <StartEndDate foo={this.state.education} onChange={this._handleDateChange} />
                 <AvGroup>
                   <Label for='description'>Beskrivning</Label>
-                  <AvField type='textarea' name='description' id='description' rows='4' defaultValue={education ? education.description : ''}
-                    ref={(input) => { this.description = input }} onChange={this._handleInputChange} />
+                  <AvField type='textarea' name='description' rows='4' onChange={this._handleInputChange} />
                 </AvGroup>
+                <button type='submit' id='mSubmitBtn' hidden />
               </AvForm>
             </CardBlock>
             }
