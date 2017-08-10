@@ -1,4 +1,5 @@
 import React from 'react'
+import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
 import './PageLayout.scss'
 import Sidemenu from '../Sidemenu/Sidemenu'
@@ -10,6 +11,8 @@ import Breadcrumbs from 'react-breadcrumbs'
 class PageLayout extends React.Component {
   constructor (props) {
     super(props)
+
+    !this.props.profile.tos_accepted && this.props.router.push('/signup')
   }
 
   render () {
@@ -60,4 +63,4 @@ PageLayout.contextTypes = {
 //   ...state
 // })
 
-export default UserIsAuthenticated(connect((state) => state)(PageLayout))
+export default UserIsAuthenticated(withRouter(connect((state) => state)(PageLayout)))

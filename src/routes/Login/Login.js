@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { login, socialLogin } from '../../store/actions/auth'
-import { getProfile } from '../../store/actions/profile'
-import { getAllEmployments } from '../../store/actions/employments'
+import { getProfile, updateProfile } from '../../store/actions/profile'
+import { getAllEmployments, createEmployment } from '../../store/actions/employments'
 import { getAllEducations } from '../../store/actions/educations'
 import { getAllOccupations, getMyOccupations } from '../../store/actions/occupations'
 import { getAllSkills, getMySkills } from '../../store/actions/skills'
@@ -21,6 +21,7 @@ import $ from 'jquery'
 import graph from 'fb-react-sdk'
 import URLSearchParams from 'url-search-params'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 
 import {
   Card,
@@ -111,20 +112,21 @@ class Login extends React.Component {
       if (authCode.length > 10) {
         let loginData = { 'provider': provider, 'code': authCode, 'redirect_uri': mRedirectUri }
         dispatch(socialLogin(loginData)).then(() => {
-          if (provider === 'linkedin-oauth2') {
-            dispatch(getProfile()).then((result) => {
-              console.log(result)
-              if (result.tos_accepted) {
-                this.finalize()
-              } else {
-                this.setState({
-                  linkedIn: true
-                })
-              }
-            })
-          } else {
-            this.finalize()
-          }
+          // if (provider === 'linkedin-oauth2') {
+          //   dispatch(getProfile()).then((result) => {
+          //     console.log(result)
+          //     if (result.tos_accepted) {
+          //       this.finalize()
+          //     } else {
+          //       this.setState({
+          //         linkedIn: true
+          //       })
+          //     }
+          //   })
+          // } else {
+          //   this.finalize()
+          // }
+          this.finalize()
         })
       }
     }
@@ -146,12 +148,48 @@ class Login extends React.Component {
   }
 
   setUpProfileFromLinkedIn (p) {
+    let { dispatch } = this.props
     console.log(p)
+    let mEmployment = null
+
     let mProfile = {
       first_name: p.firstName,
       last_name: p.lastName,
       title: p.headline,
+      address: null,
+      care_of: null,
+      city: null,
+      mobile_phone_number: '000',
+      personal_info: null,
+      phone_number: null,
+      zip_code: null,
+      actively_searching: true,
+      student: false
     }
+
+    if (p.positions && this.props.employments.employments.length === 0) {
+      mEmployment = {
+        title: p.positions.values[0].title,
+        employer: p.positions.values[0].company.name,
+        occupation: 'cb2521a7-cf81-443c-b3c4-bb5edca8af69',
+        description: p.positions.values[0].company.industry,
+        current: true,
+        end_date: moment().format('YYYY-MM-DD'),
+        start_date: moment().year(p.positions.values[0].startDate.year).month(p.positions.values[0].startDate.month - 1).startOf('month').format('YYYY-MM-DD')
+      }
+    }
+
+    Promise.all([
+      dispatch(updateProfile(mProfile)),
+      mEmployment && dispatch(createEmployment(mEmployment))
+    ]).then(() => {
+      this.finalize()
+    }).catch((error) => {
+      console.log(error)
+      this.setState({
+        loadsave: false
+      })
+    })
   }
 
   loginLinkedIn () {
@@ -213,7 +251,7 @@ class Login extends React.Component {
   }
 
   loginFB () {
-    cookies.set('redirect', redirect, { path: '/', maxAge: 60 })
+    cookies.set('redirect', redirect, { path: '/', maxAge: 3600 })
     let mRedirectUri
     if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
       // dev code
@@ -247,7 +285,7 @@ class Login extends React.Component {
   }
 
   signInCallback (authResult) {
-    cookies.set('redirect', redirect, { path: '/', maxAge: 60 })
+    cookies.set('redirect', redirect, { path: '/', maxAge: 3600 })
     let { dispatch } = this.props
 
     console.log('signInCallback')
@@ -268,47 +306,52 @@ class Login extends React.Component {
   finalize () {
     let { dispatch } = this.props
     this.props.auth.token && dispatch(getProfile(this.props.auth.token)).then((result) => {
-      if (result.tos_accepted) {
-        let cookieRedirect = cookies.get('redirect')
-        console.log(cookieRedirect)
-        let redirect = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.query.redirect : null
 
-        if (cookieRedirect !== 'undefined') {
-          redirect = cookieRedirect
-        }
+      let cookieRedirect = cookies.get('redirect')
+      console.log(cookieRedirect)
+      let redirect = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.query.redirect : null
 
-        cookies.remove('redirect', redirect, { path: '/', maxAge: 60 })
+      if (cookieRedirect !== 'undefined') {
+        redirect = cookieRedirect
+      }
 
-        Promise.all([
-          dispatch(getAllEmployments()),
-          dispatch(getAllEducations()),
-          dispatch(getAllOccupations()),
-          dispatch(getMyOccupations()),
-          dispatch(getAllSkills()),
-          dispatch(getMySkills()),
-          dispatch(getAllLanguages()),
-          dispatch(getMyLanguages()),
-          dispatch(getAllMotivations()),
-          dispatch(getMyMotivations()),
-          dispatch(getAllPersonalities()),
-          dispatch(getMyPersonalities()),
-          dispatch(getVideoInfo()),
-          dispatch(getAllLicenses()),
-          dispatch(getMyLicenses()),
-          dispatch(getAllReferences()),
-          dispatch(getAllQuestions()),
-        ]).then(() => {
+      cookies.remove('redirect', redirect, { path: '/', maxAge: 3600 })
+
+      Promise.all([
+        dispatch(getAllEmployments()),
+        dispatch(getAllEducations()),
+        dispatch(getAllOccupations()),
+        dispatch(getMyOccupations()),
+        dispatch(getAllSkills()),
+        dispatch(getMySkills()),
+        dispatch(getAllLanguages()),
+        dispatch(getMyLanguages()),
+        dispatch(getAllMotivations()),
+        dispatch(getMyMotivations()),
+        dispatch(getAllPersonalities()),
+        dispatch(getMyPersonalities()),
+        dispatch(getVideoInfo()),
+        dispatch(getAllLicenses()),
+        dispatch(getMyLicenses()),
+        dispatch(getAllReferences()),
+        dispatch(getAllQuestions()),
+      ]).then(() => {
+        if (result.tos_accepted) {
           console.log('redirect')
           this.props.router.push(redirect || '/')
-        }).catch((error) => {
-          console.log(error)
-          this.setState({
-            loadsave: false
-          })
+        } else {
+          if (redirect) {
+            this.props.router.push('/signup?redirect=' + redirect)
+          } else {
+            this.props.router.push('/signup')
+          }
+        }
+      }).catch((error) => {
+        console.log(error)
+        this.setState({
+          loadsave: false
         })
-      } else {
-        this.props.router.push('/signup')
-      }
+      })
     })
   }
 

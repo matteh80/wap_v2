@@ -12,6 +12,12 @@ class App extends React.Component {
     routes: PropTypes.object.isRequired,
   }
 
+  constructor (props) {
+    super(props)
+    const browser = require('detect-browser');
+    console.log(browser)
+  }
+
   shouldComponentUpdate () {
     return false
   }

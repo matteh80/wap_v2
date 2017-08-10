@@ -23,8 +23,7 @@ import ApplyForJob from './Jobs/ApplyForJob'
 import Jobs from './Jobs/Jobs'
 import ViewedJobs from './Jobs/ViewedJobs'
 import NotFound404 from './NotFound404/NotFound404'
-
-import 'pace-progress'
+import Signup from './Signup/Signup'
 
 export const routes = (store) => (
   <Route>
@@ -58,6 +57,8 @@ export const routes = (store) => (
     <Route path='/login' component={Login} name='Login' />
     <Route path='/login/facebook' component={Login} />
     <Route path='/login/linkedin' component={Login} />
+
+    <Route path='/signup' component={Signup} />
 
     <Route path='*' component={NotFound404} />
   </Route>

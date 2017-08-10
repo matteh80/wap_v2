@@ -1,0 +1,24 @@
+{
+  "register": {
+
+  },
+  "signup": {
+    "personal_info": ["Personuppgifter", "Personal info"],
+    "first_name": ["Förnamn", "First name"],
+    "last_name": ["Efternamn", "Last name"],
+    "title": ["Titel / yrkesbeskrivning", "Job title"],
+    "address": ["Adress", "Address"],
+    "zip_code": ["Postnummer", "Zip code"],
+    "city": ["Postort", "City"],
+    "phone_number": ["Telefonnummer", "Phone"],
+    "gender": ["Kön", "Gender"],
+    "female": ["Kvinna", "Female"],
+    "male": ["Man", "Male"],
+    "other": ["Annat / okänt", "Other / unknown"],
+    "actively_searching": ["Jag söker jobb aktivt", "I'm currently looking for a job"],
+    "student": ["Jag är student", "I'm currently studying"],
+    "tos": ["Jag har tagit del av integritetspolicyn", "I have read and agrees to terms of policy"],
+    "no_previous_employment": ["Jag har inte jobbat tidigare", "No previous employment"],
+    "dreamjob": ["Vad är ditt drömjobb?", "What's your dreamjob?"]
+  }
+}

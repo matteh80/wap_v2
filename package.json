@@ -23,6 +23,7 @@
     "availity-reactstrap-validation": "^1.4.3",
     "bootstrap": "^4.0.0-alpha",
     "compression": "^1.7.0",
+    "detect-browser": "^1.7.1",
     "express": "^4.15.4",
     "fb-react-sdk": "^1.0.4",
     "font-awesome": "^4.7.0",

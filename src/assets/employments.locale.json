@@ -1,5 +1,10 @@
 {
   "employments": {
-    "add_employment": ["Lägg till anställning", "Add employment"]
+    "add_employment": ["Lägg till anställning", "Add employment"],
+    "employer": ["Företag", "Employer"],
+    "title": ["Befattning", "Title"],
+    "current_employment": ["Nuvarande anställning", "Current employment"],
+    "havent_worked": ["Har inte jobbat tidigare", "No previous employments"],
+    "occupation": ["Yrkeskategori", "Occupation"]
   }
 }

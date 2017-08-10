@@ -2,6 +2,9 @@ import React from 'react'
 import Datetime from 'react-datetime'
 import $ from 'jquery'
 import moment from 'moment'
+import PropTypes from 'prop-types'
+
+import { AvInput } from 'availity-reactstrap-validation'
 
 import {
   Col,
@@ -106,6 +109,8 @@ export default class StartEndDate extends React.Component {
       return current.isAfter(_self.state.startDate)
     }
 
+    let { translate } = this.context
+
     return (
       <Row>
         <Col xs={12} sm={6}>
@@ -149,14 +154,16 @@ export default class StartEndDate extends React.Component {
           </div>
         </Col>
         {this.props.withCurrent &&
-        <Col xs={12}>
-          <FormGroup>
-            <Input type='checkbox' ref={(checkbox) => this.current = checkbox} onClick={this.handleCurrentChange}
-              defaultChecked={this.props.foo && this.props.foo.current} name='current' />{' '}
-            Nuvarande anställning
-          </FormGroup>
+        <Col xs='12'>
+          <Label>
+            <AvInput type='checkbox' name='current' onClick={this.handleCurrentChange} defaultChecked={this.props.foo && this.props.foo.current} /><span /> {translate('employments.current_employment')}
+          </Label>
         </Col> }
       </Row>
     )
   }
+}
+
+StartEndDate.contextTypes = {
+  translate: PropTypes.func
 }

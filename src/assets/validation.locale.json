@@ -1,0 +1,6 @@
+{
+  "error_msg": {
+    "default": ["Kontrollera detta fält", "This field is invalid"],
+    "number": ["Enbart siffror tillåtna", "Only numbers allowed"]
+  }
+}
