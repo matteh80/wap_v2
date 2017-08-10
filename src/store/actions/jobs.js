@@ -11,6 +11,10 @@ const {
 
 export function getAllJobs () {
   return (dispatch, getState) => {
+    dispatch({
+      type: GET_ALL_JOBS,
+      fetching: true
+    })
     return axios.get('https://cv-maxkompetens.app.intelliplan.eu/JobAdGlobePages/Feed.aspx?pid=AA31EA47-FDA6-42F3-BD9F-E42186E5A960&version=2', {
       responseType: 'text'
     })
@@ -21,18 +25,18 @@ export function getAllJobs () {
         let $xml = $(xml)
         $xml.find('item').each(function (index, elem) {
           let mJob = {
-            id: $(elem).find('id').text(),
+            id: $(elem).find('intelliplan\\:id').text(),
             title: $(elem).find('title').text(),
             pubdate: $(elem).find('pubdate').text(),
             description: $(elem).find('description').text(),
-            type: $(elem).find('type').text(),
-            servicecategory: $(elem).find('servicecategory').text(),
-            state: $(elem).find('state').text(),
-            municipality: $(elem).find('municipality').text(),
-            company: $(elem).find('company').text(),
-            contact1name: $(elem).find('contact1name').text(),
-            contact1email: $(elem).find('contact1email').text(),
-            contact1phone: $(elem).find('contact1phone').text()
+            type: $(elem).find('intelliplan\\:type').text(),
+            servicecategory: $(elem).find('intelliplan\\:servicecategory').text(),
+            state: $(elem).find('intelliplan\\:state').text(),
+            municipality: $(elem).find('intelliplan\\:municipality').text(),
+            company: $(elem).find('intelliplan\\:company').text(),
+            contact1name: $(elem).find('intelliplan\\:contact1name').text(),
+            contact1email: $(elem).find('intelliplan\\:contact1email').text(),
+            contact1phone: $(elem).find('intelliplan\\:contact1phone').text()
           }
           jobs.push(mJob)
         })
@@ -42,7 +46,8 @@ export function getAllJobs () {
         return dispatch({
           type: GET_ALL_JOBS,
           allJobs: jobs,
-          receivedAt: Date.now()
+          receivedAt: Date.now(),
+          fetching: false
         })
       })
   }
