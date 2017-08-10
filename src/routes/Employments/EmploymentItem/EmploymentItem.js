@@ -10,7 +10,6 @@ import {
   CardTitle,
   CardSubtitle,
   CardText,
-  Form,
   FormGroup,
   Label,
   Input
@@ -18,6 +17,7 @@ import {
 import StartEndDate from '../../../components/Misc/StartEndDate/StartEndDate'
 import Loader from '../../../components/Misc/Loader/Loader'
 import EditButtons from '../../../components/buttons/EditButtons'
+import { AvForm, AvGroup, AvField } from 'availity-reactstrap-validation'
 
 let _ = require('lodash')
 
@@ -200,18 +200,16 @@ class EmploymentItem extends React.Component {
           }
             {this.state.editMode &&
             <CardBlock>
-              <Form id='employmentForm' style={{ marginTop: 40 }} onSubmit={(e) => this._handleSubmit(e)}>
-                <FormGroup>
+              <AvForm id='employmentForm' model={this.state.employment} style={{ marginTop: 40 }} onSubmit={(e) => this._handleSubmit(e)}>
+                <AvGroup>
                   <Label for='employer'>Företag *</Label>
-                  <Input type='text' name='employer' id='employer' defaultValue={employment ? employment.employer : ''}
-                    ref={(input) => { this.employer = input }} onChange={this._handleInputChange} />
-                </FormGroup>
-                <FormGroup>
+                  <AvField type='text' name='employer' onChange={this._handleInputChange} />
+                </AvGroup>
+                <AvGroup>
                   <Label for='title'>Befattning *</Label>
-                  <Input type='text' name='title' id='title' defaultValue={employment ? employment.title : ''}
-                    ref={(input) => this.title = input} onChange={this._handleInputChange} />
-                </FormGroup>
-                <FormGroup>
+                  <AvField type='text' name='title' onChange={this._handleInputChange} />
+                </AvGroup>
+                <AvGroup>
                   <Label for='occupation'>Yrkeskategori *</Label>
                   <Select
                     options={this._getOptions()}
@@ -220,14 +218,13 @@ class EmploymentItem extends React.Component {
                     placeholder='Välj yrke'
                     value={this.state.selectValue}
                 />
-                </FormGroup>
+                </AvGroup>
                 <StartEndDate withCurrent foo={this.state.employment} onChange={this._handleDateChange} />
-                <FormGroup>
+                <AvGroup>
                   <Label for='description'>Jag bidrar / bidrog med *</Label>
-                  <Input type='textarea' name='description' id='description' rows='4' defaultValue={employment ? employment.description : ''}
-                    ref={(input) => this.description = input} onChange={this._handleInputChange} />
-                </FormGroup>
-              </Form>
+                  <AvField type='textarea' name='description' rows='4' onChange={this._handleInputChange} />
+                </AvGroup>
+              </AvForm>
 
             </CardBlock>
           }

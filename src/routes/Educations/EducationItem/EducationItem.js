@@ -157,7 +157,7 @@ class EducationItem extends React.Component {
             }
             {this.state.editMode &&
             <CardBlock>
-              <AvForm id='educationForm' onSubmit={(e) => this._handleSubmit(e)}>
+              <AvForm id='educationForm' style={{ marginTop: 40 }} onSubmit={(e) => this._handleSubmit(e)}>
                 <AvGroup>
                   <Label>Typ av skola</Label>
                   <AvField type='select' ref={(select) => { this.type = select }} name='type'
