@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { getActiveLanguage, getTranslate } from 'react-localize-redux'
 import CookieBanner from 'react-cookie-banner'
+import ReactGA from 'react-ga'
 
 class App extends React.Component {
   static propTypes = {
@@ -16,8 +17,9 @@ class App extends React.Component {
 
   constructor (props) {
     super(props)
-    const browser = require('detect-browser');
+    const browser = require('detect-browser')
     console.log(browser)
+    ReactGA.initialize('UA-100067149-2')
   }
 
   shouldComponentUpdate () {
@@ -29,6 +31,12 @@ class App extends React.Component {
       translate: this.props.translate,
       currentLanguage: this.props.currentLanguage
     }
+  }
+
+  logPageView () {
+    console.log('log page view')
+    ReactGA.set({ page: window.location.pathname + window.location.search })
+    ReactGA.pageview(window.location.pathname + window.location.search)
   }
 
   render () {
@@ -45,7 +53,7 @@ class App extends React.Component {
           cookie='user-has-accepted-cookies'
           dismissOnScroll={false} />
         <Provider store={this.props.store}>
-          <Router history={history} children={this.props.routes} />
+          <Router history={history} children={this.props.routes} onUpdate={this.logPageView} />
         </Provider>
       </div>
     )
