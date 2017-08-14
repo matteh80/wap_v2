@@ -1,5 +1,4 @@
 import axios from 'axios'
-import Cookies from 'universal-cookie'
 import { apiClient } from '../axios.config'
 
 const {
@@ -10,8 +9,6 @@ const {
   REGISTER,
   REGISTER_SUCCESS
 } = require('./actionTypes/auth')
-
-const cookies = new Cookies()
 
 export function register (creds) {
   return (dispatch, getState) => {
@@ -25,10 +22,6 @@ export function register (creds) {
         console.log(error.response)
       })
       .then((result) => {
-        cookies.set('token', result.data.token, { path: '/' })
-        apiClient.defaults.headers = {
-          'Authorization': 'Token ' + cookies.get('token')
-        }
         return dispatch({
           type: REGISTER_SUCCESS,
           ...result.data,
@@ -47,10 +40,6 @@ export function login (creds) {
       creds
     )
       .then((result) => {
-        cookies.set('token', result.data.token, { path: '/' })
-        apiClient.defaults.headers = {
-          'Authorization': 'Token ' + cookies.get('token')
-        }
         return dispatch({
           type: LOGIN_SUCCESS,
           ...result.data,
@@ -92,12 +81,7 @@ export function socialLogin (data) {
       .then((result) => {
         console.log('login')
         console.log(result)
-
-        // If login was successful, set the token in local storage
-        cookies.set('token', result.data.token, { path: '/' })
-        apiClient.defaults.headers = {
-          'Authorization': 'Token ' + cookies.get('token')
-        }
+        
         // Dispatch the success action
         dispatch(receiveLogin(result.data.token))
       })

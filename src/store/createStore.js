@@ -7,6 +7,7 @@ import { routerMiddleware } from 'react-router-redux'
 import { persistStore, autoRehydrate } from 'redux-persist'
 import { asyncSessionStorage } from 'redux-persist/storages'
 
+let store
 export default (initialState = {}) => {
   // ======================================================
   // Middleware Configuration
@@ -32,7 +33,7 @@ export default (initialState = {}) => {
   // ======================================================
   return new Promise((resolve, reject) => {
     try {
-      const store = createReduxStore(
+      store = createReduxStore(
         rootReducer,
         initialState,
         composeEnhancers(
@@ -59,6 +60,10 @@ export default (initialState = {}) => {
 
   // To unsubscribe, invoke `store.unsubscribeHistory()` anytime
   // store.unsubscribeHistory = browserHistory.listen(updateLocation(store))
+}
+
+export function getStore () {
+  return store
 }
 
 // export default createStore
