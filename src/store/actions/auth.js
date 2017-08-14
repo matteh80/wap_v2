@@ -6,10 +6,37 @@ const {
   LOGIN,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  LOGOUT
+  LOGOUT,
+  REGISTER,
+  REGISTER_SUCCESS
 } = require('./actionTypes/auth')
 
 const cookies = new Cookies()
+
+export function register (creds) {
+  return (dispatch, getState) => {
+    dispatch({
+      type: REGISTER
+    })
+    return axios.post('https://api.wapcard.se/api/v1/register/',
+      creds
+    )
+      .catch((error) => {
+        console.log(error.response)
+      })
+      .then((result) => {
+        cookies.set('token', result.data.token, { path: '/' })
+        apiClient.defaults.headers = {
+          'Authorization': 'Token ' + cookies.get('token')
+        }
+        return dispatch({
+          type: REGISTER_SUCCESS,
+          ...result.data,
+          receivedAt: Date.now()
+        })
+      })
+  }
+}
 
 export function login (creds) {
   return (dispatch, getState) => {

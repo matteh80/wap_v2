@@ -6,7 +6,9 @@ const {
   LOGIN_FAIL,
   LOGOUT,
   LOGOUT_SUCCESS,
-  LOGOUT_FAIL
+  LOGOUT_FAIL,
+  REGISTER,
+  REGISTER_SUCCESS
 } = require('../actions/actionTypes/auth')
 
 let nestedKey = 'blacklisted'
@@ -17,6 +19,18 @@ const initialState = {
 }
 export default function reducer (state = initialState, action = {}) {
   switch (action.type) {
+    case REGISTER:
+      return {
+        ...state,
+        registering: true
+      }
+    case REGISTER_SUCCESS:
+      console.log('register success')
+      return {
+        ...state,
+        registering: false,
+        ...action
+      }
     case LOGIN:
       return {
         ...state,

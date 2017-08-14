@@ -4,6 +4,7 @@ import { Route, IndexRoute } from 'react-router'
 import CoreLayout from '../layouts/PageLayout/PageLayout'
 import Dashboard from './Dashboard/Dashboard'
 import Login from './Login/Login'
+import Register from './Register/Register'
 import Employments from './Employments/Employments'
 import Educations from './Educations/Educations'
 import Occupations from './Occupations/Occupations'
@@ -58,6 +59,7 @@ export const routes = (store) => (
     <Route path='/login/facebook' component={Login} />
     <Route path='/login/linkedin' component={Login} />
 
+    <Route path='/register' component={Register} name='Register' />
     <Route path='/signup' component={Signup} />
 
     <Route path='*' component={NotFound404} />

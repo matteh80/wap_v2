@@ -1,6 +1,10 @@
 {
   "register": {
-
+    "email": ["Epost", "Email"],
+    "password": ["Lösenord", "Password"],
+    "confirm_password": ["Bekräfta lösenord", "Confirm password"],
+    "login": ["Logga in", "Login"],
+    "register": ["Registera", "Register"]
   },
   "signup": {
     "personal_info": ["Personuppgifter", "Personal info"],
@@ -20,5 +24,10 @@
     "tos": ["Jag har tagit del av integritetspolicyn", "I have read and agrees to terms of policy"],
     "no_previous_employment": ["Jag har inte jobbat tidigare", "No previous employment"],
     "dreamjob": ["Vad är ditt drömjobb?", "What's your dreamjob?"]
+  },
+  "validation": {
+    "email": ["Skriv in din epost-adress", "Enter your email"],
+    "password_length": ["Ditt lösenord måste vara minst 8 tecken", "Password must be at least 8 characters"],
+    "password_match": ["Lösenorden matchar inte", "Passwords doesn't match"]
   }
 }

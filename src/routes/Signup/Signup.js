@@ -7,6 +7,7 @@ import ProfilePicture from '../../components/Misc/ProfilePicture/ProfilePicture'
 import Select from 'react-select'
 import $ from 'jquery'
 import UserIsAuthenticated from '../../routes/auth'
+import classNames from 'classnames'
 
 import { getProfile, updateProfile } from '../../store/actions/profile'
 import { getAllEmployments, createEmployment } from '../../store/actions/employments'
@@ -31,7 +32,8 @@ import {
   CardBlock,
   Label,
   FormGroup,
-  Collapse
+  Collapse,
+  Input
 } from 'reactstrap'
 
 import { AvForm, AvField, AvInput, AvRadioGroup, AvRadio, AvGroup } from 'availity-reactstrap-validation'
@@ -246,7 +248,7 @@ class Signup extends React.Component {
     $('.hiddenBtn').each(function (el, i) {
       $(this).click()
     })
-    if ($('form.av-invalid').length === 0) {
+    if ($('form.av-invalid').not('.willNotValidate').length === 0) {
       console.log('valid')
       this.saveToServer()
     } else {
@@ -281,7 +283,6 @@ class Signup extends React.Component {
   finalize () {
     let { dispatch } = this.props
     this.props.auth.token && dispatch(getProfile(this.props.auth.token)).then((result) => {
-
       let redirect = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.query.redirect : null
 
       Promise.all([
@@ -461,8 +462,8 @@ class Signup extends React.Component {
               <CardBlock>
                 <CardTitle>Min senaste anställning</CardTitle>
                 <CardSubtitle>Lägg till den anställning du hade senast</CardSubtitle>
-                <AvForm model={this.state.employment}>
-                  <Collapse isOpen={!this.state.noEmployment}>
+                <Collapse isOpen={!this.state.noEmployment}>
+                  <AvForm model={this.state.employment} className={classNames(this.state.noEmployment && 'willNotValidate')}>
                     <Row>
                       <Col xs='12' md='6'>
                         <AvField onChange={(e) => this.handleEmploymentInputChange(e)} name='employer' label={translate('employments.employer')} type='text' required errorMessage={translate('error_msg.default')} />
@@ -482,21 +483,22 @@ class Signup extends React.Component {
                             placeholder='Välj yrke'
                             value={this.state.selectEmploymentValue}
                             onChange={this.onEmploymentOccupationChange}
-                          />
+                            />
                         </FormGroup>
                       </Col>
                     </Row>
                     <button type='submit' className='hiddenBtn' hidden />
-                  </Collapse>
+                  </AvForm>
+                </Collapse>
 
-                  <Row>
-                    <Col xs='12' className='mt-3' style={{ marginTop: 10, paddingTop:10, borderTop: '1px solid #eee' }}>
-                      <Label>
-                        <AvInput type='checkbox' name='no_previous' defaultValue={false} onChange={this.handleNoEmployment} /> {translate('signup.no_previous_employment')}
-                      </Label>
-                    </Col>
-                  </Row>
-                </AvForm>
+                <Row>
+                  <Col xs='12' className='mt-3' style={{ marginTop: 10, paddingTop:10, borderTop: '1px solid #eee' }}>
+                    <Label>
+                      <Input type='checkbox' name='no_previous' defaultValue={false} onChange={this.handleNoEmployment} /> {translate('signup.no_previous_employment')}
+                    </Label>
+                  </Col>
+                </Row>
+
               </CardBlock>
             </Card>
 
