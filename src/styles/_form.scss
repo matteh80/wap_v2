@@ -126,7 +126,7 @@ input[type='radio']:after, input[type='checkbox']:after {
   margin:-1px 6px 0 0;
   vertical-align:middle;
   //background:url(check_radio_sheet.png) left top no-repeat;
-  background-color: $gray-lighter;
+  background-color: lightgray;
   cursor:pointer;
 
   transition: transform 500ms, background-color 250ms ease 250ms;

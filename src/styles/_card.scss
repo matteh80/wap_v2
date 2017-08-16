@@ -10,6 +10,11 @@
   background-position: center;
   //overflow-x: hidden;
 
+  .card-block {
+    flex: 1 1 auto;
+    padding: 1.25rem;
+  }
+
   &:hover {
     .btn-wrapper {
       opacity: 1;

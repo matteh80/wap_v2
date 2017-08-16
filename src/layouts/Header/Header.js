@@ -65,12 +65,12 @@ class Header extends React.Component {
     let { translate } = this.props
     return (
       <div className='header'>
-        <div className='hidden-md-down pull-left h-100 logo'>
+        <div className='d-none d-lg-block pull-left h-100 logo'>
           <Row className='justify-content-center align-items-center h-100'>
             <img src='/img/bee_100.png' style={{ maxHeight: '100%', width: 'auto' }} />
           </Row>
         </div>
-        <div className='navbar-toggle hidden-lg-up pull-xs-left collapsed' aria-label='Toggle navigation' onClick={() => this._toggleMenu()}>
+        <div className='navbar-toggle d-lg-none pull-xs-left collapsed' aria-label='Toggle navigation' onClick={() => this._toggleMenu()}>
           <span className='bar1' />
           <span className='bar2' />
           <span className='bar3' />

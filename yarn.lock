@@ -960,12 +960,9 @@ boom@2.x.x:
   dependencies:
     hoek "2.x.x"
 
-bootstrap@^4.0.0-alpha:
-  version "4.0.0-alpha.6"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.0.0-alpha.6.tgz#4f54dd33ac0deac3b28407bc2df7ec608869c9c8"
-  dependencies:
-    jquery ">=1.9.1"
-    tether "^1.4.0"
+bootstrap@4.0.0-beta:
+  version "4.0.0-beta"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.0.0-beta.tgz#dc5928175d2e71310bc668cf9e05a907211b72a6"
 
 brace-expansion@^1.1.7:
   version "1.1.7"
@@ -3545,7 +3542,7 @@ jquery-validation@^1.16.0:
   dependencies:
     jquery "^1.7 || ^2.0 || ^3.1"
 
-jquery@*, jquery@>=1.7.2, jquery@>=1.9.1, "jquery@^1.7 || ^2.0 || ^3.1", jquery@^3.2.1:
+jquery@*, jquery@>=1.7.2, "jquery@^1.7 || ^2.0 || ^3.1", jquery@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.2.1.tgz#5c4d9de652af6cd0a770154a631bba12b015c787"
 
@@ -5344,9 +5341,9 @@ react-cropper@^1.0.0:
     cropperjs v1.0.0-rc.3
     prop-types "^15.5.8"
 
-react-datepicker@^0.52.0:
-  version "0.52.0"
-  resolved "https://registry.yarnpkg.com/react-datepicker/-/react-datepicker-0.52.0.tgz#1963287b13f0a4f5114c441cda03a636819fe0e9"
+react-datepicker@^0.53.0:
+  version "0.53.0"
+  resolved "https://registry.yarnpkg.com/react-datepicker/-/react-datepicker-0.53.0.tgz#1a621cb8b76ad1a85ee72052f80b578db5e64301"
   dependencies:
     classnames "^2.2.5"
     moment "^2.17.1"
@@ -5398,9 +5395,9 @@ react-ga@^2.2.0:
     object-assign "^4.0.1"
     prop-types "^15.5.6"
 
-react-image-crop@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/react-image-crop/-/react-image-crop-2.0.5.tgz#7be10b35ea04a99b9b06d27c17f9037ec81a597f"
+react-image-crop@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/react-image-crop/-/react-image-crop-2.0.8.tgz#59c917bbc251c455a92c32aff4dad1595ff38a96"
 
 react-inlinesvg@^0.6.2:
   version "0.6.2"
@@ -5511,9 +5508,9 @@ react-slick@^0.14.11:
     object-assign "^4.1.0"
     slick-carousel "^1.6.0"
 
-react-sortable-hoc@^0.6.6:
-  version "0.6.6"
-  resolved "https://registry.yarnpkg.com/react-sortable-hoc/-/react-sortable-hoc-0.6.6.tgz#eaf51c5d25ce0304ae14af1f98cc31ed1db58fbd"
+react-sortable-hoc@^0.6.7:
+  version "0.6.7"
+  resolved "https://registry.yarnpkg.com/react-sortable-hoc/-/react-sortable-hoc-0.6.7.tgz#e30d247bc36dd5a605430c331ac9cb50a5fa72a6"
   dependencies:
     babel-runtime "^6.11.6"
     invariant "^2.2.1"
@@ -6480,10 +6477,6 @@ tcomb@^3.0.0:
   version "3.2.22"
   resolved "https://registry.yarnpkg.com/tcomb/-/tcomb-3.2.22.tgz#4b99e7ebaf243ede608c2f3440b63f48036f5631"
 
-tether@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/tether/-/tether-1.4.0.tgz#0f9fa171f75bf58485d8149e94799d7ae74d1c1a"
-
 text-encoding@0.6.4:
   version "0.6.4"
   resolved "https://registry.yarnpkg.com/text-encoding/-/text-encoding-0.6.4.tgz#e399a982257a276dae428bb92845cb71bdc26d19"
@@ -6819,9 +6812,9 @@ webpack-sources@^1.0.1:
     source-list-map "^2.0.0"
     source-map "~0.5.3"
 
-webpack@^3.4.1:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-3.4.1.tgz#4c3f4f3fb318155a4db0cb6a36ff05c5697418f4"
+webpack@^3.5.4:
+  version "3.5.4"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-3.5.4.tgz#5583eb263ed27b78b5bd17bfdfb0eb1b1cd1bf81"
   dependencies:
     acorn "^5.0.0"
     acorn-dynamic-import "^2.0.0"

@@ -80,13 +80,13 @@ $white_btn: #ededed;
   margin-top:20px;
 
   &.cancel-btn {
-    background: linear-gradient(to bottom, lighten($brand-danger, 5%) 0%,lighten($brand-danger, 0%) 100%);
-    box-shadow: 0 4px 0 darken($brand-danger, 10%), 0 4px 7px rgba(0, 0, 0, .35);
+    background: linear-gradient(to bottom, lighten($red, 5%) 0%,lighten($red, 0%) 100%);
+    box-shadow: 0 4px 0 darken($red, 10%), 0 4px 7px rgba(0, 0, 0, .35);
     &:hover {
-      background: linear-gradient(to bottom, lighten($brand-danger, 10%) 0%,lighten($brand-danger, 3%) 100%);
+      background: linear-gradient(to bottom, lighten($red, 10%) 0%,lighten($red, 3%) 100%);
     }
     &:active {
-      box-shadow: 0 2px 0 darken($brand-danger, 15%);
+      box-shadow: 0 2px 0 darken($red, 15%);
     }
   }
 
