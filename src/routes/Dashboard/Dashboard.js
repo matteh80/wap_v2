@@ -1,24 +1,36 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { setHiddenCardsToCookie } from '../../store/actions/dashboard'
 import Masonry from 'react-masonry-component'
 import Cookies from 'universal-cookie'
 
 import TestCard from './TestCard/TestCard'
 
 import {
+  Container,
   Row,
   Col,
-  Card,
-  CardBlock
 } from 'reactstrap'
 import RecruiterCard from './RecruiterCard/RecruiterCard'
 import JobsCard from './JobsCard/JobsCard'
+import EducationsCard from './EducationsCard/EducationsCard'
+import EmploymentsCard from './EmploymentsCard/EmploymentsCard'
+import WapfilmCard from './WapfilmCard/WapfilmCard'
+
+const _ = require('lodash')
 
 class Dashboard extends React.Component {
   constructor (props) {
     super(props)
 
     this._handleClick = this._handleClick.bind(this)
+  }
+
+  componentWillReceiveProps (newProps) {
+    let { dispatch } = this.props
+    if (newProps.dashboard.hidden_cards.length !== this.props.dashboard.hidden_cards) {
+      dispatch(setHiddenCardsToCookie())
+    }
   }
 
   _handleClick (e) {
@@ -30,32 +42,44 @@ class Dashboard extends React.Component {
       display: 'flex'
     }
 
-    let { translate } = this.props
     let cookies = new Cookies()
     let allSavedJobs = this.props.jobs.savedJobs
+    let { hidden_cards } = this.props.dashboard
 
     return (
-      <Masonry
-        options={masonryOptions}
-        onClick={this.handleClick}
-        style={style}
-        ref={function (c) { this.masonry = this.masonry || c.masonry }.bind(this)}
-      >
-        {this.props.jobs && this.props.jobs.savedJobs && allSavedJobs.length > 0 &&
-        <Col xs={12} sm={6} lg={4} xl={3}>
-          <JobsCard translate={translate} jobs={allSavedJobs} />
-        </Col>
-        }
+      <Container fluid>
+        <Masonry
+          options={masonryOptions}
+          onClick={this.handleClick}
+          style={style}
+          ref={function (c) { this.masonry = this.masonry || c.masonry }.bind(this)}
+        >
+          {this.props.jobs && this.props.jobs.savedJobs && allSavedJobs.length > 0 &&
+            <JobsCard jobs={allSavedJobs} />
+          }
 
-        <Col xs={12} sm={6} lg={4} xl={3}>
-          <TestCard translate={translate} />
-        </Col>
+          {_.findIndex(hidden_cards, { 'card' : 'testcard' }) === -1 &&
+          <TestCard />
+          }
 
-        <Col xs={12} sm={6} lg={4} xl={3}>
-          <RecruiterCard translate={translate} />
-        </Col>
+          {_.findIndex(hidden_cards, { 'card' : 'recruitercard' }) === -1 &&
+          <RecruiterCard />
+          }
 
-      </Masonry>
+          {_.findIndex(hidden_cards, { 'card' : 'educationscard' }) === -1 &&
+          <EducationsCard />
+          }
+
+          {_.findIndex(hidden_cards, { 'card' : 'employmentscard' }) === -1 &&
+          <EmploymentsCard />
+          }
+
+          {_.findIndex(hidden_cards, { 'card' : 'wapfilmcard' }) === -1 && !this.props.wapfilm.video &&
+          <WapfilmCard />
+          }
+
+        </Masonry>
+      </Container>
     )
   }
 }

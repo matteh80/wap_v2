@@ -7,6 +7,7 @@ import Header from '../Header/Header'
 import UserIsAuthenticated from '../../routes/auth'
 import { connect } from 'react-redux'
 import Breadcrumbs from 'react-breadcrumbs'
+import { getActiveLanguage, getTranslate } from 'react-localize-redux'
 
 class PageLayout extends React.Component {
   constructor (props) {
@@ -17,7 +18,7 @@ class PageLayout extends React.Component {
 
   render () {
     let { dispatch } = this.props
-    let { translate, currentLanguage } = this.context
+    let { translate, currentLanguage } = this.props
     let activeRouteItem = Object.assign([], this.props.routes).reverse()
     document.title = activeRouteItem[0].name + ' | wap card'
 
@@ -52,15 +53,10 @@ PageLayout.propTypes = {
   children: PropTypes.node,
 }
 
-PageLayout.contextTypes = {
-  translate: PropTypes.func,
-  currentLanguage: PropTypes.string
-}
+const mapStateToProps = state => ({
+  translate: getTranslate(state.localeReducer),
+  currentLanguage: getActiveLanguage(state.localeReducer) ? getActiveLanguage(state.localeReducer).code : 'sv',
+  ...state
+})
 
-// const mapStateToProps = state => ({
-//   translate: getTranslate(state.localeReducer),
-//   currentLanguage: getActiveLanguage(state.localeReducer) ? getActiveLanguage(state.localeReducer).code : 'sv',
-//   ...state
-// })
-
-export default UserIsAuthenticated(withRouter(connect((state) => state)(PageLayout)))
+export default UserIsAuthenticated(withRouter(connect(mapStateToProps)(PageLayout)))

@@ -332,3 +332,16 @@ $arrowWidth: $arrowHeight * .7;
     }
   }
 }
+
+.card {
+  .card-img-overlay {
+    opacity: 0;
+    transition: opacity 250ms;
+  }
+  &:hover {
+    .card-img-overlay {
+      opacity: .9;
+    }
+  }
+}
+

@@ -1,13 +1,17 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import {
+  Col,
   Card,
-  CardText,
+  CardImg,
+  CardImgOverlay,
   CardBlock,
   CardTitle,
   CardSubtitle
 } from 'reactstrap'
-import ThreeDButton from '../../../components/buttons/ThreeDButton'
+
+import DashboardButtons from '../../../components/buttons/DashboardButtons'
 
 class TestCard extends React.Component {
   constructor (props) {
@@ -15,18 +19,25 @@ class TestCard extends React.Component {
   }
 
   render () {
-    let { translate } = this.props
+    let { translate } = this.context
     return (
-      <Card style={{ background: '#ffd55c url("img/test_graphics.png")' }}>
-        <CardBlock>
-          <CardTitle>{translate('testcard.title')}</CardTitle>
-          <CardSubtitle>TalentQ</CardSubtitle>
-          <CardText>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquam lorem et ligula finibus, a euismod dolor posuere. Praesent et enim at eros tristique interdum. Praesent volutpat non velit vel bibendum.</CardText>
-          <ThreeDButton className='btn-white' small>{translate('testcard.start_test')}</ThreeDButton>
-        </CardBlock>
-      </Card>
+      <Col xs={12} sm={6} lg={4} xl={3}>
+        <Card>
+          <DashboardButtons linkto='/personalitytest' card='testcard' cardname='Personlighetstest' />
+          <CardImg src='/img/test.jpg' className='img-fluid' />
+          <CardImgOverlay className='bg-white' />
+          <CardBlock>
+            <CardTitle>{translate('testcard.title')}</CardTitle>
+            <CardSubtitle>TalentQ</CardSubtitle>
+          </CardBlock>
+        </Card>
+      </Col>
     )
   }
+}
+
+TestCard.contextTypes = {
+  translate: PropTypes.func
 }
 
 export default TestCard

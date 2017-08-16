@@ -15,6 +15,7 @@ import { getVideoInfo } from '../../store/actions/wapfilm'
 import { getAllLicenses, getMyLicenses } from '../../store/actions/drivinglicenses'
 import { getAllReferences } from '../../store/actions/references'
 import { getAllQuestions } from '../../store/actions/dreamjob'
+import { getHiddenCardsFromCookie } from '../../store/actions/dashboard'
 import ThreeDButton from '../../components/buttons/ThreeDButton'
 import './Login.scss'
 import $ from 'jquery'
@@ -308,10 +309,10 @@ class Login extends React.Component {
     this.props.auth.token && dispatch(getProfile(this.props.auth.token)).then((result) => {
 
       let cookieRedirect = cookies.get('redirect')
-      console.log(cookieRedirect)
       let redirect = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.query.redirect : null
 
-      if (cookieRedirect !== 'undefined') {
+      if (cookieRedirect !== undefined) {
+        console.log('ccokie')
         redirect = cookieRedirect
       }
 
@@ -335,9 +336,11 @@ class Login extends React.Component {
         dispatch(getMyLicenses()),
         dispatch(getAllReferences()),
         dispatch(getAllQuestions()),
+        dispatch(getHiddenCardsFromCookie())
       ]).then(() => {
         if (result.tos_accepted) {
           console.log('redirect')
+          console.log(redirect)
           this.props.router.push(redirect || '/')
         } else {
           if (redirect) {

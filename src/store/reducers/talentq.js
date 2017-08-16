@@ -14,7 +14,7 @@ function talentq (state = [], action) {
       return {
         ...state,
         receivedAt: action.receivedAt,
-        ...action
+        ...action.teststatus
       }
 
     default:

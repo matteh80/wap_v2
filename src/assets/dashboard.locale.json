@@ -7,5 +7,15 @@
     "title": ["Personlig rekryterare", "Personal recruiter"],
     "subtitle": ["Din hjälp till drömjobbet", "Your help for your dream job"],
     "btn_text": ["Ansök", "Apply"]
+  },
+  "educationscard": {
+    "title": ["Utbildningar", "Educations"],
+    "subtitle_empty": ["Du har inga utbildningar", "You have no educations"],
+    "subtitle_add_more": ["Lägg till fler utbildningar", "Add more educations"]
+  },
+  "employmentscard": {
+    "title": ["Anställningar", "Employments"],
+    "subtitle_empty": ["Du har inga utbildningar", "You have no educations"],
+    "subtitle_add_more": ["Lägg till fler anställningar", "Add more employments"]
   }
 }

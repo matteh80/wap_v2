@@ -28,13 +28,13 @@ class App extends React.Component {
 
   getChildContext () {
     return {
+      profile: this.props.profile,
       translate: this.props.translate,
       currentLanguage: this.props.currentLanguage
     }
   }
 
   logPageView () {
-    console.log('log page view')
     ReactGA.set({ page: window.location.pathname + window.location.search })
     ReactGA.pageview(window.location.pathname + window.location.search)
   }
@@ -61,6 +61,7 @@ class App extends React.Component {
 }
 
 App.childContextTypes = {
+  profile: PropTypes.object,
   translate: PropTypes.func,
   currentLanguage: PropTypes.string
 }

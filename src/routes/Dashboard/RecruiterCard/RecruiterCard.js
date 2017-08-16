@@ -1,13 +1,17 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import {
+  Col,
   Card,
-  CardText,
+  CardImgOverlay,
+  CardImg,
   CardBlock,
   CardTitle,
   CardSubtitle
 } from 'reactstrap'
-import ThreeDButton from '../../../components/buttons/ThreeDButton'
+
+import DashboardButtons from '../../../components/buttons/DashboardButtons'
 
 class RecruiterCard extends React.Component {
   constructor (props) {
@@ -15,18 +19,24 @@ class RecruiterCard extends React.Component {
   }
 
   render () {
-    let { translate } = this.props
+    let { translate } = this.context
     return (
-      <Card style={{ background: '#f97474 url("img/recruiter_graphics.png")' }}>
-        <CardBlock>
-          <CardTitle>{translate('recruitercard.title')}</CardTitle>
-          <CardSubtitle>{translate('recruitercard.subtitle')}</CardSubtitle>
-          <CardText>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquam lorem et ligula finibus, a euismod dolor posuere. Praesent et enim at eros tristique interdum. Praesent volutpat non velit vel bibendum.</CardText>
-          <ThreeDButton className='btn-white' small>{translate('recruitercard.btn_text')}</ThreeDButton>
-        </CardBlock>
-      </Card>
+      <Col xs={12} sm={6} lg={4} xl={3}>
+        <Card>
+          <DashboardButtons linkto='/personalrecruiter' card='recruitercard' cardname='Personlig rekryterare' />
+          <CardImg src='/img/recruiter.jpg' className='img-fluid' />
+          <CardImgOverlay className='bg-white' />
+          <CardBlock>
+            <CardTitle>{translate('recruitercard.title')}</CardTitle>
+            <CardSubtitle>{translate('recruitercard.subtitle')}</CardSubtitle>
+          </CardBlock>
+        </Card>
+      </Col>
     )
   }
+}
+RecruiterCard.contextTypes = {
+  translate: PropTypes.func
 }
 
 export default RecruiterCard
