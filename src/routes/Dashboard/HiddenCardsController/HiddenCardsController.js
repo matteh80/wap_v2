@@ -44,8 +44,7 @@ class HiddenCardsController extends React.Component {
     })
   }
 
-  restoreItem (e) {
-    let itemName = e.currentTarget.id
+  restoreItem (itemName) {
     let index = -1
     $('.canvasWrapper').each(function (i, element) {
       if (element.id === itemName) {
@@ -63,7 +62,11 @@ class HiddenCardsController extends React.Component {
       const items = Object.assign([], this.state.hiddenItems)
       items.splice(index, 1)
 
-      this.setState({ hiddenItems : items }, resolve())
+
+      this.setState({
+        hiddenItems : items,
+        isOpen: this.state.hiddenItems.length === 1 && false
+      }, resolve())
     })
   }
 
@@ -91,17 +94,17 @@ class HiddenCardsController extends React.Component {
     this.setState({ renderCanvas: true })
     return new Promise((resolve, reject) => {
       let clone = _self.hiddenClone(element[0])
-      this.setState({ renderCanvas: false })
+      _self.setState({ renderCanvas: false })
       return html2canvas(clone, {
         imageTimeout: 6000,
         onrendered: function (canvas) {
           let mWrapper = React.createElement(
             'div',
             {
-              key: element.id,
+              key: clone.id,
               className: 'canvasWrapper',
-              id: element.id,
-              onClick: _self.restoreItem
+              id: clone.id,
+              onClick: () => _self.restoreItem(clone.id)
             },
             React.createElement(
               'img',
@@ -150,7 +153,7 @@ class HiddenCardsController extends React.Component {
                 key: element.id,
                 className: 'canvasWrapper',
                 id: element.id,
-                onClick: _self.restoreItem
+                onClick: () => _self.restoreItem(element.id)
               },
               React.createElement(
                 'img',
