@@ -26,6 +26,15 @@ export function uploadVideo (videodata) {
   }
 }
 
+export function setVideoInfo (data) {
+  return (dispatch, getState) => {
+    dispatch({
+      type: UPLOAD_VIDEO,
+      video: data,
+    })
+  }
+}
+
 export function getVideoInfo () {
   console.log('GET VIDE INFO')
   return (dispatch, getState) => {

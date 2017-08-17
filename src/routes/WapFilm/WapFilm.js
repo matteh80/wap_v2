@@ -2,10 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Dropzone from 'react-dropzone'
 import './WapFilm.scss'
-import { uploadVideo, getVideoInfo, removeVideo } from '../../store/actions/wapfilm'
+import { uploadVideo, getVideoInfo, removeVideo, setVideoInfo } from '../../store/actions/wapfilm'
 import Video from '../../components/Misc/Video/Video'
 import Loader from '../../components/Misc/Loader/Loader'
 import Masonry from 'react-masonry-component'
+import $ from 'jquery'
+import { apiClient } from '../../store/axios.config'
 
 import {
   Container,
@@ -13,9 +15,10 @@ import {
   Col,
   Card,
   CardHeader,
-  CardBlock,
+  Progress,
 } from 'reactstrap'
 import ThreeDButton from '../../components/buttons/ThreeDButton'
+import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble';
 
 class WapFilm extends React.Component {
   constructor (props) {
@@ -48,13 +51,38 @@ class WapFilm extends React.Component {
     if (acceptedFiles.length > 0) {
       let data = new FormData()
       data.append('file', acceptedFiles[0])
-      dispatch(uploadVideo(data)).then(() => {
-        this.setState({
-          loadsave:false,
-          videoExists: true
-        })
-      })
+      // dispatch(uploadVideo(data)).then(() => {
+      //   this.setState({
+      //     loadsave:false,
+      //     videoExists: true
+      //   })
+      // })
+
+      this.uploadVideoToServer(data)
     }
+  }
+
+  uploadVideoToServer (data) {
+    let { dispatch } = this.props
+      this.setState({
+        loadsave:true,
+        videoExists: true
+      })
+    apiClient.post('me/videos/',
+      data, {
+        onUploadProgress: function (progressEvent) {
+          let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          console.log(percentCompleted)
+          $('#progress .progress-bar').width(percentCompleted + '%')
+        }
+      }).then((result) => {
+        dispatch(setVideoInfo(result.data))
+        this.setState({ loadsave: false })
+      }
+    )
+      .catch(function (error) {
+        console.log(error)
+      })
   }
 
   removeVideo () {
@@ -81,6 +109,10 @@ class WapFilm extends React.Component {
                 <div className='btn-wrapper'>
                   <i className='fa fa-times cancel-btn' onClick={() => this.removeVideo()} />
                 </div>
+                {this.state.loadsave &&
+                <Progress id='progress' value={0} color='#FA824F' min={0} max={100}
+                          style={{ width: '100%', padding: 0 }} />
+                }
                 {video &&
                 <CardHeader>
                   {video.filename} ({this.getVideoSize(video.size)})
@@ -96,7 +128,7 @@ class WapFilm extends React.Component {
                 activeStyle={activeDropzoneStyle}
                 onDrop={this.onDrop}
               >
-                <Loader active={this.state.loadsave} />
+                {/*<Loader active={this.state.loadsave} />*/}
 
                 <Row className='flex-column justify-content-center align-items-center py-5'>
                   <i className='fa fa-film videoicon' />
@@ -114,8 +146,7 @@ class WapFilm extends React.Component {
             </Card>
           </Col>
           <Col xs={12} sm={12} md={12} lg={5}>
-            <Card className='speechBubble'>
-              <CardBlock>
+            <SpeechBubble pos='bottom-side left'>
                   WAP Film är en 60 s video där du har möjlighet att kort presentera dig själv för potentiella
                   arbetsgivare. Du kommer svara på 6 st frågor som vi tagit fram och det finns inget rätt eller fel svar.
                   Du spelar in filmen själv och laddar sedan upp den när du känner dig nöjd.
@@ -133,8 +164,7 @@ class WapFilm extends React.Component {
                   ute efter att få veta lite mer om dig, vad du brinner för och få se din unika karisma. Stakar du dig
                   eller säger fel behöver du nödvändigtvis inte filma om, det handlar bara om att vi ska få svar så vi får
                   en tydligare bild av dig. Slutligen, du är alltid bäst på att vara du så du behöver inte göra dig till.
-              </CardBlock>
-            </Card>
+            </SpeechBubble>
           </Col>
         </Row>
       </Container>

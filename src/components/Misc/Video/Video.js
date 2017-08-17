@@ -75,7 +75,7 @@ class Video extends React.Component {
       <div id='videoWrapper'>
         {!this.state.downloaded && !this.state.downloading && !this.state.videoSrc && this.addDownloadIcon()}
         {this.state.downloading &&
-        <Progress id='progress' value={0} color='#FA824F' min={0} max={1} />
+        <Progress id='progress' value={0} color='#FA824F' min={0} max={1} style={{ width: '100%', padding: 0 }} />
         }
         {this.state.videoSrc && <video id='video' width='100%' height='auto' controls preload>
           <source src={this.state.videoSrc} />
