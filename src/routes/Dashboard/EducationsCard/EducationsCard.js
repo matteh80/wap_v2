@@ -25,22 +25,20 @@ class EducationsCard extends React.Component {
     let educationCount = this.props.educations.educations.length
 
     return (
-      <Col xs={12} sm={6} lg={4} xl={3}>
-        <Card>
-          <DashboardButtons linkto='/work/educations' card='educationscard' cardname='Utbildningar' />
-          <CardImg src='/img/education.jpg' className='img-fluid' />
-          <CardImgOverlay className='bg-white'>
-            <CardText>{translate('educationscard.title')}</CardText>
-          </CardImgOverlay>
-          <CardBlock>
-            <CardTitle>{translate('educationscard.title')}</CardTitle>
-            {educationCount === 0
-            ? <CardSubtitle>{translate('educationscard.subtitle_empty')}</CardSubtitle>
-            : <CardSubtitle>{translate('educationscard.subtitle_add_more')}</CardSubtitle>
-          }
-          </CardBlock>
-        </Card>
-      </Col>
+      <Card>
+        <DashboardButtons linkto='/work/educations' card='educationscard' cardname='Utbildningar' onHide={this.props.onHide} />
+        <CardImg src='/img/education.jpg' className='img-fluid' />
+        <CardImgOverlay className='bg-white'>
+          <CardText>{translate('educationscard.title')}</CardText>
+        </CardImgOverlay>
+        <CardBlock>
+          <CardTitle>{translate('educationscard.title')}</CardTitle>
+          {educationCount === 0
+          ? <CardSubtitle>{translate('educationscard.subtitle_empty')}</CardSubtitle>
+          : <CardSubtitle>{translate('educationscard.subtitle_add_more')}</CardSubtitle>
+        }
+        </CardBlock>
+      </Card>
     )
   }
 }

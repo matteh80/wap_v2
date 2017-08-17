@@ -21,17 +21,15 @@ class TestCard extends React.Component {
   render () {
     let { translate } = this.context
     return (
-      <Col xs={12} sm={6} lg={4} xl={3}>
-        <Card>
-          <DashboardButtons linkto='/personalitytest' card='testcard' cardname='Personlighetstest' />
-          <CardImg src='/img/test.jpg' className='img-fluid' />
-          <CardImgOverlay className='bg-white' />
-          <CardBlock>
-            <CardTitle>{translate('testcard.title')}</CardTitle>
-            <CardSubtitle>TalentQ</CardSubtitle>
-          </CardBlock>
-        </Card>
-      </Col>
+      <Card>
+        <DashboardButtons linkto='/personalitytest' card='testcard' cardname='Personlighetstest' onHide={this.props.onHide} />
+        <CardImg src='/img/test.jpg' className='img-fluid' />
+        <CardImgOverlay className='bg-white' />
+        <CardBlock>
+          <CardTitle>{translate('testcard.title')}</CardTitle>
+          <CardSubtitle>TalentQ</CardSubtitle>
+        </CardBlock>
+      </Card>
     )
   }
 }

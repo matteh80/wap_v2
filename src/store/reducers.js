@@ -70,7 +70,6 @@ const appReducer = combineReducers({
   jobs: jobs,
   locations: locations,
   talentq: talentq,
-  dashboard: dashboard
 })
 export const rootReducer = (state, action) => {
   if (action.type === 'auth/LOGOUT' || action.type === 'auth/LOGIN') {

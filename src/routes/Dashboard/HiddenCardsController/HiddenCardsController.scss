@@ -1,0 +1,55 @@
+#hiddenCards {
+  position: fixed;
+  z-index: 99;
+  width:40px;
+  min-height: 40px;
+  //overflow: hidden;
+  right: -40px;
+  top: 110px;
+  transition: width 250ms;
+
+  &.hasCards {
+    right:0px;
+  }
+
+  &.isOpen {
+    width: 240px;
+  }
+
+  .fa {
+    position: absolute;
+    top:0;
+    left:0;
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .innerWrapper {
+    padding-left: 40px;
+  }
+
+  .cardList {
+    background: #fff;
+    padding:10px;
+    max-width:300px;
+    display: flex;
+    flex-direction: column;
+
+    .canvasWrapper {
+      margin-bottom: 5px;
+
+      &:hover {
+        box-shadow: 0 0 5px rgba(0,0,0,0.5);
+      }
+    }
+  }
+
+  .tempList {
+
+  }
+}

@@ -19,8 +19,7 @@ class DashboardButtons extends React.Component {
   }
 
   hide () {
-    let { dispatch } = this.props
-    dispatch(hideCard(this.props.card, this.props.cardname))
+    this.props.onHide()
   }
 
   minimize () {

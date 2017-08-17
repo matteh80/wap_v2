@@ -25,22 +25,20 @@ class EmploymentsCard extends React.Component {
     let { translate } = this.context
 
     return (
-      <Col xs={12} sm={6} lg={4} xl={3}>
-        <Card>
-          <DashboardButtons linkto='/work/employments' card='employmentscard' cardname='Anställningar' />
-          <CardImg src='/img/employments.jpg' className='img-fluid' />
-          <CardImgOverlay className='bg-white'>
-            <CardText>{translate('employmentscard.title')}</CardText>
-          </CardImgOverlay>
-          <CardBlock>
-            <CardTitle>{translate('employmentscard.title')}</CardTitle>
-            {employmentCount === 0
-            ? <CardSubtitle>{translate('employmentscard.subtitle_empty')}</CardSubtitle>
-            : <CardSubtitle>{translate('employmentscard.subtitle_add_more')}</CardSubtitle>
-          }
-          </CardBlock>
-        </Card>
-      </Col>
+      <Card>
+        <DashboardButtons linkto='/work/employments' card='employmentscard' cardname='Anställningar' onHide={this.props.onHide} />
+        <CardImg src='/img/employments.jpg' className='img-fluid' />
+        <CardImgOverlay className='bg-white'>
+          <CardText>{translate('employmentscard.title')}</CardText>
+        </CardImgOverlay>
+        <CardBlock>
+          <CardTitle>{translate('employmentscard.title')}</CardTitle>
+          {employmentCount === 0
+          ? <CardSubtitle>{translate('employmentscard.subtitle_empty')}</CardSubtitle>
+          : <CardSubtitle>{translate('employmentscard.subtitle_add_more')}</CardSubtitle>
+        }
+        </CardBlock>
+      </Card>
     )
   }
 }

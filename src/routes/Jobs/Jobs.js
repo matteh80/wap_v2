@@ -13,6 +13,7 @@ import {
   CardSubtitle
 } from 'reactstrap'
 import { getAllJobs } from '../../store/actions/jobs'
+import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble'
 
 class Jobs extends React.Component {
   constructor (props) {
@@ -71,12 +72,10 @@ class Jobs extends React.Component {
             />
           </Col>
           <Col xs={12} sm={12} md={12} lg={5}>
-            <Card className='speechBubble'>
-              <CardBlock>
-                <p>Här finns de tjänster som du just nu kan ansöka direkt till med ditt wap card.</p>
-                <p>Tips: Se till att du har uppdaterat allt du kan i din profil innan du skickar din ansökan för att öka dina chanser till drömjobbet</p>
-              </CardBlock>
-            </Card>
+            <SpeechBubble pos='left-side top'>
+              <p>Här finns de tjänster som du just nu kan ansöka direkt till med ditt wap card.</p>
+              <p>Tips: Se till att du har uppdaterat allt du kan i din profil innan du skickar din ansökan för att öka dina chanser till drömjobbet</p>
+            </SpeechBubble>
           </Col>
         </Row>
       </Container>

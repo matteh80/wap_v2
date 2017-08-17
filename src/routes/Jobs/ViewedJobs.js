@@ -12,9 +12,9 @@ import {
 } from 'reactstrap'
 import { removeJob } from '../../store/actions/jobs'
 import EditButtons from '../../components/buttons/EditButtons'
+import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble'
 
 class ViewedJobs extends React.Component {
-
   constructor (props) {
     super(props)
 
@@ -36,7 +36,7 @@ class ViewedJobs extends React.Component {
 
     return (
       <Container fluid>
-        <Row>
+        <Row className='flex-column-reverse flex-lg-row'>
           <Col>
             {savedJobs && savedJobs.map((job) => {
               return (
@@ -52,12 +52,10 @@ class ViewedJobs extends React.Component {
             })}
           </Col>
           <Col xs={12} sm={12} md={12} lg={5}>
-            <Card className='speechBubble'>
-              <CardBlock>
-                <p>Här hittar du dina tjänster du visat denna session för att enklare kunna hitta tillbaka och skicka en ansökan.</p>
-                <p>Observera att den här listan töms om du loggar ut samt att tjänster du var inne på för över en vecka sen inte visas.</p>
-              </CardBlock>
-            </Card>
+            <SpeechBubble pos='left-side top'>
+              <p>Här hittar du dina tjänster du visat denna session för att enklare kunna hitta tillbaka och skicka en ansökan.</p>
+              <p>Observera att den här listan töms om du loggar ut samt att tjänster du var inne på för över en vecka sen inte visas.</p>
+            </SpeechBubble>
           </Col>
         </Row>
       </Container>

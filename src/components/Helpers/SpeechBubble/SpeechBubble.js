@@ -19,13 +19,11 @@ class SpeechBubble extends React.Component {
     let arrowClass = classNames('speechBubble', this.props.pos)
 
     return (
-      <Col xs={12} lg={5}>
-        <Card className={arrowClass}>
-          <CardBlock>
-            {this.props.children}
-          </CardBlock>
-        </Card>
-      </Col>
+      <Card className={arrowClass}>
+        <CardBlock>
+          {this.props.children}
+        </CardBlock>
+      </Card>
     )
   }
 }

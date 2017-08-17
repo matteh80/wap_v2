@@ -14,6 +14,7 @@ import {
   CardBlock,
   CardTitle
 } from 'reactstrap'
+import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble';
 
 class Location extends React.Component {
   constructor (props) {
@@ -210,7 +211,7 @@ class Location extends React.Component {
             <i className='cancel-btn fa fa-mail-reply ml-1' onClick={() => this.revertChanges()} />
           </div>
         </Tooltip>
-        <Row>
+        <Row className='flex-column-reverse flex-lg-row'>
           <Col xs={12} md={12} xl={4} className={mapClass}>
             <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' id='parentGraphic'
               preserveAspectRatio='xMidYMid meet' viewBox='0 0 345 792' style={{ maxHeight: '80vh' }}>
@@ -238,13 +239,10 @@ class Location extends React.Component {
             </svg>
           </Col>
           <Col xs={12} sm={12} md={12} lg={5}>
-            <Card className='speechBubble'>
-              <CardBlock>
-                <CardTitle>Vart vill du jobba?</CardTitle>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam gravida nibh at nisi accumsan, quis luctus est euismod. Curabitur vel finibus leo. Phasellus maximus enim eget neque posuere aliquet. Aliquam id sem vitae justo semper suscipit. Nulla ullamcorper arcu urna, quis lacinia turpis scelerisque ac. Aliquam interdum nisi eget eros cursus finibus. Mauris tempus velit sem, et rutrum nulla vulputate vel. Maecenas magna nulla, rutrum at molestie eu, efficitur interdum augue.</p>
-                <p>Maecenas eu lacus imperdiet, molestie dolor nec, venenatis ipsum. Sed vitae posuere nunc. Cras vestibulum quam et diam viverra vulputate. Mauris a leo lectus. Morbi tempor imperdiet magna, vitae euismod ex imperdiet at. Nam a hendrerit quam. Nam accumsan metus sed turpis hendrerit viverra. </p>
-              </CardBlock>
-            </Card>
+            <SpeechBubble pos='top left-side'>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam gravida nibh at nisi accumsan, quis luctus est euismod. Curabitur vel finibus leo. Phasellus maximus enim eget neque posuere aliquet. Aliquam id sem vitae justo semper suscipit. Nulla ullamcorper arcu urna, quis lacinia turpis scelerisque ac. Aliquam interdum nisi eget eros cursus finibus. Mauris tempus velit sem, et rutrum nulla vulputate vel. Maecenas magna nulla, rutrum at molestie eu, efficitur interdum augue.</p>
+              <p>Maecenas eu lacus imperdiet, molestie dolor nec, venenatis ipsum. Sed vitae posuere nunc. Cras vestibulum quam et diam viverra vulputate. Mauris a leo lectus. Morbi tempor imperdiet magna, vitae euismod ex imperdiet at. Nam a hendrerit quam. Nam accumsan metus sed turpis hendrerit viverra. </p>
+            </SpeechBubble>
           </Col>
         </Row>
       </Container>

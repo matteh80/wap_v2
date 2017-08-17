@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { setHiddenCardsToCookie } from '../../store/actions/dashboard'
+import { hideCard, setHiddenCardsToCookie, getHiddenCardsFromCookie, updateCardsList } from '../../store/actions/dashboard'
 import Masonry from 'react-masonry-component'
+import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc'
 import Cookies from 'universal-cookie'
 
 import TestCard from './TestCard/TestCard'
@@ -16,25 +17,147 @@ import JobsCard from './JobsCard/JobsCard'
 import EducationsCard from './EducationsCard/EducationsCard'
 import EmploymentsCard from './EmploymentsCard/EmploymentsCard'
 import WapfilmCard from './WapfilmCard/WapfilmCard'
+import HiddenCardsController from './HiddenCardsController/HiddenCardsController'
 
 const _ = require('lodash')
+const cookies = new Cookies()
+
+const SortableList = SortableContainer(({ items, onHide, onAdd }) => {
+  return (
+    <Masonry
+      onClick={this.handleClick}
+      className='row sortableList'
+      ref={function (c) {
+        this.masonry = this.masonry || c.masonry
+      }.bind(this)}
+    >
+      {items.map((item, index) => {
+        if (!item.component.props.hidden) {
+          return <SortableItem key={`item-${index}`} mIndex={index} index={index} id={item.id} value={item.name} onHide={onHide} component={item.component} />
+        }
+      }
+      )}
+    </Masonry>
+  )
+})
+
+const SortableItem = SortableElement(({ value, index, onHide, id, mIndex, component }) => {
+  let mComponent = React.cloneElement(
+    component,
+    {
+      sortIndex: mIndex,
+      onHide: () => onHide(value)
+    },
+  )
+  return (
+    <Col xs={12} sm={6} lg={4} xl={3}>
+      {mComponent}
+    </Col>
+  )
+})
+
+const cards = [
+  { name: 'testcard', component: <TestCard name='testcard' /> },
+  { name: 'recruitercard', component: <RecruiterCard name='recruitercard' /> },
+  { name: 'educationscard', component: <EducationsCard name='educationscard' /> },
+  { name: 'employmentscard', component: <EmploymentsCard name='employmentscard' /> },
+  { name: 'wapfilmcard', component: <WapfilmCard name='wapfilmcard' /> },
+]
 
 class Dashboard extends React.Component {
   constructor (props) {
     super(props)
 
+    // cookies.remove(props.profile.id + '_hiddenCards', { path: '/' })
+    // cookies.remove(props.profile.id + '_cards', { path: '/' })
+
+    let itemsFromCookie = cookies.get(props.profile.id + '_cards', { path: '/' })
+    let hiddenItemsFromCookie = cookies.get(props.profile.id + '_hiddenCards', { path: '/' })
+
+    this.state = {
+      hiddenItems: hiddenItemsFromCookie || [],
+      items: itemsFromCookie || this.createNamesFromComponents(cards),
+    }
+
     this._handleClick = this._handleClick.bind(this)
+    this.onSortEnd = this.onSortEnd.bind(this)
+    this.onHide = this.onHide.bind(this)
+    this.onAdd = this.onAdd.bind(this)
+    this.createListFromNames = this.createListFromNames.bind(this)
+    this.createNamesFromComponents = this.createNamesFromComponents.bind(this)
   }
 
-  componentWillReceiveProps (newProps) {
-    let { dispatch } = this.props
-    if (newProps.dashboard.hidden_cards.length !== this.props.dashboard.hidden_cards) {
-      dispatch(setHiddenCardsToCookie())
+  componentDidUpdate (prevProps, prevState) {
+    if (prevState.hiddenItems !== this.state.hiddenItems) {
+      console.log('save hidden items to cookie')
+      cookies.set(this.props.profile.id + '_hiddenCards', this.state.hiddenItems, { path: '/' })
     }
+
+    if (prevState.items !== this.state.items) {
+      console.log('save items to cookie')
+      cookies.set(this.props.profile.id + '_cards', this.createNamesFromComponents(this.state.items), { path: '/' })
+    }
+  }
+
+  createNamesFromComponents (list) {
+    let mNameArray = []
+    list.map((item) => {
+      mNameArray.push(item.name)
+    })
+    return mNameArray
+  }
+
+  createListFromNames (list) {
+    let hiddenItems = this.state ? this.state.hiddenItems : cookies.get(this.props.profile.id + '_hiddenCards', { path: '/' })
+    let mCards = []
+    list.map((name) => {
+      let c = _.find(cards, { 'name': name })
+      let hidden = _.includes(hiddenItems, name)
+      c.component = React.cloneElement(
+        c.component,
+        {
+          hidden: hidden
+        },
+      )
+      mCards.push(c)
+    })
+
+    // return mCards.length > 0 ? mCards : cards
+    return mCards
   }
 
   _handleClick (e) {
     console.log(e)
+  }
+
+  onHide = (name) => {
+    if (_.includes(this.state.hiddenItems, name)) {
+      return
+    }
+
+    let mHiddenCards = _.concat(this.state.hiddenItems, name)
+
+    this.setState({
+      hiddenItems: mHiddenCards
+    })
+  }
+
+  onAdd (itemName) {
+    console.log(itemName)
+    let test = Object.assign([], this.state.hiddenItems)
+    _.remove(test, function (n) {
+      return n === itemName
+    })
+
+    this.setState({
+      hiddenItems: test
+    })
+  }
+
+  onSortEnd = ({ oldIndex, newIndex }) => {
+    this.setState({
+      items: arrayMove(this.state.items, oldIndex, newIndex),
+    })
   }
 
   render () {
@@ -42,43 +165,19 @@ class Dashboard extends React.Component {
       display: 'flex'
     }
 
-    let cookies = new Cookies()
     let allSavedJobs = this.props.jobs.savedJobs
-    let { hidden_cards } = this.props.dashboard
 
     return (
       <Container fluid>
-        <Masonry
-          options={masonryOptions}
-          onClick={this.handleClick}
-          style={style}
-          ref={function (c) { this.masonry = this.masonry || c.masonry }.bind(this)}
-        >
-          {this.props.jobs && this.props.jobs.savedJobs && allSavedJobs.length > 0 &&
-            <JobsCard jobs={allSavedJobs} />
-          }
-
-          {_.findIndex(hidden_cards, { 'card' : 'testcard' }) === -1 &&
-          <TestCard />
-          }
-
-          {_.findIndex(hidden_cards, { 'card' : 'recruitercard' }) === -1 &&
-          <RecruiterCard />
-          }
-
-          {_.findIndex(hidden_cards, { 'card' : 'educationscard' }) === -1 &&
-          <EducationsCard />
-          }
-
-          {_.findIndex(hidden_cards, { 'card' : 'employmentscard' }) === -1 &&
-          <EmploymentsCard />
-          }
-
-          {_.findIndex(hidden_cards, { 'card' : 'wapfilmcard' }) === -1 && !this.props.wapfilm.video &&
-          <WapfilmCard />
-          }
-
-        </Masonry>
+        <HiddenCardsController hiddenCards={this.createListFromNames(this.state.hiddenItems)} onAdd={this.onAdd} />
+        <SortableList
+          helperClass='moving'
+          axis='xy'
+          pressDelay={200}
+          items={this.createListFromNames(this.state.items)}
+          onSortEnd={this.onSortEnd}
+          onHide={this.onHide}
+        />
       </Container>
     )
   }

@@ -67,44 +67,48 @@ class TalentQ extends React.Component {
               </video>
             </Card>
           </Col>
-          <SpeechBubble pos='left-side top'>
-            <p>Här kommer du att få göra ett unikt online-test som är speciellt framtaget för att du ska få visa vem du
-              är,
-              och vad just du är bra på. Testet kommer pröva beteende, motivation och personlighet.</p>
+          <Col xs={12} lg={5}>
+            <SpeechBubble pos='left-side top'>
+              <p>Här kommer du att få göra ett unikt online-test som är speciellt framtaget för att du ska få visa vem du
+                är,
+                och vad just du är bra på. Testet kommer pröva beteende, motivation och personlighet.</p>
 
-            <p>Genom att hjälpa dig att bättre förstå dina egna beteende preferenser och vad du brinner för,
-              ökar du chansen betydligt till att nå ditt drömjobb.</p>
+              <p>Genom att hjälpa dig att bättre förstå dina egna beteende preferenser och vad du brinner för,
+                ökar du chansen betydligt till att nå ditt drömjobb.</p>
 
-            <p>
-              <small>Resultatet kommer endast vara tillgängligt för våra rekryterare och eventuella arbetsgivare.
-                Det är du som bestämmer om du vill att arbetsgivaren ska få ta del av dina resultat.
-              </small>
-            </p>
-            {!initiated
-              ? <ThreeDButton onClick={() => this.initiateTest()}>Ok! Starta testet</ThreeDButton>
-              : <ThreeDButton onClick={() => this.resumeTest()}>Jag vill återuppta testet</ThreeDButton>
-            }
+              <p>
+                <small>Resultatet kommer endast vara tillgängligt för våra rekryterare och eventuella arbetsgivare.
+                  Det är du som bestämmer om du vill att arbetsgivaren ska få ta del av dina resultat.
+                </small>
+              </p>
+              {!initiated
+                ? <ThreeDButton onClick={() => this.initiateTest()}>Ok! Starta testet</ThreeDButton>
+                : <ThreeDButton onClick={() => this.resumeTest()}>Jag vill återuppta testet</ThreeDButton>
+              }
 
-            {initiated &&
-            <p>Länk till testet: <a href={assessment_url}>{assessment_url}</a></p>
-            }
+              {initiated &&
+              <p>Länk till testet: <a href={assessment_url}>{assessment_url}</a></p>
+              }
 
-          </SpeechBubble>
+            </SpeechBubble>
+          </Col>
         </Row>
         }
 
         {completed &&
         <Row>
-          <SpeechBubble pos='bottom left'>
-            <p>Du har gjort testet. Här under finner du länk till ditt resultat. Ett mail har även skickats till
-              {' ' + this.props.profile.email}</p>
-            <p><a href={result_url}>{result_url}</a></p>
-            <p>Det här personlighetstestet lyfter fram dina styrkor, vad som driver dig och får dig att trivas på en
-              arbetsplats. Testet hjälper dig, eller din personliga rekryterare att hitta rätt jobb för just dig.
-              Det är endast du och din eventuella rekryterare som har tillgång till dina resultat.
+          <Col xs={12}>
+            <SpeechBubble pos='bottom left'>
+              <p>Du har gjort testet. Här under finner du länk till ditt resultat. Ett mail har även skickats till
+                {' ' + this.props.profile.email}</p>
+              <p><a href={result_url}>{result_url}</a></p>
+              <p>Det här personlighetstestet lyfter fram dina styrkor, vad som driver dig och får dig att trivas på en
+                arbetsplats. Testet hjälper dig, eller din personliga rekryterare att hitta rätt jobb för just dig.
+                Det är endast du och din eventuella rekryterare som har tillgång till dina resultat.
 
-              Teknisk support: <a href='mailto:technicalsupport@sova.com'>technicalsupport@sova.com</a></p>
-          </SpeechBubble>
+                Teknisk support: <a href='mailto:technicalsupport@sova.com'>technicalsupport@sova.com</a></p>
+            </SpeechBubble>
+          </Col>
         </Row>
         }
 

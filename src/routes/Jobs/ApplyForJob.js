@@ -14,6 +14,7 @@ import {
   CardBlock,
   CardTitle
 } from 'reactstrap'
+import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble';
 
 let jaid
 let xml
@@ -179,7 +180,7 @@ class ApplyForJob extends React.Component {
   render () {
     return (
       <Container>
-        <Row>
+        <Row className='flex-column-reverse flex-lg-row'>
           <Col>
             {this.state.fetched &&
             <Card>
@@ -189,6 +190,12 @@ class ApplyForJob extends React.Component {
               </CardBlock>
             </Card>
             }
+          </Col>
+          <Col xs={12} lg={5}>
+            <SpeechBubble pos='left-side top'>
+              <p>Lorem ipsum</p>
+              <p>Lorem ipsum</p>
+            </SpeechBubble>
           </Col>
         </Row>
       </Container>

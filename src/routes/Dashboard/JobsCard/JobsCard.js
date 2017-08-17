@@ -16,7 +16,7 @@ class JobsCard extends React.Component {
     return (
       <Col xs={12} sm={6} lg={4} xl={3}>
         <Card style={{ background: '#ffffff' }}>
-          <DashboardButtons linkto='jobs' />
+          <DashboardButtons linkto='jobs' onHide={this.props.onHide} />
           <CardBlock>
             <CardTitle>Visade jobb</CardTitle>
             {jobs.map((job) => {

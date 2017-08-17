@@ -34,6 +34,7 @@ class Employments extends React.Component {
       document.getElementById('employmentForm').reset()
     }).catch((error) => {
       alert(error)
+
     })
   }
 

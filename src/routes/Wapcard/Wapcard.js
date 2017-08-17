@@ -20,6 +20,7 @@ import {
   Col
 } from 'reactstrap'
 import Loader from '../../components/Misc/Loader/Loader'
+import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble'
 
 class Wapcard extends React.Component {
   constructor (props) {
@@ -78,7 +79,6 @@ class Wapcard extends React.Component {
   }
 
   render () {
-
     return (
       <Container fluid>
         <Row className='flex-column-reverse flex-lg-row'>
@@ -87,13 +87,11 @@ class Wapcard extends React.Component {
             <div className='wapPreviewWrapper mb-4' />
           </Col>
           <Col xs={12} sm={12} md={12} lg={5}>
-            <Card className='speechBubble'>
-              <CardBlock>
-                <CardTitle>Det här är ditt wap card</CardTitle>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam gravida nibh at nisi accumsan, quis luctus est euismod. Curabitur vel finibus leo. Phasellus maximus enim eget neque posuere aliquet. Aliquam id sem vitae justo semper suscipit. Nulla ullamcorper arcu urna, quis lacinia turpis scelerisque ac. Aliquam interdum nisi eget eros cursus finibus. Mauris tempus velit sem, et rutrum nulla vulputate vel. Maecenas magna nulla, rutrum at molestie eu, efficitur interdum augue.</p>
-                <p>Maecenas eu lacus imperdiet, molestie dolor nec, venenatis ipsum. Sed vitae posuere nunc. Cras vestibulum quam et diam viverra vulputate. Mauris a leo lectus. Morbi tempor imperdiet magna, vitae euismod ex imperdiet at. Nam a hendrerit quam. Nam accumsan metus sed turpis hendrerit viverra. </p>
-              </CardBlock>
-            </Card>
+            <SpeechBubble pos='left-side top'>
+              <CardTitle>Det här är ditt wap card</CardTitle>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam gravida nibh at nisi accumsan, quis luctus est euismod. Curabitur vel finibus leo. Phasellus maximus enim eget neque posuere aliquet. Aliquam id sem vitae justo semper suscipit. Nulla ullamcorper arcu urna, quis lacinia turpis scelerisque ac. Aliquam interdum nisi eget eros cursus finibus. Mauris tempus velit sem, et rutrum nulla vulputate vel. Maecenas magna nulla, rutrum at molestie eu, efficitur interdum augue.</p>
+              <p>Maecenas eu lacus imperdiet, molestie dolor nec, venenatis ipsum. Sed vitae posuere nunc. Cras vestibulum quam et diam viverra vulputate. Mauris a leo lectus. Morbi tempor imperdiet magna, vitae euismod ex imperdiet at. Nam a hendrerit quam. Nam accumsan metus sed turpis hendrerit viverra. </p>
+            </SpeechBubble>
           </Col>
         </Row>
         <WapcardTemplate
