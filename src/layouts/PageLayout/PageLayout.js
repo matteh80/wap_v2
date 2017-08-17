@@ -9,6 +9,12 @@ import { connect } from 'react-redux'
 import Breadcrumbs from 'react-breadcrumbs'
 import { getActiveLanguage, getTranslate } from 'react-localize-redux'
 
+import {
+  Container,
+  Row,
+  Col,
+} from 'reactstrap'
+
 class PageLayout extends React.Component {
   constructor (props) {
     super(props)
@@ -32,16 +38,16 @@ class PageLayout extends React.Component {
     return (
       <div className='h-100'>
         <Header translate={translate} currentLanguage={currentLanguage} />
-        <div className='container-fluid'>
+        <div className='page_wrapper'>
           <Sidemenu translate={translate} />
-          <div className='page-layout__viewport'>
+          <Container fluid className='page-layout__viewport'>
             <Breadcrumbs
               separator={<i className='fa fa-chevron-right' style={{ margin: '0 5px' }} />}
               routes={this.props.routes}
               params={this.props.params}
             />
             {childrenWithProps}
-          </div>
+          </Container>
         </div>
       </div>
     )

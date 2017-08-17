@@ -6,14 +6,15 @@
   width: 280px;
   background-color: #2b303b;
   z-index: 1000;
-  left: -280px;
+  margin-left: -280px;
   @media screen and (min-width: 992px) {
-    left: -210px;
+    margin-left: -210px;
   }
-  position: absolute;
-  bottom: 0;
-  top: 0;
-  right: auto;
+  float: left;
+  position: relative;
+  //bottom: 0;
+  //top: 0;
+  //right: auto;
   //overflow: hidden;
   transition: left 250ms ease;
 
@@ -35,13 +36,19 @@
         margin-top: 10px;
       }
     }
-
-
   }
+
+  //&:hover {
+  //  margin-left: -15px;
+  //}
+}
+
+.sidemenuWrapper:hover ~ .page-layout__viewport {
+  //transform:translate3d(260px, 0, 0)
 }
 
 body.menu-expanded {
-  .sidemenuWrapper {
-    left: -0px;
-  }
+  //.sidemenuWrapper {
+  //  margin-left: -15px;
+  //}
 }

@@ -22,11 +22,12 @@
   }
 }
 .page-layout__viewport {
+  flex: 1 0 0;
   position: relative;
   left: 0;
   min-height: 100%;
   @media screen and (min-width: 992px) {
-    margin-left: 70px;
+    //margin-left: 70px;
   }
   transition: left 250ms ease;
 }
@@ -36,8 +37,20 @@
   text-decoration: underline;
 }
 
+.page_wrapper {
+  position: relative;
+  transition: left 250ms ease-in-out;
+  display: flex;
+}
 body.menu-expanded {
-  .page-layout__viewport {
-    left: 210px;
+  //.page-layout__viewport {
+  //  left: 210px;
+  //}
+
+  .page_wrapper {
+    left: 280px;
+    @media screen and (min-width: 992px) {
+      left: 210px;
+    }
   }
 }
