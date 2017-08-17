@@ -20,6 +20,7 @@ class Sidemenu extends React.Component {
       drivinglicenseCount: props.drivinglicenses.userLicenses ? props.drivinglicenses.userLicenses.length : 0,
       referenceCount: props.references.references ? props.references.references.length : 0,
       jobCount: props.jobs.savedJobs ? props.jobs.savedJobs.length : 0,
+      windowHeight: 100
     }
   }
 
@@ -40,6 +41,9 @@ class Sidemenu extends React.Component {
 
   componentWillReceiveProps (newProps) {
     this.setCounts(newProps)
+    this.setState({
+      windowHeight: $('body').height
+    })
   }
 
   setCounts (props) {

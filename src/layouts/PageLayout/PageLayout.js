@@ -30,9 +30,8 @@ class PageLayout extends React.Component {
     )
 
     return (
-      <div>
+      <div className='h-100'>
         <Header translate={translate} currentLanguage={currentLanguage} />
-
         <div className='container-fluid'>
           <Sidemenu translate={translate} />
           <div className='page-layout__viewport'>

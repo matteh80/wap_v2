@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { hideCard, setHiddenCardsToCookie, getHiddenCardsFromCookie, updateCardsList } from '../../store/actions/dashboard'
 import Masonry from 'react-masonry-component'
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc'
 import Cookies from 'universal-cookie'
@@ -56,20 +55,25 @@ const SortableItem = SortableElement(({ value, index, onHide, id, mIndex, compon
   )
 })
 
-const cards = [
-  { name: 'testcard', component: <TestCard name='testcard' /> },
-  { name: 'recruitercard', component: <RecruiterCard name='recruitercard' /> },
-  { name: 'educationscard', component: <EducationsCard name='educationscard' /> },
-  { name: 'employmentscard', component: <EmploymentsCard name='employmentscard' /> },
-  { name: 'wapfilmcard', component: <WapfilmCard name='wapfilmcard' /> },
-]
+let cards
 
 class Dashboard extends React.Component {
   constructor (props) {
     super(props)
 
+    console.log('constructor')
+
     // cookies.remove(props.profile.id + '_hiddenCards', { path: '/' })
     // cookies.remove(props.profile.id + '_cards', { path: '/' })
+
+    cards = [
+      { name: 'jobscard', component: <JobsCard jobs={this.props.jobs.savedJobs} /> },
+      { name: 'testcard', component: <TestCard /> },
+      { name: 'recruitercard', component: <RecruiterCard /> },
+      { name: 'educationscard', component: <EducationsCard /> },
+      { name: 'employmentscard', component: <EmploymentsCard /> },
+      { name: 'wapfilmcard', component: <WapfilmCard /> },
+    ]
 
     let itemsFromCookie = cookies.get(props.profile.id + '_cards', { path: '/' })
     let hiddenItemsFromCookie = cookies.get(props.profile.id + '_hiddenCards', { path: '/' })
@@ -85,6 +89,7 @@ class Dashboard extends React.Component {
     this.onAdd = this.onAdd.bind(this)
     this.createListFromNames = this.createListFromNames.bind(this)
     this.createNamesFromComponents = this.createNamesFromComponents.bind(this)
+    this.shouldCardBeVisible = this.shouldCardBeVisible.bind(this)
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -95,8 +100,29 @@ class Dashboard extends React.Component {
 
     if (prevState.items !== this.state.items) {
       console.log('save items to cookie')
-      cookies.set(this.props.profile.id + '_cards', this.createNamesFromComponents(this.state.items), { path: '/' })
+      cookies.set(this.props.profile.id + '_cards', this.state.items, { path: '/' })
     }
+  }
+
+  shouldCardBeVisible (list) {
+    let cardsArray = []
+    for (let i = 0; i < list.length; i++) {
+      switch (list[i]) {
+        case 'jobscard':
+          this.props.jobs.savedJobs && cardsArray.push(list[i])
+          break
+        case 'wapfilmcard':
+          !this.props.wapfilm.video && cardsArray.push(list[i])
+          break
+        case 'testcard':
+          !this.props.talentq.completed && cardsArray.push(list[i])
+          break
+        default:
+          cardsArray.push(list[i])
+      }
+    }
+
+    return cardsArray
   }
 
   createNamesFromComponents (list) {
@@ -113,13 +139,16 @@ class Dashboard extends React.Component {
     list.map((name) => {
       let c = _.find(cards, { 'name': name })
       let hidden = _.includes(hiddenItems, name)
-      c.component = React.cloneElement(
-        c.component,
-        {
-          hidden: hidden
-        },
-      )
-      mCards.push(c)
+
+      if (c) {
+        c.component = React.cloneElement(
+          c.component,
+          {
+            hidden: hidden
+          },
+        )
+        mCards.push(c)
+      }
     })
 
     // return mCards.length > 0 ? mCards : cards
@@ -170,14 +199,16 @@ class Dashboard extends React.Component {
     return (
       <Container fluid>
         <HiddenCardsController hiddenCards={this.createListFromNames(this.state.hiddenItems)} onAdd={this.onAdd} />
+        {this.state.items && this.state.items.length > 0 &&
         <SortableList
           helperClass='moving'
           axis='xy'
           pressDelay={200}
-          items={this.createListFromNames(this.state.items)}
+          items={this.createListFromNames(this.shouldCardBeVisible(this.state.items))}
           onSortEnd={this.onSortEnd}
           onHide={this.onHide}
         />
+        }
       </Container>
     )
   }

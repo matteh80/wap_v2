@@ -14,17 +14,15 @@ class JobsCard extends React.Component {
     let { jobs } = this.props
 
     return (
-      <Col xs={12} sm={6} lg={4} xl={3}>
-        <Card style={{ background: '#ffffff' }}>
-          <DashboardButtons linkto='jobs' onHide={this.props.onHide} />
-          <CardBlock>
-            <CardTitle>Visade jobb</CardTitle>
-            {jobs.map((job) => {
-              return <h6 key={job.id}>{job.title}</h6>
-            })}
-          </CardBlock>
-        </Card>
-      </Col>
+      <Card style={{ background: '#ffffff' }}>
+        <DashboardButtons linkto='jobs' onHide={this.props.onHide} />
+        <CardBlock>
+          <CardTitle>Visade jobb</CardTitle>
+          {jobs.map((job) => {
+            return <h6 key={job.id}>{job.title}</h6>
+          })}
+        </CardBlock>
+      </Card>
     )
   }
 }

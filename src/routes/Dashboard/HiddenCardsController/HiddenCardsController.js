@@ -5,11 +5,6 @@ import html2canvas from 'html2canvas'
 import $ from 'jquery'
 import _ from 'lodash'
 
-import {
-  Row,
-  Col
-} from 'reactstrap'
-
 class HiddenCardsController extends React.Component {
   constructor (props) {
     super(props)
@@ -62,7 +57,6 @@ class HiddenCardsController extends React.Component {
       const items = Object.assign([], this.state.hiddenItems)
       items.splice(index, 1)
 
-
       this.setState({
         hiddenItems : items,
         isOpen: this.state.hiddenItems.length === 1 && false
@@ -89,6 +83,7 @@ class HiddenCardsController extends React.Component {
   }
 
   createSnapshot () {
+    $('body').addClass('canvasRender')
     let element = $('.tempList > div').last()
     let _self = this
     this.setState({ renderCanvas: true })
@@ -121,6 +116,7 @@ class HiddenCardsController extends React.Component {
 
           $(clone).remove()
           // $(element).remove()
+          $('body').removeClass('canvasRender')
           resolve('Valid')
         }
       })
@@ -134,6 +130,7 @@ class HiddenCardsController extends React.Component {
   }
 
   createStartSnapshots () {
+    $('body').addClass('canvasRender')
     console.log('createStartSnapshots')
     let promises = []
     let _self = this
@@ -170,6 +167,7 @@ class HiddenCardsController extends React.Component {
 
             $(clone).remove()
             // $(element).remove()
+            $('body').removeClass('canvasRender')
             resolve('Valid')
           }
         })

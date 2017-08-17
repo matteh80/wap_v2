@@ -98,7 +98,7 @@ class TalentQ extends React.Component {
         {completed &&
         <Row>
           <Col xs={12}>
-            <SpeechBubble pos='bottom left'>
+            <SpeechBubble pos='bottom-side'>
               <p>Du har gjort testet. Här under finner du länk till ditt resultat. Ett mail har även skickats till
                 {' ' + this.props.profile.email}</p>
               <p><a href={result_url}>{result_url}</a></p>

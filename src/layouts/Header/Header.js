@@ -5,6 +5,7 @@ import './Header.scss'
 import { logout } from '../../store/actions/auth'
 import $ from 'jquery'
 import { setActiveLanguage, getTranslate, getActiveLanguage } from 'react-localize-redux'
+import classNames from 'classnames'
 
 import {
   Row,
@@ -63,6 +64,8 @@ class Header extends React.Component {
 
   render () {
     let { translate } = this.props
+    let menuClass = classNames(this.state.profileDropdownOpen && 'show')
+
     return (
       <div className='header'>
         <div className='d-none d-lg-block pull-left h-100 logo'>
@@ -75,6 +78,7 @@ class Header extends React.Component {
           <span className='bar2' />
           <span className='bar3' />
         </div>
+
         <div className='pull-right profile-picture'>
           <Dropdown isOpen={this.state.profileDropdownOpen} toggle={this.toggleProfileDropdown}>
             <ProfilePicture profile={this.props.profile} />
@@ -82,20 +86,20 @@ class Header extends React.Component {
               <i className='fa fa-chevron-down' />
             </div>
 
-            <DropdownMenu>
+            <DropdownMenu className={menuClass}>
               <DropdownItem onClick={(e) => this.handleLogout(e)}>{translate('header.logout')}</DropdownItem>
               <DropdownItem>
                 <div className='locale pull-right' onClick={() => this.toggleLocale()}>
-                  <img src={'/img/locale_' + this.props.currentLanguage + '.png'} className='img-fluid' style={{height: 20}} />
+                  <img src={'/img/locale_' + this.props.currentLanguage + '.png'} className='img-fluid' style={{ height: 20 }} />
                 </div>
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </div>
 
-        <div className='locale pull-right' onClick={() => this.toggleLocale()}>
-          <img src={'/img/locale_' + this.props.currentLanguage + '.png'} className='img-fluid' style={{height: 60}} />
-        </div>
+        {/*<div className='locale pull-right' onClick={() => this.toggleLocale()}>*/}
+          {/*<img src={'/img/locale_' + this.props.currentLanguage + '.png'} className='img-fluid' style={{ height: 60 }} />*/}
+        {/*</div>*/}
 
       </div>
     )
