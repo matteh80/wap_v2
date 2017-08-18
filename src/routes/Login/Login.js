@@ -336,7 +336,6 @@ class Login extends React.Component {
         dispatch(getMyLicenses()),
         dispatch(getAllReferences()),
         dispatch(getAllQuestions()),
-        dispatch(getAllJobs())
       ]).then(() => {
         if (result.tos_accepted) {
           console.log('redirect')

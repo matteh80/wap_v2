@@ -39,8 +39,8 @@ class DashboardButtons extends React.Component {
       <div className={wrapperClass}>
         <div>
           <i className='fa fa-link dashBtn' id='followLink' onClick={() => this.goToLink()} />
-          <i className='fa fa-eye dashBtn' id='minimize' onClick={() => this.minimize()} />
-          <i className='fa fa-remove dashBtn' id='hide' onClick={() => this.hide()} />
+          <i className='fa fa-expand dashBtn' id='minimize' onClick={() => this.minimize()} />
+          <i className='fa fa-eye-slash dashBtn' id='hide' onClick={() => this.hide()} />
         </div>
       </div>
     )

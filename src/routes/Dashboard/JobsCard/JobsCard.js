@@ -9,13 +9,14 @@ import {
 import DashboardButtons from '../../../components/buttons/DashboardButtons'
 
 class JobsCard extends React.Component {
+
   render () {
     let { translate } = this.context
     let { jobs } = this.props
 
     return (
       <Card style={{ background: '#ffffff' }}>
-        <DashboardButtons linkto='jobs' onHide={this.props.onHide} />
+        <DashboardButtons linkto='jobs/my' onHide={this.props.onHide} />
         <CardBlock>
           <CardTitle>Visade jobb</CardTitle>
           {jobs.map((job) => {

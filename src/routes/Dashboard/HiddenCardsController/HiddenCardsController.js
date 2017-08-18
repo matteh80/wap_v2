@@ -24,7 +24,7 @@ class HiddenCardsController extends React.Component {
   }
 
   componentDidMount () {
-    this.createStartSnapshots()
+    this.props.hiddenCards.length > 0 && this.createStartSnapshots()
   }
 
   componentDidUpdate (prevProps) {

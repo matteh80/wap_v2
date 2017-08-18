@@ -23,7 +23,9 @@ class ViewedJobs extends React.Component {
   }
 
   handleClick (id) {
-    this.props.router.push('/jobs/' + id)
+    if (id) {
+      this.props.router.push('/jobs/' + id)
+    }
   }
 
   onRemove (job) {

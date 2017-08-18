@@ -12,9 +12,12 @@ import {
   Col,
   Card,
   CardBlock,
-  CardTitle
+  CardTitle,
+  CardSubtitle,
+  CardText
 } from 'reactstrap'
 import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble';
+import ThreeDButton from '../../components/buttons/ThreeDButton';
 
 let jaid
 let xml
@@ -35,9 +38,8 @@ class ApplyForJob extends React.Component {
       storyAdded: false
     }
 
-    jaid = this.props.params.jobid
+    jaid = props.params.jobid
 
-    console.log(jaid)
 
     axios.get('https://cv-maxkompetens.app.intelliplan.eu/JobAdGlobePages/Feed.aspx?pid=AA31EA47-FDA6-42F3-BD9F-E42186E5A960&version=2&JobAdId=' + jaid, {
       responseType: 'text'
@@ -54,7 +56,7 @@ class ApplyForJob extends React.Component {
         })
 
         let mJob = {
-          id: $xml.find('id').text(),
+          id: jaid,
           title: $xml.find('title').last().text(),
           pubdate: $xml.find('pubdate').text(),
           description: $xml.find('description').text(),
@@ -115,6 +117,10 @@ class ApplyForJob extends React.Component {
     let { dispatch } = this.props
     let id_token = sessionStorage.getItem('id_token')
     let jobTitle = $xml.find('item title').text()
+
+    // TODO: Remove when done with layout
+    this.setState({ applied: true })
+    return
 
     axios.post('https://api.wapcard.se/api/v1/jobs/' + jaid + '/apply',
       { 'title': jobTitle },
@@ -180,13 +186,15 @@ class ApplyForJob extends React.Component {
   render () {
     return (
       <Container>
+        {!this.state.applied &&
         <Row className='flex-column-reverse flex-lg-row'>
           <Col>
             {this.state.fetched &&
             <Card>
               <CardBlock>
                 <CardTitle>{$xml.find('item title').text()}</CardTitle>
-                <div dangerouslySetInnerHTML={this.createMarkup($xml.find('item description').first().text())} />
+                <div dangerouslySetInnerHTML={this.createMarkup($xml.find('item description').first().text())}/>
+                <ThreeDButton block onClick={() => this.applyJob()}>Ansök</ThreeDButton>
               </CardBlock>
             </Card>
             }
@@ -198,6 +206,20 @@ class ApplyForJob extends React.Component {
             </SpeechBubble>
           </Col>
         </Row>
+        }
+        {this.state.applied &&
+          <Row>
+            <Col xs='12' className='text-center'>
+              <Card>
+                <CardBlock>
+                  <CardTitle>Tack för din ansökan</CardTitle>
+                  <CardSubtitle>En rekryterare kommer se på den inom kort...</CardSubtitle>
+                  <CardText>Lorem ipsum</CardText>
+                </CardBlock>
+              </Card>
+            </Col>
+          </Row>
+        }
       </Container>
     )
   }

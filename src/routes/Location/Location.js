@@ -29,9 +29,6 @@ class Location extends React.Component {
       initialUserLocations: Object.assign([], this.props.locations.userLocations)
     }
 
-    let { dispatch } = this.props
-    dispatch(getAllLocations())
-
     this.onPathClick = this.onPathClick.bind(this)
     this.onPathHover = this.onPathHover.bind(this)
     this.getParentName = this.getParentName.bind(this)
@@ -40,7 +37,10 @@ class Location extends React.Component {
   }
 
   componentDidMount () {
-    this.highlightLocations()
+    let { dispatch } = this.props
+    dispatch(getAllLocations()).then(() => {
+      this.highlightLocations()
+    })
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -197,7 +197,7 @@ class Location extends React.Component {
   }
 
   render () {
-    let btnClass = classNames('btn-wrapper flex-row justify-content-center my-2', !this.state.locationClicked && 'hidden-xs-up')
+    let btnClass = classNames('btn-wrapper flex-row justify-content-center my-2', !this.state.locationClicked && 'd-none')
     let mapClass = classNames('mapWrapper', this.state.locationClicked && 'locationClicked')
     let tooltipClass = classNames(this.state.numMunicipalities > 20 ? 'three-col' : this.state.numMunicipalities < 10 ? 'one-col' : 'two-col')
     return (
