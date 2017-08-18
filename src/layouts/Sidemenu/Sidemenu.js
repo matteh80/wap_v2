@@ -19,8 +19,7 @@ class Sidemenu extends React.Component {
       videoCount: props.wapfilm.video ? 1 : 0,
       drivinglicenseCount: props.drivinglicenses.userLicenses ? props.drivinglicenses.userLicenses.length : 0,
       referenceCount: props.references.references ? props.references.references.length : 0,
-      jobCount: props.jobs.savedJobs ? props.jobs.savedJobs.length : 0,
-      windowHeight: 100
+      jobCount: props.jobs.savedJobs ? props.jobs.savedJobs.length : 0
     }
   }
 

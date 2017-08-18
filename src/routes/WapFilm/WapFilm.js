@@ -146,7 +146,7 @@ class WapFilm extends React.Component {
             </Card>
           </Col>
           <Col xs={12} sm={12} md={12} lg={5}>
-            <SpeechBubble pos='bottom-side left'>
+            <SpeechBubble pos='bottom-side'>
                   WAP Film är en 60 s video där du har möjlighet att kort presentera dig själv för potentiella
                   arbetsgivare. Du kommer svara på 6 st frågor som vi tagit fram och det finns inget rätt eller fel svar.
                   Du spelar in filmen själv och laddar sedan upp den när du känner dig nöjd.

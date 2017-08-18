@@ -1,0 +1,61 @@
+@import '~bootstrap/scss/bootstrap.scss';
+
+$arrowHeight: 30px;
+$arrowWidth: $arrowHeight * .7;
+
+.bubbleWrapper {
+  display: flex;
+  align-items: flex-end;
+
+  @include media-breakpoint-down(md) {
+    flex-direction: column;
+  }
+
+  .bubble {
+    .card {
+      &.speechBubble {
+        position: relative;
+        box-shadow: none;
+        border-radius: 50px;
+
+        .card-block {
+          padding: 2rem;
+        }
+        &:after {
+          content: "";
+          position: absolute;
+          border-style: solid;
+          width: 0;
+          height: 0;
+          border-width: $arrowWidth $arrowHeight;
+          border-color: transparent transparent transparent #fff;
+          right: -$arrowHeight * 2;
+          bottom: 60px;
+        }
+
+        @include media-breakpoint-down(md) {
+          margin:0 0 ($arrowHeight+15) 0 !important;
+          &:after {
+            border-width: $arrowHeight $arrowWidth !important;
+            border-color: #fff transparent transparent !important;
+            bottom: -$arrowHeight * 2 !important;
+            right:130px;
+            margin-left:-$arrowWidth/2;
+            top:auto !important;
+          }
+        }
+      }
+    }
+  }
+
+  .gubbe {
+    flex: 1 0 auto;
+    position: relative;
+    z-index: 1;
+    max-height: 200px;
+
+    @include media-breakpoint-down(md) {
+      margin-top:-40px;
+    }
+  }
+}

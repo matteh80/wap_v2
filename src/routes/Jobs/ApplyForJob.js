@@ -4,7 +4,6 @@ import axios from 'axios'
 import Cookies from 'universal-cookie'
 import $ from 'jquery'
 import moment from 'moment'
-import Countdown from 'react-countdown'
 import { saveJob } from '../../store/actions/jobs'
 
 import {
@@ -222,9 +221,6 @@ class ApplyForJob extends React.Component {
                   <CardTitle className='mt-5'>Din ansökan är skickad! Under tiden du väntar på svar från våra rekryterare kan du uppdatera din profil</CardTitle>
                   <CardSubtitle className='mt-5'>Du bör uppdatera din profil inom 12 timmar för att vara säker på att rekryteraren får se det du vill visa upp.</CardSubtitle>
                   <CardSubtitle>En uppdaterad profil där du även gjort personlighetstest och laddat upp en film ökar dina chanser för att få jobbet markant.</CardSubtitle>
-                  {/*<Countdown ref={(c) => { this.countdown = c }} onComplete={this.handleEnd}>*/}
-                    {/*<CountdownOverlay />*/}
-                  {/*</Countdown>*/}
                 </CardBlock>
               </Card>
             </Col>

@@ -5334,10 +5334,6 @@ react-cookie-banner@^0.0.18:
     lodash.omit "^3.1.0"
     tcomb-react "^0.9.3"
 
-react-countdown@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react-countdown/-/react-countdown-2.0.0.tgz#dd41a3cae93f4a63f2903ceac3bf752879a6f855"
-
 react-cropper@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-cropper/-/react-cropper-1.0.0.tgz#7b65a85bbfcd64fa586be25742b3f16a37847414"

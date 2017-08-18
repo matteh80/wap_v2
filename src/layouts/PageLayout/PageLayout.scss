@@ -39,7 +39,8 @@
 
 .page_wrapper {
   position: relative;
-  transition: left 250ms ease-in-out;
+  left:0;
+  transition: left 250ms ease;
   display: flex;
 }
 body.menu-expanded {
@@ -49,6 +50,7 @@ body.menu-expanded {
 
   .page_wrapper {
     left: 280px;
+
     @media screen and (min-width: 992px) {
       left: 210px;
     }
