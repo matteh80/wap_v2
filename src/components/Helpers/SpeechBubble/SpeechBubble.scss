@@ -58,4 +58,27 @@ $arrowWidth: $arrowHeight * .7;
       margin-top:-40px;
     }
   }
+
+  // Aligned on the right side of content - see Wap card
+  &.side {
+    flex-direction: column;
+
+    .bubble {
+      .speechBubble {
+        margin:0 0 ($arrowHeight+15) 0 !important;
+        &:after {
+          border-width: $arrowHeight $arrowWidth !important;
+          border-color: #fff transparent transparent !important;
+          bottom: -$arrowHeight * 2 !important;
+          right:130px;
+          margin-left:-$arrowWidth/2;
+          top:auto !important;
+        }
+      }
+    }
+
+    .gubbe {
+      margin-top:-40px;
+    }
+  }
 }
