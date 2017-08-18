@@ -256,6 +256,10 @@ $arrowWidth: $arrowHeight * .7;
       height: 0;
     }
 
+    &.bottom-side {
+      margin-bottom: $arrowHeight + 15;
+    }
+
     @include media-breakpoint-down(md) {
       margin:0 0 ($arrowHeight+15) 0 !important;
       &:after {

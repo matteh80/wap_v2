@@ -16,7 +16,7 @@ class SpeechBubble extends React.Component {
 
   render () {
 
-    let arrowClass = classNames('speechBubble', this.props.pos)
+    let arrowClass = classNames('speechBubble', this.props.pos, this.props.className)
 
     return (
       <Card className={arrowClass}>

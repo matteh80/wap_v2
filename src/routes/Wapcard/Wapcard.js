@@ -10,6 +10,7 @@ import { getMyMotivations } from '../../store/actions/motivations'
 import { getMyLanguages } from '../../store/actions/languages'
 import { getAllEmployments } from '../../store/actions/employments'
 import { getAllEducations } from '../../store/actions/educations'
+import graph from 'fb-react-sdk'
 
 import {
   Card,
@@ -21,7 +22,9 @@ import {
 } from 'reactstrap'
 import Loader from '../../components/Misc/Loader/Loader'
 import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble'
+import ShareDownloadButtons from '../../components/buttons/ShareDownloadButtons'
 
+let _self
 class Wapcard extends React.Component {
   constructor (props) {
     super(props)
@@ -32,7 +35,11 @@ class Wapcard extends React.Component {
       creatingCanvas: false
     }
 
+    _self = this
+
     this.createCanvas = this.createCanvas.bind(this)
+    this.dataURItoBlob = this.dataURItoBlob.bind(this)
+    this.publishFacebook = this.publishFacebook.bind(this)
   }
 
   componentDidMount () {
@@ -63,6 +70,75 @@ class Wapcard extends React.Component {
     }
   }
 
+  dataURItoBlob (dataURI) {
+    let byteString = atob(dataURI.split(',')[1])
+    let ab = new ArrayBuffer(byteString.length)
+    let ia = new Uint8Array(ab)
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i)
+    }
+    return new Blob([ab], {
+      type: 'image/png'
+    })
+  }
+
+  publishFacebook (authToken) {
+    _self.setState({ loadsave: true })
+    let canvas = $('.wapPreviewWrapper canvas')[0]
+    let imageData = canvas.toDataURL('image/png')
+    let blob
+    try {
+      blob = this.dataURItoBlob(imageData)
+    } catch (e) {
+      console.log(e)
+    }
+    let fd = new FormData()
+    fd.append('access_token', authToken)
+    fd.append('source', blob)
+    // fd.append('message', 'Kika in mitt wap card')
+    // fd.append('caption', 'Caption')
+    try {
+      $.ajax({
+        url: 'https://graph.facebook.com/me/photos?access_token=' + authToken,
+        type: 'POST',
+        data: fd,
+        processData: false,
+        contentType: false,
+        cache: false,
+        success: function (data) {
+          console.log('success ' + data)
+          $('.d-none').removeClass('d-none')
+        },
+        error: function (shr, status, data) {
+          alert('error ' + data + ' Status ' + shr.status)
+        },
+        complete: function () {
+          console.log('Posted to facebook')
+          _self.setState({ loadsave: false })
+        }
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  shareWapcard () {
+    FB.getLoginStatus(function (response) {
+      if (response.status === 'connected') {
+        console.log('Logged in.')
+        console.log(response.authResponse.accessToken)
+        _self.publishFacebook(response.authResponse.accessToken)
+      } else {
+        FB.login(function (response) {
+          console.log(response)
+        }, {
+          scope: 'publish_actions',
+          return_scopes: true
+        })
+      }
+    })
+  }
+
   createCanvas () {
     let _self = this
     $('.wapcardTemplateWrapper').addClass('creatingCanvas')
@@ -82,9 +158,15 @@ class Wapcard extends React.Component {
     return (
       <Container fluid>
         <Row className='flex-column-reverse flex-lg-row'>
-          <Col xs={12} sm={12} md={12} lg={7}>
+          <Col xs={12} sm={12} md={12} lg={7} style={{ maxWidth: 790 }}>
             <Loader active={this.state.loadsave} />
-            <div className='wapPreviewWrapper mb-4' />
+            <SpeechBubble pos='bottom-side' className='d-none'>
+              <h4>Du har nu delat ditt wap card till Facebook!</h4>
+            </SpeechBubble>
+            <div className='hasShareDownloadBtn'>
+              <ShareDownloadButtons onShare={this.shareWapcard} />
+              <div className='wapPreviewWrapper mb-4 ' />
+            </div>
           </Col>
           <Col xs={12} sm={12} md={12} lg={5}>
             <SpeechBubble pos='left-side top'>

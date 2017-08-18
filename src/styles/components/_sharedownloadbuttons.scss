@@ -1,0 +1,68 @@
+div.hasShareDownloadBtn {
+  position: relative;
+  &:hover {
+    .shareDownloadWrapper {
+      opacity: 1;
+
+      > div {
+        right:0;
+      }
+    }
+  }
+}
+
+.shareDownloadWrapper {
+  position: absolute;
+  z-index: 9;
+  top:0;
+  width:80px;
+  height:40px;
+  display: flex;
+  right: 0;
+  overflow: hidden;
+  transition: opacity 250ms;
+  opacity: 1;
+
+  > div {
+    width:100%;
+    display: flex;
+    position: absolute;
+    right:-80px;
+    transition: right 250ms;
+  }
+
+  &:hover {
+    opacity:1;
+  }
+
+  .sdBtn {
+    width:40px;
+    height:40px;
+    min-width:40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 250ms;
+    box-shadow: inset 0 0 rgba(0,0,0,0.2);
+    color: #fff;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &#downloadBtn {
+      background: $themeColor;
+
+      &:hover {
+        background: darken($themeColor, 15%);
+      }
+    }
+
+    &#shareFbBtn {
+      background: $facebook_color;
+      &:hover {
+        background: darken($facebook_color, 15%);
+      }
+    }
+  }
+}

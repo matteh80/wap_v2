@@ -15,7 +15,6 @@ import { getVideoInfo } from '../../store/actions/wapfilm'
 import { getAllLicenses, getMyLicenses } from '../../store/actions/drivinglicenses'
 import { getAllReferences } from '../../store/actions/references'
 import { getAllQuestions } from '../../store/actions/dreamjob'
-import { getAllJobs } from '../../store/actions/jobs'
 import ThreeDButton from '../../components/buttons/ThreeDButton'
 import './Login.scss'
 import $ from 'jquery'
@@ -233,11 +232,12 @@ class Login extends React.Component {
   }
 
   loadFB () {
+    // TODO: Change to prod appid
     window.fbAsyncInit = function () {
       FB.init({
-        appId      : '1021816071285498',
+        appId      : '1999711793387146',
         xfbml      : true,
-        version    : 'v2.9'
+        version    : 'v2.10'
       })
       FB.AppEvents.logPageView()
     };
