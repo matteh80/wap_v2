@@ -14,7 +14,7 @@ class ShareDownloadButtons extends React.Component {
   }
 
   download () {
-
+    this.props.onDownload()
   }
 
   share () {

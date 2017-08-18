@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import './Wapcard.scss'
 import WapcardTemplate from './WapcardTemplate/WapcardTemplate'
 import html2canvas from 'html2canvas'
+import jsPDF from 'jspdf'
 import $ from 'jquery'
 import { getProfile } from '../../store/actions/profile'
 import { getMyPersonalities } from '../../store/actions/personalities'
@@ -10,11 +11,8 @@ import { getMyMotivations } from '../../store/actions/motivations'
 import { getMyLanguages } from '../../store/actions/languages'
 import { getAllEmployments } from '../../store/actions/employments'
 import { getAllEducations } from '../../store/actions/educations'
-import graph from 'fb-react-sdk'
 
 import {
-  Card,
-  CardBlock,
   CardTitle,
   Container,
   Row,
@@ -40,6 +38,7 @@ class Wapcard extends React.Component {
     this.createCanvas = this.createCanvas.bind(this)
     this.dataURItoBlob = this.dataURItoBlob.bind(this)
     this.publishFacebook = this.publishFacebook.bind(this)
+    this.createPdf = this.createPdf.bind(this)
   }
 
   componentDidMount () {
@@ -155,6 +154,29 @@ class Wapcard extends React.Component {
     })
   }
 
+  createPdf () {
+    let { profile } = this.props
+    let
+      $content = $('#hiddenCV'),
+      $body = $('body'),
+      cacheWidth = $content.width(),
+      a4 = [595.28, 841.89]  // for a4 size paper width and height
+
+    $body.css('overflow', 'visible')
+    // $content.appendTo('body')
+
+    $content.css('visibility', 'visible')
+    $body.scrollTop(0)
+
+    let doc = new jsPDF({
+      unit: 'px',
+      format: 'a4'
+    })
+
+    doc.addImage($('.wapPreviewWrapper canvas')[0], 'JPEG', 0, 0)
+    doc.save('wapcard' + profile.first_name + '_' + profile.last_name + '.pdf')
+  }
+
   render () {
     return (
       <Container fluid>
@@ -165,7 +187,7 @@ class Wapcard extends React.Component {
               <h4>Du har nu delat ditt wap card till Facebook!</h4>
             </SpeechBubble>
             <div className='hasShareDownloadBtn'>
-              <ShareDownloadButtons onShare={this.shareWapcard} />
+              <ShareDownloadButtons onShare={this.shareWapcard} onDownload={this.createPdf} />
               <div className='wapPreviewWrapper mb-4 ' />
             </div>
           </Col>

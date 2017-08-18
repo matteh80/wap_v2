@@ -311,17 +311,25 @@ class CVBuilder extends React.Component {
 
     return (
       <Container fluid className='cvBuilder'>
-        <Row className='flex-column-reverse flex-lg-row'>
-          <Col xs={12} sm={12} md={12} lg={8}>
+        <Row>
+          <Col xs={12} md={6}>
+            <SpeechBubble pos='bottom-side'>
+              <CardTitle>Har skapar du ett CV</CardTitle>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam gravida nibh at nisi accumsan, quis luctus est euismod. Curabitur vel finibus leo. Phasellus maximus enim eget neque posuere aliquet. Aliquam id sem vitae justo semper suscipit. Nulla ullamcorper arcu urna, quis lacinia turpis scelerisque ac. Aliquam interdum nisi eget eros cursus finibus. Mauris tempus velit sem, et rutrum nulla vulputate vel. Maecenas magna nulla, rutrum at molestie eu, efficitur interdum augue.</p>
+              <p>Maecenas eu lacus imperdiet, molestie dolor nec, venenatis ipsum. Sed vitae posuere nunc. Cras vestibulum quam et diam viverra vulputate. Mauris a leo lectus. Morbi tempor imperdiet magna, vitae euismod ex imperdiet at. Nam a hendrerit quam. Nam accumsan metus sed turpis hendrerit viverra. </p>
+            </SpeechBubble>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
             <Masonry
               className='row'
               ref={function (c) {
                 this.masonry = this.masonry || c.masonry
               }.bind(this)}
         >
-              <Col xs={12} md={6} xl={4}>
+              <Col xs={12} md={6} lg={4} xl={3}>
                 <Card className='preview' style={{ minHeight: 100 }}>
-                  <CardHeader>Förhandsgranskning</CardHeader>
                   {this.state.showUpdatePreview &&
                   <PreviewOverlay refresh={this.preparePreview} creating={this.state.createPreview} />}
                   {this.state.images.length > 0 && <Slider {...settings} autoplay={this.state.images.length > 1}>
@@ -332,7 +340,7 @@ class CVBuilder extends React.Component {
                   <div className='cvPreviewWrapper' />
                 </Card>
               </Col>
-              <Col xs={12} md={6} xl={4}>
+              <Col xs={12} md={6} lg={4} xl={3}>
                 <Card>
                   <CardHeader>
                 Anställningar
@@ -348,7 +356,7 @@ class CVBuilder extends React.Component {
                 </Card>
               </Col>
 
-              <Col xs={12} md={6} xl={4}>
+              <Col xs={12} md={6} lg={4} xl={3}>
                 <Card>
                   <CardHeader>Utbildningar</CardHeader>
                   <CardBlock>
@@ -361,7 +369,7 @@ class CVBuilder extends React.Component {
                 </Card>
               </Col>
 
-              <Col xs={12} md={6} xl={4}>
+              <Col xs={12} md={6} lg={4} xl={3}>
                 <Card>
                   <CardHeader>Kompetenser</CardHeader>
                   <CardBlock>
@@ -377,7 +385,7 @@ class CVBuilder extends React.Component {
                 </Card>
               </Col>
 
-              <Col xs={12} md={6} xl={4}>
+              <Col xs={12} md={6} lg={4} xl={3}>
                 <Card>
                   <CardHeader>Språk</CardHeader>
                   <CardBlock>
@@ -390,7 +398,7 @@ class CVBuilder extends React.Component {
                 </Card>
               </Col>
 
-              <Col xs={12} md={6} xl={4}>
+              <Col xs={12} md={6} lg={4} xl={3}>
                 <Card>
                   <CardHeader>
                 Resumé
@@ -416,14 +424,6 @@ class CVBuilder extends React.Component {
               profile={this.props.profile}
               resume={this.props.profile.personal_info ? this.state.resume : false}
         />}
-          </Col>
-
-          <Col xs={12} sm={12} md={12} lg={4}>
-            <SpeechBubble pos='left-side top'>
-              <CardTitle>Har skapar du ett CV</CardTitle>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam gravida nibh at nisi accumsan, quis luctus est euismod. Curabitur vel finibus leo. Phasellus maximus enim eget neque posuere aliquet. Aliquam id sem vitae justo semper suscipit. Nulla ullamcorper arcu urna, quis lacinia turpis scelerisque ac. Aliquam interdum nisi eget eros cursus finibus. Mauris tempus velit sem, et rutrum nulla vulputate vel. Maecenas magna nulla, rutrum at molestie eu, efficitur interdum augue.</p>
-              <p>Maecenas eu lacus imperdiet, molestie dolor nec, venenatis ipsum. Sed vitae posuere nunc. Cras vestibulum quam et diam viverra vulputate. Mauris a leo lectus. Morbi tempor imperdiet magna, vitae euismod ex imperdiet at. Nam a hendrerit quam. Nam accumsan metus sed turpis hendrerit viverra. </p>
-            </SpeechBubble>
           </Col>
         </Row>
       </Container>

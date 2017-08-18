@@ -4,6 +4,7 @@ import axios from 'axios'
 import Cookies from 'universal-cookie'
 import $ from 'jquery'
 import moment from 'moment'
+import Countdown from 'react-countdown'
 import { saveJob } from '../../store/actions/jobs'
 
 import {
@@ -16,8 +17,8 @@ import {
   CardSubtitle,
   CardText
 } from 'reactstrap'
-import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble';
-import ThreeDButton from '../../components/buttons/ThreeDButton';
+import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble'
+import ThreeDButton from '../../components/buttons/ThreeDButton'
 
 let jaid
 let xml
@@ -34,12 +35,11 @@ class ApplyForJob extends React.Component {
       job: null,
       fetched: false,
       addToWapStory: true,
-      applied: false,
+      applied: true,
       storyAdded: false
     }
 
     jaid = props.params.jobid
-
 
     axios.get('https://cv-maxkompetens.app.intelliplan.eu/JobAdGlobePages/Feed.aspx?pid=AA31EA47-FDA6-42F3-BD9F-E42186E5A960&version=2&JobAdId=' + jaid, {
       responseType: 'text'
@@ -132,7 +132,7 @@ class ApplyForJob extends React.Component {
     ).then((response) => {
       console.log(response)
 
-        this.removeJobFromCookies()
+      this.removeJobFromCookies()
 
       if (this.state.addToWapStory) {
         let story = {
@@ -183,6 +183,10 @@ class ApplyForJob extends React.Component {
 
   createMarkup ($string) { return { __html: $string } }
 
+  handleEnd () {
+
+  }
+
   render () {
     return (
       <Container>
@@ -193,7 +197,7 @@ class ApplyForJob extends React.Component {
             <Card>
               <CardBlock>
                 <CardTitle>{$xml.find('item title').text()}</CardTitle>
-                <div dangerouslySetInnerHTML={this.createMarkup($xml.find('item description').first().text())}/>
+                <div dangerouslySetInnerHTML={this.createMarkup($xml.find('item description').first().text())} />
                 <ThreeDButton block onClick={() => this.applyJob()}>Ansök</ThreeDButton>
               </CardBlock>
             </Card>
@@ -212,9 +216,15 @@ class ApplyForJob extends React.Component {
             <Col xs='12' className='text-center'>
               <Card>
                 <CardBlock>
-                  <CardTitle>Tack för din ansökan</CardTitle>
-                  <CardSubtitle>En rekryterare kommer se på den inom kort...</CardSubtitle>
-                  <CardText>Lorem ipsum</CardText>
+
+                  <img src='/img/tips.png' className='img-fluid' />
+
+                  <CardTitle className='mt-5'>Din ansökan är skickad! Under tiden du väntar på svar från våra rekryterare kan du uppdatera din profil</CardTitle>
+                  <CardSubtitle className='mt-5'>Du bör uppdatera din profil inom 12 timmar för att vara säker på att rekryteraren får se det du vill visa upp.</CardSubtitle>
+                  <CardSubtitle>En uppdaterad profil där du även gjort personlighetstest och laddat upp en film ökar dina chanser för att få jobbet markant.</CardSubtitle>
+                  {/*<Countdown ref={(c) => { this.countdown = c }} onComplete={this.handleEnd}>*/}
+                    {/*<CountdownOverlay />*/}
+                  {/*</Countdown>*/}
                 </CardBlock>
               </Card>
             </Col>
@@ -226,3 +236,13 @@ class ApplyForJob extends React.Component {
 }
 
 export default connect((state) => state)(ApplyForJob)
+
+class CountdownOverlay extends React.Component {
+  render () {
+    return (
+      <div className='countdown'>
+        <h5>Du dirigeras automatiskt vidare till startsidan om {this.props.count} sekunder.</h5>
+      </div>
+    )
+  }
+}
