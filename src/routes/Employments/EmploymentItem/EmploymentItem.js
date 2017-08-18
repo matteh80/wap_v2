@@ -10,14 +10,12 @@ import {
   CardTitle,
   CardSubtitle,
   CardText,
-  FormGroup,
   Label,
-  Input
 } from 'reactstrap'
 import StartEndDate from '../../../components/Misc/StartEndDate/StartEndDate'
 import Loader from '../../../components/Misc/Loader/Loader'
 import EditButtons from '../../../components/buttons/EditButtons'
-import { AvForm, AvGroup, AvField } from 'availity-reactstrap-validation'
+import { AvForm, AvGroup, AvField, AvInput } from 'availity-reactstrap-validation'
 
 let _ = require('lodash')
 
@@ -184,11 +182,13 @@ class EmploymentItem extends React.Component {
   render () {
     let { employment } = this.state
     let { id, title, employer, occupation, start_date, end_date, description, current } = this.props.employment
-    let wrapperClass = classNames('btn-wrapper hasRemove', this.state.editMode && 'editing')
-    let editBtnClass = classNames('edit-btn fa', this.state.editMode ? 'fa-check editing' : 'fa-pencil')
+    let timelineClass = classNames(
+      'timeline-item',
+      employment.public && 'isOnWap'
+    )
 
     return (
-      <Col className='timeline-item'>
+      <Col className={timelineClass}>
         <div className='timeline-fulldate'>
           {this._getStartEndDate(start_date, end_date, current)}
         </div>
@@ -230,6 +230,13 @@ class EmploymentItem extends React.Component {
                 <AvGroup>
                   <Label for='description'>Jag bidrar / bidrog med *</Label>
                   <AvField type='textarea' name='description' rows='4' onChange={this._handleInputChange} />
+                </AvGroup>
+                <AvGroup>
+                  <Label check inline for='public'>
+                    <AvInput type='checkbox' name='public' trueValue="Yes, I'm in!" falseValue='NOPE!'
+                      defaultChecked={this.state.employment.public} onChange={this._handleInputChange}
+                      disabled={!employment.public && this.props.publicCount === 2} /> Visa på wap card (max två)
+                  </Label>
                 </AvGroup>
                 <button type='submit' id='mSubmitBtn' hidden />
               </AvForm>

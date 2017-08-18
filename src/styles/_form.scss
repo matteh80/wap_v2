@@ -90,9 +90,23 @@ label.checkbox-inline {
 //  opacity:0.5;
 //}
 //
-//input[type="checkbox"]:disabled ~ span {
-//  opacity:0.5;
-//}
+input[type='radio']:disabled, input[type="checkbox"]:disabled {
+  cursor: not-allowed;
+  opacity:0.2;
+
+  &:after {
+    background-color: $red;
+    transform: rotateY(360deg);
+    text-align: center;
+    content: '\f00d';
+    font-family: FontAwesome;
+    color: #fff;
+    margin: 0 auto;
+    display: block;
+    font-size: 1.3rem;
+    line-height: 24px;
+  }
+}
 
 input[type='radio'], input[type='checkbox'] {
   margin-right:10px;
@@ -127,7 +141,7 @@ input[type='radio']:after, input[type='checkbox']:after {
   vertical-align:middle;
   //background:url(check_radio_sheet.png) left top no-repeat;
   background-color: lightgray;
-  cursor:pointer;
+  //cursor:pointer;
 
   transition: transform 500ms, background-color 250ms ease 250ms;
 }

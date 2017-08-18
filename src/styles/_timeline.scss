@@ -97,6 +97,15 @@ $accent: $pink;
       display: block;
       clear: both;
     }
+
+    &.isOnWap {
+      .timeline-img, .timeline-fulldate {
+        background:$themeColor;
+      }
+      .card {
+        box-shadow: 0 -3px inset   $themeColor;
+      }
+    }
   }
 
 

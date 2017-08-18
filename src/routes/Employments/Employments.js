@@ -4,6 +4,7 @@ import EmploymentItem from './EmploymentItem/EmploymentItem'
 import EmploymentForm from './EmploymentForm/EmploymentForm'
 import { getAllEmployments, createEmployment, updateEmployment, removeEmployment } from '../../store/actions/employments'
 import Masonry from 'react-masonry-component'
+import _ from 'lodash'
 
 import {
   Container,
@@ -62,6 +63,8 @@ class Employments extends React.Component {
   render () {
     let { employments } = this.props.employments
     let mEmployments = Object.assign([], employments).reverse()
+    let publicCount = _.filter(mEmployments, { 'public': true }).length
+    console.log(publicCount)
 
     return (
       <Container fluid>
@@ -77,7 +80,7 @@ class Employments extends React.Component {
               >
                 <EmploymentForm layout={this.layout} collapse={employments.length === 0} translate={this.props.translate} />
                 {mEmployments && mEmployments.map((employment) => {
-                  return <EmploymentItem key={employment.id} employment={employment} occupations={this.props.occupations}
+                  return <EmploymentItem key={employment.id} employment={employment} occupations={this.props.occupations} publicCount={publicCount}
                     onChange={this.updateEmployment} layout={this.layout} onRemove={this.removeEmployment} translate={this.props.translate} />
                 })}
               </Masonry>
