@@ -131,6 +131,7 @@ class Wapcard extends React.Component {
       } else {
         FB.login(function (response) {
           console.log(response)
+          _self.publishFacebook(response.authResponse.accessToken)
         }, {
           scope: 'publish_actions',
           return_scopes: true
