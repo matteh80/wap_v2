@@ -245,7 +245,7 @@ class Register extends React.Component {
   }
 
   loginFB () {
-    cookies.set('redirect', redirect, { path: '/', maxAge: 3600 })
+    cookies.set('redirect', redirect, { path: '/', maxAge: 60 })
     let mRedirectUri
     if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
       // dev code
@@ -279,7 +279,7 @@ class Register extends React.Component {
   }
 
   signInCallback (authResult) {
-    cookies.set('redirect', redirect, { path: '/', maxAge: 3600 })
+    cookies.set('redirect', redirect, { path: '/', maxAge: 60 })
     let { dispatch } = this.props
 
     console.log('signInCallback')
@@ -301,44 +301,27 @@ class Register extends React.Component {
     console.log('finalize')
     let { dispatch } = this.props
     this.props.auth.token && dispatch(getProfile(this.props.auth.token)).then((result) => {
-      let cookieRedirect = cookies.get('redirect')
+      let cookieRedirect = cookies.get('redirect', { path: '/', maxAge: 60 })
       console.log(cookieRedirect)
       let redirect = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.query.redirect : null
 
-      if (cookieRedirect !== 'undefined') {
+      if (cookieRedirect !== undefined) {
         redirect = cookieRedirect
       }
 
-      cookies.remove('redirect', redirect, { path: '/', maxAge: 3600 })
+      cookies.remove('redirect', redirect, { path: '/', maxAge: 60 })
 
       Promise.all([
-        dispatch(getAllEmployments()),
-        dispatch(getAllEducations()),
         dispatch(getAllOccupations()),
         dispatch(getMyOccupations()),
         dispatch(getAllSkills()),
         dispatch(getMySkills()),
-        dispatch(getAllLanguages()),
-        dispatch(getMyLanguages()),
-        dispatch(getAllMotivations()),
-        dispatch(getMyMotivations()),
-        dispatch(getAllPersonalities()),
-        dispatch(getMyPersonalities()),
-        dispatch(getVideoInfo()),
-        dispatch(getAllLicenses()),
-        dispatch(getMyLicenses()),
-        dispatch(getAllReferences()),
         dispatch(getAllQuestions()),
       ]).then(() => {
-        if (result.tos_accepted) {
-          console.log('redirect')
-          this.props.router.push(redirect || '/')
+        if (redirect) {
+          this.props.router.push('/signup?redirect=' + redirect)
         } else {
-          if (redirect) {
-            this.props.router.push('/signup?redirect=' + redirect)
-          } else {
-            this.props.router.push('/signup')
-          }
+          this.props.router.push('/signup')
         }
       }).catch((error) => {
         console.log(error)
@@ -351,7 +334,11 @@ class Register extends React.Component {
 
   gotoLogin (e) {
     e.preventDefault()
-    this.props.router.push('/login')
+    if (redirect) {
+      this.props.router.push('/login?redirect=' + redirect)
+    } else {
+      this.props.router.push('/login')
+    }
   }
 
   render () {

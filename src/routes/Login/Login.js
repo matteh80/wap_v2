@@ -308,7 +308,7 @@ class Login extends React.Component {
     let { dispatch } = this.props
     this.props.auth.token && dispatch(getProfile(this.props.auth.token)).then((result) => {
 
-      let cookieRedirect = cookies.get('redirect')
+      let cookieRedirect = cookies.get('redirect', { path: '/', maxAge: 60 })
       let redirect = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.query.redirect : null
 
       if (cookieRedirect !== undefined) {
@@ -316,7 +316,7 @@ class Login extends React.Component {
         redirect = cookieRedirect
       }
 
-      cookies.remove('redirect', redirect, { path: '/', maxAge: 3600 })
+      cookies.remove('redirect', redirect, { path: '/', maxAge: 60 })
 
       Promise.all([
         dispatch(getAllEmployments()),
@@ -359,7 +359,11 @@ class Login extends React.Component {
 
   gotoRegister (e) {
     e.preventDefault()
-    this.props.router.push('/register')
+    if (redirect) {
+      this.props.router.push('/register?redirect=' + redirect)
+    } else {
+      this.props.router.push('/register')
+    }
   }
 
   render () {

@@ -15,7 +15,7 @@
   },
   "employmentscard": {
     "title": ["Anställningar", "Employments"],
-    "subtitle_empty": ["Du har inga utbildningar", "You have no educations"],
+    "subtitle_empty": ["Du har inga anställningar", "You have no employments"],
     "subtitle_add_more": ["Lägg till fler anställningar", "Add more employments"]
   }
 }
