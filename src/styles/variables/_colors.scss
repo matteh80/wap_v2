@@ -5,11 +5,12 @@ $orange: #f28304;
 $green: #008000;
 $darkgray: #2b303b;
 $darklightgray: #292b2c;
+$turqoise: #17a2b8;
 
 $lightgray: lighten($darkgray, 15%);
 $lightergray: lighten($darkgray, 35%);
 
-$themeColor: $blue;
+$themeColor: $turqoise;
 $brand-primary: $themeColor;
 
 $body-color: #414141;

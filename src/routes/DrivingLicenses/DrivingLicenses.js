@@ -4,9 +4,9 @@ import LicenseForm from './LicenseForm/LicenseForm'
 import LicenseItem from './LicenseItem/LicenseItem'
 import { getAllLicenses, getMyLicenses, saveLicensesToServer } from '../../store/actions/drivinglicenses'
 import update from 'react-addons-update'
-import ThreeDButton from '../../components/buttons/ThreeDButton'
 import Masonry from 'react-masonry-component'
 import './DrivingLicenses.scss'
+import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble'
 
 import {
   Collapse,
@@ -98,6 +98,15 @@ class DrivingLicenses extends React.Component {
 
     return (
       <Container fluid>
+        <Col>
+          <SpeechBubble hideable>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer egestas arcu eu ipsum dictum interdum.
+              Ut rhoncus enim ante, vitae dictum lacus dignissim id. Curabitur malesuada urna quis dui placerat volutpat.
+              Nulla non accumsan ante. Morbi ut mauris congue, aliquet libero eget, tincidunt purus. </p>
+            <p>Aliquam volutpat dignissim volutpat. Fusce id nulla justo. Sed cursus mollis magna sed egestas.
+              Aenean ac felis ipsum. Praesent sodales pulvinar velit, eu luctus libero posuere nec.</p>
+          </SpeechBubble>
+        </Col>
         <Masonry
           onClick={this.handleClick}
           className='row'

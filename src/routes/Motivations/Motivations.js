@@ -5,6 +5,7 @@ import MotivationForm from './MotivationForm/MotivationForm'
 import { SortableContainer, SortableElement, arrayMove, SortableHandle } from 'react-sortable-hoc'
 import './Motivations.scss'
 import Masonry from 'react-masonry-component'
+import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble'
 
 import {
   Container,
@@ -131,6 +132,15 @@ class Motivations extends React.Component {
     return (
       <Container fluid>
         <Row>
+          <Col>
+            <SpeechBubble hideable>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer egestas arcu eu ipsum dictum interdum.
+                Ut rhoncus enim ante, vitae dictum lacus dignissim id. Curabitur malesuada urna quis dui placerat volutpat.
+                Nulla non accumsan ante. Morbi ut mauris congue, aliquet libero eget, tincidunt purus. </p>
+              <p>Aliquam volutpat dignissim volutpat. Fusce id nulla justo. Sed cursus mollis magna sed egestas.
+                Aenean ac felis ipsum. Praesent sodales pulvinar velit, eu luctus libero posuere nec.</p>
+            </SpeechBubble>
+          </Col>
           <Col xs={12}>
             <div className='sortableWrapper'>
               {userMotivations &&

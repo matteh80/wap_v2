@@ -15,8 +15,7 @@ import {
   Label
 } from 'reactstrap'
 
-import { AvForm, AvGroup, AvField } from 'availity-reactstrap-validation'
-import ThreeDButton from '../../../components/buttons/ThreeDButton'
+import { AvForm, AvGroup, AvField, AvInput } from 'availity-reactstrap-validation'
 
 let _ = require('lodash')
 
@@ -141,9 +140,13 @@ class EducationItem extends React.Component {
     let { id, type, school, orientation, start_date, end_date, description } = education
     let wrapperClass = classNames('btn-wrapper hasRemove', this.state.editMode && 'editing')
     let editBtnClass = classNames('edit-btn fa', this.state.editMode ? 'fa-check editing' : 'fa-pencil')
+    let timelineClass = classNames(
+      'timeline-item',
+      education.public && 'isOnWap'
+    )
 
     return (
-      <Col className='timeline-item'>
+      <Col className={timelineClass}>
         <div className='timeline-fulldate'>
           {this._getStartEndDate(start_date, end_date, false)}
         </div>
@@ -188,6 +191,13 @@ class EducationItem extends React.Component {
                 <AvGroup>
                   <Label for='description'>Beskrivning</Label>
                   <AvField type='textarea' name='description' rows='4' onChange={this._handleInputChange} />
+                </AvGroup>
+                <AvGroup>
+                  <Label check inline for='public'>
+                    <AvInput type='checkbox' name='public' trueValue="Yes, I'm in!" falseValue='NOPE!'
+                      defaultChecked={this.state.education.public} onChange={this._handleInputChange}
+                      disabled={!education.public && this.props.publicCount === 2} /> Visa på wap card (max två)
+                  </Label>
                 </AvGroup>
                 <button type='submit' id='mSubmitBtn' hidden />
               </AvForm>

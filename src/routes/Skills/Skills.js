@@ -99,23 +99,11 @@ class Skills extends React.Component {
       <Container fluid>
         <Col>
           <SpeechBubble hideable>
-            WAP Film är en 60 s video där du har möjlighet att kort presentera dig själv för potentiella
-            arbetsgivare. Du kommer svara på 6 st frågor som vi tagit fram och det finns inget rätt eller fel svar.
-            Du spelar in filmen själv och laddar sedan upp den när du känner dig nöjd.
-            Filmen kommer endast vara tillgängliga för våra rekryterare och eventuellt arbetsgivare. Det är du
-            som bestämmer om du vill att arbetsgivaren ska få ta del av din film.
-            Genom att göra din egen wap film ökar du chansen betydligt till att nå ditt drömjobb då hela 87% av
-            våra 800 arbetsgivare efterfrågar den.
-
-            <h4 style={{ textTransform: 'initial', marginTop: 20 }}>Så här gör du:</h4>
-
-            Filma dig själv med din mobilkamera. Sätt kameran ca 1m från dig och se till att du har tillräckligt
-            med ljus för att få bilden skarp och att det inte är förmycket ljud i bakgrunden.
-            Ha frågorna tillgängliga. När du är nöjd med din presentationsfilm laddar du upp den här.
-            Tänk på att filmen är inte en audition för en filmroll, vi har inget intresse i ditt yttre utan är endast
-            ute efter att få veta lite mer om dig, vad du brinner för och få se din unika karisma. Stakar du dig
-            eller säger fel behöver du nödvändigtvis inte filma om, det handlar bara om att vi ska få svar så vi får
-            en tydligare bild av dig. Slutligen, du är alltid bäst på att vara du så du behöver inte göra dig till.
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer egestas arcu eu ipsum dictum interdum.
+              Ut rhoncus enim ante, vitae dictum lacus dignissim id. Curabitur malesuada urna quis dui placerat volutpat.
+              Nulla non accumsan ante. Morbi ut mauris congue, aliquet libero eget, tincidunt purus. </p>
+            <p>Aliquam volutpat dignissim volutpat. Fusce id nulla justo. Sed cursus mollis magna sed egestas.
+              Aenean ac felis ipsum. Praesent sodales pulvinar velit, eu luctus libero posuere nec.</p>
           </SpeechBubble>
         </Col>
         <Masonry
