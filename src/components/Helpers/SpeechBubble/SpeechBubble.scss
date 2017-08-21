@@ -4,11 +4,28 @@ $arrowHeight: 30px;
 $arrowWidth: $arrowHeight * .7;
 
 .bubbleWrapper {
+  position: relative;
   display: flex;
   align-items: flex-end;
 
   @include media-breakpoint-down(md) {
     flex-direction: column;
+  }
+
+  .hideshow {
+    position: absolute;
+    top:0;
+    right:-10px;
+    font-size: 30px;
+    width: 40px;
+    height: 40px;
+    background: #ffffff;
+    z-index: 2;
+    border-radius: 50%;
+
+    &:hover {
+      color: red;
+    }
   }
 
   .bubble {

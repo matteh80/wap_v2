@@ -68,7 +68,7 @@ class TalentQ extends React.Component {
             </Card>
           </Col>
           <Col xs={12} lg={5}>
-            <SpeechBubble pos='left-side top'>
+            <SpeechBubble>
               <p>Här kommer du att få göra ett unikt online-test som är speciellt framtaget för att du ska få visa vem du
                 är,
                 och vad just du är bra på. Testet kommer pröva beteende, motivation och personlighet.</p>
@@ -98,7 +98,7 @@ class TalentQ extends React.Component {
         {completed &&
         <Row>
           <Col xs={12}>
-            <SpeechBubble pos='bottom-side'>
+            <SpeechBubble>
               <p>Du har gjort testet. Här under finner du länk till ditt resultat. Ett mail har även skickats till
                 {' ' + this.props.profile.email}</p>
               <p><a href={result_url}>{result_url}</a></p>

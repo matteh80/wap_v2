@@ -4,8 +4,8 @@ import SkillForm from './SkillForm/SkillForm'
 import SkillItem from './SkillItem/SkillItem'
 import { getAllSkills, getMySkills, saveSkillsToServer } from '../../store/actions/skills'
 import update from 'react-addons-update'
-import ThreeDButton from '../../components/buttons/ThreeDButton'
 import Masonry from 'react-masonry-component'
+import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble'
 
 import {
   Container,
@@ -97,6 +97,27 @@ class Skills extends React.Component {
 
     return (
       <Container fluid>
+        <Col>
+          <SpeechBubble hideable>
+            WAP Film är en 60 s video där du har möjlighet att kort presentera dig själv för potentiella
+            arbetsgivare. Du kommer svara på 6 st frågor som vi tagit fram och det finns inget rätt eller fel svar.
+            Du spelar in filmen själv och laddar sedan upp den när du känner dig nöjd.
+            Filmen kommer endast vara tillgängliga för våra rekryterare och eventuellt arbetsgivare. Det är du
+            som bestämmer om du vill att arbetsgivaren ska få ta del av din film.
+            Genom att göra din egen wap film ökar du chansen betydligt till att nå ditt drömjobb då hela 87% av
+            våra 800 arbetsgivare efterfrågar den.
+
+            <h4 style={{ textTransform: 'initial', marginTop: 20 }}>Så här gör du:</h4>
+
+            Filma dig själv med din mobilkamera. Sätt kameran ca 1m från dig och se till att du har tillräckligt
+            med ljus för att få bilden skarp och att det inte är förmycket ljud i bakgrunden.
+            Ha frågorna tillgängliga. När du är nöjd med din presentationsfilm laddar du upp den här.
+            Tänk på att filmen är inte en audition för en filmroll, vi har inget intresse i ditt yttre utan är endast
+            ute efter att få veta lite mer om dig, vad du brinner för och få se din unika karisma. Stakar du dig
+            eller säger fel behöver du nödvändigtvis inte filma om, det handlar bara om att vi ska få svar så vi får
+            en tydligare bild av dig. Slutligen, du är alltid bäst på att vara du så du behöver inte göra dig till.
+          </SpeechBubble>
+        </Col>
         <Masonry
           onClick={this.handleClick}
           className='row'

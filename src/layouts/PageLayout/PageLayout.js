@@ -8,6 +8,9 @@ import UserIsAuthenticated from '../../routes/auth'
 import { connect } from 'react-redux'
 import Breadcrumbs from 'react-breadcrumbs'
 import { getActiveLanguage, getTranslate } from 'react-localize-redux'
+import _ from 'lodash'
+import Cookies from 'universal-cookie'
+import classNames from 'classnames'
 
 import {
   Container,
@@ -15,11 +18,31 @@ import {
   Col,
 } from 'reactstrap'
 
+const cookies = new Cookies()
+let hiddenBubbles = []
 class PageLayout extends React.Component {
   constructor (props) {
     super(props)
 
+    hiddenBubbles = cookies.get(props.profile.id + '_hiddenBubbles', { path: '/' })
+
+    this.state = {
+      helpIconVisible: _.indexOf(hiddenBubbles, props.routing.locationBeforeTransitions.pathname) === -1
+    }
+
     !this.props.profile.tos_accepted && this.props.router.push('/signup')
+
+    this.showHelpBubble = this.showHelpBubble.bind(this)
+  }
+
+  showHelpBubble () {
+    let { profile, routing } = this.props
+    let { pathname } = routing.locationBeforeTransitions
+
+    hiddenBubbles.push(pathname)
+    cookies.set(profile.id + '_hiddenBubbles', hiddenBubbles, { path: '/' })
+
+    $('.bubbleWrapper').hide()
   }
 
   render () {

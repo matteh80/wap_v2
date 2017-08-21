@@ -34,3 +34,21 @@ blockquote:before {
 blockquote p {
   display: inline;
 }
+
+#helpIcon {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  font-size: 56px;
+  color: #fff;
+  display: none;
+  transition: color 250ms;
+
+  &.visible {
+    display: block;
+  }
+
+  &:hover {
+    color: $pink;
+  }
+}

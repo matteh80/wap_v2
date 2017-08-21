@@ -180,24 +180,22 @@ class Wapcard extends React.Component {
   render () {
     return (
       <Container fluid>
-        <Row className='flex-column-reverse flex-lg-row'>
-          <Col xs={12} sm={12} md={12} lg={7} style={{ maxWidth: 790 }}>
-            <Loader active={this.state.loadsave} />
-            {/*<SpeechBubble pos='bottom-side' noGubbe className='d-none'>*/}
-              {/*<h4>Du har nu delat ditt wap card till Facebook!</h4>*/}
-            {/*</SpeechBubble>*/}
-            <div className='hasShareDownloadBtn'>
-              <ShareDownloadButtons onShare={this.shareWapcard} onDownload={this.createPdf} />
-              <div className='wapPreviewWrapper mb-4 ' />
-            </div>
-          </Col>
-          <Col xs={12} sm={12} md={12} lg={5}>
+        <Row className='flex-lg-row-reverse'>
+          <Col>
             <SpeechBubble pos='side'>
               <CardTitle>Det här är ditt wap card</CardTitle>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam gravida nibh at nisi accumsan, quis luctus est euismod. Curabitur vel finibus leo. Phasellus maximus enim eget neque posuere aliquet. Aliquam id sem vitae justo semper suscipit. Nulla ullamcorper arcu urna, quis lacinia turpis scelerisque ac. Aliquam interdum nisi eget eros cursus finibus. Mauris tempus velit sem, et rutrum nulla vulputate vel. Maecenas magna nulla, rutrum at molestie eu, efficitur interdum augue.</p>
               <p>Maecenas eu lacus imperdiet, molestie dolor nec, venenatis ipsum. Sed vitae posuere nunc. Cras vestibulum quam et diam viverra vulputate. Mauris a leo lectus. Morbi tempor imperdiet magna, vitae euismod ex imperdiet at. Nam a hendrerit quam. Nam accumsan metus sed turpis hendrerit viverra. </p>
             </SpeechBubble>
           </Col>
+          <Col xs={12} sm={12} md={12} lg={7} style={{ maxWidth: 790 }}>
+            <Loader active={this.state.loadsave} />
+            <div className='hasShareDownloadBtn'>
+              <ShareDownloadButtons onShare={this.shareWapcard} onDownload={this.createPdf} />
+              <div className='wapPreviewWrapper mb-4 ' />
+            </div>
+          </Col>
+
         </Row>
         <WapcardTemplate
           profile={this.props.profile}
