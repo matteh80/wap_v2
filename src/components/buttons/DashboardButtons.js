@@ -33,13 +33,15 @@ class DashboardButtons extends React.Component {
   render () {
     let wrapperClass = classNames(
       'dashBtnWrapper',
+      this.props.resizable && 'resizable',
+      this.props.linkto && 'hasLink'
     )
 
     return (
       <div className={wrapperClass}>
         <div>
           <i className='fa fa-link dashBtn' id='followLink' onClick={() => this.goToLink()} />
-          <i className='fa fa-expand dashBtn' id='minimize' onClick={() => this.minimize()} />
+          {this.props.resizable && <i className='fa fa-expand dashBtn' id='minimize' onClick={() => this.minimize()} />}
           <i className='fa fa-eye-slash dashBtn' id='hide' onClick={() => this.hide()} />
         </div>
       </div>
