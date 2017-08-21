@@ -74,3 +74,6 @@
 .licenseicon-korkort-truckkort:before {
   content: "\6c";
 }
+[class^="licenseicon-korkort-truckkort"]:before {
+  content: "\6c";
+}
