@@ -43,8 +43,8 @@ export default class ThreeDButton extends React.Component {
     let btnClass = classNames({
       't3Button':true,
       'block': this.props.block || this.props.center,
-      'inline': this.props.inline
-    })
+      'inline': this.props.inline,
+    }, this.props.className)
 
     return (
       <button id={this.props.id}
@@ -52,7 +52,7 @@ export default class ThreeDButton extends React.Component {
         type={this.props.type}
         onClick={this.props.onClick}
         onTouchEnd={this.props.onTouchEnd}
-        className={btnClass + ' mb-5 ' + this.props.className}
+        className={btnClass}
         style={style}>
         {this.props.text ? this.props.text : this.props.children}
         {this.props.loading &&

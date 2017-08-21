@@ -245,6 +245,7 @@
   .card-img-overlay {
     opacity: 0;
     transition: opacity 250ms;
+    border-radius: 3px;
   }
   &:hover {
     .card-img-overlay {
