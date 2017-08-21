@@ -1,18 +1,22 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Masonry from 'react-masonry-component'
-import ProfilePicture from '../../components/Misc/ProfilePicture/ProfilePicture'
 import './Dreamjob.scss'
 import { getAllQuestions, saveQuestions } from '../../store/actions/dreamjob'
 import update from 'react-addons-update'
+import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble'
 
 import {
   Container,
+  Row,
   Col,
   Card,
+  CardImg,
+  CardImgOverlay,
+  CardText,
+  CardTitle,
   CardBlock,
   Input,
-  Row
 } from 'reactstrap'
 import ThreeDButton from '../../components/buttons/ThreeDButton'
 import Loader from '../../components/Misc/Loader/Loader'
@@ -88,6 +92,16 @@ class Dreamjob extends React.Component {
     let { dreamjob } = this.props
     return (
       <Container fluid>
+        <Row>
+          <Col>
+            <SpeechBubble>
+              <h3>Vi vill veta mer om dig och dina drömmar!</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum risus eget turpis fermentum hendrerit.
+                Nulla rutrum ultricies rutrum. Praesent blandit sapien at tellus scelerisque lobortis.
+                Vivamus fermentum egestas nunc sed tincidunt. Maecenas scelerisque ac nunc in suscipit. </p>
+            </SpeechBubble>
+          </Col>
+        </Row>
         <Masonry
           onClick={this.handleClick}
           className='row align-items-center dreamjobWrapper'
@@ -96,45 +110,40 @@ class Dreamjob extends React.Component {
           }.bind(this)}
         >
           <Col xs={12} md={4} className='bubble'>
-            <Card className='speechBubble left'>
+            <Card>
+              <CardImg src='/img/rocket.jpg' className='img-fluid' />
+              <CardImgOverlay className='bg-white'>
+                <CardText>Här skriver du in vad som är ditt drömjobb, det spelar ingen roll om det kanske är lite orealistiskt. Vi vill veta vad dina drömmar är.</CardText>
+              </CardImgOverlay>
               <CardBlock>
-                <h3>Mitt drömjobb är {' '}
-                  {this.renderItemOrEditField(dreamjob[0])}
-                </h3>
+                <CardTitle>Mitt drömjobb är {' '}{this.renderItemOrEditField(dreamjob[0])}</CardTitle>
+
               </CardBlock>
             </Card>
-          </Col>
-
-          <Col xs={12} md={4} className='bubble hidden-sm-down'>
-            <Row className='justify-content-center'>
-              <Col md={6}>
-                <ProfilePicture className='rounded-circle' />
-              </Col>
-            </Row>
           </Col>
 
           <Col xs={12} md={4} className='bubble'>
-            <Card className='speechBubble right'>
+            <Card>
+              <CardImg src='/img/clipboard.jpg' className='img-fluid' />
+              <CardImgOverlay className='bg-white'>
+                <CardText>Vilken är din drömarbetsgivare om du fick välje helt fritt.</CardText>
+              </CardImgOverlay>
               <CardBlock>
-                <h3>Min drömarbetsgivare är {' '}
-                  {this.renderItemOrEditField(dreamjob[1])}
-                </h3>
+                <CardTitle>Min drömarbetsgivare är {' '}{this.renderItemOrEditField(dreamjob[1])}</CardTitle>
               </CardBlock>
             </Card>
           </Col>
 
-          <Col xs={12} className='bubble'>
-            <Row className='justify-content-center'>
-              <Col xs={12} md={4}>
-                <Card className='speechBubble top'>
-                  <CardBlock>
-                    <h3>Min drömbranch är {' '}
-                      {this.renderItemOrEditField(dreamjob[2])}
-                    </h3>
-                  </CardBlock>
-                </Card>
-              </Col>
-            </Row>
+          <Col xs={12} md={4} className='bubble'>
+            <Card>
+              <CardImg src='/img/doubting.jpg' className='img-fluid' />
+              <CardImgOverlay className='bg-white'>
+                <CardText>Inom vilken bransch vill du helst av allt jobba inom?</CardText>
+              </CardImgOverlay>
+              <CardBlock>
+                <CardTitle>Min drömbransch är {' '}{this.renderItemOrEditField(dreamjob[2])}</CardTitle>
+              </CardBlock>
+            </Card>
           </Col>
         </Masonry>
       </Container>
