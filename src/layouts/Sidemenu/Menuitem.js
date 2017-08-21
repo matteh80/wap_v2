@@ -1,6 +1,7 @@
 import React from 'react'
 import { IndexLink, Link } from 'react-router'
 import classnames from 'classnames'
+import _ from 'lodash'
 
 import './Menuitem.scss'
 
@@ -13,7 +14,8 @@ class Menuitem extends React.Component {
     this.state = {
       collapsed: false,
       hasChildren: !!props.children,
-      count: this.props.count
+      count: this.props.count,
+      childIsEmpty: false
     }
 
     this._handleClick = this._handleClick.bind(this)
@@ -25,9 +27,20 @@ class Menuitem extends React.Component {
     return false
   }
 
+  componentDidMount () {
+    console.log(this.props.children)
+    // this.props.children && this.props.children.map((child) => {
+    //   console.log(child)
+    // })
+  }
+
   render () {
     let chevronClass = classnames('has-children fa', this.state.collapsed ? 'fa-chevron-down' : 'fa-chevron-left')
-    let doneClass = classnames('icon-thumbnail', this.props.count === 0 && 'undone')
+    let doneClass = classnames(
+      'icon-thumbnail',
+      this.props.count === 0 && 'undone',
+      this.props.children && _.find(this.props.children, { props: { count: 0 } }) && 'undone'
+    )
 
     return (
       <li className='menu-item-wrapper'>

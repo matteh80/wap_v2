@@ -40,9 +40,9 @@ class Sidemenu extends React.Component {
 
   componentWillReceiveProps (newProps) {
     this.setCounts(newProps)
-    this.setState({
-      windowHeight: $('body').height
-    })
+    // this.setState({
+    //   windowHeight: $('body').height
+    // })
   }
 
   setCounts (props) {
