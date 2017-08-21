@@ -62,7 +62,7 @@ class Languages extends React.Component {
   }
 
   onAdd (item) {
-    let mLanguage = Object.assign({}, item, { spoken: item.spoken ? item.spoken : 1, written: item.written ? item.written : 1 })
+    let mLanguage = Object.assign({}, item, { spoken: item.spoken ? item.spoken : 1, written: item.written ? item.written : 1, new: true })
     this.setState({
       userLanguages: update(this.state.userLanguages, { $push: [mLanguage] })
     })

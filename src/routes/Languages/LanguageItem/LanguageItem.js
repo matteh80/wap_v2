@@ -41,7 +41,7 @@ class LanguageItem extends React.Component {
     super(props)
 
     this.state = {
-      editMode: false,
+      editMode: this.props.language.new,
       language: Object.assign({}, this.props.language)
     }
 

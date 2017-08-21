@@ -27,7 +27,7 @@ class SkillItem extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      editMode: false,
+      editMode: this.props.skill.new,
       skill: Object.assign({}, this.props.skill)
     }
 

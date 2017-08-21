@@ -65,7 +65,7 @@ class Skills extends React.Component {
   }
 
   onAdd (item) {
-    let mSkill = Object.assign({}, item, { experience: 3 })
+    let mSkill = Object.assign({}, item, { experience: 3, new: true })
     this.setState({
       userSkills: update(this.state.userSkills, { $push: [mSkill] })
     })
@@ -82,7 +82,8 @@ class Skills extends React.Component {
 
   _saveToServer () {
     let { dispatch } = this.props
-    dispatch(saveSkillsToServer(this.state.userSkills)).then(() => {
+    dispatch(saveSkillsToServer(this.state.userSkills)).then((result) => {
+      console.log(result)
       this.setState({ changes: false })
     })
   }
