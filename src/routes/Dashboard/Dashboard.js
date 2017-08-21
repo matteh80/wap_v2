@@ -16,6 +16,7 @@ import JobsCard from './JobsCard/JobsCard'
 import EducationsCard from './EducationsCard/EducationsCard'
 import EmploymentsCard from './EmploymentsCard/EmploymentsCard'
 import WapfilmCard from './WapfilmCard/WapfilmCard'
+import SkillsCard from './SkillsCard/SkillsCard'
 import HiddenCardsController from './HiddenCardsController/HiddenCardsController'
 
 const _ = require('lodash')
@@ -67,16 +68,25 @@ class Dashboard extends React.Component {
     // cookies.remove(props.profile.id + '_cards', { path: '/' })
 
     cards = [
-      { name: 'jobscard', component: <JobsCard jobs={this.props.jobs.savedJobs} /> },
+      { name: 'jobscard', component: <JobsCard jobs={props.jobs.savedJobs} /> },
       { name: 'testcard', component: <TestCard /> },
       { name: 'recruitercard', component: <RecruiterCard /> },
       { name: 'educationscard', component: <EducationsCard /> },
       { name: 'employmentscard', component: <EmploymentsCard /> },
       { name: 'wapfilmcard', component: <WapfilmCard /> },
+      { name: 'skillscard', component: <SkillsCard skills={props.skills.userSkills} /> }
     ]
 
     let itemsFromCookie = cookies.get(props.profile.id + '_cards', { path: '/' })
     let hiddenItemsFromCookie = cookies.get(props.profile.id + '_hiddenCards', { path: '/' })
+
+    if (itemsFromCookie && itemsFromCookie.length !== cards.length) {
+      cards.map((card) => {
+        if (_.indexOf(itemsFromCookie, card.name) === -1) {
+          itemsFromCookie.push(card.name)
+        }
+      })
+    }
 
     this.state = {
       hiddenItems: hiddenItemsFromCookie || [],
@@ -116,6 +126,13 @@ class Dashboard extends React.Component {
           break
         case 'testcard':
           !this.props.talentq.completed && cardsArray.push(list[i])
+          break
+        case 'skillscard':
+          let hasZero = _.find(this.props.skills.userSkills, { 'experience': 0 })
+          let shouldBeAdded = false
+          if (this.props.skills.userSkills.length === 0) { shouldBeAdded = true }
+          if (!shouldBeAdded && hasZero) { shouldBeAdded = true }
+          shouldBeAdded && cardsArray.push(list[i])
           break
         default:
           cardsArray.push(list[i])
