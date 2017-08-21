@@ -26,6 +26,7 @@ import ViewedJobs from './Jobs/ViewedJobs'
 import NotFound404 from './NotFound404/NotFound404'
 import Signup from './Signup/Signup'
 import TalentQ from './TalentQ/TalentQ'
+import WapStory from './WapStory/WapStory'
 
 export const routes = (store) => (
   <Route>
@@ -51,6 +52,7 @@ export const routes = (store) => (
       <Route path='/cvbuilder' component={CVBuilder} name='CV Builder' />
       <Route path='/wapcard' component={Wapcard} name='Wap card' />
       <Route path='/personalitytest' component={TalentQ} name='Personlighetstest' />
+      <Route path='/wapstory' component={WapStory} name='Wap story' />
       <Route path='jobs' name='Jobb'>
         <IndexRoute name='Lediga tjänster' component={Jobs} />
         <Route exact path='/jobs/my' name='Visad tjänst' component={ViewedJobs} />

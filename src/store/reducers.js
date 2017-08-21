@@ -18,7 +18,7 @@ import dreamjob from './reducers/dreamjob'
 import jobs from './reducers/jobs'
 import locations from './reducers/locations'
 import talentq from './reducers/talentq'
-import dashboard from './reducers/dashboard'
+import wapstory from './reducers/wapstory'
 
 // export const makeRootReducer = (asyncReducers) => {
 //   return combineReducers({
@@ -70,6 +70,7 @@ const appReducer = combineReducers({
   jobs: jobs,
   locations: locations,
   talentq: talentq,
+  wapstory: wapstory
 })
 export const rootReducer = (state, action) => {
   if (action.type === 'auth/LOGOUT' || action.type === 'auth/LOGIN') {
