@@ -2,19 +2,19 @@ import React from 'react'
 import './Location.scss'
 import { connect } from 'react-redux'
 import $ from 'jquery'
-import { getAllLocations, addOrRemoveLocation, saveLocationsToServer, revertChanges } from '../../store/actions/locations'
+import { getAllLocations, addOrRemoveLocation, saveLocationsToServer, saveLocationsListToServer, revertChanges } from '../../store/actions/locations'
 import classNames from 'classnames'
+import Select from 'react-select'
+import PropTypes from 'prop-types'
+import _ from 'lodash'
 
 import {
   Container,
   Row,
   Col,
   Tooltip,
-  Card,
-  CardBlock,
-  CardTitle
 } from 'reactstrap'
-import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble';
+import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble'
 
 class Location extends React.Component {
   constructor (props) {
@@ -26,14 +26,21 @@ class Location extends React.Component {
       tooltipText: 'Stockholms län',
       tooltipPosition: 'right',
       locationClicked: false,
-      initialUserLocations: Object.assign([], this.props.locations.userLocations)
+      initialUserLocations: Object.assign([], this.props.locations.userLocations),
+      parentValue: null,
+      childValue: null
     }
 
     this.onPathClick = this.onPathClick.bind(this)
     this.onPathHover = this.onPathHover.bind(this)
     this.getParentName = this.getParentName.bind(this)
+    this.getParentIsocode = this.getParentIsocode.bind(this)
     this.saveLocations = this.saveLocations.bind(this)
     this.revertChanges = this.revertChanges.bind(this)
+    this.getParentOptions = this.getParentOptions.bind(this)
+    this.handleParentChange = this.handleParentChange.bind(this)
+    this.getChildOptions = this.getChildOptions.bind(this)
+    this.handleChildChange = this.handleChildChange.bind(this)
   }
 
   componentDidMount () {
@@ -43,12 +50,61 @@ class Location extends React.Component {
     })
   }
 
-  componentDidUpdate (prevProps, prevState) {
-    if (!prevState.locationClicked && this.state.locationClicked) {
+  componentWillUpdate (nextProps, nextState) {
+    if (!nextState.locationClicked && this.state.locationClicked) {
       this.setState({
         tooltipText: this.getTooltipText(this.state.tooltipTarget)
       })
     }
+
+    if (this.context.getBreakpoint() === 'xs' || this.context.getBreakpoint() === 'sm') {
+      if (nextState.parentValue !== this.state.parentValue) {
+        console.log('update child values')
+        let selectedChildren = []
+        let parent = this.props.locations.locations.filter(locations => locations.name === nextState.parentValue.name)
+        let municipalities = parent[0].municipalities
+
+        municipalities.map((item) => {
+          console.log(item)
+          if (item.isChecked) {
+            selectedChildren.push({
+              label: item.name,
+              value: item.id,
+              name: item.name,
+              id: item.id,
+              parent_name: item.parent_name
+            })
+          }
+        })
+        this.setState({ childValue: selectedChildren })
+      }
+
+      if (nextProps.locations.userLocations.length !== this.props.locations.userLocations.length) {
+        console.log('should save')
+        this.saveLocations()
+      }
+
+      if (_.difference(this.state.childValue, nextState.childValue).length === 1) {
+        console.log('removed')
+        this.addRemoveLocation(_.difference(this.state.childValue, nextState.childValue)[0])
+      } else if (_.difference(nextState.childValue, this.state.childValue).length === 1) {
+        console.log('added')
+        this.addRemoveLocation(_.difference(nextState.childValue, this.state.childValue)[0])
+      }
+    }
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+
+    // if (prevState.parentValue && prevState.childValue && prevState.parentValue.name === this.state.parentValue.name && prevState.childValue.length < this.state.childValue.length) {
+    //   let diff = _.difference(this.state.childValue, prevState.childValue)
+    //   this.addRemoveLocation(diff[0])
+    //   prevState.parentValue && console.log(prevState.parentValue.name + ' ' + this.state.parentValue.name)
+    // } else if (prevState.parentValue && prevState.childValue && prevState.parentValue.name === this.state.parentValue.name && prevState.childValue && prevState.childValue.length > this.state.childValue.length) {
+    //   let diff = _.difference(prevState.childValue, this.state.childValue)
+    //   this.addRemoveLocation(diff[0])
+    //   prevState.parentValue && console.log(prevState.parentValue.name + ' ' + this.state.parentValue.name)
+    // }
   }
 
   highlightLocations () {
@@ -80,7 +136,8 @@ class Location extends React.Component {
   }
 
   onPathClick (e) {
-    if (!this.state.locationClicked) {
+    if (!this.state.locationClicked && !_.includes(['xs', 'sm'], this.context.getBreakpoint())) {
+      console.log('onPathClick')
       $('.active').removeClass('active')
       $(e.target).addClass('active')
       this.setState({
@@ -112,6 +169,32 @@ class Location extends React.Component {
       case 'SE-Z': return 'Jämtlands län'
       case 'SE-AC': return 'Västerbottens län'
       case 'SE-BD': return 'Norrbottens län'
+    }
+  }
+
+  getParentIsocode (parentName) {
+    switch (parentName) {
+      case 'Stockholms län': return 'SE-AB'
+      case 'Uppsala län': return 'SE-C'
+      case 'Södermanlands län': return 'SE-D'
+      case 'Östergötlands län': return 'SE-E'
+      case 'Jönköpings län': return 'SE-F'
+      case 'Kronobergs län': return 'SE-G'
+      case 'Kalmar län': return 'SE-H'
+      case 'Gotlands län': return 'SE-I'
+      case 'Blekinge län': return 'SE-K'
+      case 'Skåne län': return 'SE-M'
+      case 'Hallands län': return 'SE-N'
+      case 'Västra Götalands län': return 'SE-O'
+      case 'Värmlands län': return 'SE-S'
+      case 'Örebro län': return 'SE-T'
+      case 'Västmanlands län': return 'SE-U'
+      case 'Dalarnas län': return 'SE-W'
+      case 'Gävleborgs län': return 'SE-X'
+      case 'Västernorrlands län': return 'SE-Y'
+      case 'Jämtlands län': return 'SE-Z'
+      case 'Västerbottens län': return 'SE-AC'
+      case 'Norrbottens län': return 'SE-BD'
     }
   }
 
@@ -167,6 +250,7 @@ class Location extends React.Component {
   }
 
   saveLocations () {
+    console.log('save')
     let { dispatch } = this.props
     dispatch(saveLocationsToServer()).then((result) => {
       this.setState({
@@ -196,13 +280,63 @@ class Location extends React.Component {
     return $elem.offset().top > $('svg').outerHeight() / 1.5 ? 'top' : 'right'
   }
 
+  getParentOptions () {
+    let optiondata = []
+
+    this.props.locations.locations.map((item) => {
+      optiondata.push({
+        label: item.name,
+        value: item.id,
+        name: item.name,
+        id: item.id,
+      })
+    })
+
+    return optiondata
+  }
+
+  handleParentChange (value) {
+    $('.active').removeClass('active')
+    $('#' + this.getParentIsocode(value.name)).addClass('active')
+    this.setState({
+      parentValue: value,
+      childValue: [],
+      locationClicked: true,
+    })
+  }
+
+  getChildOptions () {
+    let optiondata = []
+    if (this.state.parentValue) {
+      let parent = this.props.locations.locations.filter(locations => locations.name === this.state.parentValue.name)
+      let municipalities = parent[0].municipalities
+
+      municipalities.map((item) => {
+        optiondata.push({
+          label: item.name,
+          value: item.id,
+          name: item.name,
+          id: item.id,
+        })
+      })
+    }
+    return optiondata
+  }
+
+  handleChildChange (value) {
+    this.setState({ childValue: value })
+  }
+
   render () {
     let btnClass = classNames('btn-wrapper flex-row justify-content-center my-2', !this.state.locationClicked && 'd-none')
     let mapClass = classNames('mapWrapper', this.state.locationClicked && 'locationClicked')
     let tooltipClass = classNames(this.state.numMunicipalities > 20 ? 'three-col' : this.state.numMunicipalities < 10 ? 'one-col' : 'two-col')
+
     return (
       <Container fluid id='location'>
-        <Tooltip placement={this.state.tooltipPosition} isOpen={this.state.tooltipOpen} target={this.state.tooltipTarget} className={tooltipClass}>
+        {this.context.getBreakpoint() !== 'xs' && this.context.getBreakpoint() !== 'sm' &&
+        <Tooltip placement={this.state.tooltipPosition} isOpen={this.state.tooltipOpen}
+          target={this.state.tooltipTarget} className={tooltipClass}>
           <Row>
             {this.state.tooltipText}
           </Row>
@@ -211,6 +345,7 @@ class Location extends React.Component {
             <i className='cancel-btn fa fa-mail-reply ml-1' onClick={() => this.revertChanges()} />
           </div>
         </Tooltip>
+        }
         <Row>
           <Col xs='12' xl='9'>
             <Row className='flex-lg-row-reverse'>
@@ -221,8 +356,28 @@ class Location extends React.Component {
                 </SpeechBubble>
               </Col>
               <Col xs={12} md={12} xl={4} className={mapClass}>
+                <div className='selectWrapper d-md-none d-lg-none d-xl-none mb-5'>
+                  <Select
+                    options={this.getParentOptions()}
+                    clearable
+                    onChange={this.handleParentChange}
+                    placeholder='Välj län'
+                    value={this.state.parentValue}
+                  />
+                  {this.state.parentValue &&
+                  <Select
+                    className='mt-3'
+                    options={this.getChildOptions()}
+                    clearable
+                    multi
+                    onChange={this.handleChildChange}
+                    placeholder='Välj kommun'
+                    value={this.state.childValue}
+                  />
+                  }
+                </div>
                 <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' id='parentGraphic'
-                  preserveAspectRatio='xMidYMid meet' viewBox='0 0 345 792' style={{ maxHeight: '80vh' }}>
+                  preserveAspectRatio='xMidYMid meet' viewBox='0 0 345 792'>
                   <path onMouseOut={(e) => this.onPathHover(e)} onMouseOver={(e) => this.onPathHover(e)} onClick={(e) => this.onPathClick(e)} d='m 90.133614,740.16334 2.19,0.61 0.47,0.31 0.69,0.66 0.74,1.07 0.7,0.86 3.7,0.35 1.34,0.01 1.009996,-0.12 0.82,-0.78 1.39,-1.72 2,-0.91 3.33,-0.1 2.12,-0.41 0.82,-0.29 0.45,-0.34 0.68,-0.79 0.21,-0.22 3.7,-0.2 1.22,0.05 3.74,3.86 1.88,2.58 0.58,0.87 0.67,0.53 1,0.43 2.86,0.39 2.54,-0.33 -0.3,2.12 -0.93,2.43 -0.25,0.44 -3.52,5.5 -2.03,-0.93 -0.34,-1.7 -3.09,-1.47 -1.61,-0.75 -5.88,2.68 -0.4,0.21 -0.29,-0.02 -6.23,-0.83 -0.65,-0.4 -0.16,-0.15 -0.06,-0.25 -9.599996,0.33 -0.54,0.02 -0.16,0.16 -0.11,0.24 -0.18,0.96 -0.01,0.56 0.07,0.24 0.12,0.2 0.17,0.15 0.45,0.25 0.13,0.17 0.95,1.87 0.45,1.1 -0.03,0.29 -0.75,0.91 -0.49,0.5 -2.23,-0.34 -0.39,-1.03 -0.45,-1.07 -1.18,-0.25 -0.2,0.1 -0.26,0.19 0.55,-0.7 0.25,-0.67 0.03,-0.57 0.04,-1.79 -0.2,-1.68 -0.25,-1.29 -0.15,-0.51 -0.54,-0.49 -1.76,-0.02 -0.62,0.39 -0.44,-0.25 -1.21,-3.95 0.15,-0.64 0.04,-0.16 0.77,-2.38 0.73,-1.57 z' id='SE-K' className='mapsvg-region' />
                   <path onMouseOut={(e) => this.onPathHover(e)} onMouseOver={(e) => this.onPathHover(e)} onClick={(e) => this.onPathClick(e)} d='m 208.90361,669.54334 0.78,3.57 -2.75,4.31 -2.13,0.92 -1.05,0.86 -0.42,2.19 -0.89,7.43 0.22,1.76 0.04,0.25 0.5,0.93 0.54,0.45 -0.69,3.56 -0.92,0.77 -0.69,0.69 -1.01,1.26 -0.31,0.41 -0.1,0.28 -0.08,0.33 0,0.27 0.04,0.26 0.37,0.33 0.28,0 0.51,-0.08 0.04,0.26 0.08,1.06 -0.07,0.26 -1.42,1.01 -2.8,1.85 -0.98,0.65 -0.43,0.2 -1.13,0.41 -0.43,0.2 -0.59,0.42 -0.53,0.49 -0.15,0.2 -0.12,0.24 -1.09,2.2 -0.11,0.28 -0.06,0.26 -0.1,2.2 0.01,0.28 0.2,0.15 0.16,1.17 -1.24,2.55 -0.2,0.13 -2.1,1.05 -0.25,0.05 -0.98,0.09 -0.56,-0.09 -0.2,-0.15 0.06,-0.25 0.42,-1.03 1.34,-2.3 1.25,-2.08 -0.06,-2.28 -2.14,-3.05 -0.66,-4.54 0.26,-3.93 -0.41,-4.58 -0.72,-3.5 -0.13,-0.75 -0.01,-0.83 0.04,-0.31 0.21,-0.57 0.51,-0.98 1.07,-1.83 0.32,-0.38 0.54,-0.48 0.42,-0.27 0.38,-0.3 0.18,-0.16 0.71,-0.66 0.49,-0.57 1.17,-1.77 0.45,-0.7 0.69,-1.12 0.52,-0.99 0.48,-1.07 0.97,-2.1 0.13,-0.25 0.15,-0.21 0.37,-0.33 5.31,-4.71 0.21,-0.12 0.69,-0.25 0.23,-0.08 4.15,0.15 0.54,0.07 0.31,0.04 2.39,0.44 0.04,0.25 -0.06,0.21 z m 3.23,2.93 -0.87,-0.61 -0.41,-0.32 -0.12,-0.21 -0.94,-1.68 -0.08,-0.23 0,-0.57 0.04,-0.3 1.39,-2.57 0.18,-0.17 0.23,-0.08 4.79,-0.07 0.28,0 0.29,0.11 0.66,0.46 0.08,0.23 -0.03,0.24 -1.26,0.91 -0.24,-0.14 -0.08,-0.24 -0.17,-0.18 -0.3,-0.04 -0.49,0.12 -1.78,0.87 -0.21,0.12 -0.32,0.41 -0.13,0.25 -0.11,0.29 -0.04,0.3 -0.36,3.1 z m 2.93,-24.82 -0.29,0 -0.21,-0.15 -0.82,-2.07 -0.08,-0.24 0.07,-0.27 1.01,0.08 0.97,0.28 1.17,0.45 0.5,0.28 0.17,0.18 -0.1,0.22 -0.32,0.42 -0.34,0.36 -0.21,0.13 -0.23,0.08 -1.29,0.25 z' id='SE-I' className='mapsvg-region' />
                   <path onMouseOut={(e) => this.onPathHover(e)} onMouseOver={(e) => this.onPathHover(e)} onClick={(e) => this.onPathClick(e)} d='m 111.67361,438.77334 0.37,-0.27 1.04,-0.86 1.01,-0.92 0.93,-0.99 0.89,-0.62 2.4,-0.39 0.5,0 1.65,0.2 1.49,0.52 1.96,0.93 2.88,1.28 2.23,0.95 6.14,1.41 1.87,0.38 2.43,0.05 0.58,-0.1 1.28,-0.03 3.09,0.65 4.55,0.97 4.08,1.12 0.95,0.37 3.08,0.68 4.47,0.86 3.61,0.36 1.27,0.14 1.71,0.47 0.6,0.21 -0.52,6.69 -0.32,0.53 -0.18,0.24 -0.2,0.18 -0.26,0.1 -0.24,-0.17 -0.26,-0.1 -0.22,0.14 -0.18,0.25 -1.04,1.94 -0.11,0.32 -0.12,1.06 -0.23,6.07 1.3,3.43 1.44,1.65 0.78,-0.3 0.37,0.08 0.29,0.16 0.14,0.23 0.62,1.24 0,0.3 -0.59,3.14 -0.06,0.22 -0.14,0.27 -0.17,0.25 -0.26,0.09 -0.85,-0.23 -0.33,-0.12 -0.28,-0.45 -0.06,-0.29 -0.15,-0.54 -0.64,-1.84 -0.1,-0.26 -0.48,-0.47 -0.37,-0.35 -0.38,-0.33 -0.33,-0.11 -2.46,-0.44 -0.35,-0.04 -1.87,0.1 -0.26,0.09 0.05,0.29 0.2,0.2 0.23,0.18 0.68,0.15 0.28,-0.06 0.35,0.04 0.33,0.11 1.07,0.68 0.23,0.17 0.05,0.28 -0.08,0.37 -0.14,0.29 -1.93,1.95 -0.24,0.15 -0.25,0.1 -0.35,-0.03 -0.32,-0.11 -0.48,-0.36 -0.05,-0.28 -0.24,0.02 -0.23,0.15 -0.2,0.19 -0.18,1.53 0.63,3.11 1.19,1.87 0.14,0.23 1.44,4.18 -0.08,0.69 -0.17,0.23 -1.1,0.26 -0.46,-0.42 -0.09,-0.26 -0.29,0.07 -0.8,1.3 -0.14,0.27 -0.04,0.34 0.05,0.29 1.07,1.87 1.58,1.6 0.23,0.17 0.61,0.24 0.68,0.08 0.33,0.11 -0.03,0.27 -0.72,1.67 -1.13,3.41 -0.54,4.83 -0.63,6.4 -0.23,3.79 0.1,0.24 1.25,1.28 1.04,1.15 0.09,0.25 0.83,2.61 0.2,3.86 -0.18,2.28 -2.13,1.52 0.42,0.68 1.67,0.67 2.23,1.92 0.46,1.15 -0.42,1.2 -0.3,1.09 -0.15,0.96 -1.03,4.02 -0.33,1.44 -0.15,0.6 -0.34,0.47 -0.66,0.3 -0.14,0.1 -0.54,0.42 -0.44,0.62 -0.42,0.49 -0.34,0.4 -0.15,0.56 0.54,0.88 0.15,0.75 -0.11,0.51 -0.12,0.79 -0.18,0.83 -0.06,0.67 0.11,0.19 -3.31,2.52 -1.15,-0.7 -1.42,-0.47 -1.41,0.04 -0.17,0.46 -0.02,0.69 -0.17,0.51 -0.65,0.96 -0.55,0.48 -0.14,0.12 -2.65,1.62 -0.47,0.19 -0.69,-0.03 -0.13,-0.22 -0.27,-0.43 -1.89,-2.16 -0.41,-0.77 -0.34,-0.92 -0.47,-1.25 -0.18,-0.52 -0.53,-1.4 -0.86,-0.83 -0.57,-0.4 -1.49,-0.62 -0.68,-0.35 -0.48,-0.37 -0.94,-1.14 -1.1,-1.42 -2.37,-3.31 -1.35,-3.53 -0.31,-0.93 -0.05,-1.19 0.72,-0.13 1,-0.41 0.93,-0.5 1.01,-1.38 2.74,-4.58 -0.14,-2.39 -0.11,-0.75 -0.46,-0.72 -1.17,-1.58 -1.41,-2.02 -0.63,-1.03 -1.44,-2.42 -1.09,-2.44 -2.71,-0.59 -2.37,-0.53 -3.74,-1.92 -0.58,-0.49 -0.61,-0.63 -0.31,-0.42 -0.31,-0.42 -0.47,-0.82 -0.63,-1.35 -0.12,-0.5 -0.16,-0.62 -0.19,-1.52 -0.03,-0.49 -0.16,-1.12 -0.2,-0.85 -0.22,-0.58 -0.27,-0.5 -2.52,-2.88 -4.49,-5.23 -0.98,-1.15 -0.67,-0.86 -1.55,-2.03 -0.8,-1.06 -0.36,-0.55 -0.43,-1.08 -2.09,-2.44 -0.45,1.46 -0.34,0.8 -0.66,0.58 -0.54,0.11 -6.359996,0.11 -1.29,0 -1.27,-0.31 -0.78,-0.28 0.01,-1.3 0.05,-0.83 -0.27,-1.29 -0.68,-2.08 -2.14,-0.04 -2.72,0.06 -0.88,0.16 1.1,-1.24 0.37,-2.13 0.51,-3.61 0.42,-5.06 1.24,-2.02 0.47,-0.71 1.23,-1.8 0.49,-0.64 0.69,0.14 0.5,0.74 0.64,1.74 0.1,0.61 0.2,0.6 0.36,0.81 0.69,0.71 0.76,0.08 5.359996,-3.66 0.99,-1.48 0.53,-2.86 0.15,-1.96 -0.14,-1.55 0.13,-0.59 3.82,-3.36 0.78,-0.59 1.49,-0.94 1.28,-1.07 0.37,-0.55 0.38,-0.67 0.29,-0.83 -0.07,-0.58 -0.23,-1.15 -0.33,-0.62 -1.14,-1.69 -0.57,-1.22 0,-0.54 0.34,-0.58 z' id='SE-X' className='mapsvg-region' />
@@ -252,6 +407,10 @@ class Location extends React.Component {
       </Container>
     )
   }
+}
+
+Location.contextTypes = {
+  getBreakpoint: PropTypes.func
 }
 
 export default connect((state) => state)(Location)

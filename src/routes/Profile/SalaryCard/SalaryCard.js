@@ -61,7 +61,7 @@ class SalaryCard extends React.Component {
             <i className={editBtnClass} onClick={() => this.toggleEditMode()} />
             <i className='fa fa-times cancel-btn' onClick={() => this.revertChanges()} />
           </div>
-          <img src='/img/cash.jpg' className='img-fluid' />
+          <img src='/img/lon.png' className='img-fluid' />
           <CardBlock>
             <CardTitle className='text-center'>{translate('salary.salary')}</CardTitle>
             <CardSubtitle className='text-center'>{this.state.salary[0]} - {this.state.salary[1]} kr</CardSubtitle>

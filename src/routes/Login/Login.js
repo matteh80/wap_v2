@@ -15,6 +15,7 @@ import { getVideoInfo } from '../../store/actions/wapfilm'
 import { getAllLicenses, getMyLicenses } from '../../store/actions/drivinglicenses'
 import { getAllReferences } from '../../store/actions/references'
 import { getAllQuestions } from '../../store/actions/dreamjob'
+import { getAllLocations } from '../../store/actions/locations'
 import ThreeDButton from '../../components/buttons/ThreeDButton'
 import './Login.scss'
 import $ from 'jquery'
@@ -336,6 +337,7 @@ class Login extends React.Component {
         dispatch(getMyLicenses()),
         dispatch(getAllReferences()),
         dispatch(getAllQuestions()),
+        dispatch(getAllLocations())
       ]).then(() => {
         if (result.tos_accepted) {
           console.log('redirect')

@@ -77,7 +77,7 @@ class AvailabilityCard extends React.Component {
             <i className={editBtnClass} onClick={() => this.toggleEditMode()} />
             <i className='fa fa-times cancel-btn' onClick={() => this.revertChanges()} />
           </div>
-          <img src='/img/clock.jpg' className='img-fluid' />
+          <img src='/img/tillganglighet.png' className='img-fluid' />
           <CardBlock>
             <CardTitle className='text-center'>Tillgänglighet</CardTitle>
             <CardSubtitle className='text-center'>{this.getAvailabilityString()}</CardSubtitle>

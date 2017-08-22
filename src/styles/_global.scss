@@ -8,6 +8,33 @@ body {
   }
 }
 
+body:before {
+  content: "xs";
+  display: none; /* Prevent from displaying. */
+}
+@include media-breakpoint-up(sm) {
+  body:before {
+    content: "sm";
+  }
+}
+@include media-breakpoint-up(md) {
+  body:before {
+    content: "md";
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  body:before {
+    content: "lg";
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  body:before {
+    content: "xl";
+  }
+}
+
 blockquote {
   //background: #f9f9f9;
   border-left: 10px solid #ccc;
@@ -43,6 +70,7 @@ blockquote p {
   color: #fff;
   display: none;
   transition: color 250ms;
+  z-index: 9;
 
   &.visible {
     display: block;

@@ -6,13 +6,15 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import { getActiveLanguage, getTranslate } from 'react-localize-redux'
 import CookieBanner from 'react-cookie-banner'
 import ReactGA from 'react-ga'
+import $ from 'jquery'
 
+let breakpoint = {}
 class App extends React.Component {
   static propTypes = {
     store: PropTypes.object.isRequired,
     routes: PropTypes.object.isRequired,
     translate: PropTypes.func,
-    currentLanguage: PropTypes.string
+    currentLanguage: PropTypes.string,
   }
 
   constructor (props) {
@@ -20,6 +22,20 @@ class App extends React.Component {
     const browser = require('detect-browser')
     console.log(browser)
     ReactGA.initialize('UA-100067149-2')
+
+    breakpoint.refreshValue = function () {
+      this.value = window.getComputedStyle(document.querySelector('body'), ':before').getPropertyValue('content').replace(/\"/g, '')
+    }
+
+    $(window).resize(function () {
+      breakpoint.refreshValue()
+    }).resize()
+
+    this.getBreakpoint = this.getBreakpoint.bind(this)
+  }
+
+  getBreakpoint () {
+    return breakpoint.value
   }
 
   shouldComponentUpdate () {
@@ -30,7 +46,8 @@ class App extends React.Component {
     return {
       profile: this.props.profile,
       translate: this.props.translate,
-      currentLanguage: this.props.currentLanguage
+      currentLanguage: this.props.currentLanguage,
+      getBreakpoint: this.getBreakpoint
     }
   }
 
@@ -63,7 +80,8 @@ class App extends React.Component {
 App.childContextTypes = {
   profile: PropTypes.object,
   translate: PropTypes.func,
-  currentLanguage: PropTypes.string
+  currentLanguage: PropTypes.string,
+  getBreakpoint: PropTypes.func
 }
 
 const mapStateToProps = state => ({

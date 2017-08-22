@@ -40,8 +40,6 @@ class Sidemenu extends React.Component {
 
   componentWillReceiveProps (newProps) {
     this.setCounts(newProps)
-    console.log(this.props)
-    console.log(newProps)
   }
 
   showMenu () {

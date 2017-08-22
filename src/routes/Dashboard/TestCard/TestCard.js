@@ -23,7 +23,7 @@ class TestCard extends React.Component {
     return (
       <Card>
         <DashboardButtons linkto='/personalitytest' card='testcard' cardname='Personlighetstest' onHide={this.props.onHide} />
-        <CardImg src='/img/test.jpg' className='img-fluid' />
+        <CardImg src='/img/test.png' className='img-fluid' />
         <CardImgOverlay className='bg-white' />
         <CardBlock>
           <CardTitle>{translate('testcard.title')}</CardTitle>

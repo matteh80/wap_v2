@@ -25,7 +25,7 @@ class WapfilmCard extends React.Component {
     return (
       <Card>
         <DashboardButtons linkto='/wapfilm' onHide={() => this.onHide()} />
-        <CardImg src='/img/video.jpg' className='img-fluid' />
+        <CardImg src='/img/film.png' className='img-fluid' />
         <CardImgOverlay className='bg-white' />
         <CardBlock>
           <CardTitle>Wap film</CardTitle>

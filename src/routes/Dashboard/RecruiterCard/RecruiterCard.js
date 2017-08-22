@@ -23,7 +23,7 @@ class RecruiterCard extends React.Component {
     return (
       <Card>
         <DashboardButtons linkto='/personalrecruiter' card='recruitercard' cardname='Personlig rekryterare' onHide={this.props.onHide} />
-        <CardImg src='/img/recruiter.jpg' className='img-fluid' />
+        <CardImg src='/img/pers_rekryterare.png' className='img-fluid' />
         <CardImgOverlay className='bg-white' />
         <CardBlock>
           <CardTitle>{translate('recruitercard.title')}</CardTitle>

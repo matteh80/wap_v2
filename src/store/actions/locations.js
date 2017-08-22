@@ -10,6 +10,7 @@ const {
 } = require('./actionTypes/locations')
 
 export function addOrRemoveLocation (location) {
+  console.log(location)
   return (dispatch, getState) => {
     return new Promise(resolve => {
       resolve()
@@ -48,6 +49,22 @@ function getMyLocations () {
 export function saveLocationsToServer () {
   return (dispatch, getState) => {
     return apiClient.post('me/locations/', getState().locations.userLocations).then((result) => {
+      console.log(result)
+      return dispatch({
+        type: SAVE_LOCATIONS,
+        userLocations: result.data,
+        receivedAt: Date.now()
+      })
+    })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
+}
+
+export function saveLocationsListToServer (locations) {
+  return (dispatch, getState) => {
+    return apiClient.post('me/locations/', locations).then((result) => {
       console.log(result)
       return dispatch({
         type: SAVE_LOCATIONS,
