@@ -23,15 +23,9 @@ class Menuitem extends React.Component {
 
   _handleClick (e) {
     // e.preventDefault();
+    console.log(e)
     this.setState({ collapsed: !this.state.collapsed })
     return false
-  }
-
-  componentDidMount () {
-    console.log(this.props.children)
-    // this.props.children && this.props.children.map((child) => {
-    //   console.log(child)
-    // })
   }
 
   render () {

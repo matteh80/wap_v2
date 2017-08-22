@@ -50,6 +50,12 @@ class Header extends React.Component {
     dispatch(logout())
   }
 
+  componentWillReceiveProps (newProps) {
+    if (newProps.routing.locationBeforeTransitions.pathname !== this.props.routing.locationBeforeTransitions.pathname && $('.navbar-toggle').is(':visible')) {
+      this._toggleMenu()
+    }
+  }
+
   _toggleMenu () {
     let $body = $('body')
     let $navbarToggle = $('.navbar-toggle ')

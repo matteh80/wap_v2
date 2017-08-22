@@ -21,28 +21,41 @@ class Sidemenu extends React.Component {
       referenceCount: props.references.references ? props.references.references.length : 0,
       jobCount: props.jobs.savedJobs ? props.jobs.savedJobs.length : 0
     }
+
+    this.showMenu = this.showMenu.bind(this)
+    this.hideMenu = this.hideMenu.bind(this)
   }
 
   componentDidMount () {
     let $sidemenu = $('.sidemenuWrapper')
-    let $navbarToggle = $('.navbar-toggle ')
-    let $body = $('body')
+    let _self = this
 
     $sidemenu.mouseenter(function () {
-      $body.addClass('menu-expanded')
-      $navbarToggle.removeClass('collapsed')
+      _self.showMenu()
     })
     $sidemenu.mouseleave(function () {
-      $body.removeClass('menu-expanded')
-      $navbarToggle.addClass('collapsed')
+      _self.hideMenu()
     })
   }
 
   componentWillReceiveProps (newProps) {
     this.setCounts(newProps)
-    // this.setState({
-    //   windowHeight: $('body').height
-    // })
+    console.log(this.props)
+    console.log(newProps)
+  }
+
+  showMenu () {
+    let $navbarToggle = $('.navbar-toggle ')
+    let $body = $('body')
+    $body.addClass('menu-expanded')
+    $navbarToggle.removeClass('collapsed')
+  }
+
+  hideMenu () {
+    let $navbarToggle = $('.navbar-toggle ')
+    let $body = $('body')
+    $body.removeClass('menu-expanded')
+    $navbarToggle.addClass('collapsed')
   }
 
   setCounts (props) {
