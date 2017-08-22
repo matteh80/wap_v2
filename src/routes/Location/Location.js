@@ -359,7 +359,7 @@ class Location extends React.Component {
                 <div className='selectWrapper d-md-none d-lg-none d-xl-none mb-5'>
                   <Select
                     options={this.getParentOptions()}
-                    clearable
+                    clearable={false}
                     onChange={this.handleParentChange}
                     placeholder='Välj län'
                     value={this.state.parentValue}
@@ -368,7 +368,7 @@ class Location extends React.Component {
                   <Select
                     className='mt-3'
                     options={this.getChildOptions()}
-                    clearable
+                    clearable={false}
                     multi
                     onChange={this.handleChildChange}
                     placeholder='Välj kommun'
