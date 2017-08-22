@@ -348,7 +348,7 @@ class Register extends React.Component {
         <Row className='justify-content-center align-items-center flex-column' style={{ minHeight: '100vh' }}>
           <Container>
             <Row className='justify-content-center align-items-center'>
-              <Col xs={12} sm={8} md={6}>
+              <Col xs={10} sm={8} md={6}>
                 <img src='/img/wap_logga.png' className='img-fluid mx-auto d-block' />
               </Col>
               {!this.state.linkedIn &&
@@ -369,7 +369,7 @@ class Register extends React.Component {
                 }
                 <AvForm className='w-100 loginForm' onSubmit={this._handleRegister}>
                   <AvGroup>
-                    <Label for='email'>{translate('register.email')}</Label>
+                    {/*<Label for='email'>{translate('register.email')}</Label>*/}
                     <AvField type='email' name='email' placeholder={translate('register.email')}
                       ref={(input) => { this.email = input }} required
                       validate={{
@@ -378,7 +378,7 @@ class Register extends React.Component {
                     />
                   </AvGroup>
                   <AvGroup>
-                    <Label for='password'>{translate('register.password')}</Label>
+                    {/*<Label for='password'>{translate('register.password')}</Label>*/}
                     <AvField type='password' name='password' placeholder={translate('register.password')}
                       ref={(input) => { this.password = input }} required
                       validate={{
@@ -387,7 +387,7 @@ class Register extends React.Component {
                     />
                   </AvGroup>
                   <AvGroup>
-                    <Label for='confirm_password'>{translate('register.confirm_password')}</Label>
+                    {/*<Label for='confirm_password'>{translate('register.confirm_password')}</Label>*/}
                     <AvField type='password' name='confirm_password' placeholder={translate('register.confirm_password')}
                       ref={(input) => { this.password = input }} required
                       validate={{
@@ -397,7 +397,7 @@ class Register extends React.Component {
                   </AvGroup>
                   <ThreeDButton type='submit' className='w-100' loading={this.state.loadsave}>{translate('register.register')}</ThreeDButton>
                 </AvForm>
-                <p className='text-center'>Har du redan ett konto? <a href='/login' onClick={(e) => this.gotoLogin(e)}>Logga in</a></p>
+                <h6 className='text-center'>Har du redan ett konto? <a href='/login' className='fg-pink' onClick={(e) => this.gotoLogin(e)}>Logga in</a></h6>
               </Col>
               }
               {this.state.linkedIn &&

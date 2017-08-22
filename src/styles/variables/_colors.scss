@@ -2,7 +2,7 @@ $blue: #248fb8;
 $pink: #ea5888;
 $red: #e24c4c;
 $orange: #f28304;
-$green: #008000;
+$green: #29a152;
 $darkgray: #2b303b;
 $darklightgray: #292b2c;
 $turqoise: #17a2b8;
@@ -27,6 +27,10 @@ $link-color: $blue;
 }
 .bg-orange {
   background: $orange;
+}
+
+.fg-pink {
+  color: $pink !important;
 }
 
 // Social Colors

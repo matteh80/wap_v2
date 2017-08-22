@@ -142,8 +142,7 @@ class EmploymentForm extends React.Component {
       let { dispatch } = this.props
       dispatch(createEmployment(this.state.employment)).then(() => {
         dispatch(getAllEmployments())
-        document.getElementById('addEmploymentForm').reset()
-        this._resetForm()
+        this.setState({ collapse: false })
       })
     }
   }
@@ -189,16 +188,21 @@ class EmploymentForm extends React.Component {
               {!this.state.collapse && <div className='fakeSubtitle w-100 mt-0' />}
               {!this.state.collapse && <div className='fakeSubtitle w-25' />}
               <Collapse isOpen={this.state.collapse}>
+                {this.state.collapse &&
                 <AvForm id='addEmploymentForm' onSubmit={this._handleSubmit}>
                   <AvGroup>
                     <Label for='employer'>Företag *</Label>
                     <AvField type='text' name='employer' id='employer'
-                      ref={(input) => { this.employer = input }} onChange={this._handleInputChange} required />
+                             ref={(input) => {
+                               this.employer = input
+                             }} onChange={this._handleInputChange} required/>
                   </AvGroup>
                   <AvGroup>
                     <Label for='title'>Befattning *</Label>
                     <AvField type='text' name='title' id='title'
-                      ref={(input) => { this.title = input }} onChange={this._handleInputChange} required />
+                             ref={(input) => {
+                               this.title = input
+                             }} onChange={this._handleInputChange} required/>
                   </AvGroup>
                   <FormGroup>
                     <Label for='occupation'>Yrkeskategori *</Label>
@@ -211,14 +215,17 @@ class EmploymentForm extends React.Component {
                       required
                     />
                   </FormGroup>
-                  <StartEndDate withCurrent onChange={this._handleDateChange} />
+                  <StartEndDate withCurrent onChange={this._handleDateChange}/>
                   <FormGroup>
                     <Label for='description'>Jag bidrar / bidrog med</Label>
                     <Input type='textarea' name='description' id='description' rows='4'
-                      ref={(input) => { this.description = input }} onChange={this._handleInputChange} />
+                           ref={(input) => {
+                             this.description = input
+                           }} onChange={this._handleInputChange}/>
                   </FormGroup>
                   <ThreeDButton small>Lägg till anställning</ThreeDButton>
                 </AvForm>
+                }
               </Collapse>
             </CardBlock>
           </Card>

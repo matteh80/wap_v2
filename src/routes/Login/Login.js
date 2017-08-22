@@ -375,7 +375,7 @@ class Login extends React.Component {
         <Row className='justify-content-center align-items-center flex-column' style={{ minHeight: '100vh' }}>
           <Container>
             <Row className='justify-content-center align-items-center'>
-              <Col xs={12} sm={8} md={6}>
+              <Col xs={10} sm={8} md={6}>
                 <img src='/img/wap_logga.png' className='img-fluid mx-auto d-block' />
               </Col>
               {!this.state.linkedIn &&
@@ -397,18 +397,18 @@ class Login extends React.Component {
                 }
                 <Form className='w-100 loginForm' onSubmit={(e) => this._handleLogin(e)}>
                   <FormGroup>
-                    <Label for='email'>Email</Label>
+                    {/*<Label for='email'>Email</Label>*/}
                     <Input type='email' name='email' id='email' placeholder='E-post'
                       ref={(input) => { this.email = input }} required />
                   </FormGroup>
                   <FormGroup>
-                    <Label for='password'>Password</Label>
+                    {/*<Label for='password'>Password</Label>*/}
                     <Input type='password' name='password' id='password' placeholder='Lösenord'
                       ref={(input) => { this.password = input }} required minLength='8' />
                   </FormGroup>
                   <ThreeDButton type='submit' className='w-100' loading={this.state.loadsave}>Logga in</ThreeDButton>
                 </Form>
-                <p className='text-center'>Har du inget konto? <a href='/register' onClick={(e) => this.gotoRegister(e)}>Registrera</a> dig!</p>
+                <h6 className='text-center'>Har du inget konto? <a href='/register' className='fg-pink' onClick={(e) => this.gotoRegister(e)}>Registrera</a> dig!</h6>
               </Col>
               }
               {this.state.linkedIn &&

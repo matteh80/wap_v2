@@ -49,8 +49,7 @@ class Educations extends React.Component {
       })
   }
 
-  removeEducation (e, education) {
-    console.log(e.target)
+  removeEducation (education) {
     let { dispatch } = this.props
     // this.masonry.remove($(e.target).closest('.timeline-item')).masonry('layout')
     dispatch(removeEducation(education))
@@ -89,7 +88,7 @@ class Educations extends React.Component {
                 <EducationForm layout={this.layout} collapse={educations && educations.length === 0} translate={this.props.translate} />
                 {mEducations && mEducations.map((education) => {
                   return <EducationItem key={education.id} education={education} layout={this.layout} publicCount={publicCount}
-                    onChange={this.updateEducation} onRemove={this.removeEducation} />
+                    onChange={this.updateEducation} onRemove={this.removeEducation} translate={this.props.translate} />
                 })}
               </Masonry>
             </div>

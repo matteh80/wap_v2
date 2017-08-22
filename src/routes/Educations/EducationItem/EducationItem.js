@@ -16,6 +16,7 @@ import {
 } from 'reactstrap'
 
 import { AvForm, AvGroup, AvField, AvInput } from 'availity-reactstrap-validation'
+import EditButtons from '../../../components/buttons/EditButtons';
 
 let _ = require('lodash')
 
@@ -36,6 +37,7 @@ class EducationItem extends React.Component {
     this._handleInputChange = this._handleInputChange.bind(this)
     this._handleDateChange = this._handleDateChange.bind(this)
     this._handleSubmit = this._handleSubmit.bind(this)
+    this.onRemove = this.onRemove.bind(this)
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -125,6 +127,10 @@ class EducationItem extends React.Component {
     })
   }
 
+  onRemove () {
+    this.props.onRemove(this.state.education)
+  }
+
   _handleSubmit (event, errors, values) {
     if (errors.length === 0) {
       this.props.onChange(this.state.education)
@@ -154,11 +160,7 @@ class EducationItem extends React.Component {
         <div className='timeline-content'>
           <Card>
             <Loader active={this.state.loadsave} />
-            <div className={wrapperClass}>
-              <i className={editBtnClass} onClick={() => this.toggleEditMode()} />
-              <i className='fa fa-mail-reply cancel-btn' onClick={() => this.revertChanges()} />
-              <i className='fa fa-times remove-btn' onClick={(e) => this.props.onRemove(e, education)} />
-            </div>
+            <EditButtons hasRemove editMode={this.state.editMode} toggleEditMode={this.toggleEditMode} revertChanges={this.revertChanges} onRemove={this.onRemove} translate={this.props.translate} />
             {!this.state.editMode &&
             <CardBlock>
               <CardTitle>{orientation}</CardTitle>
