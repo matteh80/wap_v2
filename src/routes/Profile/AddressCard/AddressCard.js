@@ -97,8 +97,12 @@ class AddressCard extends React.Component {
       if (status === maps.GeocoderStatus.OK) {
         _self.setState({ center: { lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng() } })
         map.setCenter({ lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng() })
+        $('#mapWrapper > img').fadeOut('slow')
+        $('#mapWrapper > div').fadeIn('slow')
       } else {
-        alert('The address could not be found for the following reason: ' + status)
+        // alert('The address could not be found for the following reason: ' + status)
+        $('#mapWrapper > div').fadeOut('slow')
+        $('#mapWrapper > img').fadeIn('slow')
       }
     })
   }
@@ -135,6 +139,7 @@ class AddressCard extends React.Component {
             <i className='fa fa-times cancel-btn' onClick={() => this.revertChanges()} />
           </div>
           <div id='mapWrapper'>
+            <img src='/img/plats.png' className='platsPic img-fluid position-absolute' style={{ zIndex: 1 }} />
             <GoogleMapReact
               onGoogleApiLoaded={({ map, maps }) => this.setMap(map, maps)}
               yesIWantToUseGoogleMapApiInternals
