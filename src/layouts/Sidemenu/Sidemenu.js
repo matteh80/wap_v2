@@ -45,7 +45,7 @@ class Sidemenu extends React.Component {
   showMenu () {
     let $navbarToggle = $('.navbar-toggle ')
     let $body = $('body')
-    $body.addClass('menu-expanded')
+    $body.addClass('menu-expanded overflow-x-hidden')
     $navbarToggle.removeClass('collapsed')
   }
 
@@ -54,6 +54,11 @@ class Sidemenu extends React.Component {
     let $body = $('body')
     $body.removeClass('menu-expanded')
     $navbarToggle.addClass('collapsed')
+    $('.page_wrapper').one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd',
+      function () {
+        $body.removeClass('overflow-x-hidden')
+      }
+    )
   }
 
   setCounts (props) {

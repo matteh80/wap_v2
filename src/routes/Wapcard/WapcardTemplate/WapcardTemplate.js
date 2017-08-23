@@ -46,6 +46,16 @@ class WapcardTemplate extends React.Component {
     }
   }
 
+  _getStartEndDate (startDate, endDate, current) {
+    let moment = require('moment')
+    moment.locale('sv-SE')
+    if (current) {
+      return moment(startDate).format('MMM YYYY') + ' - Nuvarande anställning'
+    } else {
+      return moment(startDate).format('MMM YYYY') + ' - ' + moment(endDate).format('MMM YYYY')
+    }
+  }
+
   render () {
     let { personalities, motivations, languages, profile, employments, educations, skills } = this.props
 
@@ -132,9 +142,9 @@ class WapcardTemplate extends React.Component {
                   return (
                     <Row key={employment.id} className='timeline-item'>
                       <Col>
-                        <h5 className='mt-2 mb-0'>{employment.title} | {employment.employer}</h5>
-                        <small>{employment.start_date}</small>
-                        <p>{employment.description}</p>
+                        <div className='mb-2 startEndDate'><span>{this._getStartEndDate(employment.start_date, employment.end_date, employment.current)}</span></div>
+                        <h5>{employment.title} | {employment.employer}</h5>
+                        <p style={{ fontSize: 12, lineHeight: 1.1 }}>{employment.description}</p>
                       </Col>
                     </Row>
                   )
@@ -154,7 +164,7 @@ class WapcardTemplate extends React.Component {
                     <Col xs={4} key={skill.id}>
                       <div className='skillCircle flex-column mt-2' data-value={skill.experience}>
                         <h4 className='percentValue' style={{ color: 'black' }}>{skill.experience / 5 * 100}%</h4>
-                        <h5 className='mt-2'>{skill.name}</h5>
+                        <h6 className='skillName mt-2'>{skill.name}</h6>
                       </div>
                       {/* <CircularProgressbar percentage={60} /> */}
                     </Col>
@@ -173,9 +183,9 @@ class WapcardTemplate extends React.Component {
                 if (education.public === true) {
                   return <Row key={education.id} className='timeline-item'>
                     <Col>
-                      <h5 className='mt-2'>{education.school}</h5>
-                      <h6>{education.orientation}</h6>
-                      <p>{education.description}</p>
+                      <div className='mb-2 startEndDate'><span>{this._getStartEndDate(education.start_date, education.end_date, false)}</span></div>
+                      <h5>{education.school} | {education.orientation}</h5>
+                      <p style={{ fontSize: 12, lineHeight: 1.1 }}>{education.description}</p>
                     </Col>
                   </Row>
                 }

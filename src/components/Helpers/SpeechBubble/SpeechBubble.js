@@ -89,7 +89,7 @@ class SpeechBubble extends React.Component {
               </Card>
             </div>
             <div className='gubbe'>
-              <img src='/img/helper_male.png' className='gubbe img-fluid' />
+              <img src='/img/helper_male_new.png' className='gubbe img-fluid' />
             </div>
           </div>
         }
