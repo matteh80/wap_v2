@@ -1,0 +1,15 @@
+@import '../../styles/variables/colors';
+
+.wapStats {
+  .fa {
+    font-size: 60px;
+
+    &.fa-check-circle {
+      color: $green;
+
+      &.undone {
+        color: rgba(0,0,0,0.2);
+      }
+    }
+  }
+}

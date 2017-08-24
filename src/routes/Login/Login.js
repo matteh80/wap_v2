@@ -16,6 +16,7 @@ import { getAllLicenses, getMyLicenses } from '../../store/actions/drivinglicens
 import { getAllReferences } from '../../store/actions/references'
 import { getAllQuestions } from '../../store/actions/dreamjob'
 import { getAllLocations } from '../../store/actions/locations'
+import { getTestStatus } from '../../store/actions/talentq'
 import ThreeDButton from '../../components/buttons/ThreeDButton'
 import './Login.scss'
 import $ from 'jquery'
@@ -336,7 +337,8 @@ class Login extends React.Component {
         dispatch(getMyLicenses()),
         dispatch(getAllReferences()),
         dispatch(getAllQuestions()),
-        dispatch(getAllLocations())
+        dispatch(getAllLocations()),
+        dispatch(getTestStatus()),
       ]).then(() => {
         if (result.tos_accepted) {
           console.log('redirect')

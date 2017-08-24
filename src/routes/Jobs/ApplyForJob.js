@@ -5,6 +5,7 @@ import Cookies from 'universal-cookie'
 import $ from 'jquery'
 import moment from 'moment'
 import { saveJob } from '../../store/actions/jobs'
+import './ApplyForJob.scss'
 
 import {
   Container,
@@ -51,7 +52,21 @@ class ApplyForJob extends React.Component {
 
         this.setState({
           job: xml,
-          fetched: true
+          fetched: true,
+          wapstats: {
+            employmentCount: this.props.employments.employments ? this.props.employments.employments.length : 0,
+            educationCount: this.props.educations.educations ? this.props.educations.educations.length : 0,
+            occupationCount: this.props.occupations.userOccupations ? this.props.occupations.userOccupations.length : 0,
+            skillCount: this.props.skills.userSkills ? this.props.skills.userSkills.length : 0,
+            languageCount: this.props.languages.userLanguages ? this.props.languages.userLanguages.length : 0,
+            motivationCount: this.props.motivations.userMotivations ? this.props.motivations.userMotivations.length : 0,
+            personalityCount: this.props.personalities.userPersonalities ? this.props.personalities.userPersonalities.length : 0,
+            videoCount: this.props.wapfilm.video ? 1 : 0,
+            drivinglicenseCount: this.props.drivinglicenses.userLicenses ? this.props.drivinglicenses.userLicenses.length : 0,
+            referenceCount: this.props.references.references ? this.props.references.references.length : 0,
+            personalitytestCompleted: this.props.talentq && this.props.talentq.completed ? 1 : 0,
+            locationCount: this.props.locations.userLocations ? this.props.locations.userLocations.length : 0,
+          }
         })
 
         let mJob = {
@@ -219,8 +234,60 @@ class ApplyForJob extends React.Component {
                   <img src='/img/tips.png' className='img-fluid' />
 
                   <CardTitle className='mt-5'>Din ansökan är skickad! Under tiden du väntar på svar från våra rekryterare kan du uppdatera din profil</CardTitle>
-                  <CardSubtitle className='mt-5'>Du bör uppdatera din profil inom 12 timmar för att vara säker på att rekryteraren får se det du vill visa upp.</CardSubtitle>
-                  <CardSubtitle>En uppdaterad profil där du även gjort personlighetstest och laddat upp en film ökar dina chanser för att få jobbet markant.</CardSubtitle>
+                  <p className='mt-5'>Du bör uppdatera din profil inom 12 timmar för att vara säker på att rekryteraren får se det du vill visa upp.</p>
+                  <p>En uppdaterad profil där du även gjort personlighetstest och laddat upp en film ökar dina chanser för att få jobbet markant.</p>
+                  {this.state.wapstats &&
+                  <Row className='justify-content-center align-content-center mt-5'>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                      {this.state.wapstats.employmentCount === 0 ? <i className='fa fa-check-circle undone' />
+                        : <i className='fa fa-check-circle' />}<h6>Anställningar</h6>
+                    </Col>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                      {this.state.wapstats.educationCount === 0 ? <i className='fa fa-check-circle undone' />
+                        : <i className='fa fa-check-circle' />}<h6>Utbildningar</h6>
+                    </Col>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                      {this.state.wapstats.occupationCount === 0 ? <i className='fa fa-check-circle undone' />
+                        : <i className='fa fa-check-circle' />}<h6>Befattningar</h6>
+                    </Col>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                      {this.state.wapstats.skillCount === 0 ? <i className='fa fa-check-circle undone' />
+                        : <i className='fa fa-check-circle' />}<h6>Kompetenser</h6>
+                    </Col>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                      {this.state.wapstats.languageCount === 0 ? <i className='fa fa-check-circle undone' />
+                        : <i className='fa fa-check-circle' />}<h6>Språk</h6>
+                    </Col>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                      {this.state.wapstats.drivinglicenseCount === 0 ? <i className='fa fa-check-circle undone' />
+                        : <i className='fa fa-check-circle' />}<h6>Körkort</h6>
+                    </Col>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                      {this.state.wapstats.motivationCount === 0 ? <i className='fa fa-check-circle undone' />
+                        : <i className='fa fa-check-circle' />}<h6>Drivkrafter</h6>
+                    </Col>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                      {this.state.wapstats.personalityCount === 0 ? <i className='fa fa-check-circle undone' />
+                        : <i className='fa fa-check-circle' />}<h6>Personlighet</h6>
+                    </Col>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                      {this.state.wapstats.videoCount === 0 ? <i className='fa fa-check-circle undone' />
+                        : <i className='fa fa-check-circle' />}<h6>Wap film</h6>
+                    </Col>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                      {this.state.wapstats.videoCount === 0 ? <i className='fa fa-check-circle undone' />
+                        : <i className='fa fa-check-circle' />}<h6>Referenser</h6>
+                    </Col>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                      {this.state.wapstats.personalitytestCompleted === 0 ? <i className='fa fa-check-circle undone' />
+                        : <i className='fa fa-check-circle' />}<h6>Personlighetstest</h6>
+                    </Col>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                      {this.state.wapstats.locationCount === 0 ? <i className='fa fa-check-circle undone' />
+                        : <i className='fa fa-check-circle' />}<h6>Arbetsorter</h6>
+                    </Col>
+                  </Row>
+                  }
                 </CardBlock>
               </Card>
             </Col>

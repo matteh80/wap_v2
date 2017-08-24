@@ -24,7 +24,7 @@ class SkillsCard extends React.Component {
     return (
       <Card>
         <DashboardButtons linkto='/work/skills' card='skillscard' cardname='Kompetenser' onHide={this.props.onHide} />
-        <CardImg src='/img/test.jpg' className='img-fluid' />
+        <CardImg src='/img/kompetenser.png' className='img-fluid' />
         <CardImgOverlay className='bg-white pt-5'>
           {_.find(this.props.skills, { 'experience': 0 })
             ? <p>Du har en eller flera kompetenser där du inte satt något betyg mellan 1 och 5.</p>
