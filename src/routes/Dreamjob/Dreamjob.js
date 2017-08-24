@@ -52,10 +52,10 @@ class Dreamjob extends React.Component {
   }
 
   renderItemOrEditField (item) {
-    if (this.state.editing === item.id) {
+    console.log(item)
+    if (this.state.editing === item.id || !item.answer) {
       return (
         <div>
-          <Loader active={this.state.loadsave} />
           <Input type='text' defaultValue={item.answer} className='inlineEdit' onChange={(e) => this.handleInputChange(e, item)} />
           <ThreeDButton small className='mb-0' onClick={() => this.updateAnswer(item)}><i className='fa fa-check' /> </ThreeDButton>
         </div>
@@ -81,7 +81,14 @@ class Dreamjob extends React.Component {
     this.setState({
       loadsave: true
     })
-    dispatch(saveQuestions(this.state.questions))
+
+    let questionsWithAnswers = []
+    this.state.questions.map((question) => {
+      if (question.answer) {
+        questionsWithAnswers.push(question)
+      }
+    })
+    dispatch(saveQuestions(questionsWithAnswers))
   }
 
   _handleEdit (item) {
@@ -111,6 +118,7 @@ class Dreamjob extends React.Component {
         >
           <Col xs={12} md={4} className='bubble'>
             <Card>
+              <Loader active={this.state.loadsave} />
               <CardImg src='/img/rocket.jpg' className='img-fluid' />
               <CardImgOverlay className='bg-white'>
                 <CardText>Här skriver du in vad som är ditt drömjobb, det spelar ingen roll om det kanske är lite orealistiskt. Vi vill veta vad dina drömmar är.</CardText>
@@ -124,6 +132,7 @@ class Dreamjob extends React.Component {
 
           <Col xs={12} md={4} className='bubble'>
             <Card>
+              <Loader active={this.state.loadsave} />
               <CardImg src='/img/clipboard.jpg' className='img-fluid' />
               <CardImgOverlay className='bg-white'>
                 <CardText>Vilken är din drömarbetsgivare om du fick välje helt fritt.</CardText>
@@ -136,6 +145,7 @@ class Dreamjob extends React.Component {
 
           <Col xs={12} md={4} className='bubble'>
             <Card>
+              <Loader active={this.state.loadsave} />
               <CardImg src='/img/doubting.jpg' className='img-fluid' />
               <CardImgOverlay className='bg-white'>
                 <CardText>Inom vilken bransch vill du helst av allt jobba inom?</CardText>
