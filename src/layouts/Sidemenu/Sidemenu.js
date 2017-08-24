@@ -19,7 +19,9 @@ class Sidemenu extends React.Component {
       videoCount: props.wapfilm.video ? 1 : 0,
       drivinglicenseCount: props.drivinglicenses.userLicenses ? props.drivinglicenses.userLicenses.length : 0,
       referenceCount: props.references.references ? props.references.references.length : 0,
-      jobCount: props.jobs.savedJobs ? props.jobs.savedJobs.length : 0
+      jobCount: props.jobs.savedJobs ? props.jobs.savedJobs.length : 0,
+      personalitytestCompleted: props.talentq && props.talentq.completed ? 1 : 0,
+      locationCount: props.locations.userLocations ? props.locations.userLocations.length : 0,
     }
 
     this.showMenu = this.showMenu.bind(this)
@@ -75,6 +77,8 @@ class Sidemenu extends React.Component {
       drivinglicenseCount: props.drivinglicenses.userLicenses ? props.drivinglicenses.userLicenses.length : 0,
       referenceCount: props.references.references ? props.references.references.length : 0,
       jobCount: props.jobs.savedJobs ? props.jobs.savedJobs.length : 0,
+      personalitytestCompleted: props.talentq && props.talentq.completed ? 1 : 0,
+      locationCount: props.locations.userLocations ? props.locations.userLocations.length : 0,
     })
   }
 
@@ -100,12 +104,13 @@ class Sidemenu extends React.Component {
               <Menuitem to='/passion/motivations' icon='fa-road' title='Drivkrafter' count={this.state.motivationCount} details={this.state.motivationCount + ' drivkrafter'} />
               <Menuitem to='/passion/personalities' icon='fa-user-circle' title='Personlighet' count={this.state.personalityCount} details={this.state.personalityCount + ' personlighetsdrag'} />
               <Menuitem to='/passion/dreamjob' icon='fa-rocket' title='Drömjobb' details={translate('sidemenu.whats_your_dreamjob')} />
-              <Menuitem to='/passion/location' icon='fa-map-marker' title='Plats' details={translate('sidemenu.where_location')} />
+              <Menuitem to='/passion/location' icon='fa-map-marker' title='Plats' count={this.state.locationCount}
+                details={this.state.locationCount === 0 ? translate('sidemenu.where_location') : this.state.locationCount === 1 ? '1 vald ort' : this.state.locationCount + ' valda orter'} />
             </Menuitem>
             <hr />
             <Menuitem to='/wapfilm' icon='fa-video-camera' title='Wap film' count={this.state.videoCount}
               details={this.state.videoCount === 0 && 'Ladda upp en film'} />
-            <Menuitem to='/personalitytest' icon='fa fa-bar-chart' title='Personlighetstest' details='TalentQ' />
+            <Menuitem to='/personalitytest' icon='fa fa-bar-chart' title='Personlighetstest' details='TalentQ' count={this.state.personalitytestCompleted} />
             <Menuitem to='/wapstory' icon='fa fa-clock-o' title='Wap story' details='Håll koll på dina jobb' />
             <hr />
             <Menuitem to='/wapcard' icon='fa-vcard' title='wap card' details={translate('sidemenu.show_wapcard')} />
