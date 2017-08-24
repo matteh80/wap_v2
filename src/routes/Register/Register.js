@@ -205,7 +205,7 @@ class Register extends React.Component {
     event.preventDefault()
     let { dispatch } = this.props
     console.log(errors)
-    console.log(values)
+    // console.log(values)
     if (errors.length === 0) {
       this.setState({
         loadsave: true
