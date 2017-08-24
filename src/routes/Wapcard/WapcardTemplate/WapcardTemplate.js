@@ -14,7 +14,12 @@ class WapcardTemplate extends React.Component {
   constructor (props) {
     super(props)
 
+    this.state = {
+      picSet: false
+    }
+
     this.getAvailabilityString = this.getAvailabilityString.bind(this)
+    this.isPictureSet = this.isPictureSet.bind(this)
   }
 
   componentDidMount () {
@@ -56,6 +61,10 @@ class WapcardTemplate extends React.Component {
     }
   }
 
+  isPictureSet (set) {
+    this.props.isPictureSet(set)
+  }
+
   render () {
     let { personalities, motivations, languages, profile, employments, educations, skills } = this.props
 
@@ -69,7 +78,7 @@ class WapcardTemplate extends React.Component {
       <Row className='wapcardTemplateWrapper'>
         <Col xs={4} className='leftCol'>
           <Row>
-            <ProfilePicture canvas />
+            <ProfilePicture canvas isSet={this.isPictureSet} />
           </Row>
           <Row className='wpSection mt-4'>
             <Col xs={12}>

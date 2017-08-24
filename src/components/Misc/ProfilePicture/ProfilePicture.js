@@ -6,6 +6,7 @@ import './ProfilePIcture.scss'
 import Loader from '../../../components/Misc/Loader/Loader'
 import { uploadProfilePic } from '../../../store/actions/profile'
 import classNames from 'classnames'
+import $ from 'jquery'
 import {
   Modal,
   ModalBody,
@@ -20,10 +21,11 @@ class ProfilePicture extends React.Component {
     super(props)
 
     this.state = {
-      imageUrl: 'https://api.wapcard.se/api/v1/profiles/' + this.props.profile.id + '/picture/500?' + this.props.profile.picture,
+      imageUrl: '',
       modal: false,
       tmpImage: '',
-      loadsave: false
+      loadsave: false,
+      isSet: false
     }
 
     this.onError = this.onError.bind(this)
@@ -34,8 +36,35 @@ class ProfilePicture extends React.Component {
     this.convertImageToCanvas = this.convertImageToCanvas.bind(this)
   }
 
-  componentDidMount () {
-    this.props.canvas && this.convertImageToCanvas()
+  componentWillMount () {
+    let _self = this
+    let request = new XMLHttpRequest()
+    request.open('GET', 'https://api.wapcard.se/api/v1/profiles/' + _self.props.profile.id + '/picture/500?' + _self.props.profile.picture, true)
+    request.onreadystatechange = function () {
+      if (request.readyState === 4) {
+        if (request.status === 404) {
+          _self.setState({
+            imageUrl: defaultPic
+          })
+        } else {
+          _self.setState({
+            imageUrl: 'https://api.wapcard.se/api/v1/profiles/' + _self.props.profile.id + '/picture/500?' + _self.props.profile.picture
+          })
+        }
+      }
+    }
+    request.send()
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    if (prevState.imageUrl !== this.state.imageUrl) {
+      console.log('will set canvas')
+      this.props.canvas && this.convertImageToCanvas()
+    }
+
+    if (!prevState.isSet && this.state.isSet) {
+      this.props.isSet(true)
+    }
   }
 
   componentWillReceiveProps (newProps) {
@@ -107,8 +136,8 @@ class ProfilePicture extends React.Component {
   }
 
   convertImageToCanvas () {
-    let mCanvas = document.getElementById('mCanvas')
-    console.log(mCanvas)
+    let _self = this
+    let mCanvas = this.canvas
     mCanvas.width = 500
     mCanvas.height = 500
     let mContext = mCanvas.getContext('2d')
@@ -118,6 +147,9 @@ class ProfilePicture extends React.Component {
 
     mImage.onload = function () {
       mContext.drawImage(mImage, 0, 0, 500, 500)
+      _self.setState({
+        isSet: true
+      })
     }
   }
 
@@ -139,9 +171,14 @@ class ProfilePicture extends React.Component {
           </div>}
 
         {this.props.canvas
-        ? <canvas style={{ width: '100%' }} onError={this.onError} id='mCanvas' />
+        ? <canvas style={{ width: '100%' }} onError={this.onError} id='mCanvas' ref={(canvas) => { this.canvas = canvas }} />
         : <img src={this.state.imageUrl} className={imgClass} style={{ width: '100%' }} onError={this.onError} />
         }
+
+        {/* <div className='mImgWrapper'> */}
+        {/* /!* <img src={this.state.imageUrl} className={imgClass} style={{ width: '100%' }} onError={this.onError} /> *!/ */}
+        {/* <canvas style={{ width: '100%' }} onError={this.onError} ref={(canvas) => { this.canvas = canvas }} /> */}
+        {/* </div> */}
 
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <Loader active={this.state.loadsave} />
@@ -169,7 +206,7 @@ export default connect((state) => state)(ProfilePicture)
 const dropzoneStyle = {
   width: '100%',
   height: '100%',
-  background: 'rgba(255,255,255,0.65)',
+  background: 'rgba(255,255,255,0)',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center'

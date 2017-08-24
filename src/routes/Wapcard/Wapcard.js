@@ -35,32 +35,23 @@ class Wapcard extends React.Component {
 
     _self = this
 
+    let { dispatch } = this.props
+
+    this.props.personalities.userPersonalities.length === 0 && dispatch(getMyPersonalities())
+    this.props.motivations.userMotivations.length === 0 && dispatch(getMyMotivations())
+    this.props.languages.userLanguages.length === 0 && dispatch(getMyLanguages())
+    this.props.employments.employments.length === 0 && dispatch(getAllEmployments())
+    this.props.educations.educations.length === 0 && dispatch(getAllEducations())
+
     this.createCanvas = this.createCanvas.bind(this)
     this.dataURItoBlob = this.dataURItoBlob.bind(this)
     this.publishFacebook = this.publishFacebook.bind(this)
     this.createPdf = this.createPdf.bind(this)
+    this.isPictureSet = this.isPictureSet.bind(this)
   }
 
   componentDidMount () {
     let { dispatch } = this.props
-    Promise.all([
-      dispatch(getProfile()),
-      dispatch(getMyPersonalities()),
-      dispatch(getMyMotivations()),
-      dispatch(getMyLanguages()),
-      dispatch(getAllEmployments()),
-      dispatch(getAllEducations())
-    ]).then(() => {
-      this.setState({
-        loadsave: false,
-        creatingCanvas: true
-      })
-    }).catch((error) => {
-      console.log(error)
-      this.setState({
-        loadsave: false
-      })
-    })
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -177,6 +168,16 @@ class Wapcard extends React.Component {
     doc.save('wapcard' + profile.first_name + '_' + profile.last_name + '.pdf')
   }
 
+  isPictureSet (set) {
+    if (set) {
+      this.setState({
+        loadsave: false,
+        creatingCanvas: true
+      })
+      // this.createCanvas()
+    }
+  }
+
   render () {
     return (
       <Container fluid>
@@ -198,6 +199,7 @@ class Wapcard extends React.Component {
 
         </Row>
         <WapcardTemplate
+          isPictureSet={this.isPictureSet}
           profile={this.props.profile}
           personalities={this.props.personalities.userPersonalities}
           motivations={this.props.motivations.userMotivations}
