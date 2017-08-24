@@ -51,7 +51,8 @@ class Header extends React.Component {
   }
 
   componentWillReceiveProps (newProps) {
-    if (newProps.routing.locationBeforeTransitions.pathname !== this.props.routing.locationBeforeTransitions.pathname && $('.navbar-toggle').is(':visible')) {
+    let $navbarToggle = $('.navbar-toggle')
+    if (newProps.routing.locationBeforeTransitions.pathname !== this.props.routing.locationBeforeTransitions.pathname && $navbarToggle.is(':visible') && !$navbarToggle.hasClass('collapsed')) {
       this._toggleMenu()
     }
   }

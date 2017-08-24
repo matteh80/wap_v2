@@ -53,3 +53,28 @@ $iconSize: 4.5rem;
     color: #fff !important;
   }
 }
+
+.lineBeforeAfter {
+  position: relative;
+  text-align: center;
+
+  .orText {
+    background: #90bccf;
+    z-index: 2;
+    position: relative;
+    display: inline;
+    padding:10px;
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    height: 1px;
+    position: absolute;
+    left:0;
+    top:40%;
+    width:100%;
+    background-color: black;
+    z-index: 1;
+  }
+}

@@ -308,7 +308,6 @@ class Login extends React.Component {
   finalize () {
     let { dispatch } = this.props
     this.props.auth.token && dispatch(getProfile(this.props.auth.token)).then((result) => {
-
       let cookieRedirect = cookies.get('redirect', { path: '/', maxAge: 60 })
       let redirect = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.query.redirect : null
 
@@ -369,18 +368,19 @@ class Login extends React.Component {
   }
 
   render () {
-
     return (
       <Col>
         <Row className='justify-content-center align-items-center flex-column' style={{ minHeight: '100vh' }}>
           <Container>
             <Row className='justify-content-center align-items-center'>
               <Col xs={10} sm={8} md={6}>
-                <img src='/img/wap_logga.png' className='img-fluid mx-auto d-block' />
+                <a href='https://wapcard.se'>
+                  <img src='/img/wap_logga.png' className='img-fluid mx-auto d-block' />
+                </a>
               </Col>
               {!this.state.linkedIn &&
-              <Col xs={10}>
-                <Row className='social justify-content-center align-items-center my-5'>
+              <Col xs={12}>
+                <Row className='social justify-content-center align-items-center mt-3'>
                   <i className='fa fa-facebook' id='facebook-btn' onClick={() => this.loginFB()} />
                   <i className='fa fa-linkedin mx-4' id='linkedin-btn' onClick={() => this.loginLinkedIn()} />
                   <i className='fa fa-google' id='google-btn' onClick={() => this.auth()} />
@@ -388,7 +388,10 @@ class Login extends React.Component {
               </Col>
               }
               {!this.state.linkedIn &&
-              <Col xs={8}>
+              <Col xs={12} lg={8} xl={6}>
+                <div className='lineBeforeAfter justify-content-center align-content-center my-4'>
+                  <h4 className='orText'>ELLER</h4>
+                </div>
                 {this.state.loginError &&
                 <Alert color='danger'>
                   <strong>Ajdå!</strong> Det gick inte att logga in med den här användarnamnet och lösenordet.
@@ -397,18 +400,19 @@ class Login extends React.Component {
                 }
                 <Form className='w-100 loginForm' onSubmit={(e) => this._handleLogin(e)}>
                   <FormGroup>
-                    {/*<Label for='email'>Email</Label>*/}
+                    {/* <Label for='email'>Email</Label> */}
                     <Input type='email' name='email' id='email' placeholder='E-post'
                       ref={(input) => { this.email = input }} required />
                   </FormGroup>
                   <FormGroup>
-                    {/*<Label for='password'>Password</Label>*/}
+                    {/* <Label for='password'>Password</Label> */}
                     <Input type='password' name='password' id='password' placeholder='Lösenord'
                       ref={(input) => { this.password = input }} required minLength='8' />
                   </FormGroup>
                   <ThreeDButton type='submit' className='w-100' loading={this.state.loadsave}>Logga in</ThreeDButton>
                 </Form>
-                <h6 className='text-center'>Har du inget konto? <a href='/register' className='fg-pink' onClick={(e) => this.gotoRegister(e)}>Registrera</a> dig!</h6>
+                <h5 className='text-center mt-2'>Har du inget konto? <a href='/register' className='fg-pink' onClick={(e) => this.gotoRegister(e)}>Registrera</a> dig!</h5>
+                <a href='https://app.wapcard.se/password/reset/' className='text-center fg-pink'><h6>Glömt ditt lösenord?</h6></a>
               </Col>
               }
               {this.state.linkedIn &&

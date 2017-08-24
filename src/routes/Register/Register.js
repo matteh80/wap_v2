@@ -353,7 +353,7 @@ class Register extends React.Component {
               </Col>
               {!this.state.linkedIn &&
               <Col xs={10}>
-                <Row className='social justify-content-center align-items-center my-5'>
+                <Row className='social justify-content-center align-items-center mt-3'>
                   <i className='fa fa-facebook' id='facebook-btn' onClick={() => this.loginFB()} />
                   <i className='fa fa-linkedin mx-4' id='linkedin-btn' onClick={() => this.loginLinkedIn()} />
                   <i className='fa fa-google' id='google-btn' onClick={() => this.auth()} />
@@ -361,7 +361,10 @@ class Register extends React.Component {
               </Col>
               }
               {!this.state.linkedIn &&
-              <Col xs={8}>
+              <Col xs={12} lg={8} xl={6}>
+                <div className='lineBeforeAfter justify-content-center align-content-center my-4'>
+                  <h4 className='orText'>ELLER</h4>
+                </div>
                 {this.state.loginError &&
                 <Alert color='danger'>
                   Det finns redan en användare med den här epost-adressen.
@@ -397,7 +400,7 @@ class Register extends React.Component {
                   </AvGroup>
                   <ThreeDButton type='submit' className='w-100' loading={this.state.loadsave}>{translate('register.register')}</ThreeDButton>
                 </AvForm>
-                <h6 className='text-center'>Har du redan ett konto? <a href='/login' className='fg-pink' onClick={(e) => this.gotoLogin(e)}>Logga in</a></h6>
+                <h6 className='text-center mt-2'>Har du redan ett konto? <a href='/login' className='fg-pink' onClick={(e) => this.gotoLogin(e)}>Logga in</a></h6>
               </Col>
               }
               {this.state.linkedIn &&
