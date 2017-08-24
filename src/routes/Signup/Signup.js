@@ -270,12 +270,14 @@ class Signup extends React.Component {
       mSkillList.push(mSkill)
     })
 
+    let mAnswer = [this.state.dreamjob]
+
     Promise.all([
       dispatch(updateProfile(this.state.profile)),
       dispatch(saveOccupationsToServer(this.state.selectValue)),
       dispatch(saveSkillsToServer(mSkillList)),
       !this.state.noEmployment && dispatch(createEmployment(this.state.employment)),
-      dispatch(saveQuestions(this.state.dreamjob))
+      dispatch(saveQuestions(mAnswer))
     ]).catch((error) => {
       console.log(error)
     }).then((result) => {
