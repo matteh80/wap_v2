@@ -8,6 +8,7 @@ import Select from 'react-select'
 import $ from 'jquery'
 import UserIsAuthenticated from '../../routes/auth'
 import classNames from 'classnames'
+import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble'
 
 import { getProfile, updateProfile } from '../../store/actions/profile'
 import { getAllEmployments, createEmployment } from '../../store/actions/employments'
@@ -319,14 +320,28 @@ class Signup extends React.Component {
 
     return (
       <Container className='py-5'>
-        <Row>
+        <Row className='flex-column'>
+          <SpeechBubble>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi malesuada convallis eros, sit amet aliquam magna fringilla a.
+            Curabitur ullamcorper est eget tellus convallis, eget semper elit condimentum.
+            Maecenas ipsum ligula, facilisis id mi eu, posuere pellentesque tellus.
+            Aenean sed enim nulla. Mauris tincidunt laoreet sem, non cursus lorem hendrerit sit amet.
+            Fusce porttitor scelerisque quam, at pulvinar orci dictum et. Suspendisse posuere blandit ligula in convallis.
+            Ut vitae tincidunt tortor. Donec quis scelerisque est, vel ullamcorper felis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla facilisi.
+          </SpeechBubble>
+          <Col xs='12'>
+            <Row className='justify-content-center align-items-center mb-3'>
+              <Col xs='12' sm='6' md='4' lg='3'>
+                <Card>
+                  <CardBlock>
+                    <ProfilePicture editMode />
+                  </CardBlock>
+                </Card>
+              </Col>
+            </Row>
+          </Col>
           <Col>
             <Card>
-              <Row className='justify-content-start'>
-                <Col xs='12' md='4' lg='3'>
-                  <ProfilePicture editMode />
-                </Col>
-              </Row>
               <CardBlock>
                 <CardTitle>{translate('signup.personal_info')}</CardTitle>
                 <AvForm model={this.state.profile.first_name ? this.state.profile : null}>
