@@ -255,6 +255,9 @@ class Signup extends React.Component {
     } else {
       console.log('invalid')
       this.setState({ loadsave: false })
+      $('html, body').animate({
+        scrollTop: $('.av-invalid').offset().top
+      }, 1000)
     }
   }
 
@@ -340,7 +343,7 @@ class Signup extends React.Component {
               </Col>
             </Row>
           </Col>
-          <Col>
+          <Col xs='12'>
             <Card>
               <CardBlock>
                 <CardTitle>{translate('signup.personal_info')}</CardTitle>
@@ -414,7 +417,7 @@ class Signup extends React.Component {
                     </Col>
                     <Col xs='12' md='6'>
                       <Label check inline>
-                        <AvInput onChange={(e) => this.handleInputChange(e)} type='checkbox' name='actively_searching' /> {translate('signup.actively_searching')}
+                        <AvInput onChange={(e) => this.handleInputChange(e)} type='checkbox' name='actively_searching' defaultValue={this.state.profile.actively_searching} /> {translate('signup.actively_searching')}
                       </Label>
                     </Col>
                     <Col xs='12' md='6'>

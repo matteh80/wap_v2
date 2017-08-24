@@ -24,6 +24,7 @@
 
 .form-control-feedback {
   font-size: 12px;
+  color: $red;
 }
 
 .react-datepicker__input-container input {
@@ -172,5 +173,15 @@ form.av-submitted {
 form.av-submitted.av-invalid {
   .Select-control {
     border:1px solid #e24c4c !important;
+  }
+
+  input.av-invalid {
+    border-color: $red;
+  }
+
+  .has-danger {
+    input[type='radio']:after, input[type='checkbox']:after {
+      border: 1px solid $red;
+    }
   }
 }
