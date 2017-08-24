@@ -35,7 +35,7 @@ class ApplyForJob extends React.Component {
       job: null,
       fetched: false,
       addToWapStory: true,
-      applied: true,
+      applied: false,
       storyAdded: false
     }
 
@@ -218,9 +218,13 @@ class ApplyForJob extends React.Component {
             }
           </Col>
           <Col xs={12} lg={5}>
-            <SpeechBubble pos='left-side top'>
-              <p>Lorem ipsum</p>
-              <p>Lorem ipsum</p>
+            <SpeechBubble pos='side'>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi malesuada convallis eros, sit amet aliquam magna fringilla a.
+              Curabitur ullamcorper est eget tellus convallis, eget semper elit condimentum.
+              Maecenas ipsum ligula, facilisis id mi eu, posuere pellentesque tellus.
+              Aenean sed enim nulla. Mauris tincidunt laoreet sem, non cursus lorem hendrerit sit amet.
+              Fusce porttitor scelerisque quam, at pulvinar orci dictum et. Suspendisse posuere blandit ligula in convallis.
+              Ut vitae tincidunt tortor. Donec quis scelerisque est, vel ullamcorper felis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla facilisi.
             </SpeechBubble>
           </Col>
         </Row>
@@ -230,9 +234,11 @@ class ApplyForJob extends React.Component {
             <Col xs='12' className='text-center'>
               <Card>
                 <CardBlock>
-
-                  <img src='/img/tips.png' className='img-fluid' />
-
+                  <Row className='justify-content-center align-items-center'>
+                    <Col xs='12' sm='10' md='9' lg='8' xl='8'>
+                      <img src='/img/ansokan_skickad.png' className='img-fluid' />
+                    </Col>
+                  </Row>
                   <CardTitle className='mt-5'>Din ansökan är skickad! Under tiden du väntar på svar från våra rekryterare kan du uppdatera din profil</CardTitle>
                   <p className='mt-5'>Du bör uppdatera din profil inom 12 timmar för att vara säker på att rekryteraren får se det du vill visa upp.</p>
                   <p>En uppdaterad profil där du även gjort personlighetstest och laddat upp en film ökar dina chanser för att få jobbet markant.</p>
