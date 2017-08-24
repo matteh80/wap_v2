@@ -194,6 +194,7 @@ class HiddenCardsController extends React.Component {
 
     return (
       <div id='hiddenCards' className={wrapperClass}>
+        <div className='countBadge'>{this.props.hiddenCards.length}</div>
         <i className='fa fa-columns' onClick={() => this.toggle()} />
         <div className='innerWrapper'>
           <div className='cardList'>

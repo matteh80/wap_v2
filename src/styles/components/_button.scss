@@ -78,6 +78,7 @@ $white_btn: #ededed;
   margin-left:5px;
   margin-right: 5px;
   margin-top:20px;
+  font-family: $headings-font-family;
 
   &.cancel-btn {
     background: linear-gradient(to bottom, lighten($red, 5%) 0%,lighten($red, 0%) 100%);

@@ -57,6 +57,7 @@ class Sidemenu extends React.Component {
     $('.page_wrapper').one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd',
       function () {
         $body.removeClass('overflow-x-hidden')
+        $('.page_wrapper').off('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd')
       }
     )
   }
