@@ -157,13 +157,13 @@ class Motivations extends React.Component {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
-            {this.state.changes && <ThreeDButton small className='cancel-btn' onClick={() => this._revertChanges()}>
-              <i className='fa fa-mail-reply' />
-            </ThreeDButton>}
-          </Col>
-        </Row>
+        {/*<Row>*/}
+          {/*<Col>*/}
+            {/*{this.state.changes && <ThreeDButton small className='cancel-btn' onClick={() => this._revertChanges()}>*/}
+              {/*<i className='fa fa-mail-reply' />*/}
+            {/*</ThreeDButton>}*/}
+          {/*</Col>*/}
+        {/*</Row>*/}
       </Container>
     )
   }
