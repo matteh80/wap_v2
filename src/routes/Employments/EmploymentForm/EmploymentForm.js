@@ -156,7 +156,6 @@ class EmploymentForm extends React.Component {
     $('.fakeTimelineItem').one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd',
       function () {
         _self.props.layout()
-        // $('.fakeTimelineItem').off('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd')
       }
     )
     // setTimeout(function () {
@@ -190,7 +189,7 @@ class EmploymentForm extends React.Component {
               <i className={chevronClass} id='add-btn' onClick={() => this.toggleCollapse()} />
             </div>
             <CardBlock>
-              {!this.state.collapse ? <div className='fakeTitle' /> : <CardTitle>Ny anställning</CardTitle>}
+              {!this.state.collapse ? <div className='fakeTitle' /> : <CardTitle>Lägg till anställning</CardTitle>}
               {!this.state.collapse && <div className='fakeSubtitle' />}
               {!this.state.collapse && <div className='fakeSubtitle w-100 mt-0' />}
               {!this.state.collapse && <div className='fakeSubtitle w-25' />}
@@ -230,7 +229,7 @@ class EmploymentForm extends React.Component {
                              this.description = input
                            }} onChange={this._handleInputChange}/>
                   </FormGroup>
-                  <ThreeDButton small>Lägg till anställning</ThreeDButton>
+                  <ThreeDButton small>Lägg till</ThreeDButton>
                 </AvForm>
                 }
               </Collapse>

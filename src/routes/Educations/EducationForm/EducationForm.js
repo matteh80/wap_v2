@@ -129,9 +129,11 @@ class EducationForm extends React.Component {
     this.setState({
       collapse: !this.state.collapse,
     })
-    setTimeout(function () {
-      _self.props.layout()
-    }, 300)
+    $('.fakeTimelineItem').one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd',
+      function () {
+        _self.props.layout()
+      }
+    )
   }
 
   // TODO: Reset form after submit
@@ -154,7 +156,7 @@ class EducationForm extends React.Component {
               <i className={chevronClass} id='add-btn' onClick={() => this.toggleCollapse()} />
             </div>
             <CardBlock>
-              {!this.state.collapse ? <div className='fakeTitle' /> : <CardTitle>Ny anställning</CardTitle>}
+              {!this.state.collapse ? <div className='fakeTitle' /> : <CardTitle>{translate('educations.add_education')}</CardTitle>}
               {!this.state.collapse && <div className='fakeSubtitle' />}
               {!this.state.collapse && <div className='fakeSubtitle w-100 mt-0' />}
               <Collapse isOpen={this.state.collapse}>
@@ -162,7 +164,7 @@ class EducationForm extends React.Component {
                 <AvForm id='educationForm' onSubmit={(e) => this._handleSubmit(e)}>
                   <AvGroup>
                     <Label>Typ av skola</Label>
-                    <AvField type='select' ref={(select) => this.type = select} name='type'
+                    <AvField type='select' name='type'
                       onChange={this._handleInputChange}>
                       <option value='university'>Högskola / Universitet</option>
                       <option value='vocational'>YH / Övrig utbildning</option>
@@ -186,7 +188,7 @@ class EducationForm extends React.Component {
                     <AvField type='textarea' name='description' id='description' rows='4' maxLength='500'
                       ref={(input) => this.description = input} onChange={this._handleInputChange} required />
                   </AvGroup>
-                  <ThreeDButton small>Lägg till utbildning</ThreeDButton>
+                  <ThreeDButton small>Lägg till</ThreeDButton>
                 </AvForm>
                 }
               </Collapse>

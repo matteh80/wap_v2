@@ -5,6 +5,7 @@ import './Dreamjob.scss'
 import { getAllQuestions, saveQuestions } from '../../store/actions/dreamjob'
 import update from 'react-addons-update'
 import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble'
+import { getTranslate, getActiveLanguage } from 'react-localize-redux'
 
 import {
   Container,
@@ -96,16 +97,14 @@ class Dreamjob extends React.Component {
   }
 
   render () {
-    let { dreamjob } = this.props
+    let { dreamjob, translate } = this.props
     return (
       <Container fluid>
         <Row>
           <Col>
             <SpeechBubble>
-              <h3>Vi vill veta mer om dig och dina drömmar!</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum risus eget turpis fermentum hendrerit.
-                Nulla rutrum ultricies rutrum. Praesent blandit sapien at tellus scelerisque lobortis.
-                Vivamus fermentum egestas nunc sed tincidunt. Maecenas scelerisque ac nunc in suscipit. </p>
+              <h3>{translate('dreamjob.speechBubble.title')}</h3>
+              <p>{translate('dreamjob.speechBubble.text')}</p>
             </SpeechBubble>
           </Col>
         </Row>
@@ -124,7 +123,7 @@ class Dreamjob extends React.Component {
                 <CardText>Här skriver du in vad som är ditt drömjobb, det spelar ingen roll om det kanske är lite orealistiskt. Vi vill veta vad dina drömmar är.</CardText>
               </CardImgOverlay>
               <CardBlock>
-                <CardTitle>Mitt drömjobb är {' '}{this.renderItemOrEditField(dreamjob[0])}</CardTitle>
+                <CardTitle>{translate('dreamjob.dreamjobCard.my_dreamjob_is')} {' '}{this.renderItemOrEditField(dreamjob[0])}</CardTitle>
 
               </CardBlock>
             </Card>

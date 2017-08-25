@@ -126,7 +126,7 @@ class CVBuilder extends React.Component {
           return html2canvas($(this), {
             imageTimeout: 6000,
             onrendered: function (canvas) {
-              images[index] = canvas.toDataURL('image/jpg')
+              images[index] = canvas.toDataURL('image/png', 1.0)
               resolve('Valid')
               console.log('Valid')
             }
@@ -144,7 +144,7 @@ class CVBuilder extends React.Component {
             doc.addPage()
             doc.setPage((index + 1))
           }
-          doc.addImage(image, 'JPEG', 0, 0)
+          doc.addImage(image, 'PNG', 0, 0)
         })
         doc.save('cv_' + profile.first_name + '_' + profile.last_name + '.pdf')
         _self.setState({ createPdf: false, showTemplate: false })
@@ -267,7 +267,7 @@ class CVBuilder extends React.Component {
         //   carouselItem = $('<div class="carousel-item active"></div>')
         // }
         let image = new Image()
-        image.src = canvas.toDataURL('image/png')
+        image.src = canvas.toDataURL('image/jpg')
         imageArray.push(image)
         // $(image).addClass('img-fluid cvPreviewCanvas')
         // carouselItem.append(image)

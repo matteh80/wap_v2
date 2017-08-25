@@ -120,6 +120,11 @@ class WapFilm extends React.Component {
             ute efter att få veta lite mer om dig, vad du brinner för och få se din unika karisma. Stakar du dig
             eller säger fel behöver du nödvändigtvis inte filma om, det handlar bara om att vi ska få svar så vi får
             en tydligare bild av dig. Slutligen, du är alltid bäst på att vara du så du behöver inte göra dig till.
+
+            <video id='loopvideo' width='100%' height='auto' controls>
+              <source src='/img/wap-film_informationsfilm.mp4' type='video/mp4' />
+              Your browser do not support this file
+            </video>
           </SpeechBubble>
 
           <Col className='dropzone'>
@@ -162,10 +167,7 @@ class WapFilm extends React.Component {
               }
             </Card>
             <Card>
-              <video id='loopvideo' width='100%' height='auto' controls>
-                <source src='/img/wap-film_informationsfilm.mp4' type='video/mp4' />
-                Your browser do not support this file
-              </video>
+
             </Card>
           </Col>
         </Row>
