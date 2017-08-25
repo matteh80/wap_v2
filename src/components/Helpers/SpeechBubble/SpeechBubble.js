@@ -6,9 +6,9 @@ import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import Cookies from 'universal-cookie'
 import _ from 'lodash'
-import $ from 'jquery'
 
 import {
+  Col,
   Card,
   CardBlock
 } from 'reactstrap'
@@ -65,6 +65,7 @@ class SpeechBubble extends React.Component {
   }
 
   render () {
+    let { xs, sm, md, lg, xl } = this.props
     let arrowClass = classNames('speechBubble', this.props.pos, this.props.className)
     let bubbleClass = classNames('bubbleWrapper', this.props.pos)
     let hideClass = classNames('hideshow d-flex justify-content-center align-items-center', this.props.hideable ? 'd-block' : 'd-none')
@@ -73,8 +74,22 @@ class SpeechBubble extends React.Component {
       this.state.bubbleHidden && 'visible'
     )
 
+    let mProps = {}
+    if (!this.state.bubbleHidden) {
+      mProps = {
+        xs: xs,
+        sm: sm,
+        md: md,
+        lg: lg,
+        xl: xl
+      }
+    }
+    let mClass = classNames(
+      this.state.bubbleHidden && 'flexGrowZero'
+    )
+
     return (
-      <div>
+      <Col {...mProps} className={mClass}>
         {this.state.bubbleHidden
           ? <i className={helpClass} id='helpIcon' onClick={() => this.showHelpBubble()} />
           : <div className={bubbleClass}>
@@ -93,7 +108,7 @@ class SpeechBubble extends React.Component {
             </div>
           </div>
         }
-      </div>
+      </Col>
     )
   }
 }

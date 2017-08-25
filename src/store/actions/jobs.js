@@ -1,6 +1,7 @@
 import { apiClient } from '../axios.config'
 import axios from 'axios'
 import $ from 'jquery'
+import moment from 'moment'
 
 const {
   GET_ALL_JOBS,
@@ -11,10 +12,10 @@ const {
 
 export function getAllJobs () {
   return (dispatch, getState) => {
-    dispatch({
-      type: GET_ALL_JOBS,
-      fetching: true
-    })
+    // dispatch({
+    //   type: GET_ALL_JOBS,
+    //   fetching: true
+    // })
     return axios.get('https://cv-maxkompetens.app.intelliplan.eu/JobAdGlobePages/Feed.aspx?pid=AA31EA47-FDA6-42F3-BD9F-E42186E5A960&version=2', {
       responseType: 'text'
     })
@@ -27,7 +28,7 @@ export function getAllJobs () {
           let mJob = {
             id: $(elem).find('intelliplan\\:id').text(),
             title: $(elem).find('title').text(),
-            pubdate: $(elem).find('pubdate').text(),
+            pubdate: moment($(elem).find('pubdate').text(), 'DD MMM YYYY HH:mm:ss ZZ').format('YYYY-MM-DD'),
             description: $(elem).find('description').text(),
             type: $(elem).find('intelliplan\\:type').text(),
             servicecategory: $(elem).find('intelliplan\\:servicecategory').text(),
@@ -40,8 +41,6 @@ export function getAllJobs () {
           }
           jobs.push(mJob)
         })
-
-        console.log(jobs)
 
         return dispatch({
           type: GET_ALL_JOBS,

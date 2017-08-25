@@ -163,7 +163,7 @@ class EducationForm extends React.Component {
                   <AvGroup>
                     <Label>Typ av skola</Label>
                     <AvField type='select' ref={(select) => this.type = select} name='type'
-                             onChange={this._handleInputChange}>
+                      onChange={this._handleInputChange}>
                       <option value='university'>Högskola / Universitet</option>
                       <option value='vocational'>YH / Övrig utbildning</option>
                       <option value='single_courses'>Enstaka kurser</option>
@@ -173,18 +173,18 @@ class EducationForm extends React.Component {
                   <AvGroup>
                     <Label for='orientation'>Inriktning *</Label>
                     <AvField type='text' name='orientation' id='orientation'
-                             ref={(input) => this.orientation = input} onChange={this._handleInputChange} required/>
+                      ref={(input) => this.orientation = input} onChange={this._handleInputChange} required />
                   </AvGroup>
                   <AvGroup>
                     <Label for='school'>Skola *</Label>
                     <AvField type='text' name='school' id='school'
-                             ref={(input) => this.school = input} onChange={this._handleInputChange} required/>
+                      ref={(input) => this.school = input} onChange={this._handleInputChange} required />
                   </AvGroup>
-                  <StartEndDate onChange={this._handleDateChange}/>
+                  <StartEndDate onChange={this._handleDateChange} />
                   <AvGroup>
                     <Label for='description'>Beskrivning</Label>
-                    <AvField type='textarea' name='description' id='description' rows='4'
-                             ref={(input) => this.description = input} onChange={this._handleInputChange} required/>
+                    <AvField type='textarea' name='description' id='description' rows='4' maxLength='500'
+                      ref={(input) => this.description = input} onChange={this._handleInputChange} required />
                   </AvGroup>
                   <ThreeDButton small>Lägg till utbildning</ThreeDButton>
                 </AvForm>

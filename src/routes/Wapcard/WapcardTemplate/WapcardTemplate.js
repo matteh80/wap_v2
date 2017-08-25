@@ -9,6 +9,7 @@ import {
   Row,
   Progress
 } from 'reactstrap'
+import DotProgress from '../../../components/Misc/DotProgress/DotProgress';
 
 class WapcardTemplate extends React.Component {
   constructor (props) {
@@ -72,11 +73,11 @@ class WapcardTemplate extends React.Component {
     userskillsList && userskillsList.sort(function (a, b) {
       return a.experience < b.experience
     })
-    userskillsList.length = 3
+    userskillsList.length = 6
 
     return (
       <Row className='wapcardTemplateWrapper'>
-        <Col xs={4} className='leftCol'>
+        <Col xs={3} className='leftCol'>
           <Row>
             <ProfilePicture canvas isSet={this.isPictureSet} />
           </Row>
@@ -127,14 +128,14 @@ class WapcardTemplate extends React.Component {
             </Col>
           </Row>
         </Col>
-        <Col xs={8} className='rightCol'>
-          <div className='profileInfo' style={{ height: 270 }}>
-            <Row className='pt-3'>
-              <Col xs={12} style={{ paddingTop: 20 }}>
-                <h2>{profile.first_name}{' '}{profile.last_name}</h2>
+        <Col xs={9} className='rightCol'>
+          <div className='profileInfo' style={{ height: 204 }}>
+            <Row className='pt-4'>
+              <Col xs={12}>
+                <h2 className='mb-0'>{profile.first_name}{' '}{profile.last_name}</h2>
                 <h3>{profile.title}</h3>
               </Col>
-              <Col xs={12} className='mt-4'><i className='fa fa-phone' /> {profile.mobile_phone_number}</Col>
+              <Col xs={12} className='mt-1'><i className='fa fa-phone' /> {profile.mobile_phone_number}</Col>
               <Col xs={12}><i className='fa fa-envelope' /> {profile.email}</Col>
               {profile.home_page && <Col xs={12}><i className='fa fa-globe' /> {profile.home_page}</Col>}
               <Col xs={12}><i className='fa fa-map-marker' /> {profile.city}</Col>
@@ -150,7 +151,7 @@ class WapcardTemplate extends React.Component {
                 if (employment.public === true) {
                   return (
                     <Row key={employment.id} className='timeline-item'>
-                      <Col>
+                      <Col className='mb-3'>
                         <div className='mb-2 startEndDate'><span>{this._getStartEndDate(employment.start_date, employment.end_date, employment.current)}</span></div>
                         <h5>{employment.title} | {employment.employer}</h5>
                         <p style={{ fontSize: 12, lineHeight: 1.1 }}>{employment.description}</p>
@@ -165,16 +166,13 @@ class WapcardTemplate extends React.Component {
           <Row className='wpSection mt-4'>
             <Col xs={12}>
               <h4 className='sectionHeader'>
-                Topp 3 kompetenser
+                Kompetenser
               </h4>
               <Row>
                 {userskillsList && userskillsList.map((skill, index) => {
                   return (
-                    <Col xs={4} key={skill.id}>
-                      <div className='skillCircle flex-column mt-2' data-value={skill.experience}>
-                        <h4 className='percentValue' style={{ color: 'black' }}>{skill.experience / 5 * 100}%</h4>
-                        <h6 className='skillName mt-2'>{skill.name}</h6>
-                      </div>
+                    <Col xs={6} key={skill.id}>
+                      <DotProgress num={skill.experience} title={skill.name} />
                       {/* <CircularProgressbar percentage={60} /> */}
                     </Col>
                   )
@@ -191,7 +189,7 @@ class WapcardTemplate extends React.Component {
               {educations && educations.map((education) => {
                 if (education.public === true) {
                   return <Row key={education.id} className='timeline-item'>
-                    <Col>
+                    <Col className='mb-3'>
                       <div className='mb-2 startEndDate'><span>{this._getStartEndDate(education.start_date, education.end_date, false)}</span></div>
                       <h5>{education.school} | {education.orientation}</h5>
                       <p style={{ fontSize: 12, lineHeight: 1.1 }}>{education.description}</p>

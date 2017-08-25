@@ -63,7 +63,7 @@ class ProfilePicture extends React.Component {
     }
 
     if (!prevState.isSet && this.state.isSet) {
-      this.props.isSet(true)
+      this.props.isSet && this.props.isSet(true)
     }
   }
 

@@ -10,12 +10,11 @@ import Breadcrumbs from 'react-breadcrumbs'
 import { getActiveLanguage, getTranslate } from 'react-localize-redux'
 import _ from 'lodash'
 import Cookies from 'universal-cookie'
-import classNames from 'classnames'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import Notifications from 'react-notification-system-redux'
 
 import {
   Container,
-  Row,
-  Col,
 } from 'reactstrap'
 
 const cookies = new Cookies()
@@ -41,8 +40,6 @@ class PageLayout extends React.Component {
 
     hiddenBubbles.push(pathname)
     cookies.set(profile.id + '_hiddenBubbles', hiddenBubbles, { path: '/' })
-
-    $('.bubbleWrapper').hide()
   }
 
   render () {
@@ -58,20 +55,32 @@ class PageLayout extends React.Component {
       })
     )
 
+    const { notifications } = this.props
+
     return (
       <div className='h-100'>
-        <Header translate={translate} currentLanguage={currentLanguage} />
-        <div className='page_wrapper'>
-          <Sidemenu translate={translate} />
-          <Container fluid className='page-layout__viewport'>
-            <Breadcrumbs
-              separator={<i className='fa fa-chevron-right' style={{ margin: '0 5px' }} />}
-              routes={this.props.routes}
-              params={this.props.params}
+        <ReactCSSTransitionGroup
+          transitionName='example'
+          transitionAppear
+          transitionAppearTimeout={500}
+          transitionEnter={false}
+          transitionLeave={false}>
+          <Header translate={translate} currentLanguage={currentLanguage} />
+          <div className='page_wrapper'>
+            <Sidemenu translate={translate} />
+            <Container fluid className='page-layout__viewport'>
+              <Breadcrumbs
+                separator={<i className='fa fa-chevron-right' style={{ margin: '0 5px' }} />}
+                routes={this.props.routes}
+                params={this.props.params}
             />
-            {childrenWithProps}
-          </Container>
-        </div>
+              {childrenWithProps}
+            </Container>
+          </div>
+          <Notifications
+            notifications={notifications}
+          />
+        </ReactCSSTransitionGroup>
       </div>
     )
   }
@@ -79,6 +88,7 @@ class PageLayout extends React.Component {
 
 PageLayout.propTypes = {
   children: PropTypes.node,
+  notifications: PropTypes.array
 }
 
 const mapStateToProps = state => ({

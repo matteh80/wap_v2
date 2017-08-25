@@ -192,7 +192,7 @@ class EducationItem extends React.Component {
                 <StartEndDate foo={this.state.education} onChange={this._handleDateChange} />
                 <AvGroup>
                   <Label for='description'>Beskrivning</Label>
-                  <AvField type='textarea' name='description' rows='4' onChange={this._handleInputChange} />
+                  <AvField type='textarea' name='description' rows='4' onChange={this._handleInputChange} maxLength='500' />
                 </AvGroup>
                 <AvGroup>
                   <Label check inline for='public'>

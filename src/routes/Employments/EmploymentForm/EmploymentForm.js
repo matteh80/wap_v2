@@ -152,9 +152,16 @@ class EmploymentForm extends React.Component {
     this.setState({
       collapse: !this.state.collapse,
     })
-    setTimeout(function () {
-      _self.props.layout()
-    }, 300)
+
+    $('.fakeTimelineItem').one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd',
+      function () {
+        _self.props.layout()
+        // $('.fakeTimelineItem').off('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd')
+      }
+    )
+    // setTimeout(function () {
+    //   _self.props.layout()
+    // }, 300)
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -218,7 +225,7 @@ class EmploymentForm extends React.Component {
                   <StartEndDate withCurrent onChange={this._handleDateChange}/>
                   <FormGroup>
                     <Label for='description'>Jag bidrar / bidrog med</Label>
-                    <Input type='textarea' name='description' id='description' rows='4'
+                    <Input type='textarea' name='description' id='description' rows='4' maxLength='500'
                            ref={(input) => {
                              this.description = input
                            }} onChange={this._handleInputChange}/>

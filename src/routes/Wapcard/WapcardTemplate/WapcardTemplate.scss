@@ -18,7 +18,8 @@
 
   .leftCol {
     height:100%;
-    background: linear-gradient(to bottom, #74bfdc 0%, #49d2b7 100%) !important;
+    //background: linear-gradient(to bottom, #74bfdc 0%, #49d2b7 100%) !important;
+    background: $themeColor;
     color: #fff;
 
     .wpSection {
@@ -29,6 +30,7 @@
         text-transform: uppercase;
         text-align: left;
         position: relative;
+        margin-bottom: 16px;
 
         &:after {
           content: '';
@@ -45,6 +47,7 @@
   
   .rightCol {
     color: #333333;
+    padding-right: 1cm;
 
     .profileInfo {
       h2, h3 {
@@ -66,6 +69,7 @@
         text-transform: uppercase;
         text-align: left;
         position: relative;
+        margin-bottom: 16px;
 
         &:after {
           content: '';
@@ -109,7 +113,7 @@
         }
 
         .startEndDate {
-          background: #248fb8;
+          background: $themeColor;
           color: #fff;
           display: inline-block;
           padding: 2px 5px;
@@ -124,7 +128,7 @@
 
           &:before, &:after {
             content: "";
-            background: #248fb8;
+            background: $themeColor;
             width: 22px;
             height: 22px;
             position: absolute;

@@ -90,12 +90,6 @@ export function updateEmployment (employment) {
     return apiClient.put('me/employments/' + employment.id + '/',
       mEmployment
     )
-      .then((result) => {
-        return dispatch({
-          type: UPDATE_EMPLOYMENT,
-          employment: result.data,
-        })
-      })
       .catch(function (err) {
         dispatch(
           error({
@@ -111,6 +105,12 @@ export function updateEmployment (employment) {
           })
         )
         console.log(err.response)
+      })
+      .then((result) => {
+        return dispatch({
+          type: UPDATE_EMPLOYMENT,
+          employment: result.data,
+        })
       })
   }
 }

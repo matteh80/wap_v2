@@ -62,29 +62,19 @@ blockquote p {
   display: inline;
 }
 
-#helpIcon {
-  position: fixed;
-  right: 10px;
-  bottom: 10px;
-  font-size: 56px;
-  color: #fff;
-  display: none;
-  transition: color 250ms;
-  z-index: 9;
-
-  &.visible {
-    display: block;
-  }
-
-  &:hover {
-    color: $pink;
-  }
-}
-
 a {
   color: $themeColor !important;
 }
 
 .react-cookie-banner {
   position: fixed !important;
+}
+
+.example-appear {
+  opacity: 0.01;
+}
+
+.example-appear.example-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
 }

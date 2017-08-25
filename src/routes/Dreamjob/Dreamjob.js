@@ -119,7 +119,7 @@ class Dreamjob extends React.Component {
           <Col xs={12} md={4} className='bubble'>
             <Card>
               <Loader active={this.state.loadsave} />
-              <CardImg src='/img/rocket.jpg' className='img-fluid' />
+              <CardImg src='/img/dromjobb.png' className='img-fluid' />
               <CardImgOverlay className='bg-white'>
                 <CardText>Här skriver du in vad som är ditt drömjobb, det spelar ingen roll om det kanske är lite orealistiskt. Vi vill veta vad dina drömmar är.</CardText>
               </CardImgOverlay>
@@ -133,7 +133,7 @@ class Dreamjob extends React.Component {
           <Col xs={12} md={4} className='bubble'>
             <Card>
               <Loader active={this.state.loadsave} />
-              <CardImg src='/img/clipboard.jpg' className='img-fluid' />
+              <CardImg src='/img/dromarbetsgivare.png' className='img-fluid' />
               <CardImgOverlay className='bg-white'>
                 <CardText>Vilken är din drömarbetsgivare om du fick välje helt fritt.</CardText>
               </CardImgOverlay>
@@ -146,7 +146,7 @@ class Dreamjob extends React.Component {
           <Col xs={12} md={4} className='bubble'>
             <Card>
               <Loader active={this.state.loadsave} />
-              <CardImg src='/img/doubting.jpg' className='img-fluid' />
+              <CardImg src='/img/drombransch.png' className='img-fluid' />
               <CardImgOverlay className='bg-white'>
                 <CardText>Inom vilken bransch vill du helst av allt jobba inom?</CardText>
               </CardImgOverlay>

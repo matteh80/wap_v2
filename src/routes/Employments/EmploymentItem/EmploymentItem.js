@@ -198,49 +198,49 @@ class EmploymentItem extends React.Component {
             <Loader active={this.state.loadsave} />
             <EditButtons hasRemove editMode={this.state.editMode} toggleEditMode={this.toggleEditMode} revertChanges={this.revertChanges} onRemove={this.onRemove} translate={this.props.translate} />
             {!this.state.editMode &&
-            <CardBlock>
-              <CardTitle>{title}</CardTitle>
-              <CardSubtitle>{employer}</CardSubtitle>
-              <CardText>{description}</CardText>
-              <CardText className='occupationText'>{this.getOccupationName()}</CardText>
-            </CardBlock>
+              <CardBlock>
+                <CardTitle>{title}</CardTitle>
+                <CardSubtitle>{employer}</CardSubtitle>
+                <CardText>{description}</CardText>
+                <CardText className='occupationText'>{this.getOccupationName()}</CardText>
+              </CardBlock>
           }
             {this.state.editMode &&
-            <CardBlock>
-              <AvForm id='employmentForm' model={this.state.employment} style={{ marginTop: 40 }} onSubmit={this._handleSubmit}>
-                <AvGroup>
-                  <Label for='employer'>Företag *</Label>
-                  <AvField type='text' name='employer' onChange={this._handleInputChange} required />
-                </AvGroup>
-                <AvGroup>
-                  <Label for='title'>Befattning *</Label>
-                  <AvField type='text' name='title' onChange={this._handleInputChange} required />
-                </AvGroup>
-                <AvGroup>
-                  <Label for='occupation'>Yrkeskategori *</Label>
-                  <Select
-                    options={this._getOptions()}
-                    clearable={false}
-                    onChange={this._handleOccupationChange}
-                    placeholder='Välj yrke'
-                    value={this.state.selectValue}
+              <CardBlock>
+                <AvForm id='employmentForm' model={this.state.employment} style={{ marginTop: 40 }} onSubmit={this._handleSubmit}>
+                  <AvGroup>
+                    <Label for='employer'>Företag *</Label>
+                    <AvField type='text' name='employer' onChange={this._handleInputChange} required />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label for='title'>Befattning *</Label>
+                    <AvField type='text' name='title' onChange={this._handleInputChange} required />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label for='occupation'>Yrkeskategori *</Label>
+                    <Select
+                      options={this._getOptions()}
+                      clearable={false}
+                      onChange={this._handleOccupationChange}
+                      placeholder='Välj yrke'
+                      value={this.state.selectValue}
                 />
-                </AvGroup>
-                <StartEndDate withCurrent foo={this.state.employment} onChange={this._handleDateChange} />
-                <AvGroup>
-                  <Label for='description'>Jag bidrar / bidrog med *</Label>
-                  <AvField type='textarea' name='description' rows='4' onChange={this._handleInputChange} />
-                </AvGroup>
-                <AvGroup>
-                  <Label check inline for='public'>
-                    <AvInput type='checkbox' name='public' trueValue="Yes, I'm in!" falseValue='NOPE!'
-                      defaultChecked={this.state.employment.public} onChange={this._handleInputChange}
-                      disabled={!employment.public && this.props.publicCount === 2} /> Visa på wap card (max två)
+                  </AvGroup>
+                  <StartEndDate withCurrent foo={this.state.employment} onChange={this._handleDateChange} />
+                  <AvGroup>
+                    <Label for='description'>Jag bidrar / bidrog med *</Label>
+                    <AvField type='textarea' name='description' rows='4' onChange={this._handleInputChange} maxLength='500' />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label check inline for='public'>
+                      <AvInput type='checkbox' name='public' trueValue="Yes, I'm in!" falseValue='NOPE!'
+                        defaultChecked={this.state.employment.public} onChange={this._handleInputChange}
+                        disabled={!employment.public && this.props.publicCount === 2} /> Visa på wap card (max två)
                   </Label>
-                </AvGroup>
-                <button type='submit' id='mSubmitBtn' hidden />
-              </AvForm>
-            </CardBlock>
+                  </AvGroup>
+                  <button type='submit' id='mSubmitBtn' hidden />
+                </AvForm>
+              </CardBlock>
           }
           </Card>
         </div>

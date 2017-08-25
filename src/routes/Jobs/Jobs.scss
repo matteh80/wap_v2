@@ -1,0 +1,39 @@
+@import '../../styles/variables/variables';
+@import '../../styles/variables/colors';
+
+.-pagination {
+  .-previous, .-next {
+    padding-bottom: 3px;
+    .-btn {
+      border: 0;
+      //background: $themeColor;
+      background: linear-gradient(to bottom, lighten($themeColor, 5%) 0%,lighten($themeColor, 0%) 100%);
+      border-radius: 4px;
+      box-shadow: 0 4px 0 darken($themeColor, 10%), 0 4px 7px rgba(0, 0, 0, .35);
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      margin: 0;
+      outline: 0;
+      padding: 12px 20px;
+      transition: all .2s linear, background 250ms;
+      text-transform: uppercase;
+      font-family: $headings-font-family;
+
+      &:hover {
+        background: linear-gradient(to bottom, lighten($themeColor, 10%) 0%,lighten($themeColor, 3%) 100%) !important;
+      }
+
+      &:active {
+        box-shadow: 0 2px 0 darken($themeColor, 15%);
+        transform: translateY(3px);
+      }
+
+      //&:disabled {
+      //  background: linear-gradient(to bottom, lighten(#cdcdcd, 5%) 0%,lighten(#cdcdcd, 0%) 100%);
+      //  box-shadow: 0 2px 0 darken(#cdcdcd, 15%);
+      //  transform: translateY(3px);
+      //}
+    }
+  }
+}

@@ -2,15 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import ReactTable from 'react-table'
-import moment from 'moment'
+import './Jobs.scss'
 import {
   Container,
   Row,
   Col,
-  Card,
-  CardBlock,
-  CardTitle,
-  CardSubtitle
 } from 'reactstrap'
 import { getAllJobs } from '../../store/actions/jobs'
 import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble'
@@ -42,8 +38,12 @@ class Jobs extends React.Component {
   render () {
     return (
       <Container fluid>
-        <Row className='flex-column-reverse flex-lg-row'>
-          <Col>
+        <Row className='flex-column'>
+          <SpeechBubble xs={12}>
+            <p>Här finns de tjänster som du just nu kan ansöka direkt till med ditt wap card.</p>
+            <p>Tips: Se till att du har uppdaterat allt du kan i din profil innan du skickar din ansökan för att öka dina chanser till drömjobbet</p>
+          </SpeechBubble>
+          <Col xs='12'>
             <ReactTable
               className='-highlight mb-5'
               data={this.props.jobs.allJobs}
@@ -71,12 +71,6 @@ class Jobs extends React.Component {
               }}
             />
           </Col>
-          <Col xs={12} sm={12} md={12} lg={5}>
-            <SpeechBubble pos='left-side top'>
-              <p>Här finns de tjänster som du just nu kan ansöka direkt till med ditt wap card.</p>
-              <p>Tips: Se till att du har uppdaterat allt du kan i din profil innan du skickar din ansökan för att öka dina chanser till drömjobbet</p>
-            </SpeechBubble>
-          </Col>
         </Row>
       </Container>
     )
@@ -98,10 +92,11 @@ const columns = [{
   accessor: 'municipality',
   filterMethod: (filter, row) => (row[filter.id].toLowerCase().startsWith(filter.value.toLowerCase()))
 }, {
-  Header: 'Publiceringsdatum',
+  Header: 'Pub.datum',
   accessor: 'pubdate',
   filterable: false,
+  maxWidth: 100,
   Cell: row => {
-    return moment(row.value).format('YYYY-MM-DD')
+    return row.value
   }
 }]
