@@ -35,7 +35,6 @@ import {
   Col,
   Form,
   FormGroup,
-  Label,
   Input,
   Alert
 } from 'reactstrap'
