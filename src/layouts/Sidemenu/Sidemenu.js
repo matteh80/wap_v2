@@ -116,6 +116,7 @@ class Sidemenu extends React.Component {
             <Menuitem to='/wapcard' icon='fa-vcard' title='wap card' details={translate('sidemenu.show_wapcard')} />
             <Menuitem to='/cvbuilder' icon='fa-file-text' title='CV Builder' details='Skapa ett CV' />
             <hr />
+            <Menuitem to='/personalrecruiter' icon='fa-user-md' title='Personlig rekryterare' details='Din hjälp i jobbsökandet' />
             <Menuitem icon='fa-sticky-note' title={translate('sidemenu.jobs')}>
               <Menuitem indexlink to='/jobs' icon='fa-newspaper-o' title='Lediga tjänster' />
               {this.state.jobCount > 0 && <Menuitem to='/jobs/my' icon='fa-lightbulb-o' title='Visade tjänster' />}

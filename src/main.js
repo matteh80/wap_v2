@@ -22,6 +22,7 @@ async function init () {
   const educationsJson = require('./assets/educations.locale.json')
   const registerJson = require('./assets/register.locale.json')
   const validationJson = require('./assets/validation.locale.json')
+  const personalrecruiterJson = require('./assets/personalrecruiter.locale.json')
   const json = $.extend(
     globalJson,
     profileJson,
@@ -31,7 +32,8 @@ async function init () {
     employmentsJson,
     educationsJson,
     registerJson,
-    validationJson
+    validationJson,
+    personalrecruiterJson
   )
   store.dispatch(addTranslation(json))
 

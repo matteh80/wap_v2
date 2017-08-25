@@ -68,7 +68,7 @@ class SpeechBubble extends React.Component {
     let { xs, sm, md, lg, xl } = this.props
     let arrowClass = classNames('speechBubble', this.props.pos, this.props.className)
     let bubbleClass = classNames('bubbleWrapper', this.props.pos)
-    let hideClass = classNames('hideshow d-flex justify-content-center align-items-center', this.props.hideable ? 'd-block' : 'd-none')
+    let hideClass = classNames('hideshow justify-content-center align-items-center', this.props.hideable ? 'd-flex' : 'd-none')
     let helpClass = classNames(
       'fa fa-question-circle helpIcon',
       this.state.bubbleHidden && 'visible'
@@ -115,7 +115,8 @@ class SpeechBubble extends React.Component {
 
 SpeechBubble.propTypes = {
   children: PropTypes.node,
-  pos: PropTypes.string
+  pos: PropTypes.string,
+  hideable: PropTypes.bool
 }
 
 export default withRouter(connect((state) => state)(SpeechBubble))
