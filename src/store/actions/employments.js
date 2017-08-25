@@ -1,4 +1,5 @@
 import { apiClient } from '../axios.config'
+import { show, success, error, warning, info, hide, removeAll } from 'react-notification-system-redux'
 
 const {
   EMPLOYMENTS_FAIL,
@@ -7,6 +8,8 @@ const {
   UPDATE_EMPLOYMENT,
   REMOVE_EMPLOYMENT
 } = require('./actionTypes/employments')
+
+let action
 
 export function getAllEmployments () {
   return (dispatch, getState) => {
@@ -18,6 +21,17 @@ export function getAllEmployments () {
       })
     })
       .catch(function (error) {
+        error({
+          // uid: 'once-please', // you can specify your own uid if required
+          title: 'Fel',
+          message: 'Det gick inte att hämta anställningar',
+          autoDismiss: 0,
+          position: 'br',
+          action: {
+            label: 'Försök igen',
+            callback: () => getAllEmployments()
+          }
+        })
         return dispatch({
           type: EMPLOYMENTS_FAIL,
           error: error.text,
@@ -39,6 +53,17 @@ export function createEmployment (employment) {
       })
     })
       .catch(function (error) {
+        error({
+          // uid: 'once-please', // you can specify your own uid if required
+          title: 'Fel',
+          message: 'Det gick inte att skapa anställningen',
+          autoDismiss: 0,
+          position: 'br',
+          action: {
+            label: 'Försök igen',
+            callback: () => createEmployment(employment)
+          }
+        })
         return dispatch({
           type: EMPLOYMENTS_FAIL,
           error: error.text,
@@ -60,6 +85,7 @@ export function updateEmployment (employment) {
     'public': employment.public,
     'updating': true
   }
+
   return dispatch => {
     return apiClient.put('me/employments/' + employment.id + '/',
       mEmployment
@@ -70,8 +96,21 @@ export function updateEmployment (employment) {
           employment: result.data,
         })
       })
-      .catch(function (error) {
-        console.log(error)
+      .catch(function (err) {
+        dispatch(
+          error({
+            // uid: 'once-please', // you can specify your own uid if required
+            title: 'Fel',
+            message: 'Det gick inte att spara anställningen',
+            autoDismiss: 0,
+            position: 'br',
+            action: {
+              label: 'Försök igen',
+              callback: () => updateEmployment(employment)
+            }
+          })
+        )
+        console.log(err.response)
       })
   }
 }
@@ -86,6 +125,17 @@ export function removeEmployment (employment) {
         })
       })
       .catch(function (error) {
+        error({
+          // uid: 'once-please', // you can specify your own uid if required
+          title: 'Fel',
+          message: 'Det gick inte att ta bort anställningen',
+          autoDismiss: 0,
+          position: 'br',
+          action: {
+            label: 'Försök igen',
+            callback: () => removeEmployment(employment)
+          }
+        })
         console.log(error)
       })
   }

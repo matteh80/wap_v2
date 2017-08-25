@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import { localeReducer } from 'react-localize-redux'
+import { reducer as notifications } from 'react-notification-system-redux'
 
 import auth from './reducers/auth'
 import profile from './reducers/profile'
@@ -54,6 +55,7 @@ import wapstory from './reducers/wapstory'
 const appReducer = combineReducers({
   routing: routerReducer,
   localeReducer: localeReducer,
+  notifications: notifications,
   auth: auth,
   profile: profile,
   employments: employments,
