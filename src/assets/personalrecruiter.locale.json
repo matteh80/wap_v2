@@ -1,0 +1,20 @@
+{
+  "recruiter": {
+    "speechBubble": {
+      "title": ["Välkommen", "Welcome"],
+      "text1": [
+        "<p>Här kan du ansöka om en personlig rekryterare. Din personilga rekryterare coachar dig via mail, telefon, videosamtal och personliga möten.</p>",
+        "English text"
+      ],
+      "text2": [
+        "<p>För att kunna ansöka behöver du ha en fullständig wap-profil, d.v.s. du behöver ha fyllt i ditt CV, gjort personlighetstestet samt en wap film. Detta för att vi ska få en tydlig bild av dig och kunna hjälpa till på bästa sätt.</p>",
+        "English 2"
+      ],
+      "text3": [
+        "<p>Skicka ett mail till <a href='mailto:rekryterare@wapcard.se?subject=PR / ${ profileId } / ${ occupationName } / ${ locationName }'>rekryterare@wapcard.se</a> med texten nedanför i ämnesraden och beskriv kort hur vi kan hjälpa dig att hitta ditt drömjobb.</p>",
+        "English 3"
+      ]
+    },
+    "tip": ["Tips, klicka i rutan för att kopiera texten till klippbordet", "Click to copy to clipboard"]
+  }
+}
