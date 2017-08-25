@@ -84,7 +84,7 @@ class Template1 extends React.Component {
       let clone = $(tobeCloned).clone()
       let contTitle = 'Fortsättning ' + $(clone[0]).find('.sectionTitle').text()
       clone.empty()
-      clone.append('<h6>' + contTitle + '</h6>')
+      clone.append('<div class="col-12"><h6 class="fg-gray text-left">' + contTitle + '</h6></div>')
       clone.append(removedOverflow)
       removed.unshift(clone[0])
     }
