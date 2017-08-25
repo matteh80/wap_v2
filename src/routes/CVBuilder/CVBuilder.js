@@ -464,7 +464,10 @@ class PreviewOverlay extends React.Component {
         className='justify-content-center align-items-center flex-column'
       >
         <i className={mClassses} style={{ fontSize: 50 }} onClick={() => this.props.refresh()} />
-        <h6>Skapar förhandsgranskning...</h6>
+        {this.props.creating
+          ? <h6>Skapar förhandsgranskning...</h6>
+          : <h6>Klicka för att uppdatera</h6>
+        }
       </div>
     )
   }

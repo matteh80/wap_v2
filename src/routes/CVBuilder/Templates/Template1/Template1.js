@@ -82,9 +82,11 @@ class Template1 extends React.Component {
     if (removedOverflow.length > 0) {
       let tobeCloned = removed.shift()
       let clone = $(tobeCloned).clone()
-      let contTitle = 'Fortsättning ' + $(clone[0]).find('.sectionTitle').text()
+      let contTitle = '...fortsättning ' + $(clone[0]).find('.sectionTitle').text()
+      let shouldBeContinue = $(clone[0]).find('.sectionTitle').text()
+      console.log(shouldBeContinue)
       clone.empty()
-      clone.append('<div class="col-12"><h6 class="fg-gray text-left">' + contTitle + '</h6></div>')
+      shouldBeContinue && clone.append('<div class="col-12"><small class="fg-gray text-left"><em>' + contTitle + '</em></small></dla>')
       clone.append(removedOverflow)
       removed.unshift(clone[0])
     }
