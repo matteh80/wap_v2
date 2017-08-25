@@ -158,9 +158,9 @@ class WapFilm extends React.Component {
                 <Row className='flex-column justify-content-center align-items-center py-5'>
                   {/*<i className='fa fa-film videoicon' />*/}
                   <Col xs='6'>
-                    <img src='/img/video.png' className='img-fluid' />
+                    <img src='/img/upload_film.png' className='img-fluid' />
                   </Col>
-                  Dra och släpp en fil för att ladda upp
+                  <h6>Dra och släpp en fil för att ladda upp</h6>
                   <ThreeDButton small>Eller välj en fil</ThreeDButton>
                 </Row>
               </Dropzone>
