@@ -100,10 +100,10 @@ class Sidemenu extends React.Component {
               <Menuitem to='/work/references' icon='fa-address-book' title={translate('sidemenu.references')} count={this.state.referenceCount} details={translate('sidemenu.referencesCount', { count: this.state.referenceCount })} />
             </Menuitem>
             <Menuitem icon='fa-cloud' title='Passion'>
+              <Menuitem to='/passion/dreamjob' icon='fa-rocket' title='Drömjobb' details={translate('sidemenu.whats_your_dreamjob')} />
               <Menuitem to='/passion/occupations' icon='fa-briefcase' title='Befattningar' count={this.state.occupationCount} details={this.state.occupationCount + ' befattningar'} />
               <Menuitem to='/passion/motivations' icon='fa-road' title='Drivkrafter' count={this.state.motivationCount} details={this.state.motivationCount + ' drivkrafter'} />
               <Menuitem to='/passion/personalities' icon='fa-user-circle' title='Personlighet' count={this.state.personalityCount} details={this.state.personalityCount + ' personlighetsdrag'} />
-              <Menuitem to='/passion/dreamjob' icon='fa-rocket' title='Drömjobb' details={translate('sidemenu.whats_your_dreamjob')} />
               <Menuitem to='/passion/location' icon='fa-map-marker' title='Plats' count={this.state.locationCount}
                 details={this.state.locationCount === 0 ? translate('sidemenu.where_location') : this.state.locationCount === 1 ? '1 vald ort' : this.state.locationCount + ' valda orter'} />
             </Menuitem>
