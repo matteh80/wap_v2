@@ -102,7 +102,7 @@ class WapFilm extends React.Component {
     return (
       <Container fluid>
         <Row className='flex-row-reverse'>
-          <SpeechBubble pos='side' xs='12' lg='5'>
+          <SpeechBubble hideable pos='side' xs='12' lg='5'>
             WAP Film är en 60 s video där du har möjlighet att kort presentera dig själv för potentiella
             arbetsgivare. Du kommer svara på 6 st frågor som vi tagit fram och det finns inget rätt eller fel svar.
             Du spelar in filmen själv och laddar sedan upp den när du känner dig nöjd.
