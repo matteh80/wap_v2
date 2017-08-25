@@ -414,7 +414,7 @@ class CVBuilder extends React.Component {
                 </Card>
               </Col>
             </Masonry>
-            <ThreeDButton onClick={() => this.preparePdf()} text='Skapa PDF' loading={this.state.createPdf} />
+            <ThreeDButton onClick={() => this.preparePdf()} text='Skapa PDF' loading={this.state.createPdf} className='mb-5' />
             {this.state.showTemplate && <Template1
               employments={this.state.employments}
               educations={this.state.educations}
@@ -424,6 +424,7 @@ class CVBuilder extends React.Component {
               profile={this.props.profile}
               resume={this.props.profile.personal_info ? this.state.resume : false}
         />}
+
           </Col>
         </Row>
       </Container>

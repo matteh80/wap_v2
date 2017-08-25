@@ -65,6 +65,7 @@ class Template1 extends React.Component {
     let overflowChildren = $(removed[0]).children().toArray()
     long = elem[0].scrollHeight - Math.ceil(elem.innerHeight())
 
+    let first = true
     while (long > 0 && overflowChildren.length > 0) {
       let child = overflowChildren.pop() // Remove last child
       console.log(child)
@@ -81,12 +82,12 @@ class Template1 extends React.Component {
     if (removedOverflow.length > 0) {
       let tobeCloned = removed.shift()
       let clone = $(tobeCloned).clone()
+      let contTitle = 'Fortsättning ' + $(clone[0]).find('.sectionTitle').text()
       clone.empty()
+      clone.append('<h6>' + contTitle + '</h6>')
       clone.append(removedOverflow)
       removed.unshift(clone[0])
     }
-
-    console.log(removed)
     if (removed.length > 0) {
       let a4 = $('<div class="A4 templateWrapper container-fluid"></div>')
 
