@@ -38,7 +38,7 @@ class Jobs extends React.Component {
   render () {
     return (
       <Container fluid>
-        <Row className='flex-column'>
+        <Row>
           <SpeechBubble hideable xs={12}>
             <h3>Hej jobbletare!</h3>
             <p>Här finns de tjänster som du just nu kan ansöka direkt till med ditt wap card.</p>
