@@ -112,16 +112,15 @@ class EducationForm extends React.Component {
     })
   }
 
-  _handleSubmit (e) {
-    e.preventDefault()
-
-    let { dispatch } = this.props
-    dispatch(createEducation(this.state.education)).then(() => {
-      dispatch(getAllEducations())
-      this.setState({ collapse: false })
-    }).catch((error) => {
-      alert(error)
-    })
+  _handleSubmit (e, errors, values) {
+    this.setState({ errors, values })
+    if (errors.length === 0) {
+      let { dispatch } = this.props
+      dispatch(createEducation(this.state.education)).then(() => {
+        dispatch(getAllEducations())
+        this.setState({ collapse: false })
+      })
+    }
   }
 
   toggleCollapse () {
@@ -161,7 +160,7 @@ class EducationForm extends React.Component {
               {!this.state.collapse && <div className='fakeSubtitle w-100 mt-0' />}
               <Collapse isOpen={this.state.collapse}>
                 {this.state.collapse &&
-                <AvForm id='educationForm' onSubmit={(e) => this._handleSubmit(e)}>
+                <AvForm id='educationForm' onSubmit={this._handleSubmit}>
                   <AvGroup>
                     <Label>Typ av skola</Label>
                     <AvField type='select' name='type'
@@ -186,7 +185,7 @@ class EducationForm extends React.Component {
                   <AvGroup>
                     <Label for='description'>Beskrivning</Label>
                     <AvField type='textarea' name='description' id='description' rows='4' maxLength='500'
-                      ref={(input) => this.description = input} onChange={this._handleInputChange} required />
+                      ref={(input) => this.description = input} onChange={this._handleInputChange} />
                   </AvGroup>
                   <ThreeDButton small>Lägg till</ThreeDButton>
                 </AvForm>
