@@ -326,7 +326,7 @@ class Signup extends React.Component {
     return (
       <Container className='py-5'>
         <Row className='flex-column'>
-          <SpeechBubble>
+          <SpeechBubble xs='12'>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi malesuada convallis eros, sit amet aliquam magna fringilla a.
             Curabitur ullamcorper est eget tellus convallis, eget semper elit condimentum.
             Maecenas ipsum ligula, facilisis id mi eu, posuere pellentesque tellus.
