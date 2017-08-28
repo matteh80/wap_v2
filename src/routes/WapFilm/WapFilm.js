@@ -103,23 +103,33 @@ class WapFilm extends React.Component {
       <Container fluid>
         <Row className='flex-row-reverse'>
           <SpeechBubble hideable pos='side' xs='12' lg='5'>
-            WAP Film är en 60 s video där du har möjlighet att kort presentera dig själv för potentiella
+            <p>WAP Film är en 60 s video där du har möjlighet att kort presentera dig själv för potentiella
             arbetsgivare. Du kommer svara på 6 st frågor som vi tagit fram och det finns inget rätt eller fel svar.
             Du spelar in filmen själv och laddar sedan upp den när du känner dig nöjd.
             Filmen kommer endast vara tillgängliga för våra rekryterare och eventuellt arbetsgivare. Det är du
             som bestämmer om du vill att arbetsgivaren ska få ta del av din film.
             Genom att göra din egen wap film ökar du chansen betydligt till att nå ditt drömjobb då hela 87% av
-            våra 800 arbetsgivare efterfrågar den.
+              våra 800 arbetsgivare efterfrågar den.</p>
 
-            <h4 style={{ textTransform: 'initial', marginTop: 20 }}>Så här gör du:</h4>
+            <h4>Så här gör du:</h4>
 
-            Filma dig själv med din mobilkamera. Sätt kameran ca 1m från dig och se till att du har tillräckligt
+            <p>Filma dig själv med din mobilkamera. Sätt kameran ca 1m från dig och se till att du har tillräckligt
             med ljus för att få bilden skarp och att det inte är förmycket ljud i bakgrunden.
             Ha frågorna tillgängliga. När du är nöjd med din presentationsfilm laddar du upp den här.
             Tänk på att filmen är inte en audition för en filmroll, vi har inget intresse i ditt yttre utan är endast
             ute efter att få veta lite mer om dig, vad du brinner för och få se din unika karisma. Stakar du dig
             eller säger fel behöver du nödvändigtvis inte filma om, det handlar bara om att vi ska få svar så vi får
-            en tydligare bild av dig. Slutligen, du är alltid bäst på att vara du så du behöver inte göra dig till.
+              en tydligare bild av dig. Slutligen, du är alltid bäst på att vara du så du behöver inte göra dig till.</p>
+
+            <h5>Punkter</h5>
+            <ol>
+              <li>Presentera dig själv kortfattat (Namn, ålder, ort)</li>
+              <li>Vad har du för sysselsättning idag</li>
+              <li>Vilka personliga egenskaper beskriver dig bäst</li>
+              <li>Beskriv ditt drömjobb (målsättning, framtidsplaner, ambition)</li>
+              <li>Hur skulle dina kollegor beskriva dig / Vad gör dig till en bra kollega</li>
+              <li>Det här är det få som vet om mig</li>
+            </ol>
 
             <video id='loopvideo' width='100%' height='auto' controls>
               <source src='/img/wap-film_informationsfilm.mp4' type='video/mp4' />
@@ -156,7 +166,6 @@ class WapFilm extends React.Component {
                 {/*<Loader active={this.state.loadsave} />*/}
 
                 <Row className='flex-column justify-content-center align-items-center py-5'>
-                  {/*<i className='fa fa-film videoicon' />*/}
                   <Col xs='6'>
                     <img src='/img/upload_film.png' className='img-fluid' />
                   </Col>
@@ -181,7 +190,7 @@ export default connect((state) => state)(WapFilm)
 const dropzoneStyle = {
   width: '100%',
   height: '100%',
-  background: 'rgba(255,255,255,0.65)',
+  background: '#cdcdcd',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center'

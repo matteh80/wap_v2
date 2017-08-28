@@ -25,7 +25,8 @@ class ProfilePicture extends React.Component {
       modal: false,
       tmpImage: '',
       loadsave: false,
-      isSet: false
+      isSet: false,
+      userId: props.userId ? props.userId : props.profile.id
     }
 
     this.onError = this.onError.bind(this)
@@ -39,7 +40,7 @@ class ProfilePicture extends React.Component {
   componentWillMount () {
     let _self = this
     let request = new XMLHttpRequest()
-    request.open('GET', 'https://api.wapcard.se/api/v1/profiles/' + _self.props.profile.id + '/picture/500?' + _self.props.profile.picture, true)
+    request.open('GET', 'https://api.wapcard.se/api/v1/profiles/' + _self.state.userId + '/picture/500?' + _self.props.profile.picture, true)
     request.onreadystatechange = function () {
       if (request.readyState === 4) {
         if (request.status === 404) {
@@ -48,7 +49,7 @@ class ProfilePicture extends React.Component {
           })
         } else {
           _self.setState({
-            imageUrl: 'https://api.wapcard.se/api/v1/profiles/' + _self.props.profile.id + '/picture/500?' + _self.props.profile.picture
+            imageUrl: 'https://api.wapcard.se/api/v1/profiles/' + _self.state.userId + '/picture/500?' + _self.props.profile.picture
           })
         }
       }
@@ -70,7 +71,7 @@ class ProfilePicture extends React.Component {
   componentWillReceiveProps (newProps) {
     if (newProps.profile.picture !== this.props.profile.picture) {
       this.setState({
-        imageUrl: 'https://api.wapcard.se/api/v1/profiles/' + this.props.profile.id + '/picture/500?' + newProps.profile.picture
+        imageUrl: 'https://api.wapcard.se/api/v1/profiles/' + this.state.userId + '/picture/500?' + newProps.profile.picture
       })
     }
   }

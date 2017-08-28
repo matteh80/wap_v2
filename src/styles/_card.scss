@@ -13,6 +13,10 @@
   .card-block {
     flex: 1 1 auto;
     padding: 1.25rem;
+
+    &.no-padding {
+      padding: 0 !important;
+    }
   }
 
   &:hover {

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import createStore from './store/createStore'
 import './styles/main.scss'
 import $ from 'jquery'
-import { addTranslation, setLanguages } from 'react-localize-redux'
+import { addTranslation, setLanguages,  } from 'react-localize-redux'
 
 async function init () {
   // Store Initialization
@@ -23,6 +23,7 @@ async function init () {
   const registerJson = require('./assets/register.locale.json')
   const validationJson = require('./assets/validation.locale.json')
   const personalrecruiterJson = require('./assets/personalrecruiter.locale.json')
+  const publicprofileJson = require('./assets/publicprofile.locale.json')
   const json = $.extend(
     globalJson,
     profileJson,
@@ -33,7 +34,8 @@ async function init () {
     educationsJson,
     registerJson,
     validationJson,
-    personalrecruiterJson
+    personalrecruiterJson,
+    publicprofileJson
   )
   store.dispatch(addTranslation(json))
 
@@ -44,6 +46,8 @@ async function init () {
   let render = () => {
     const App = require('./components/App').default
     const routes = require('./routes/index').default(store)
+    console.log(routes)
+    // const routes = require('./routes/index')
 
     ReactDOM.render(
       <App store={store} routes={routes} />,

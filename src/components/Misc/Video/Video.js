@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import $ from 'jquery'
 import './Video.scss'
 import {
+  Row,
+  Col,
   Progress
 } from 'reactstrap'
 
@@ -21,15 +23,29 @@ class Video extends React.Component {
   }
 
   addDownloadIcon () {
-    return React.createElement(
-      'i',
-      { onClick: this.downloadVideoFromServer, className: 'fa fa-video-camera text-center', id: 'downloadIcon', style: { fontSize: 120, display: 'block' } },
-      React.createElement(
-        'h6',
-        { className: 'text-center' },
-        'Klicka här för att ladda ner och visa filmen.'
-      ),
+    return (
+      <div onClick={this.downloadVideoFromServer}>
+        <div style={{ background: '#cdcdcd' }} className='d-flex justify-content-center'>
+          <Col xs='10' sm='8' md='6' lg='4' xl='3'>
+            <img src='/img/download_film.png' className='img-fluid my-5' />
+          </Col>
+        </div>
+        <h6 className='text-center my-5'>Klicka här för att ladda ner och visa filmen</h6>
+      </div>
     )
+    // return React.createElement(
+    //   'div',
+    //   {},
+    //   React.createElement(
+    //     'img',
+    //     { onClick: this.downloadVideoFromServer, className: 'img-fluid', id: 'downloadIcon', style: { display: 'block' }, src: '/img/upload_film.png' },
+    //   ),
+    //   React.createElement(
+    //     'h6',
+    //     { className: 'text-center' },
+    //     'Klicka här för att ladda ner och visa filmen.'
+    //   )
+    // )
   }
 
   downloadVideoFromServer () {

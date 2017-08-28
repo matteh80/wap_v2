@@ -79,7 +79,7 @@ class WapcardTemplate extends React.Component {
       <Row className='wapcardTemplateWrapper'>
         <Col xs={3} className='leftCol'>
           <Row>
-            <ProfilePicture canvas isSet={this.isPictureSet} />
+            <ProfilePicture userId={this.props.profile.user} canvas isSet={this.isPictureSet} />
           </Row>
           <Row className='wpSection mt-4'>
             <Col xs={12}>
