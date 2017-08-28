@@ -43,7 +43,11 @@ class ReferenceForm extends React.Component {
     if (errors.length === 0) {
       let { dispatch } = this.props
       dispatch(createReference(this.state.reference)).then(() => {
-        dispatch(getAllReferences())
+        dispatch(getAllReferences()).then(() => {
+          this.setState({
+            collapse: false
+          })
+        })
       })
     }
   }
@@ -74,6 +78,12 @@ class ReferenceForm extends React.Component {
     }
   }
 
+  validatePhoneOrEmail (value, ctx, input, cb) {
+    console.log(ctx)
+    console.log(input)
+    console.log(cb)
+  }
+
   render () {
     let { translate } = this.props
     let { references } = this.props.references
@@ -98,6 +108,7 @@ class ReferenceForm extends React.Component {
           {!this.state.collapse && <div className='fakeSubtitle mb-0' />}
 
           <Collapse isOpen={this.state.collapse}>
+            {this.state.collapse &&
             <AvForm onSubmit={this._handleSubmit}>
               <AvGroup>
                 <Label for='name'>Namn *</Label>
@@ -112,20 +123,21 @@ class ReferenceForm extends React.Component {
               <AvGroup>
                 <Label for='relation'>Relation *</Label>
                 <AvField type='text' name='relation' id='relation'
-                         onChange={this._handleInputChange} required />
+                  onChange={this._handleInputChange} required />
               </AvGroup>
               <AvGroup>
-                <Label for='email'>Epost</Label>
+                <Label for='email'>Epost *</Label>
                 <AvField type='email' name='email' id='email'
-                         onChange={this._handleInputChange} required />
+                  onChange={this._handleInputChange} required />
               </AvGroup>
               <AvGroup>
                 <Label for='phone'>Telefon</Label>
-                <AvField type='tel' name='phone' id='phone'
-                         onChange={this._handleInputChange}  />
+                <AvField type='text' name='phone' id='phone'
+                  onChange={this._handleInputChange} />
               </AvGroup>
               <ThreeDButton small>{translate('references.add_reference')}</ThreeDButton>
             </AvForm>
+            }
           </Collapse>
         </CardBlock>
 
