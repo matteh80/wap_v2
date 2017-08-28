@@ -343,7 +343,7 @@ class CVBuilder extends React.Component {
               <Col xs={12} md={6} lg={4} xl={3}>
                 <Card>
                   <CardHeader>
-                Anställningar
+                    <CardTitle>Anställningar</CardTitle>
                 {/* <i className={chevronClass} style={{ fontSize: 20 }} /> */}
                   </CardHeader>
                   <CardBlock>
@@ -358,7 +358,7 @@ class CVBuilder extends React.Component {
 
               <Col xs={12} md={6} lg={4} xl={3}>
                 <Card>
-                  <CardHeader>Utbildningar</CardHeader>
+                  <CardHeader><CardTitle>Utbildningar</CardTitle></CardHeader>
                   <CardBlock>
                     {educations.educations && educations.educations.map((education) => {
                       return <CheckboxItem key={education.id} item={education} label={education.orientation + ' / ' + education.school} onChange={this.onEducationChange} />
@@ -371,7 +371,7 @@ class CVBuilder extends React.Component {
 
               <Col xs={12} md={6} lg={4} xl={3}>
                 <Card>
-                  <CardHeader>Kompetenser</CardHeader>
+                  <CardHeader><CardTitle>Kompetenser</CardTitle></CardHeader>
                   <CardBlock>
                     {skills.userSkills && skills.userSkills.map((skill) => {
                       return <CheckboxItem key={skill.id} item={skill} label={skill.name + ' / ' + skill.experience} onChange={this.onSkillChange} />
@@ -387,7 +387,7 @@ class CVBuilder extends React.Component {
 
               <Col xs={12} md={6} lg={4} xl={3}>
                 <Card>
-                  <CardHeader>Språk</CardHeader>
+                  <CardHeader><CardTitle>Språk</CardTitle></CardHeader>
                   <CardBlock>
                     {languages.userLanguages && languages.userLanguages.map((language) => {
                       return <CheckboxItem key={language.id} item={language} label={language.name} onChange={this.onLanguageChange} />
@@ -401,7 +401,7 @@ class CVBuilder extends React.Component {
               <Col xs={12} md={6} lg={4} xl={3}>
                 <Card>
                   <CardHeader>
-                Resumé
+                    <CardTitle>Resumé</CardTitle>
                 {/* <i className={chevronClass} style={{ fontSize: 20 }} /> */}
                   </CardHeader>
                   <CardBlock>
