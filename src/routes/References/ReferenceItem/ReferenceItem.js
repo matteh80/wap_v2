@@ -135,8 +135,8 @@ class ReferenceItem extends React.Component {
                 </AvGroup>
                 <AvGroup>
                   <Label for='phone'>Telefon</Label>
-                  <AvField type='tel' name='phone' id='phone' defaultValue={reference.phone}
-                           onChange={this._handleInputChange} />
+                  <AvField type='text' name='phone' id='phone' defaultValue={reference.phone}
+                           onChange={this._handleInputChange} validate={{ number: true }} errorMessage='Endast siffror tillåtna' />
                 </AvGroup>
               </AvForm>
             </CardBlock>

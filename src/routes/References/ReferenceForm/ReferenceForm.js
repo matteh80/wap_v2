@@ -133,7 +133,7 @@ class ReferenceForm extends React.Component {
               <AvGroup>
                 <Label for='phone'>Telefon</Label>
                 <AvField type='text' name='phone' id='phone'
-                  onChange={this._handleInputChange} />
+                  onChange={this._handleInputChange} validate={{ number: true }} errorMessage='Endast siffror tillåtna' />
               </AvGroup>
               <ThreeDButton small>{translate('references.add_reference')}</ThreeDButton>
             </AvForm>
