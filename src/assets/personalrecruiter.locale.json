@@ -23,6 +23,10 @@
         "English not done"
       ]
     },
-    "tip": ["Tips, klicka i rutan för att kopiera texten till klippbordet", "Click to copy to clipboard"]
+    "tip": ["Tips, klicka i rutan för att kopiera texten till klippbordet", "Click to copy to clipboard"],
+    "text_copied": [
+      "Texten har kopierats till klippbordet",
+      "Text has been copied to clipboard"
+    ]
   }
 }

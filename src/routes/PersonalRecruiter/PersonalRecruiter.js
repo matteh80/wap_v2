@@ -75,10 +75,11 @@ class PersonalRecruiter extends React.Component {
               occupationName: occupations.userOccupations[0].parent_name,
               locationName: locations.userLocations[0].parent_name
             })}
-            <Alert onClick={() => this.copyToClipboard('#subject_text')}>
+            <Alert onClick={() => this.copyToClipboard('#subject_text')} color={this.state.copied ? 'success' : 'info'}>
               <div id='subject_text'>
                 PR / {profile.id} / {occupations.userOccupations[0].parent_name}
                 / {locations.userLocations[0].parent_name}
+                {this.state.copied && <span className='fg-white float-right'>{translate('recruiter.text_copied')}</span>}
               </div>
             </Alert>
             <small>{translate('recruiter.tip')}</small>
