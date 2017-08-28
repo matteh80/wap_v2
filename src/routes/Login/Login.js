@@ -24,6 +24,8 @@ import graph from 'fb-react-sdk'
 import URLSearchParams from 'url-search-params'
 import PropTypes from 'prop-types'
 import moment from 'moment'
+import _ from 'lodash'
+import axios from 'axios'
 
 import {
   Card,
@@ -38,6 +40,7 @@ import {
   Input,
   Alert
 } from 'reactstrap'
+
 import Loader from '../../components/Misc/Loader/Loader'
 import Cookies from 'universal-cookie'
 
@@ -51,9 +54,13 @@ class Login extends React.Component {
   constructor (props) {
     super(props)
 
+    redirect = props.routing.locationBeforeTransitions ? props.routing.locationBeforeTransitions.query.redirect : null
+
     this.state = {
       loadsave: false,
-      linkedIn: false
+      linkedIn: false,
+      job: _.includes(_.words(redirect), 'jobs'),
+      jobTitle: null
     }
 
     this._handleLogin = this._handleLogin.bind(this)
@@ -67,11 +74,16 @@ class Login extends React.Component {
     this.auth = this.auth.bind(this)
     this.signInCallback = this.signInCallback.bind(this)
     this.gotoRegister = this.gotoRegister.bind(this)
-
-    redirect = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.query.redirect : null
   }
 
   componentDidMount () {
+    let jobId = _.words(redirect)[1]
+    axios.get('https://api.wapcard.se/api/v1/jobs/' + jobId).then((result) => {
+      this.setState({
+        jobTitle: result.data.title
+      })
+    })
+
     $.getScript('https://apis.google.com/js/client:platform.js', this.loadGoogle)
 
     let liRoot = document.createElement('div')
@@ -373,6 +385,14 @@ class Login extends React.Component {
       <Col>
         <Row className='justify-content-center align-items-center flex-column' style={{ minHeight: '100vh' }}>
           <Container>
+            {this.state.job &&
+            <Row className='justify-content-center align-items-center'>
+              <Col xs={12} lg={8} xl={6}>
+                <h4 className='text-center'>Logga in för att söka jobbet</h4>
+                <h3 className='text-center'>{this.state.jobTitle}</h3>
+              </Col>
+            </Row>
+            }
             <Row className='justify-content-center align-items-center'>
               <Col xs={10} sm={8} md={6}>
                 <a href='https://wapcard.se'>

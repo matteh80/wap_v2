@@ -35,9 +35,17 @@ $link-color: $blue;
 .fg-pink {
   color: $pink !important;
 }
-
+.fg-orange {
+  color: $orange !important;
+}
 .fg-gray {
   color: #919191;
+}
+.fg-darklightgray {
+  color: $darklightgray !important;
+}
+.fg-white {
+  color: #ffffff;
 }
 
 // Social Colors
