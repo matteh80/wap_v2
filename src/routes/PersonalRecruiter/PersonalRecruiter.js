@@ -11,8 +11,35 @@ class PersonalRecruiter extends React.Component {
   constructor (props) {
     super(props)
 
+    let shouldShow = true
+
+    if (!this.props.wapfilm.video) {
+      shouldShow = false
+    }
+
+    if (!this.props.talentq.completed && shouldShow) {
+      shouldShow = false
+    }
+
+    if (this.props.educations.educations.length === 0 && shouldShow) {
+      shouldShow = false
+    }
+
+    if (this.props.locations.userLocations.length === 0 && shouldShow) {
+      shouldShow = false
+    }
+
+    if (this.props.skills.userSkills.length === 0 && shouldShow) {
+      shouldShow = false
+    }
+
+    if (this.props.occupations.userOccupations.length === 0 && shouldShow) {
+      shouldShow = false
+    }
+
     this.state = {
-      copied: false
+      copied: false,
+      shouldShow: shouldShow
     }
 
     this.copyToClipboard = this.copyToClipboard.bind(this)
@@ -34,16 +61,31 @@ class PersonalRecruiter extends React.Component {
     return (
       <Container fluid>
         <SpeechBubble>
-          <h3>{translate('recruiter.speechBubble.title')}</h3>
-          {translate('recruiter.speechBubble.text1')}
-          {translate('recruiter.speechBubble.text2')}
-          {translate('recruiter.speechBubble.text3', { profileId: profile.id, occupationName: occupations.userOccupations[0].parent_name, locationName: locations.userLocations[0].parent_name })}
-          <Alert onClick={() => this.copyToClipboard('#subject_text')}>
-            <div id='subject_text'>
-              PR / {profile.id} / {occupations.userOccupations[0].parent_name} / {locations.userLocations[0].parent_name}
+          {this.state.shouldShow &&
+          <div>
+            <h3>{translate('recruiter.speechBubble.title')}</h3>
+            {translate('recruiter.speechBubble.text1')}
+            {translate('recruiter.speechBubble.text2')}
+            {translate('recruiter.speechBubble.text3', {
+              profileId: profile.id,
+              occupationName: occupations.userOccupations[0].parent_name,
+              locationName: locations.userLocations[0].parent_name
+            })}
+            <Alert onClick={() => this.copyToClipboard('#subject_text')}>
+              <div id='subject_text'>
+                PR / {profile.id} / {occupations.userOccupations[0].parent_name}
+                / {locations.userLocations[0].parent_name}
+              </div>
+            </Alert>
+            <small>{translate('recruiter.tip')}</small>
+          </div>
+          }
+          {!this.state.shouldShow &&
+            <div>
+              <h3>{translate('recruiter.speechBubble.not_done_title')}</h3>
+              {translate('recruiter.speechBubble.not_done_text')}
             </div>
-          </Alert>
-          <small>{translate('recruiter.tip')}</small>
+          }
         </SpeechBubble>
       </Container>
     )

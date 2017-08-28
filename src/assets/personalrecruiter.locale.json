@@ -13,6 +13,14 @@
       "text3": [
         "<p>Skicka ett mail till <a href='mailto:rekryterare@wapcard.se?subject=PR / ${ profileId } / ${ occupationName } / ${ locationName }'>rekryterare@wapcard.se</a> med texten nedanför i ämnesraden och beskriv kort hur vi kan hjälpa dig att hitta ditt drömjobb.</p>",
         "English 3"
+      ],
+      "not_done_title": [
+        "Vi behöver mer information om dig",
+        "Title"
+      ],
+      "not_done_text": [
+        "<p>För att kunna ansöka behöver du ha en fullständig wap-profil, d.v.s. du behöver ha</p><ul><li>Fyllt i minst en utbildning</li><li>Fyllt i önskade arbetsorter</li><li>Lagt till minst en kompetens</li><li>Lagt till minst en önskad befattning</li><li>Laddat upp en wap film</li><li>Gjort personlighetstest</li></ul><p>Detta för att vi ska få en tydlig bild av dig och kunna hjälpa till på bästa sätt.</p>",
+        "English not done"
       ]
     },
     "tip": ["Tips, klicka i rutan för att kopiera texten till klippbordet", "Click to copy to clipboard"]
