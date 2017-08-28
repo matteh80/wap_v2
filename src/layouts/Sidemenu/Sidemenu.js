@@ -42,6 +42,11 @@ class Sidemenu extends React.Component {
 
   componentWillReceiveProps (newProps) {
     this.setCounts(newProps)
+    if (newProps.routing.locationBeforeTransitions.pathname !== this.props.routing.locationBeforeTransitions.pathname) {
+      $('html, body').animate({
+        scrollTop: 0
+      }, 0)
+    }
   }
 
   showMenu () {
