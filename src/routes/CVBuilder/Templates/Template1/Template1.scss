@@ -112,6 +112,7 @@
 
       .progress-bar {
         box-shadow: none;
+        background-color: $themeColor;
       }
     }
   }
@@ -130,6 +131,13 @@
       .licenseName {
 
       }
+    }
+  }
+
+  #references {
+    .fa {
+      color: $themeColor;
+      width:20px;
     }
   }
 

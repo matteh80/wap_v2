@@ -35,6 +35,8 @@ class CVBuilder extends React.Component {
       educations: Object.assign([], this.props.educations.educations),
       skills: Object.assign([], this.props.skills.userSkills),
       languages: Object.assign([], this.props.languages.userLanguages),
+      drivinglicenses: Object.assign([], this.props.drivinglicenses.userLicenses),
+      references: Object.assign([], this.props.references.references),
       resume: true,
       createPdf: false,
       createPreview: false,
@@ -63,6 +65,8 @@ class CVBuilder extends React.Component {
     this.onEducationChange = this.onEducationChange.bind(this)
     this.onSkillChange = this.onSkillChange.bind(this)
     this.onLanguageChange = this.onLanguageChange.bind(this)
+    this.onLicenseChange = this.onLicenseChange.bind(this)
+    this.onReferenceChange = this.onReferenceChange.bind(this)
     this.onResumeChange = this.onResumeChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
   }
@@ -166,6 +170,38 @@ class CVBuilder extends React.Component {
 
     this.setState({
       languages: array,
+      showUpdatePreview: true
+    })
+  }
+
+  onLicenseChange (e, item) {
+    let array = this.state.drivinglicenses
+    let index = this.state.drivinglicenses.findIndex(drivinglicenses => drivinglicenses.id === item.id)
+
+    if (index > -1) {
+      array.splice(index, 1)
+    } else {
+      array.push(item)
+    }
+
+    this.setState({
+      drivinglicenses: array,
+      showUpdatePreview: true
+    })
+  }
+
+  onReferenceChange (e, item) {
+    let array = this.state.references
+    let index = this.state.references.findIndex(references => references.id === item.id)
+
+    if (index > -1) {
+      array.splice(index, 1)
+    } else {
+      array.push(item)
+    }
+
+    this.setState({
+      references: array,
       showUpdatePreview: true
     })
   }
@@ -296,6 +332,8 @@ class CVBuilder extends React.Component {
       educations,
       skills,
       languages,
+      drivinglicenses,
+      references
     } = this.props
 
     let chevronClass = classNames('fa pull-right', this.state.collapse ? 'fa-chevron-down' : 'fa-chevron-up')
@@ -379,7 +417,6 @@ class CVBuilder extends React.Component {
                     {skills.userSkills.length === 0 &&
                     <div>
                       <h6>Du har inte lagt till några kompetenser.</h6>
-                      {/* <a href='/work/skills' className='center' onClick={(e) => this.handleClick(e)}><i className='fa fa-plus-circle' /></a> */}
                     </div>}
                   </CardBlock>
                 </Card>
@@ -400,13 +437,38 @@ class CVBuilder extends React.Component {
 
               <Col xs={12} md={6} lg={4} xl={3}>
                 <Card>
+                  <CardHeader><CardTitle>Körkort</CardTitle></CardHeader>
+                  <CardBlock>
+                    {drivinglicenses.userLicenses && drivinglicenses.userLicenses.map((license) => {
+                      return <CheckboxItem key={license.id} item={license} label={license.name} onChange={this.onLicenseChange} />
+                    })}
+                    {drivinglicenses.userLicenses.length === 0 &&
+                    <h6>Du har inte lagt till några körkort ännu.</h6>}
+                  </CardBlock>
+                </Card>
+              </Col>
+
+              <Col xs={12} md={6} lg={4} xl={3}>
+                <Card>
+                  <CardHeader><CardTitle>Referenser</CardTitle></CardHeader>
+                  <CardBlock>
+                    {references.references && references.references.map((reference) => {
+                      return <CheckboxItem key={reference.id} item={reference} label={reference.name} onChange={this.onReferenceChange} />
+                    })}
+                    {drivinglicenses.userLicenses.length === 0 &&
+                    <h6>Du har inte lagt till några körkort ännu.</h6>}
+                  </CardBlock>
+                </Card>
+              </Col>
+
+              <Col xs={12} md={6} lg={4} xl={3}>
+                <Card>
                   <CardHeader>
                     <CardTitle>Resumé</CardTitle>
-                {/* <i className={chevronClass} style={{ fontSize: 20 }} /> */}
                   </CardHeader>
                   <CardBlock>
                     {this.props.profile.personal_info &&
-                    <CheckboxItem label='Visa resumé / personlig info' checked={this.state.resume}
+                    <CheckboxItem label='Min resumé' checked={this.state.resume}
                       onChange={this.onResumeChange} />}
                     {!this.props.profile.personal_info &&
                     <h6>Gå till din profil och skriv lite kortfattat om dig själv</h6>}
@@ -420,10 +482,22 @@ class CVBuilder extends React.Component {
               educations={this.state.educations}
               skills={this.state.skills}
               languages={this.state.languages}
-              drivinglicenses={this.props.drivinglicenses.userLicenses}
+              drivinglicenses={this.state.drivinglicenses}
               profile={this.props.profile}
+              references={this.state.references}
               resume={this.props.profile.personal_info ? this.state.resume : false}
         />}
+
+            {/*<Template1*/}
+              {/*employments={this.state.employments}*/}
+              {/*educations={this.state.educations}*/}
+              {/*skills={this.state.skills}*/}
+              {/*languages={this.state.languages}*/}
+              {/*drivinglicenses={this.state.drivinglicenses}*/}
+              {/*profile={this.props.profile}*/}
+              {/*references={this.state.references}*/}
+              {/*resume={this.props.profile.personal_info ? this.state.resume : false}*/}
+            {/*/>*/}
 
           </Col>
         </Row>

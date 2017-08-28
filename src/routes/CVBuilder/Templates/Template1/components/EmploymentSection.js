@@ -25,7 +25,7 @@ export default class EmploymentSection extends React.Component {
       <section className='cvSection' id='employments'>
         <Row>
           <Col xs={4} style={{ textAlign: 'right' }}>
-            <h3 className='sectionTitle'>Erfarenhet</h3>
+            <h3 className='sectionTitle'>Anställningar</h3>
           </Col>
         </Row>
         {employments && employments.map((employment) => {

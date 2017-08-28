@@ -32,6 +32,9 @@ $link-color: $blue;
   background: $red;
 }
 
+.fg-themecolor {
+  color: $themeColor;
+}
 .fg-pink {
   color: $pink !important;
 }

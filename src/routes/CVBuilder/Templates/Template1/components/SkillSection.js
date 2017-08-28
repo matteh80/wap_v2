@@ -22,7 +22,7 @@ export default class SkillSection extends React.Component {
       <section id='skills' className='row'>
         <Col xs={12}>
           <Col xs={4} style={{ textAlign: 'right' }}>
-            <h3 className='sectionTitle'>Top Skills</h3>
+            <h3 className='sectionTitle'>Kompetenser</h3>
           </Col>
         </Col>
 

@@ -114,7 +114,7 @@ $arrowWidth: $arrowHeight * .7;
   display: none;
   transition: all 250ms;
   z-index: 9;
-  text-shadow: -3px 0 5px rgba(0,0,0,0.3);
+  text-shadow: -3px 0 5px rgba(0,0,0,0.1);
 
   &.visible {
     display: block;

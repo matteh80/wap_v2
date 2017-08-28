@@ -13,6 +13,7 @@ import LanguageSection from './components/LanguageSection'
 import HeaderSection from './components/HeaderSection'
 import DrivingLicenseSection from './components/DrivingLicenseSection'
 import ResumeSection from './components/ResumeSection'
+import ReferenceSection from './components/ReferenceSection'
 
 let originalChildren = []
 
@@ -111,6 +112,7 @@ class Template1 extends React.Component {
             {this.props.educations.length > 0 && <EducationSection educations={this.props.educations} />}
             {this.props.languages.length > 0 && <LanguageSection languages={this.props.languages} />}
             {this.props.drivinglicenses.length > 0 && <DrivingLicenseSection drivinglicenses={this.props.drivinglicenses} />}
+            {this.props.references.length > 0 && <ReferenceSection references={this.props.references} />}
           </Container>
         </div>
       </div>

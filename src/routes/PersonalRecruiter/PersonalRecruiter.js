@@ -37,6 +37,10 @@ class PersonalRecruiter extends React.Component {
       shouldShow = false
     }
 
+    if (this.props.profile.personal_info.length === 0 && shouldShow) {
+      shouldShow = false
+    }
+
     this.state = {
       copied: false,
       shouldShow: shouldShow
