@@ -64,16 +64,6 @@ class Personalities extends React.Component {
       originalItems: this.props.personalities.userPersonalities ? Object.assign([], this.props.personalities.userPersonalities) : []
     }
 
-    let { dispatch } = this.props
-    Promise.all([
-      dispatch(getAllPersonalities()),
-      dispatch(getMyPersonalities()),
-    ]).then(() => {
-      console.log('got it all')
-    }).catch((error) => {
-      console.log(error)
-    })
-
     this.onSortEnd = this.onSortEnd.bind(this)
     this.onRemove = this.onRemove.bind(this)
     this.onAdd = this.onAdd.bind(this)
@@ -107,6 +97,21 @@ class Personalities extends React.Component {
     this.setState({
       items: this.state.originalItems,
       changes: false
+    })
+  }
+
+  componentDidMount () {
+    let { dispatch } = this.props
+    Promise.all([
+      dispatch(getAllPersonalities()),
+      dispatch(getMyPersonalities()),
+    ]).then(() => {
+      console.log('got it all')
+      this.setState({
+        items: this.props.personalities.userPersonalities
+      })
+    }).catch((error) => {
+      console.log(error)
     })
   }
 

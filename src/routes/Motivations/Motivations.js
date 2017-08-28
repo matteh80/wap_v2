@@ -64,16 +64,6 @@ class Motivations extends React.Component {
       originalItems: this.props.motivations.userMotivations ? Object.assign([], this.props.motivations.userMotivations) : []
     }
 
-    let { dispatch } = this.props
-    Promise.all([
-      dispatch(getAllMotivations()),
-      dispatch(getMyMotivations()),
-    ]).then(() => {
-      console.log('got it all')
-    }).catch((error) => {
-      console.log(error)
-    })
-
     this.onSortEnd = this.onSortEnd.bind(this)
     this.onRemove = this.onRemove.bind(this)
     this.onAdd = this.onAdd.bind(this)
@@ -107,6 +97,21 @@ class Motivations extends React.Component {
     this.setState({
       items: this.state.originalItems,
       changes: false
+    })
+  }
+
+  componentDidMount () {
+    let { dispatch } = this.props
+    Promise.all([
+      dispatch(getAllMotivations()),
+      dispatch(getMyMotivations()),
+    ]).then(() => {
+      console.log('got it all')
+      this.setState({
+        items: this.props.motivations.userMotivations
+      })
+    }).catch((error) => {
+      console.log(error)
     })
   }
 

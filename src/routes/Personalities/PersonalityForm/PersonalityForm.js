@@ -23,15 +23,22 @@ class PersonalityForm extends React.Component {
 
     this.state = {
       selectValue: null,
-      collapse: this.props.personalities.userPersonalities.length === 0
+      collapse: this.props.personalities.userPersonalities.length === 0,
+      disabled: this.props.personalities.userPersonalities.length === 3
     }
-
-    this.props.personalities.length === 0 && dispatch(getAllPersonalities())
-    dispatch(getMyPersonalities())
 
     this.toggleCollapse = this.toggleCollapse.bind(this)
     this._getOptions = this._getOptions.bind(this)
     this._handlePersonalityChange = this._handlePersonalityChange.bind(this)
+  }
+
+  componentWillUpdate (newProps, newState) {
+    if (newProps.personalities.userPersonalities.length !== this.props.personalities.userPersonalities.length) {
+      this.setState({
+        disabled: newProps.personalities.userPersonalities.length === 3,
+        collapse: false
+      })
+    }
   }
 
   _getOptions () {
@@ -69,17 +76,20 @@ class PersonalityForm extends React.Component {
   }
 
   render () {
-    let chevronClass = classNames('fa add-btn', this.state.collapse ? 'fa-chevron-down bg-orange' : 'fa-plus bg-green')
+    let chevronClass = classNames('fa add-btn', this.state.collapse ? 'fa-chevron-down bg-orange' : this.state.disabled ? 'fa-exclamation-triangle bg-red' : 'fa-plus bg-green')
     let newHeight = $('.personalityItem .card').height()
-    let itemClass = classNames('fakeItem', this.state.collapse && 'fullOpacity')
+    let itemClass = classNames('fakeItem', this.state.disabled && 'disabled')
 
     return (
       <Card className={itemClass} style={{ minHeight: newHeight }}>
         <div className='btn-wrapper'>
           <UncontrolledTooltip placement='left' target='add-btn'>
-            Lägg till nytt personlighetsdrag
+            {this.state.disabled
+              ? 'Max tre personlighetsdrag'
+              : 'Lägg till personlighetsdrag'
+            }
           </UncontrolledTooltip>
-          <i className={chevronClass} id='add-btn' onClick={() => this.toggleCollapse()} />
+          <i className={chevronClass} id='add-btn' onClick={!this.state.disabled && this.toggleCollapse} />
         </div>
         <CardBlock>
           {!this.state.collapse && <div className='fakeTitle mb-0 mr-1' style={{ width: 20, height: 16, float: 'left' }} />}
