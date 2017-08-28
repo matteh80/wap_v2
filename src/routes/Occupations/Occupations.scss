@@ -26,7 +26,6 @@
 
       &:hover {
         //padding-right: 30px;
-        cursor: move;
 
         .trashcan {
           opacity: 1;
@@ -39,6 +38,11 @@
 .dragHandle {
   margin-right: 5px;
   color: #cdcdcd;
+  font-size: 20px;
+
+  &:hover {
+    cursor: move;
+  }
 }
 
 .moving {

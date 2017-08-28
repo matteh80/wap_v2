@@ -16,7 +16,7 @@ import {
 } from 'reactstrap'
 import ThreeDButton from '../../components/buttons/ThreeDButton'
 
-const DragHandle = SortableHandle(() => <i className='fa fa-bars dragHandle' />)
+const DragHandle = SortableHandle(() => <i className='fa fa-arrows dragHandle' />)
 
 const SortableList = SortableContainer(({ items, onRemove, onAdd }) => {
   return (
@@ -43,10 +43,12 @@ const SortableItem = SortableElement(({ value, index, onRemove, id, mIndex }) =>
     <Col xs={12} sm={6} md={4} xl={3} className='personalityItem'>
       <Card>
         <CardBlock>
-          <DragHandle />
-          {value}
-          <div className='btn-wrapper'>
-            <i className='fa fa-times remove-btn' onClick={() => onRemove(mIndex)} />
+          <div className='d-flex align-items-center'>
+            <DragHandle />
+            {value}
+            <div className='btn-wrapper'>
+              <i className='fa fa-times remove-btn' onClick={() => onRemove(mIndex)} />
+            </div>
           </div>
         </CardBlock>
       </Card>
@@ -152,7 +154,7 @@ class Personalities extends React.Component {
               <SortableList
                 helperClass='moving'
                 axis='xy'
-                pressDelay={200}
+                useDragHandle
                 items={this.state.items}
                 onSortStart={this.onSortStart}
                 onSortEnd={this.onSortEnd}
