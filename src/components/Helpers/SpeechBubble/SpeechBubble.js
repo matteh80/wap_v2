@@ -27,7 +27,8 @@ class SpeechBubble extends React.Component {
     }
 
     this.state = {
-      bubbleHidden: _.indexOf(hiddenBubbles, props.routing.locationBeforeTransitions.pathname) > -1
+      bubbleHidden: _.indexOf(hiddenBubbles, props.routing.locationBeforeTransitions.pathname) > -1,
+      imgSrc: Math.floor((Math.random() * 2) + 1) === 1 ? '/img/helper_male_new.png' : '/img/helper_female_new.png'
     }
 
     this.hideSpeechbubble = this.hideSpeechbubble.bind(this)
@@ -104,7 +105,7 @@ class SpeechBubble extends React.Component {
               </Card>
             </div>
             <div className='gubbe'>
-              <img src='/img/helper_male_new.png' className='gubbe img-fluid' />
+              <img src={this.state.imgSrc} className='gubbe img-fluid' />
             </div>
           </div>
         }
