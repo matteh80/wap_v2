@@ -11,7 +11,6 @@ import {
   Row,
   Label,
   FormGroup,
-  Input
 } from 'reactstrap'
 
 export default class StartEndDate extends React.Component {
@@ -125,7 +124,7 @@ export default class StartEndDate extends React.Component {
                 required
                 dateFormat='YYYY-MM'
                 timeFormat={false}
-                isValidDate={validStart}
+                // isValidDate={validStart}
               />
               {this.state.startError &&
               <label id='start_date-error' className='error'>Startdatum får inte vara i framtiden</label>
@@ -145,7 +144,7 @@ export default class StartEndDate extends React.Component {
                 required
                 dateFormat='YYYY-MM'
                 timeFormat={false}
-                isValidDate={validEnd}
+                // isValidDate={validEnd}
               />
               {this.state.endError &&
               <label id='end_date-error' className='error'>Slutdatum måste vara efter startdatum</label>
