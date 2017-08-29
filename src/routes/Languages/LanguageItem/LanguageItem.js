@@ -118,7 +118,7 @@ class LanguageItem extends React.Component {
                     min={1}
                     max={5}
                     value={language.spoken === 1 ? 1.25 : language.spoken}
-                    color='info' />
+                    color='pink' />
                 </div>
                 <div>
                   <i className='fa fa-pencil float-left mr-1' />
@@ -126,7 +126,7 @@ class LanguageItem extends React.Component {
                     min={1}
                     max={5}
                     value={language.written === 1 ? 1.25 : language.written}
-                    color='info' />
+                    color='pink' />
                 </div>
               </div>
             }

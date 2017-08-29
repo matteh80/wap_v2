@@ -90,7 +90,7 @@ class SkillItem extends React.Component {
               min={1}
               max={5}
               value={skill.experience === 1 ? 1.25 : skill.experience}
-              color='info' />
+              color='pink' />
             }
           </CardBlock>
         </Card>

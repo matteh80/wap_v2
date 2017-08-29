@@ -118,7 +118,7 @@ class Sidemenu extends React.Component {
             <Menuitem to='/personalitytest' icon='fa fa-bar-chart' title='Personlighetstest' details='TalentQ' count={this.state.personalitytestCompleted} />
             <Menuitem to='/wapstory' icon='fa fa-clock-o' title='Wap story' details='Håll koll på dina jobb' />
             <hr />
-            <Menuitem to='/wapcard' icon='fa-vcard' title='wap card' details={translate('sidemenu.show_wapcard')} />
+            <Menuitem to='/wapcard' icon='fa-vcard' title='Wap card' details={translate('sidemenu.show_wapcard')} />
             <Menuitem to='/cvbuilder' icon='fa-file-text' title='CV Builder' details='Skapa ett CV' />
             <hr />
             <Menuitem to='/personalrecruiter' icon='fa-user-md' title='Personlig rekryterare' details='Din hjälp i jobbsökandet' />
@@ -126,6 +126,8 @@ class Sidemenu extends React.Component {
               <Menuitem indexlink to='/jobs' icon='fa-newspaper-o' title='Lediga tjänster' />
               {this.state.jobCount > 0 && <Menuitem to='/jobs/my' icon='fa-lightbulb-o' title='Visade tjänster' />}
             </Menuitem>
+            <hr />
+            <Menuitem to='/shareprofile' icon='fa-share-alt' title='Dela wap-profil' details='Sök jobb med wap' />
           </ul>
         </div>
       </div>

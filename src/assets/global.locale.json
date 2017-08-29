@@ -2,12 +2,12 @@
   "sidemenu": {
     "dashboard": ["Dashboard", "Dashboard"],
     "profile": ["Profil", "Profile"],
-    "employments": ["anställningar", "employments"],
-    "educations": ["utbildningar", "educations"],
-    "skills": ["kompetenser", "skills"],
-    "languages": ["språk", "languages"],
-    "drivingLicenses": ["körkort", "driving licenses"],
-    "references": ["referenser", "references"],
+    "employments": ["Anställningar", "Employments"],
+    "educations": ["Utbildningar", "Educations"],
+    "skills": ["Kompetenser", "Skills"],
+    "languages": ["Språk", "Languages"],
+    "drivingLicenses": ["Körkort", "Driving licenses"],
+    "references": ["Referenser", "References"],
     "referencesCount": [
       "${ count } referenser",
       "${ count } references"
