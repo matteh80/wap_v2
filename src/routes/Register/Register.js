@@ -56,7 +56,8 @@ class Register extends React.Component {
       loadsave: false,
       linkedIn: false,
       job: _.includes(_.words(redirect), 'jobs'),
-      jobTitle: null
+      jobTitle: null,
+      socialLogin: false
     }
 
     this._handleRegister = this._handleRegister.bind(this)
@@ -73,12 +74,14 @@ class Register extends React.Component {
   }
 
   componentDidMount () {
-    let jobId = _.words(redirect)[1]
-    axios.get('https://api.wapcard.se/api/v1/jobs/' + jobId).then((result) => {
-      this.setState({
-        jobTitle: result.data.title
+    if (this.state.job) {
+      let jobId = _.words(redirect)[1]
+      axios.get('https://api.wapcard.se/api/v1/jobs/' + jobId).then((result) => {
+        this.setState({
+          jobTitle: result.data.title
+        })
       })
-    })
+    }
 
     $.getScript('https://apis.google.com/js/client:platform.js', this.loadGoogle)
 
@@ -119,6 +122,9 @@ class Register extends React.Component {
     let authCode = urlParams.getAll('code')[0]
     if (authCode) {
       if (authCode.length > 10) {
+        this.setState({
+          socialLogin: true
+        })
         let loginData = { 'provider': provider, 'code': authCode, 'redirect_uri': mRedirectUri }
         dispatch(socialLogin(loginData)).then(() => {
           // if (provider === 'linkedin-oauth2') {
@@ -370,7 +376,7 @@ class Register extends React.Component {
               <Col xs={10} sm={8} md={6}>
                 <img src='/img/wap_logga.png' className='img-fluid mx-auto d-block' />
               </Col>
-              {!this.state.linkedIn &&
+              {!this.state.linkedIn && !this.state.socialLogin &&
               <Col xs={10}>
                 <Row className='social justify-content-center align-items-center mt-3'>
                   <i className='fa fa-facebook' id='facebook-btn' onClick={() => this.loginFB()} />
@@ -379,7 +385,7 @@ class Register extends React.Component {
                 </Row>
               </Col>
               }
-              {!this.state.linkedIn &&
+              {!this.state.linkedIn && !this.state.socialLogin &&
               <Col xs={12} lg={8} xl={6}>
                 <div className='lineBeforeAfter justify-content-center align-content-center my-4'>
                   <h4 className='orText'>ELLER</h4>
@@ -436,6 +442,15 @@ class Register extends React.Component {
               </Col>
               }
             </Row>
+            {this.state.socialLogin &&
+            <Row className='justify-content-center align-items-center mt-5'>
+              <div id='loader' className='ball-scale-ripple-multiple'>
+                <div />
+                <div />
+                <div />
+              </div>
+            </Row>
+            }
           </Container>
         </Row>
       </Col>
