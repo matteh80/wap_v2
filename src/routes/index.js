@@ -30,6 +30,7 @@ import TalentQ from './TalentQ/TalentQ'
 import WapStory from './WapStory/WapStory'
 import PersonalRecruiter from './PersonalRecruiter/PersonalRecruiter'
 import PublicProfile from './PublicProfile/PublicProfile'
+import ShareProfile from './ShareProfile/ShareProfile'
 
 export const routes = ({ translate, currentLanguage }, store) => (
   <Route>
@@ -62,6 +63,7 @@ export const routes = ({ translate, currentLanguage }, store) => (
         <Route exact path='/jobs/my' name='Visad tjänst' component={ViewedJobs} />
         <Route path='/jobs/:jobid' name='Annons' component={ApplyForJob} />
       </Route>
+      <Route path='/shareprofile' name='Dela wap-profil' component={ShareProfile} />
     </Route>
     <Route path='/login' component={Login} name='Login' />
     <Route path='/login/facebook' component={Login} />

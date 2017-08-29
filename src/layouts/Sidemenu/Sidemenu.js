@@ -116,7 +116,7 @@ class Sidemenu extends React.Component {
             <Menuitem to='/wapfilm' icon='fa-video-camera' title='Wap film' count={this.state.videoCount}
               details={this.state.videoCount === 0 && 'Ladda upp en film'} />
             <Menuitem to='/personalitytest' icon='fa fa-bar-chart' title='Personlighetstest' details='TalentQ' count={this.state.personalitytestCompleted} />
-            <Menuitem to='/wapstory' icon='fa fa-clock-o' title='Wap story' details='Håll koll på dina jobb' />
+            {/*<Menuitem to='/wapstory' icon='fa fa-clock-o' title='Wap story' details='Håll koll på dina jobb' />*/}
             <hr />
             <Menuitem to='/wapcard' icon='fa-vcard' title='Wap card' details={translate('sidemenu.show_wapcard')} />
             <Menuitem to='/cvbuilder' icon='fa-file-text' title='CV Builder' details='Skapa ett CV' />

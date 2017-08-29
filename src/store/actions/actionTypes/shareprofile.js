@@ -1,0 +1,4 @@
+module.exports = {
+  GET_ALL_SHARES: 'GET_ALL_SHARES',
+  CREATE_SHARE: 'CREATE_SHARE'
+}
