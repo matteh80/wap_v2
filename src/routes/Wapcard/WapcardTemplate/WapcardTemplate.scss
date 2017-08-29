@@ -19,8 +19,13 @@
   .leftCol {
     height:100%;
     //background: linear-gradient(to bottom, #74bfdc 0%, #49d2b7 100%) !important;
-    background: $themeColor;
+    //background: $themeColor;
+    background: #2b303b;
     color: #fff;
+
+    .progress-bar {
+      background-color: $themeColor !important;
+    }
 
     .wpSection {
       //margin-top: 50px;

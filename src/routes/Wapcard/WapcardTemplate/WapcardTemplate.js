@@ -124,7 +124,7 @@ class WapcardTemplate extends React.Component {
           </Row>
           <Row>
             <Col xs={12} className='p-5' style={{ position: 'absolute', bottom: 0 }}>
-              <img src='/img/wap_logo_bee_wap_black.png' className='img-fluid' />
+              <img src='/img/bee_white.png' className='img-fluid' />
             </Col>
           </Row>
         </Col>

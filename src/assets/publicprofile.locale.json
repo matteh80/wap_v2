@@ -1,6 +1,10 @@
 {
   "publicprofile": {
     "employments": ["Anställningar", "Employments"],
-    "educations": ["Utbildningar", "Educations"]
+    "educations": ["Utbildningar", "Educations"],
+    "motivations": ["Drivkrafter", "Motivations"],
+    "personalities": ["Personlighet", "Personalities"],
+    "occupations": ["Befattningar", "Occuaptions"],
+    "driving_licenses": ["Körkort", "Driving licenses"]
   }
 }

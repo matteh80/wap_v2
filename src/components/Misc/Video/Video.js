@@ -25,12 +25,14 @@ class Video extends React.Component {
   addDownloadIcon () {
     return (
       <div onClick={this.downloadVideoFromServer}>
-        <div style={{ background: '#cdcdcd' }} className='d-flex justify-content-center'>
-          <Col xs='10' sm='8' md='6' lg='4' xl='3'>
-            <img src='/img/download_film.png' className='img-fluid my-5' />
+        <div style={{ background: 'rgb(15, 102, 116)' }} className='d-flex justify-content-center align-items-center flex-column'>
+          <Col xs='10' sm='8' md='6' lg='5' xl='4'>
+            <img src='/img/download_film.png' className='img-fluid mt-3' />
+          </Col>
+          <Col xs='12'>
+            <h6 className='text-center my-2 fg-white'>Klicka här för att ladda ner och visa filmen</h6>
           </Col>
         </div>
-        <h6 className='text-center my-5'>Klicka här för att ladda ner och visa filmen</h6>
       </div>
     )
     // return React.createElement(

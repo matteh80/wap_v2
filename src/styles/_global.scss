@@ -78,3 +78,9 @@ a {
   opacity: 1;
   transition: opacity .5s ease-in;
 }
+
+.publicProfile {
+  .wrapper {
+    @include make-row();
+  }
+}

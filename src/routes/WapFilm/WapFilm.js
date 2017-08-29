@@ -175,9 +175,6 @@ class WapFilm extends React.Component {
               </Dropzone>
               }
             </Card>
-            <Card>
-
-            </Card>
           </Col>
         </Row>
       </Container>
@@ -190,7 +187,7 @@ export default connect((state) => state)(WapFilm)
 const dropzoneStyle = {
   width: '100%',
   height: '100%',
-  background: '#cdcdcd',
+  background: 'rgb(15, 102, 116)',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center'

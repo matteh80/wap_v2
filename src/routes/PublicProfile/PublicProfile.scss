@@ -1,0 +1,84 @@
+@import '../../styles/variables/colors';
+@import '../../styles/variables/variables';
+
+.publicProfile {
+
+  blockquote {
+    margin:0;
+    border:none;
+  }
+
+  .employmentItem, .educationItem {
+    .date {
+      background: $themeColor;
+      color: #fff;
+      padding: 2px 0;
+      position: relative;
+      height:17px;
+      left:5px;
+
+      span {
+        position: relative;
+        z-index: 2;
+      }
+
+      &:before, &:after {
+        z-index: 1;
+        content: '';
+        position: absolute;
+        top:0;
+        height: 17px;
+        width: 17px;
+        border-radius: 50%;
+        background: $themeColor;
+      }
+
+      &:before {
+        left: -10px;
+      }
+
+      &:after {
+        right: -10px;
+      }
+    }
+
+    &.educationItem {
+      .date {
+        background: $pink;
+
+        &:before, &:after {
+          background: $pink;
+        }
+      }
+    }
+  }
+
+  .list {
+    padding-left: 5px;
+    list-style-type: none;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    -webkit-padding-start: 5px;
+
+
+    &.two-columns {
+      columns: 2;
+
+      li {
+        font-family: $headings-font-family;
+        font-weight: 300;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  .licenseIcon {
+    font-size: 80px;
+    text-align: center;
+    line-height: 0.8;
+  }
+}
