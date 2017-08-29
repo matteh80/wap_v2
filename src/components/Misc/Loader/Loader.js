@@ -1,5 +1,6 @@
 import React from 'react'
 import $ from 'jquery'
+import PropTypes from 'prop-types'
 
 export default class Loader extends React.Component {
   componentDidMount () {
@@ -19,6 +20,10 @@ export default class Loader extends React.Component {
       </div>
     )
   }
+}
+
+Loader.propTypes = {
+  active: PropTypes.bool.isRequired
 }
 
 const loaderContainer = {

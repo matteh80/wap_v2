@@ -13,6 +13,7 @@ import {
   CardSubtitle,
   CardText
 } from 'reactstrap'
+import Loader from '../../components/Misc/Loader/Loader';
 
 class ShareProfile extends React.Component {
 
@@ -37,6 +38,7 @@ class ShareProfile extends React.Component {
     let { shares } = this.props
     return (
       <Container fluid>
+        <Loader active={this.state.loadsave} />
         <Row>
           <SpeechBubble xs='12'>
             <h3>Sök jobb enklare, dela din profil!</h3>
@@ -45,9 +47,11 @@ class ShareProfile extends React.Component {
           </SpeechBubble>
           <Col>
             <Row>
+              {!this.state.loadsave &&
               <Col xs='12' sm='6' md='6' xl='4'>
-                <ShareForm />
+                <ShareForm/>
               </Col>
+              }
               {this.props.shares.shares && this.props.shares.shares.map((share) => {
                 return (
                   <Col key={share.id} xs='12' sm='6' md='6' xl='4' className='shareItem'>
