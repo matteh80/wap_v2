@@ -1,9 +1,11 @@
 import React from 'react'
+import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble'
 import { getAllShares, deleteShare } from '../../store/actions/shareprofile'
 import ShareForm from './ShareForm/ShareForm'
 import Masonry from 'react-masonry-component'
+import $ from 'jquery'
 import {
   Container,
   Row,
@@ -14,8 +16,7 @@ import {
   CardSubtitle,
   CardText
 } from 'reactstrap'
-import Loader from '../../components/Misc/Loader/Loader';
-import EditButtons from '../../components/buttons/EditButtons';
+import ShareProfileButtons from '../../components/buttons/ShareProfileButtons'
 
 class ShareProfile extends React.Component {
 
@@ -23,11 +24,14 @@ class ShareProfile extends React.Component {
     super(props)
 
     this.state = {
-      loadsave: true
+      loadsave: true,
+      copied: false
     }
 
     this.onRemove = this.onRemove.bind(this)
     this.layout = this.layout.bind(this)
+    this.onLinkClick = this.onLinkClick.bind(this)
+    this.onCopyClick = this.onCopyClick.bind(this)
   }
 
   componentDidMount () {
@@ -42,6 +46,19 @@ class ShareProfile extends React.Component {
   onRemove (id) {
     let { dispatch } = this.props
     dispatch(deleteShare(id))
+  }
+
+  onLinkClick (id) {
+    window.open('/publicprofile/' + id)
+  }
+
+  onCopyClick (id) {
+    let $temp = $('<input>')
+    $('body').append($temp)
+    $temp.val('https://' + window.location.hostname + '/publicprofile/' + id).select()
+    document.execCommand('copy')
+    $temp.remove()
+    this.setState({ copied: true })
   }
 
   layout () {
@@ -68,25 +85,24 @@ class ShareProfile extends React.Component {
             >
               {this.props.shares.shares && this.props.shares.shares.map((share) => {
                 return (
-                  <Col key={share.id} xs='12' sm='6' md='6' xl='4' className='shareItem'>
+                  <Col key={share.id} xs='12' sm='6' md='4' xl='3' className='shareItem'>
                     <Card>
-                      <EditButtons onlyRemove translate={this.props.translate} onRemove={() => this.onRemove(share.id)} />
+                      <ShareProfileButtons
+                        translate={this.props.translate}
+                        onRemove={() => this.onRemove(share.id)}
+                        onLinkClick={() => this.onLinkClick(share.id)}
+                        onCopyClick={() => this.onCopyClick(share.id)}
+                      />
                       <CardBlock>
                         <CardTitle>{share.name}</CardTitle>
                         <CardSubtitle>{share.access_count} visningar</CardSubtitle>
-                        <div>
-                          <i className='fa fa-link' />
-                          <a href={'https://beta.wapcard.se/publicprofile/' + share.id}>
-                            {' '}https://beta.wapcard.se/publicprofile/{share.id}
-                          </a>
-                        </div>
                       </CardBlock>
                     </Card>
                   </Col>
                 )
               })}
               {!this.state.loadsave &&
-              <Col xs='12' sm='6' md='6' xl='4'>
+              <Col xs='12' sm='6' md='4' xl='3'>
                 <ShareForm layout={this.layout} />
               </Col>
               }
@@ -98,4 +114,4 @@ class ShareProfile extends React.Component {
   }
 }
 
-export default connect((state) => state)(ShareProfile)
+export default withRouter(connect((state) => state)(ShareProfile))

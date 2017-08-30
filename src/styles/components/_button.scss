@@ -135,3 +135,48 @@ $white_btn: #ededed;
   }
 }
 
+
+.shareProfileButtons {
+  width:120px !important;
+
+  > div {
+    position: relative;
+    right:-120px;
+    transition: right 250ms;
+  }
+
+  .link-btn {
+    width:40px;
+    min-width: 40px;
+    height:40px;
+    background: $themeColor;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 250ms;
+    //box-shadow: inset 0 -3px rgba(0,0,0,0.2);
+
+    &:hover {
+      background: darken($themeColor, 5%);
+    }
+  }
+
+  .copy-btn {
+    width:40px;
+    min-width: 40px;
+    height:40px;
+    background: $orange;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 250ms;
+    //box-shadow: inset 0 -3px rgba(0,0,0,0.2);
+
+    &:hover {
+      background: darken($orange, 5%);
+    }
+  }
+}
+

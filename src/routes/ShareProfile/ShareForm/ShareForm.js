@@ -64,23 +64,23 @@ class ShareForm extends React.Component {
       <Card className={itemClass} style={{ minHeight: newHeight }}>
         <div className='btn-wrapper'>
           <UncontrolledTooltip placement='left' target='add-btn'>
-            Ny delning
+            Ny delbar länk
           </UncontrolledTooltip>
           <i className={chevronClass} id='add-btn' onClick={!this.state.disabled && this.toggleCollapse} />
         </div>
         <CardBlock>
-          {!this.state.collapse ? <div className='fakeTitle' /> : <CardTitle>Ny Delning</CardTitle>}
+          {!this.state.collapse ? <div className='fakeTitle' /> : <CardTitle>Ny delbar länk</CardTitle>}
           {!this.state.collapse && <div className='fakeSubtitle' />}
-          {!this.state.collapse && <div className='fakeSubtitle w-100 mt-0 mb-0' />}
           <Collapse isOpen={this.state.collapse}>
+            {this.state.collapse &&
             <AvForm onSubmit={this.handleSubmit}>
               <AvGroup>
-                <Label for='employer'>Titel *</Label>
+                <Label for='employer'>Titel (endast för dig) *</Label>
                 <AvField type='text' name='name' required />
               </AvGroup>
               <AvGroup>
-                <AvField type='select' name='ttl' label='Giltig' required>
-                  <option>Välj giltighetstid</option>
+                <AvField type='select' name='ttl' label='Synlig' required>
+                  <option>Välj synlighetstid</option>
                   <option value={0}>Endast en visning</option>
                   <option value={86400 * 1}>1 dag</option>
                   <option value={86400 * 2}>2 dagar</option>
@@ -91,8 +91,9 @@ class ShareForm extends React.Component {
                   <option value={86400 * 7}>7 dagar</option>
                 </AvField>
               </AvGroup>
-              <ThreeDButton type='submit'>Skapa delning</ThreeDButton>
+              <ThreeDButton type='submit'>Skapa</ThreeDButton>
             </AvForm>
+            }
           </Collapse>
         </CardBlock>
 
