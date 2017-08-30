@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Masonry from 'react-masonry-component'
-import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc'
+import { SortableContainer, SortableElement, SortableHandle, arrayMove } from 'react-sortable-hoc'
 import Cookies from 'universal-cookie'
 
 import TestCard from './TestCard/TestCard'
@@ -21,11 +21,13 @@ import HiddenCardsController from './HiddenCardsController/HiddenCardsController
 const _ = require('lodash')
 const cookies = new Cookies()
 
+const DragHandle = SortableHandle(() => <div className='dragHandleWrapper'><i className='fa fa-arrows dragHandle' /></div>)
+
 const SortableList = SortableContainer(({ items, onHide, onAdd }) => {
   return (
     <Masonry
       onClick={this.handleClick}
-      className='row sortableList'
+      className='row sortableList dashboardCards'
       ref={function (c) {
         this.masonry = this.masonry || c.masonry
       }.bind(this)}
@@ -47,7 +49,8 @@ const SortableItem = SortableElement(({ value, index, onHide, id, mIndex, compon
     },
   )
   return (
-    <Col xs={12} sm={6} lg={4} xl={3}>
+    <Col xs={12} sm={6} lg={4} xl={3} className='dashboardCard'>
+      <DragHandle />
       {mComponent}
     </Col>
   )
@@ -173,19 +176,19 @@ class Dashboard extends React.Component {
     list.map((name) => {
       let c = _.find(cards, { 'name': name })
       let hidden = _.includes(hiddenItems, name)
-
+      console.log(c)
       if (c) {
         c.component = React.cloneElement(
           c.component,
           {
             hidden: hidden
           },
+          '<h1>Hej</h1>'
         )
         mCards.push(c)
       }
     })
 
-    // return mCards.length > 0 ? mCards : cards
     return mCards
   }
 
@@ -244,8 +247,8 @@ class Dashboard extends React.Component {
         {this.state.visibleItems && this.state.visibleItems.length > 0 &&
         <SortableList
           helperClass='moving'
+          useDragHandle
           axis='xy'
-          pressDelay={200}
           items={this.state.visibleItems}
           onSortEnd={this.onSortEnd}
           onHide={this.onHide}

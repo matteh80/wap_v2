@@ -1,0 +1,35 @@
+.dashboardCards {
+  .dashboardCard {
+    position: relative;
+
+    .dragHandleWrapper {
+      position: absolute;
+      left: 15px;
+      top: 0;
+      z-index: 1;
+      width: 40px;
+      height: 40px;
+      overflow: hidden;
+
+      .dragHandle {
+        position: absolute;
+        top:0;
+        left:-40px;
+        width:40px;
+        height:40px;
+        background: #f28304;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: left 250ms;
+      }
+    }
+
+    &:hover {
+      .dragHandle {
+        left:0;
+      }
+    }
+  }
+}
