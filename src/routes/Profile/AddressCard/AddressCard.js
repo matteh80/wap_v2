@@ -12,6 +12,7 @@ import {
   CardBlock,
   CardTitle,
   CardSubtitle,
+  CardImg,
   Form,
   FormGroup,
   Input,
@@ -139,7 +140,7 @@ class AddressCard extends React.Component {
             <i className='fa fa-times cancel-btn' onClick={() => this.revertChanges()} />
           </div>
           <div id='mapWrapper'>
-            <img src='/img/plats.png' className='platsPic img-fluid position-absolute' style={{ zIndex: 1 }} />
+            <CardImg src='/img/plats.png' className='platsPic img-fluid position-absolute' style={{ zIndex: 1, height: 'auto' }} />
             <GoogleMapReact
               onGoogleApiLoaded={({ map, maps }) => this.setMap(map, maps)}
               yesIWantToUseGoogleMapApiInternals

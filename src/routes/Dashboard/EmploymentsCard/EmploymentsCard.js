@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
+import { getAllEmployments } from '../../../store/actions/employments'
 
 import {
   Col,
@@ -18,10 +19,13 @@ import DashboardButtons from '../../../components/buttons/DashboardButtons'
 class EmploymentsCard extends React.Component {
   constructor (props) {
     super(props)
+
+    let { dispatch } = this.props
+    dispatch(getAllEmployments())
   }
 
   render () {
-    let employmentCount = this.props.employments.employments.length
+    let employmentCount = this.props.employments.employments && this.props.employments.employments.length
     let { translate } = this.context
 
     return (

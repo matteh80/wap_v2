@@ -356,24 +356,36 @@ class Login extends React.Component {
         dispatch(getAllQuestions()),
         dispatch(getAllLocations()),
         dispatch(getTestStatus()),
-      ]).then(() => {
-        if (result.tos_accepted) {
-          console.log('redirect')
-          console.log(redirect)
-          this.props.router.push(redirect || '/')
-        } else {
-          if (redirect) {
-            this.props.router.push('/signup?redirect=' + redirect)
-          } else {
-            this.props.router.push('/signup')
-          }
-        }
-      }).catch((error) => {
+      ]).catch((error) => {
         console.log(error)
         this.setState({
           loadsave: false
         })
+        // if (result.tos_accepted) {
+        //   console.log('redirect')
+        //   console.log(redirect)
+        //   this.props.router.push(redirect || '/')
+        // } else {
+        //   if (redirect) {
+        //     this.props.router.push('/signup?redirect=' + redirect)
+        //   } else {
+        //     this.props.router.push('/signup')
+        //   }
+        // }
       })
+        .then(() => {
+          if (result.tos_accepted) {
+            console.log('redirect')
+            console.log(redirect)
+            this.props.router.push(redirect || '/')
+          } else {
+            if (redirect) {
+              this.props.router.push('/signup?redirect=' + redirect)
+            } else {
+              this.props.router.push('/signup')
+            }
+          }
+        })
     })
   }
 

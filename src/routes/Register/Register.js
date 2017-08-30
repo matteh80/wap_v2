@@ -334,17 +334,17 @@ class Register extends React.Component {
         dispatch(getAllSkills()),
         dispatch(getMySkills()),
         dispatch(getAllQuestions()),
-      ]).then(() => {
+      ]).catch((error) => {
+        console.log(error)
+        this.setState({
+          loadsave: false
+        })
+      }).then(() => {
         if (redirect) {
           this.props.router.push('/signup?redirect=' + redirect)
         } else {
           this.props.router.push('/signup')
         }
-      }).catch((error) => {
-        console.log(error)
-        this.setState({
-          loadsave: false
-        })
       })
     })
   }

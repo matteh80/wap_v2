@@ -11,7 +11,7 @@ import { getActiveLanguage, getTranslate } from 'react-localize-redux'
 import _ from 'lodash'
 import Cookies from 'universal-cookie'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import Notifications from 'react-notification-system-redux'
+import Notifications, { show, success, error, warning, info, hide, removeAll } from 'react-notification-system-redux'
 
 import {
   Container,
@@ -34,6 +34,27 @@ class PageLayout extends React.Component {
     this.showHelpBubble = this.showHelpBubble.bind(this)
   }
 
+  componentWillReceiveProps () {
+    let { dispatch } = this.props
+
+    if (!navigator.onLine) {
+      if (!_.find(this.props.notifications, { uid: 'no-network' })) {
+        console.log('should add notification')
+        dispatch(warning({
+          uid: 'no-network', // you can specify your own uid if required
+          title: 'Ingen anslutning',
+          message: 'Det finns ingen anslutning till internet. Se till att du är ansluten och uppdatera sedan sidan.',
+          autoDismiss: 0,
+          position: 'br',
+        }))
+      }
+    } else {
+      if (_.find(this.props.notifications, { uid: 'no-network' })) {
+        dispatch(hide('no-network'))
+      }
+    }
+  }
+
   showHelpBubble () {
     let { profile, routing } = this.props
     let { pathname } = routing.locationBeforeTransitions
@@ -43,7 +64,6 @@ class PageLayout extends React.Component {
   }
 
   render () {
-    let { dispatch } = this.props
     let { translate, currentLanguage } = this.props
     let activeRouteItem = Object.assign([], this.props.routes).reverse()
     document.title = activeRouteItem[0].name + ' | wap card'

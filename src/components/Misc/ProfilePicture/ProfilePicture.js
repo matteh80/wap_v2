@@ -155,7 +155,7 @@ class ProfilePicture extends React.Component {
   }
 
   render () {
-    let imgClass = classNames('img-fluid', this.props.className)
+    let imgClass = classNames('card-img img-fluid', this.props.className)
 
     return (
       <div className='profilePicture'>

@@ -20,7 +20,7 @@ export function getAllEmployments () {
         receivedAt: Date.now()
       })
     })
-      .catch(function (error) {
+      .catch(function (err) {
         error({
           // uid: 'once-please', // you can specify your own uid if required
           title: 'Fel',
@@ -34,7 +34,7 @@ export function getAllEmployments () {
         })
         return dispatch({
           type: EMPLOYMENTS_FAIL,
-          error: error.text,
+          error: err.text,
           receivedAt: Date.now()
         })
       })
@@ -52,7 +52,7 @@ export function createEmployment (employment) {
         receivedAt: Date.now()
       })
     })
-      .catch(function (error) {
+      .catch(function (err) {
         error({
           // uid: 'once-please', // you can specify your own uid if required
           title: 'Fel',
@@ -66,7 +66,7 @@ export function createEmployment (employment) {
         })
         return dispatch({
           type: EMPLOYMENTS_FAIL,
-          error: error.text,
+          error: err.text,
           receivedAt: Date.now()
         })
       })
@@ -124,7 +124,7 @@ export function removeEmployment (employment) {
           id: employment.id
         })
       })
-      .catch(function (error) {
+      .catch(function (err) {
         error({
           // uid: 'once-please', // you can specify your own uid if required
           title: 'Fel',
@@ -136,7 +136,7 @@ export function removeEmployment (employment) {
             callback: () => removeEmployment(employment)
           }
         })
-        console.log(error)
+        console.log(err)
       })
   }
 }

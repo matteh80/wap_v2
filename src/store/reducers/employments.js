@@ -43,7 +43,8 @@ function employments (state = [], action) {
 
     case EMPLOYMENTS_FAIL:
       return {
-        ...action
+        ...action,
+        ...state
       }
     default:
       return state

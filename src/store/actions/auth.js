@@ -81,7 +81,7 @@ export function socialLogin (data) {
       .then((result) => {
         console.log('login')
         console.log(result)
-        
+
         // Dispatch the success action
         dispatch(receiveLogin(result.data.token))
       })

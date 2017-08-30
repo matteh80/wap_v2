@@ -78,7 +78,8 @@ class Signup extends React.Component {
       selectEmploymentValue: occupationDefault,
       employment: {
         occupation: occupationDefault.id,
-        description: ''
+        description: '',
+        public: true
       },
       noEmployment: false,
       dreamjob: null,

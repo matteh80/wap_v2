@@ -7,6 +7,7 @@ import Slider from 'rc-slider'
 import {
   Col,
   Card,
+  CardImg,
   CardBlock,
   CardTitle,
   CardSubtitle,
@@ -77,7 +78,7 @@ class AvailabilityCard extends React.Component {
             <i className={editBtnClass} onClick={() => this.toggleEditMode()} />
             <i className='fa fa-times cancel-btn' onClick={() => this.revertChanges()} />
           </div>
-          <img src='/img/tillganglighet.png' className='img-fluid' />
+          <CardImg src='/img/tillganglighet.png' className='img-fluid' />
           <CardBlock>
             <CardTitle className='text-center'>Tillgänglighet</CardTitle>
             <CardSubtitle className='text-center'>{this.getAvailabilityString()}</CardSubtitle>

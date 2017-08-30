@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import createStore from './store/createStore'
 import './styles/main.scss'
 import $ from 'jquery'
-import { addTranslation, setLanguages,  } from 'react-localize-redux'
+import { addTranslation, setLanguages } from 'react-localize-redux'
 
 async function init () {
   // Store Initialization
@@ -46,8 +46,6 @@ async function init () {
   let render = () => {
     const App = require('./components/App').default
     const routes = require('./routes/index').default(store)
-    console.log(routes)
-    // const routes = require('./routes/index')
 
     ReactDOM.render(
       <App store={store} routes={routes} />,
