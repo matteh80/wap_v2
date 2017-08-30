@@ -1,5 +1,9 @@
 {
   "educations": {
-    "add_education": ["Lägg till utbildning", "Add education"]
+    "add_education": ["Lägg till utbildning", "Add education"],
+    "help_text": [
+      "Här har du möjlighet att lägga till utbildningar för att få en så komplett profil som möjligt.Ju mer du fyller på desto lättare för potentiella arbetsgivare eller rekryterare att se vilken erfarenhet du sitter på.",
+      "English"
+    ]
   }
 }

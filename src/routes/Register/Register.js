@@ -367,7 +367,7 @@ class Register extends React.Component {
             {this.state.job &&
             <Row className='justify-content-center align-items-center'>
               <Col xs={12} lg={8} xl={6}>
-                <h4 className='text-center'>Registrera dig för att söka jobbet</h4>
+                <h4 className='text-center'>{translate('register.register_apply')}</h4>
                 <h3 className='text-center'>{this.state.jobTitle}</h3>
               </Col>
             </Row>

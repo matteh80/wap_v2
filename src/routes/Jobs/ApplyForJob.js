@@ -133,8 +133,8 @@ class ApplyForJob extends React.Component {
     let jobTitle = $xml.find('item title').text()
 
     // TODO: Remove when done with layout
-    this.setState({ applied: true })
-    return
+    // this.setState({ applied: true })
+    // return
 
     axios.post('https://api.wapcard.se/api/v1/jobs/' + jaid + '/apply',
       { 'title': jobTitle },
@@ -148,40 +148,40 @@ class ApplyForJob extends React.Component {
 
       this.removeJobFromCookies()
 
-      if (this.state.addToWapStory) {
-        let story = {
-          'recruitment_agency': 'Maxkompetens',
-          'company_name': $xml.find('company').text(),
-          'position_name': $xml.find('jobpositiontitle').text(),
-          'description': $xml.find('descriptiontext').first().text(),
-          'start_date': moment().format('YYYY-MM-DD'),
-          'comment': '',
-          'reference': JSON.stringify({ 'name':'', 'mail':'', 'phone':'' }),
-          'contact_person': this.makeContactPerson()
-        }
-
-        console.log(story)
-        dispatch(actions.addStory(id_token, story)).then((result) => {
-          console.log('story added')
-          console.log(result)
-
-          let event = {
-            address: '',
-            comment: '',
-            contact_person: this.makeContactPerson(),
-            date: moment().format('YYYY-MM-DD'),
-            event_type: '4c439942-bc0e-4068-9cbb-5ff56276d9be',
-            id: result.data.id
-          }
-
-          // dispatch(actions.addStoryEvent(id_token, result.data.id, event)).then((result) => {
-          //   console.log(result)
-          //   this.setState({
-          //     storyAdded: true
-          //   })
-          // })
-        })
-      }
+      // if (this.state.addToWapStory) {
+      //   let story = {
+      //     'recruitment_agency': 'Maxkompetens',
+      //     'company_name': $xml.find('company').text(),
+      //     'position_name': $xml.find('jobpositiontitle').text(),
+      //     'description': $xml.find('descriptiontext').first().text(),
+      //     'start_date': moment().format('YYYY-MM-DD'),
+      //     'comment': '',
+      //     'reference': JSON.stringify({ 'name':'', 'mail':'', 'phone':'' }),
+      //     'contact_person': this.makeContactPerson()
+      //   }
+      //
+      //   console.log(story)
+      //   dispatch(actions.addStory(id_token, story)).then((result) => {
+      //     console.log('story added')
+      //     console.log(result)
+      //
+      //     let event = {
+      //       address: '',
+      //       comment: '',
+      //       contact_person: this.makeContactPerson(),
+      //       date: moment().format('YYYY-MM-DD'),
+      //       event_type: '4c439942-bc0e-4068-9cbb-5ff56276d9be',
+      //       id: result.data.id
+      //     }
+      //
+      //     // dispatch(actions.addStoryEvent(id_token, result.data.id, event)).then((result) => {
+      //     //   console.log(result)
+      //     //   this.setState({
+      //     //     storyAdded: true
+      //     //   })
+      //     // })
+      //   })
+      // }
       this.setState({ applied: true })
     })
   }
@@ -202,6 +202,8 @@ class ApplyForJob extends React.Component {
   }
 
   render () {
+    let { translate } = this.props
+
     return (
       <Container>
         {!this.state.applied &&
@@ -219,12 +221,8 @@ class ApplyForJob extends React.Component {
           </Col>
           <Col xs={12} lg={5}>
             <SpeechBubble pos='side'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi malesuada convallis eros, sit amet aliquam magna fringilla a.
-              Curabitur ullamcorper est eget tellus convallis, eget semper elit condimentum.
-              Maecenas ipsum ligula, facilisis id mi eu, posuere pellentesque tellus.
-              Aenean sed enim nulla. Mauris tincidunt laoreet sem, non cursus lorem hendrerit sit amet.
-              Fusce porttitor scelerisque quam, at pulvinar orci dictum et. Suspendisse posuere blandit ligula in convallis.
-              Ut vitae tincidunt tortor. Donec quis scelerisque est, vel ullamcorper felis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla facilisi.
+              <h3>Sök jobb med ditt wap card</h3>
+              <p>Sök det här jobbet direkt med ditt wap card</p>
             </SpeechBubble>
           </Col>
         </Row>
@@ -239,9 +237,8 @@ class ApplyForJob extends React.Component {
                       <img src='/img/ansokan_skickad.png' className='img-fluid' />
                     </Col>
                   </Row>
-                  <CardTitle className='mt-5'>Din ansökan är skickad! Under tiden du väntar på svar från våra rekryterare kan du uppdatera din profil</CardTitle>
-                  <p className='mt-5'>Du bör uppdatera din profil inom 12 timmar för att vara säker på att rekryteraren får se det du vill visa upp.</p>
-                  <p>En uppdaterad profil där du även gjort personlighetstest och laddat upp en film ökar dina chanser för att få jobbet markant.</p>
+                  <CardTitle className='mt-5'>{translate('jobs.applied_title')}</CardTitle>
+                  {translate('jobs.applied')}
                   {this.state.wapstats &&
                   <Row className='justify-content-center align-content-center mt-5'>
                     <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>

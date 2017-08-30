@@ -89,6 +89,7 @@ class Languages extends React.Component {
   }
 
   render () {
+    let { translate } = this.props
     let { userLanguages } = this.props.languages
     let notEmpty = userLanguages && userLanguages.length > 0
 
@@ -96,11 +97,7 @@ class Languages extends React.Component {
       <Container fluid>
         <Col>
           <SpeechBubble hideable>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer egestas arcu eu ipsum dictum interdum.
-              Ut rhoncus enim ante, vitae dictum lacus dignissim id. Curabitur malesuada urna quis dui placerat volutpat.
-              Nulla non accumsan ante. Morbi ut mauris congue, aliquet libero eget, tincidunt purus. </p>
-            <p>Aliquam volutpat dignissim volutpat. Fusce id nulla justo. Sed cursus mollis magna sed egestas.
-              Aenean ac felis ipsum. Praesent sodales pulvinar velit, eu luctus libero posuere nec.</p>
+            {translate('languages.help_text')}
           </SpeechBubble>
         </Col>
         <Masonry

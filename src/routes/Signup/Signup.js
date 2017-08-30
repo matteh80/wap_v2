@@ -9,6 +9,8 @@ import $ from 'jquery'
 import UserIsAuthenticated from '../../routes/auth'
 import classNames from 'classnames'
 import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble'
+import _ from 'lodash'
+import axios from 'axios'
 
 import { getProfile, updateProfile } from '../../store/actions/profile'
 import { getAllEmployments, createEmployment } from '../../store/actions/employments'
@@ -22,6 +24,7 @@ import { getVideoInfo } from '../../store/actions/wapfilm'
 import { getAllLicenses, getMyLicenses } from '../../store/actions/drivinglicenses'
 import { getAllReferences } from '../../store/actions/references'
 import { getAllQuestions, saveQuestions } from '../../store/actions/dreamjob'
+import { getAllLocations } from '../../store/actions/locations'
 
 import {
   Container,
@@ -43,10 +46,12 @@ import ThreeDButton from '../../components/buttons/ThreeDButton'
 import StartEndDate from '../../components/Misc/StartEndDate/StartEndDate'
 
 let occupationDefault
-
+let redirect
 class Signup extends React.Component {
   constructor (props) {
     super(props)
+
+    redirect = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.query.redirect : null
 
     document.title = 'Slutför registrering | wap card'
 
@@ -63,6 +68,8 @@ class Signup extends React.Component {
     }
 
     this.state = {
+      job: _.includes(_.words(redirect), 'jobs'),
+      jobTitle: null,
       profile: {
         ...this.props.profile,
         gender: 'female',
@@ -97,6 +104,17 @@ class Signup extends React.Component {
     this.handleEmploymentDateChange = this.handleEmploymentDateChange.bind(this)
     this.saveToServer = this.saveToServer.bind(this)
     this.finalize = this.finalize.bind(this)
+  }
+
+  componentDidMount () {
+    if (this.state.job) {
+      let jobId = _.words(redirect)[1]
+      axios.get('https://api.wapcard.se/api/v1/jobs/' + jobId).then((result) => {
+        this.setState({
+          jobTitle: result.data.title
+        })
+      })
+    }
   }
 
   handleBirthdayChange (date) {
@@ -310,6 +328,7 @@ class Signup extends React.Component {
         dispatch(getMyLicenses()),
         dispatch(getAllReferences()),
         dispatch(getAllQuestions()),
+        dispatch(getAllLocations())
       ]).then(() => {
         this.props.router.push(redirect || '/')
       }).catch((error) => {
@@ -328,12 +347,8 @@ class Signup extends React.Component {
       <Container className='py-5'>
         <Row className='flex-column'>
           <SpeechBubble xs='12'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi malesuada convallis eros, sit amet aliquam magna fringilla a.
-            Curabitur ullamcorper est eget tellus convallis, eget semper elit condimentum.
-            Maecenas ipsum ligula, facilisis id mi eu, posuere pellentesque tellus.
-            Aenean sed enim nulla. Mauris tincidunt laoreet sem, non cursus lorem hendrerit sit amet.
-            Fusce porttitor scelerisque quam, at pulvinar orci dictum et. Suspendisse posuere blandit ligula in convallis.
-            Ut vitae tincidunt tortor. Donec quis scelerisque est, vel ullamcorper felis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla facilisi.
+            {this.state.job && translate('signup.help_job', {jobName: this.state.jobTitle})}
+            {!this.state.job && translate('signup.help')}
           </SpeechBubble>
           <Col xs='12'>
             <Row className='justify-content-center align-items-center mb-3'>

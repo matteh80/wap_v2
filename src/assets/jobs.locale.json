@@ -1,0 +1,9 @@
+{
+  "jobs": {
+    "applied_title": ["Din ansökan är skickad", "English"],
+    "applied": [
+      "<p className='mt-5'>Under tiden du väntar på svar från våra rekryterare rekommenderar vi dig att komplettera med fler uppgifter för att få en så konkurrenskraftig profil som möjligt!</p><p>Komplettera profilen inom två timmar för att vara säker på att rekryteraren ser din uppdaterade profil.</p>",
+      "English"
+    ]
+  }
+}

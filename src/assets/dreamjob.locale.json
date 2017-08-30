@@ -1,10 +1,10 @@
 {
   "dreamjob": {
     "speechBubble": {
-      "title": ["Vi vill veta mer om dig och dina drömmar!", "We want to know more about your dreams!"],
+      "title": ["Vi vill veta mer om dig och dina drömmar!", "We want to know more about you and your dreams!"],
       "text": [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum risus eget turpis fermentum hendrerit. Nulla rutrum ultricies rutrum. Praesent blandit sapien at tellus scelerisque lobortis. Vivamus fermentum egestas nunc sed tincidunt. Maecenas scelerisque ac nunc in suscipit.",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum risus eget turpis fermentum hendrerit. Nulla rutrum ultricies rutrum. Praesent blandit sapien at tellus scelerisque lobortis. Vivamus fermentum egestas nunc sed tincidunt. Maecenas scelerisque ac nunc in suscipit."
+        "För att kunna hjälpa dig till ditt drömjobb behöver vi veta lite mer om dig och vad du drömmer om.",
+        "English"
       ]
     },
     "dreamjobCard": {

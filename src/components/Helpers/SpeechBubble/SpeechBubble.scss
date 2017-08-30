@@ -34,9 +34,13 @@ $arrowWidth: $arrowHeight * .7;
         position: relative;
         box-shadow: none;
         border-radius: 50px;
+        min-height: 150px;
 
         .card-block {
           padding: 2rem;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
         }
         &:after {
           content: "";

@@ -63,6 +63,7 @@ class Employments extends React.Component {
   }
 
   render () {
+    let { translate } = this.props
     let { employments } = this.props.employments
     let mEmployments = Object.assign([], employments).reverse()
     let publicCount = _.filter(mEmployments, { 'public': true }).length
@@ -72,11 +73,7 @@ class Employments extends React.Component {
       <Container fluid>
         <Row className='flex-row-reverse'>
           <SpeechBubble hideable pos='side' xs='12' sm='12' md='12' xl='3'>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer egestas arcu eu ipsum dictum interdum.
-              Ut rhoncus enim ante, vitae dictum lacus dignissim id. Curabitur malesuada urna quis dui placerat volutpat.
-              Nulla non accumsan ante. Morbi ut mauris congue, aliquet libero eget, tincidunt purus. </p>
-            <p>Aliquam volutpat dignissim volutpat. Fusce id nulla justo. Sed cursus mollis magna sed egestas.
-              Aenean ac felis ipsum. Praesent sodales pulvinar velit, eu luctus libero posuere nec.</p>
+            {translate('employments.help_text')}
           </SpeechBubble>
           <Col>
             <div className='timeline'>

@@ -1,6 +1,7 @@
 {
   "references": {
     "add_reference": ["Lägg till referent", "Add reference"],
-    "new_reference": ["Ny referent", "New reference"]
+    "new_reference": ["Ny referent", "New reference"],
+    "help_text": ["Här lägger du till en eller flera referenser.", "English"]
   }
 }

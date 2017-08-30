@@ -4,7 +4,8 @@
     "password": ["Lösenord", "Password"],
     "confirm_password": ["Bekräfta lösenord", "Confirm password"],
     "login": ["Logga in", "Login"],
-    "register": ["Registera", "Register"]
+    "register": ["Registrera", "Register"],
+    "register_apply": ["Registrera dig här för att söka tjänsten", "Register here to apply for job"]
   },
   "signup": {
     "personal_info": ["Personuppgifter", "Personal info"],
@@ -23,7 +24,15 @@
     "student": ["Jag är student", "I'm currently studying"],
     "tos": ["Jag har tagit del av integritetspolicyn", "I have read and agrees to terms of policy"],
     "no_previous_employment": ["Jag har inte jobbat tidigare", "No previous employment"],
-    "dreamjob": ["Vad är ditt drömjobb?", "What's your dreamjob?"]
+    "dreamjob": ["Vad är ditt drömjobb?", "What's your dreamjob?"],
+    "help_job": [
+      "<h3>${ jobName }</h3>Fyll i dina uppgifter här för att söka tjänsten. När du är klar skickas din ansökan till våra rekryterare, MEN du har fortfarande möjlighet att komplettera din ansökan med mer information inne i din profil. Allt du kompletterar med inom 2 h kommer med i din ansökan.",
+      "English"
+    ],
+    "help": [
+      "<h3>Slutför din registrering</h3>Fyll i dina uppgifter här. När du är klar har du möjlighet att komplettera med mer information inne i din profil som du sedan kan dela eller ladda ned i en snygg mall.",
+      "English"
+    ]
   },
   "validation": {
     "email": ["Skriv in din epost-adress", "Enter your email"],

@@ -24,6 +24,15 @@ async function init () {
   const validationJson = require('./assets/validation.locale.json')
   const personalrecruiterJson = require('./assets/personalrecruiter.locale.json')
   const publicprofileJson = require('./assets/publicprofile.locale.json')
+  const jobsJson = require('./assets/jobs.locale.json')
+  const skillsJson = require('./assets/skills.locale.json')
+  const languageJson = require('./assets/languages.locale.json')
+  const licenseJson = require('./assets/drivinglicense.locale.json')
+  const occupationsJson = require('./assets/occupations.locale.json')
+  const motivationsJson = require('./assets/motivations.locale.json')
+  const personalityJson = require('./assets/personality.locale.json')
+  const locationsJson = require('./assets/locations.locale.json')
+
   const json = $.extend(
     globalJson,
     profileJson,
@@ -35,7 +44,15 @@ async function init () {
     registerJson,
     validationJson,
     personalrecruiterJson,
-    publicprofileJson
+    publicprofileJson,
+    jobsJson,
+    skillsJson,
+    languageJson,
+    licenseJson,
+    occupationsJson,
+    motivationsJson,
+    personalityJson,
+    locationsJson
   )
   store.dispatch(addTranslation(json))
 

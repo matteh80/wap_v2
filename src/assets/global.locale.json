@@ -36,5 +36,11 @@
       "Jag förstår",
       "Got it"
     ]
+  },
+  "login": {
+    "login_apply": ["Logga in här för att söka tjänsten", "Log in to apply for the job"]
+  },
+  "register": {
+    "register_apply": ["Registrera dig här för att söka tjänsten", "Register to apply for the job"]
   }
 }

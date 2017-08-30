@@ -69,6 +69,7 @@ class TalentQ extends React.Component {
           </Col>
           <Col xs={12} lg={5}>
             <SpeechBubble>
+              <h3>Här får du visa vem du är!</h3>
               <p>Här kommer du att få göra ett unikt online-test som är speciellt framtaget för att du ska få visa vem du
                 är,
                 och vad just du är bra på. Testet kommer pröva beteende, motivation och personlighet.</p>

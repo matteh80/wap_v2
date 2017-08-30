@@ -78,8 +78,9 @@ class ShareProfile extends React.Component {
         <Row>
           <SpeechBubble xs='12'>
             <h3>Sök jobb enklare, dela din profil!</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Justo nec ultrices dui sapien eget mi proin. </p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Justo nec ultrices dui sapien eget mi proin. </p>
+            <p>Här kan du dela din profil med potentiella arbetsgivare. Skapa en delbar länk med ditt wap card, resumé, wap film och körkort.</p>
+            <p> Du bestämmer hur länge din länk ska vara delbar genom att bestämma synlighetstiden.</p>
+
           </SpeechBubble>
           <Col>
             <Masonry

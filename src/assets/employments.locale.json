@@ -5,6 +5,10 @@
     "title": ["Befattning", "Title"],
     "current_employment": ["Nuvarande anställning", "Current employment"],
     "havent_worked": ["Har inte jobbat tidigare", "No previous employments"],
-    "occupation": ["Yrkeskategori", "Occupation"]
+    "occupation": ["Yrkeskategori", "Occupation"],
+    "help_text": [
+      "Här har du möjlighet att lägga till fler anställningar för att få en så komplett profil som möjligt. Ju mer du fyller på desto lättare för potentiella arbetsgivare eller rekryterare att se vilken erfarenhet du sitter på.",
+      "English"
+    ]
   }
 }
