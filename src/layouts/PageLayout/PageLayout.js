@@ -13,6 +13,22 @@ import Cookies from 'universal-cookie'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import Notifications, { show, success, error, warning, info, hide, removeAll } from 'react-notification-system-redux'
 
+import { login, socialLogin } from '../../store/actions/auth'
+import { getProfile, updateProfile } from '../../store/actions/profile'
+import { getAllEmployments, createEmployment } from '../../store/actions/employments'
+import { getAllEducations } from '../../store/actions/educations'
+import { getAllOccupations, getMyOccupations } from '../../store/actions/occupations'
+import { getAllSkills, getMySkills } from '../../store/actions/skills'
+import { getAllLanguages, getMyLanguages } from '../../store/actions/languages'
+import { getAllMotivations, getMyMotivations } from '../../store/actions/motivations'
+import { getAllPersonalities, getMyPersonalities } from '../../store/actions/personalities'
+import { getVideoInfo } from '../../store/actions/wapfilm'
+import { getAllLicenses, getMyLicenses } from '../../store/actions/drivinglicenses'
+import { getAllReferences } from '../../store/actions/references'
+import { getAllQuestions } from '../../store/actions/dreamjob'
+import { getAllLocations } from '../../store/actions/locations'
+import { getTestStatus } from '../../store/actions/talentq'
+
 import {
   Container,
 } from 'reactstrap'
@@ -43,7 +59,7 @@ class PageLayout extends React.Component {
         dispatch(warning({
           uid: 'no-network', // you can specify your own uid if required
           title: 'Ingen anslutning',
-          message: 'Det finns ingen anslutning till internet. Se till att du är ansluten och uppdatera sedan sidan.',
+          message: 'Det finns ingen anslutning till internet. Se till att du har anslutning innan du fortsätter.',
           autoDismiss: 0,
           position: 'br',
         }))
@@ -51,6 +67,29 @@ class PageLayout extends React.Component {
     } else {
       if (_.find(this.props.notifications, { uid: 'no-network' })) {
         dispatch(hide('no-network'))
+        Promise.all([
+          dispatch(getAllEmployments()),
+          dispatch(getAllEducations()),
+          dispatch(getAllOccupations()),
+          dispatch(getMyOccupations()),
+          dispatch(getAllSkills()),
+          dispatch(getMySkills()),
+          dispatch(getAllLanguages()),
+          dispatch(getMyLanguages()),
+          dispatch(getAllMotivations()),
+          dispatch(getMyMotivations()),
+          dispatch(getAllPersonalities()),
+          dispatch(getMyPersonalities()),
+          dispatch(getVideoInfo()),
+          dispatch(getAllLicenses()),
+          dispatch(getMyLicenses()),
+          dispatch(getAllReferences()),
+          dispatch(getAllQuestions()),
+          dispatch(getAllLocations()),
+          dispatch(getTestStatus()),
+        ]).then(() => {
+          console.log('fetched everything')
+        })
       }
     }
   }
