@@ -94,6 +94,7 @@ class ShareProfile extends React.Component {
                   <Col key={share.id} xs='12' sm='6' md='4' xl='3' className='shareItem'>
                     <Card>
                       <ShareProfileButtons
+                        id={share.id}
                         translate={this.props.translate}
                         onRemove={() => this.onRemove(share.id)}
                         onLinkClick={() => this.onLinkClick(share.id)}
