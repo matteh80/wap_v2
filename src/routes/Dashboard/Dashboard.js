@@ -8,7 +8,6 @@ import TestCard from './TestCard/TestCard'
 
 import {
   Container,
-  Row,
   Col,
 } from 'reactstrap'
 import RecruiterCard from './RecruiterCard/RecruiterCard'
@@ -32,9 +31,7 @@ const SortableList = SortableContainer(({ items, onHide, onAdd }) => {
       }.bind(this)}
     >
       {items.map((item, index) => {
-        if (!item.component.props.hidden) {
-          return <SortableItem key={`item-${index}`} mIndex={index} index={index} id={item.id} value={item.name} onHide={onHide} component={item.component} />
-        }
+        return <SortableItem key={`item-${index}`} mIndex={index} index={index} id={item.id} value={item.name} onHide={onHide} component={item.component} />
       }
       )}
     </Masonry>
@@ -57,15 +54,14 @@ const SortableItem = SortableElement(({ value, index, onHide, id, mIndex, compon
 })
 
 let cards
-
 class Dashboard extends React.Component {
   constructor (props) {
     super(props)
 
     console.log('constructor')
-
-    // cookies.remove(props.profile.id + '_hiddenCards', { path: '/' })
     // cookies.remove(props.profile.id + '_cards', { path: '/' })
+    // cookies.remove(props.profile.id + '_hiddenCards', { path: '/' })
+    // cookies.remove(props.profile.id + '_visibleCards', { path: '/' })
 
     cards = [
       { name: 'jobscard', component: <JobsCard jobs={props.jobs.savedJobs} /> },
@@ -74,23 +70,28 @@ class Dashboard extends React.Component {
       { name: 'educationscard', component: <EducationsCard /> },
       { name: 'employmentscard', component: <EmploymentsCard /> },
       { name: 'wapfilmcard', component: <WapfilmCard /> },
-      { name: 'skillscard', component: <SkillsCard skills={props.skills.userSkills} /> }
+      { name: 'skillscard', component: <SkillsCard skills={props.skills.userSkills} /> },
     ]
 
-    let itemsFromCookie = cookies.get(props.profile.id + '_cards', { path: '/' })
+    let itemsFromCookie = cookies.get(props.profile.id + '_visibleCards', { path: '/' })
     let hiddenItemsFromCookie = cookies.get(props.profile.id + '_hiddenCards', { path: '/' })
 
-    if (itemsFromCookie && itemsFromCookie.length !== cards.length) {
-      cards.map((card) => {
-        if (_.indexOf(itemsFromCookie, card.name) === -1) {
-          itemsFromCookie.push(card.name)
-        }
-      })
+    let mItems = itemsFromCookie || this.createNamesFromComponents(cards)
+    let mHiddenItems = hiddenItemsFromCookie || []
+
+    let newCards = this.checkForNewCards(props)
+    if (newCards) {
+      mItems = _.concat(mItems, newCards)
+      console.log('added new cards')
+      console.log(mItems)
+      cookies.set(this.props.profile.id + '_cards', this.createNamesFromComponents(cards), { path: '/' })
+      cookies.set(this.props.profile.id + '_visibleCards', this.createNamesFromComponents(cards), { path: '/' })
     }
 
     this.state = {
-      hiddenItems: hiddenItemsFromCookie || [],
-      items: itemsFromCookie || this.createNamesFromComponents(cards),
+      hiddenItems: mHiddenItems,
+      items: cards,
+      visibleItems: this.createListFromNames(this.shouldCardBeVisible(mItems))
     }
 
     this._handleClick = this._handleClick.bind(this)
@@ -100,6 +101,7 @@ class Dashboard extends React.Component {
     this.createListFromNames = this.createListFromNames.bind(this)
     this.createNamesFromComponents = this.createNamesFromComponents.bind(this)
     this.shouldCardBeVisible = this.shouldCardBeVisible.bind(this)
+    this.checkForNewCards = this.checkForNewCards.bind(this)
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -108,14 +110,28 @@ class Dashboard extends React.Component {
       cookies.set(this.props.profile.id + '_hiddenCards', this.state.hiddenItems, { path: '/' })
     }
 
-    if (prevState.items !== this.state.items) {
+    if (prevState.visibleItems !== this.state.visibleItems) {
       console.log('save items to cookie')
-      cookies.set(this.props.profile.id + '_cards', this.state.items, { path: '/' })
+      cookies.set(this.props.profile.id + '_visibleCards', this.createNamesFromComponents(this.state.visibleItems), { path: '/' })
     }
+  }
+
+  checkForNewCards (props) {
+    let savedCards = cookies.get(props.profile.id + '_cards', { path: '/' })
+    if (!savedCards) {
+      cookies.set(this.props.profile.id + '_cards', this.createNamesFromComponents(cards), { path: '/' })
+      return null
+    }
+    if (savedCards.length === cards.length) {
+      return null
+    }
+
+    return _.difference(this.createNamesFromComponents(cards), savedCards)
   }
 
   shouldCardBeVisible (list) {
     let cardsArray = []
+
     for (let i = 0; i < list.length; i++) {
       switch (list[i]) {
         case 'jobscard':
@@ -147,6 +163,7 @@ class Dashboard extends React.Component {
     list.map((item) => {
       mNameArray.push(item.name)
     })
+    // console.log(mNameArray)
     return mNameArray
   }
 
@@ -182,9 +199,12 @@ class Dashboard extends React.Component {
     }
 
     let mHiddenCards = _.concat(this.state.hiddenItems, name)
+    let mTemp = this.createNamesFromComponents(this.state.visibleItems)
+    let mVisible = _.difference(mTemp, mHiddenCards)
 
     this.setState({
-      hiddenItems: mHiddenCards
+      hiddenItems: mHiddenCards,
+      visibleItems: this.createListFromNames(mVisible)
     })
   }
 
@@ -195,14 +215,19 @@ class Dashboard extends React.Component {
       return n === itemName
     })
 
+    let mTemp = this.createNamesFromComponents(this.state.visibleItems)
+    mTemp.push(itemName)
+    console.log(mTemp)
+
     this.setState({
-      hiddenItems: test
+      hiddenItems: test,
+      visibleItems: this.createListFromNames(mTemp)
     })
   }
 
   onSortEnd = ({ oldIndex, newIndex }) => {
     this.setState({
-      items: arrayMove(this.state.items, oldIndex, newIndex),
+      visibleItems: arrayMove(this.state.visibleItems, oldIndex, newIndex),
     })
   }
 
@@ -216,12 +241,12 @@ class Dashboard extends React.Component {
     return (
       <Container fluid>
         <HiddenCardsController hiddenCards={this.createListFromNames(this.state.hiddenItems)} onAdd={this.onAdd} />
-        {this.state.items && this.state.items.length > 0 &&
+        {this.state.visibleItems && this.state.visibleItems.length > 0 &&
         <SortableList
           helperClass='moving'
           axis='xy'
           pressDelay={200}
-          items={this.createListFromNames(this.shouldCardBeVisible(this.state.items))}
+          items={this.state.visibleItems}
           onSortEnd={this.onSortEnd}
           onHide={this.onHide}
         />

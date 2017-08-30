@@ -200,7 +200,7 @@ class HiddenCardsController extends React.Component {
           <div className='cardList'>
             {this.state.hiddenItems && this.state.hiddenItems.map((item) => {
               return (
-                <div>
+                <div key={item.key}>
                   {item}
                 </div>
               )
