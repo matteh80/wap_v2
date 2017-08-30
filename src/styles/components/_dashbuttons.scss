@@ -57,15 +57,15 @@
       cursor: pointer;
     }
 
-    &#hide {
+    &.hide {
       background: $red;
     }
 
-    &#followLink {
+    &.followLink {
       background: $themeColor;
     }
 
-    &#minimize {
+    &.minimize {
       background: $orange;
     }
   }

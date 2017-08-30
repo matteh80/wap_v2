@@ -196,7 +196,7 @@ class EmploymentItem extends React.Component {
         <div className='timeline-content'>
           <Card>
             <Loader active={this.state.loadsave} />
-            <EditButtons hasRemove editMode={this.state.editMode} toggleEditMode={this.toggleEditMode} revertChanges={this.revertChanges} onRemove={this.onRemove} translate={this.props.translate} />
+            <EditButtons hasRemove editMode={this.state.editMode} toggleEditMode={this.toggleEditMode} revertChanges={this.revertChanges} onRemove={this.onRemove} translate={this.props.translate} id={employment.id} />
             {!this.state.editMode &&
               <CardBlock>
                 <CardTitle>{title}</CardTitle>

@@ -1,6 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import $ from 'jquery'
+import PropTypes from 'prop-types'
 import {
   UncontrolledTooltip
 } from 'reactstrap'
@@ -38,22 +39,22 @@ class EditButtons extends React.Component {
     return (
       <div className={wrapperClass}>
         {this.props.editMode &&
-        <UncontrolledTooltip placement='bottom' target='done'>
+        <UncontrolledTooltip placement='bottom' target={'done' + this.props.id}>
           {translate('editbuttons.done')}
         </UncontrolledTooltip>
         }
-        <UncontrolledTooltip placement='bottom' target='cancel'>
+        <UncontrolledTooltip placement='bottom' target={'cancel' + this.props.id}>
           {translate('editbuttons.cancel')}
         </UncontrolledTooltip>
-        <UncontrolledTooltip placement='bottom' target='remove'>
+        <UncontrolledTooltip placement='bottom' target={'remove' + this.props.id}>
           {translate('editbuttons.remove')}
         </UncontrolledTooltip>
         {!this.state.removeClicked &&
         <div>
-          <i className={editBtnClass} id={this.props.editMode ? 'done' : 'edit'}
+          <i className={editBtnClass} id={this.props.editMode ? 'done' + this.props.id : 'edit'}
             onClick={() => this.props.toggleEditMode()} />
-          <i className='fa fa-mail-reply cancel-btn' id='cancel' onClick={() => this.props.revertChanges()} />
-          <i className='fa fa-trash remove-btn' id='remove' onClick={(e) => this.onRemove(e)} />
+          <i className='fa fa-mail-reply cancel-btn' id={'cancel' + this.props.id} onClick={() => this.props.revertChanges()} />
+          <i className='fa fa-trash remove-btn' id={'remove' + this.props.id} onClick={(e) => this.onRemove(e)} />
         </div>
         }
         {this.state.removeClicked &&
@@ -66,6 +67,10 @@ class EditButtons extends React.Component {
       </div>
     )
   }
+}
+
+EditButtons.propTypes = {
+  id: PropTypes.number.isRequired
 }
 
 export default EditButtons

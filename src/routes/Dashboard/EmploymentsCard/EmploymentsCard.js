@@ -32,9 +32,7 @@ class EmploymentsCard extends React.Component {
       <Card>
         <DashboardButtons linkto='/work/employments' card='employmentscard' cardname='Anställningar' onHide={this.props.onHide} />
         <CardImg src='/img/anstallningar.png' className='img-fluid' />
-        <CardImgOverlay className='bg-white'>
-          <CardText>{translate('employmentscard.title')}</CardText>
-        </CardImgOverlay>
+        <CardImgOverlay className='bg-white' />
         <CardBlock>
           <CardTitle>{translate('employmentscard.title')}</CardTitle>
           {employmentCount === 0

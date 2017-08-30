@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import { hideCard } from '../../store/actions/dashboard'
 
 import {
-  Tooltip
+  UncontrolledTooltip
 } from 'reactstrap'
 
 class DashboardButtons extends React.Component {
@@ -39,10 +39,16 @@ class DashboardButtons extends React.Component {
 
     return (
       <div className={wrapperClass}>
+        <UncontrolledTooltip placement='bottom' target={'followLink' + this.props.card}>
+          Gå till sida
+        </UncontrolledTooltip>
+        <UncontrolledTooltip placement='bottom' target={'hide' + this.props.card}>
+          Göm
+        </UncontrolledTooltip>
         <div>
-          <i className='fa fa-link dashBtn' id='followLink' onClick={() => this.goToLink()} />
+          <i className='fa fa-link dashBtn followLink' id={'followLink' + this.props.card} onClick={() => this.goToLink()} />
           {this.props.resizable && <i className='fa fa-expand dashBtn' id='minimize' onClick={() => this.minimize()} />}
-          <i className='fa fa-eye-slash dashBtn' id='hide' onClick={() => this.hide()} />
+          <i className='fa fa-eye-slash dashBtn hide' id={'hide' + this.props.card} onClick={() => this.hide()} />
         </div>
       </div>
     )

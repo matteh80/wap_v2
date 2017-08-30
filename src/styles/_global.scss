@@ -84,3 +84,7 @@ a {
     @include make-row();
   }
 }
+
+.tooltip {
+  transition: opacity 500ms !important;
+}

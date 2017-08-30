@@ -28,9 +28,7 @@ class EducationsCard extends React.Component {
       <Card>
         <DashboardButtons linkto='/work/educations' card='educationscard' cardname='Utbildningar' onHide={this.props.onHide} />
         <CardImg src='/img/utbildning.png' className='img-fluid' />
-        <CardImgOverlay className='bg-white'>
-          <CardText>{translate('educationscard.title')}</CardText>
-        </CardImgOverlay>
+        <CardImgOverlay className='bg-white' />
         <CardBlock>
           <CardTitle>{translate('educationscard.title')}</CardTitle>
           {educationCount === 0
