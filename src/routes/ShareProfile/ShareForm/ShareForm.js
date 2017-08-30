@@ -33,7 +33,13 @@ class ShareForm extends React.Component {
   }
 
   toggleCollapse () {
+    let _self = this
     this.setState({ collapse: !this.state.collapse })
+    $('.fakeItem').one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd',
+      function () {
+        _self.props.layout()
+      }
+    )
   }
 
   handleSubmit (e, errors, values) {
@@ -43,7 +49,7 @@ class ShareForm extends React.Component {
     if (errors.length === 0) {
       let { dispatch } = this.props
       dispatch(createShare(values.name, values.ttl)).then(() => {
-        dispatch(getAllShares())
+        // dispatch(getAllShares())
         this.setState({ collapse: false })
       })
     }

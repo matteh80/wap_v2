@@ -1,7 +1,10 @@
 import {
   GET_ALL_SHARES,
-  CREATE_SHARE
+  CREATE_SHARE,
+  DELETE_SHARE
 } from '../actions/actionTypes/shareprofile'
+
+import _ from 'lodash'
 
 function shares (state = [], action) {
   if (action.error) {
@@ -19,8 +22,12 @@ function shares (state = [], action) {
 
     case CREATE_SHARE:
       return {
-        ...state,
-        ...action
+        shares: _.concat(state.shares, action.share)
+      }
+
+    case DELETE_SHARE:
+      return {
+        shares: state.shares.filter(shares => shares.id !== action.shareId)
       }
 
     default:

@@ -29,8 +29,7 @@ class LicenseForm extends React.Component {
       truckCollapse: false
     }
 
-    this.props.drivinglicenses.licenses.length === 0 && dispatch(getAllLicenses())
-
+    dispatch(getAllLicenses())
     dispatch(getMyLicenses())
 
     this.toggleCollapse = this.toggleCollapse.bind(this)

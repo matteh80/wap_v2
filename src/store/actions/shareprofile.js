@@ -1,7 +1,8 @@
 import { apiClient } from '../axios.config'
 import {
   GET_ALL_SHARES,
-  CREATE_SHARE
+  CREATE_SHARE,
+  DELETE_SHARE
 } from './actionTypes/shareprofile'
 
 export function getAllShares () {
@@ -21,12 +22,25 @@ export function createShare (name, ttl) {
   return (dispatch, getState) => {
     return apiClient.post('me/temporary-links/',
       {
+        name: name,
         ttl: ttl
       }
     ).then((result) => {
       return dispatch({
         type: CREATE_SHARE,
         share: result.data,
+        receivedAt: Date.now()
+      })
+    })
+  }
+}
+
+export function deleteShare (id) {
+  return (dispatch, getState) => {
+    return apiClient.delete('me/temporary-links/' + id).then((result) => {
+      return dispatch({
+        type: DELETE_SHARE,
+        shareId: id,
         receivedAt: Date.now()
       })
     })

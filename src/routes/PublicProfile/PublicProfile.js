@@ -170,15 +170,15 @@ class PublicProfile extends React.Component {
               <Card>
                 <CardBlock>
                   <CardTitle>{translate('publicprofile.driving_licenses')}</CardTitle>
-                  <div className='d-flex align-items-center justify-content-center'>
+                  <div className='row d-flex align-items-center justify-content-center'>
                     {this.state.profile.driving_licenses.map((drivinglicense) => {
                       return (
-                      <Col>
-                        <div key={drivinglicense.id}
-                          className={'licenseicon-korkort-' + drivinglicense.name.replace(' ', '-').replace(' ', '-').replace('å', 'a').toLowerCase() + ' licenseIcon'} />
-                        <h6 className='text-center' style={{ marginTop: -30 }}>{drivinglicense.name}</h6>
-                      </Col>
-                    )
+                        <Col key={drivinglicense.id}>
+                          <div
+                            className={'licenseicon-korkort-' + drivinglicense.name.replace(' ', '-').replace(' ', '-').replace('å', 'a').toLowerCase() + ' licenseIcon'} />
+                          <h6 className='text-center' style={{ marginTop: -30 }}>{drivinglicense.name}</h6>
+                        </Col>
+                      )
                     })}
                   </div>
                 </CardBlock>
@@ -228,8 +228,8 @@ class PublicProfile extends React.Component {
                   <div className=''>
                     {this.state.profile.employments.map((employment) => {
                       return (
-                      <Employment employment={employment} />
-                    )
+                        <Employment employment={employment} />
+                      )
                     })}
                   </div>
                 </CardBlock>
@@ -245,8 +245,8 @@ class PublicProfile extends React.Component {
                   <div className=''>
                     {this.state.profile.educations.map((education) => {
                       return (
-                      <Education education={education} />
-                    )
+                        <Education education={education} />
+                      )
                     })}
                   </div>
                 </CardBlock>
