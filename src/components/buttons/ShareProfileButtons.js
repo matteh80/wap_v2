@@ -45,19 +45,19 @@ class ShareProfileButtons extends React.Component {
       <div className={wrapperClass}>
         {this.props.editMode &&
         <UncontrolledTooltip placement='bottom' target='link'>
-          {translate('editbuttons.done')}
+          Visa sida
         </UncontrolledTooltip>
         }
-        <UncontrolledTooltip placement='bottom' target='cancel'>
-          {translate('editbuttons.cancel')}
+        <UncontrolledTooltip placement='bottom' target='copy'>
+          Kopiera länk
         </UncontrolledTooltip>
         <UncontrolledTooltip placement='bottom' target='remove'>
           {translate('editbuttons.remove')}
         </UncontrolledTooltip>
         {!this.state.removeClicked &&
         <div>
-          <i className='fa fa-external-link link-btn' onClick={this.onLinkClick} />
-          <i className='fa fa-copy copy-btn' id='cancel' onClick={this.onCopyClick} />
+          <i className='fa fa-external-link link-btn' id='link' onClick={this.onLinkClick} />
+          <i className='fa fa-copy copy-btn' id='copy' onClick={this.onCopyClick} />
           <i className='fa fa-trash remove-btn' id='remove' onClick={this.onRemove} />
         </div>
         }

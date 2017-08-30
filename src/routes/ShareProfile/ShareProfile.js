@@ -14,7 +14,7 @@ import {
   CardBlock,
   CardTitle,
   CardSubtitle,
-  CardText
+  Alert
 } from 'reactstrap'
 import ShareProfileButtons from '../../components/buttons/ShareProfileButtons'
 
@@ -32,6 +32,7 @@ class ShareProfile extends React.Component {
     this.layout = this.layout.bind(this)
     this.onLinkClick = this.onLinkClick.bind(this)
     this.onCopyClick = this.onCopyClick.bind(this)
+    this.closeAlert = this.closeAlert.bind(this)
   }
 
   componentDidMount () {
@@ -65,6 +66,10 @@ class ShareProfile extends React.Component {
     this.masonry.layout()
   }
 
+  closeAlert () {
+    this.setState({ copied: !this.state.copied })
+  }
+
   render () {
     let { shares } = this.props
 
@@ -96,6 +101,7 @@ class ShareProfile extends React.Component {
                       <CardBlock>
                         <CardTitle>{share.name}</CardTitle>
                         <CardSubtitle>{share.access_count} visningar</CardSubtitle>
+                        <Alert isOpen={this.state.copied} toggle={this.closeAlert} color='success'><small>Länk kopierad till klippbordet</small></Alert>
                       </CardBlock>
                     </Card>
                   </Col>
