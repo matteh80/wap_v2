@@ -8,6 +8,10 @@ import CookieBanner from 'react-cookie-banner'
 import ReactGA from 'react-ga'
 import $ from 'jquery'
 
+let Raven = require('raven-js')
+
+Raven.config('https://9e381a0287464529af7a8a88edc27c9b@sentry.io/210938').install()
+
 let breakpoint = {}
 class App extends React.Component {
   static propTypes = {

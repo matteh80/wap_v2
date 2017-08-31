@@ -84,6 +84,8 @@ class Signup extends React.Component {
       selectSkillValue: null,
       selectEmploymentValue: occupationDefault,
       employment: {
+        start_date: moment().format('YYYY-MM-DD'),
+        end_date: moment().format('YYYY-MM-DD'),
         occupation: occupationDefault.id,
         description: '',
         public: true
