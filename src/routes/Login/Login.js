@@ -414,7 +414,7 @@ class Login extends React.Component {
             </Row>
             }
             <Row className='justify-content-center align-items-center'>
-              <Col xs={10} sm={8} md={6}>
+              <Col xs={8} sm={6} md={4} lg={4} xl={3}>
                 <a href='https://wapcard.se'>
                   <img src='/img/wap_logga.png' className='img-fluid mx-auto d-block' />
                 </a>

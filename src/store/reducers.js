@@ -21,7 +21,6 @@ import locations from './reducers/locations'
 import talentq from './reducers/talentq'
 import wapstory from './reducers/wapstory'
 import shares from './reducers/shareprofile'
-import appversion from './reducers/appversion'
 
 // export const makeRootReducer = (asyncReducers) => {
 //   return combineReducers({
@@ -55,7 +54,6 @@ import appversion from './reducers/appversion'
 // export default makeRootReducer
 
 const appReducer = combineReducers({
-  appversion,
   routing: routerReducer,
   localeReducer: localeReducer,
   notifications: notifications,

@@ -138,7 +138,7 @@ class Dashboard extends React.Component {
     for (let i = 0; i < list.length; i++) {
       switch (list[i]) {
         case 'jobscard':
-          this.props.jobs.savedJobs && cardsArray.push(list[i])
+          this.props.jobs.savedJobs && this.props.jobs.savedJobs.length > 0 && cardsArray.push(list[i])
           console.log('jobscard')
           break
         case 'wapfilmcard':

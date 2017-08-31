@@ -7,7 +7,6 @@ import { getActiveLanguage, getTranslate } from 'react-localize-redux'
 import CookieBanner from 'react-cookie-banner'
 import ReactGA from 'react-ga'
 import $ from 'jquery'
-import appversion from "../store/reducers/appversion";
 
 let breakpoint = {}
 class App extends React.Component {
@@ -53,18 +52,11 @@ class App extends React.Component {
   }
 
   logPageView () {
-    if (!process.env.NODE_ENV || !process.env.NODE_ENV === 'development') {
+    console.log(process.env.NODE_ENV)
+    if (process.env.NODE_ENV !== 'development') {
       ReactGA.set({ page: window.location.pathname + window.location.search })
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
-
-    // console.log(Number(this.props.auth.appVersion))
-    console.log(Number(APP_VERSION))
-    let test = require('../../public/appversion.json')
-    console.log(test)
-    // if (Number(this.props.auth.appVersion) !== Number(APP_VERSION)) {
-    //   alert('UPDATE!!!')
-    // }
   }
 
   render () {
