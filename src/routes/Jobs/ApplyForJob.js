@@ -6,6 +6,7 @@ import $ from 'jquery'
 import moment from 'moment'
 import { saveJob, removeJob } from '../../store/actions/jobs'
 import './ApplyForJob.scss'
+import { error, warning } from 'react-notification-system-redux'
 
 import {
   Container,
@@ -181,7 +182,18 @@ class ApplyForJob extends React.Component {
       //     // })
       //   })
       // }
-      this.setState({ applied: true })
+      if (response.data.status === 'already applied') {
+        console.log('LREADY APPLIED')
+        dispatch(warning({
+          // uid: 'no-network', // you can specify your own uid if required
+          title: 'Redan ansökt',
+          message: 'Du har redan skickat en ansökan för den här tjänsten!',
+          autoDismiss: 20,
+          position: 'br',
+        }))
+      } else {
+        this.setState({ applied: true })
+      }
     })
   }
 
