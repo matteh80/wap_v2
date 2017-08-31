@@ -4,6 +4,7 @@ import {
   CREATE_SHARE,
   DELETE_SHARE
 } from './actionTypes/shareprofile'
+import moment from 'moment'
 
 export function getAllShares () {
   return (dispatch, getState) => {
@@ -28,7 +29,10 @@ export function createShare (name, ttl) {
     ).then((result) => {
       return dispatch({
         type: CREATE_SHARE,
-        share: result.data,
+        share: {
+          ...result.data,
+          expires_at: null
+        },
         receivedAt: Date.now()
       })
     })

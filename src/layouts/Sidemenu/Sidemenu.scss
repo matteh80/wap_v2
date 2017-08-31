@@ -2,6 +2,9 @@
 @import "../../styles/variables/colors";
 
 .sidemenuWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   min-height: 100vh;
   width: 280px;
   background-color: #2b303b;
@@ -41,6 +44,41 @@
   //&:hover {
   //  margin-left: -15px;
   //}
+
+  .contact {
+    //position: absolute;
+    //bottom:0;
+    width:100%;
+    display: flex;
+    justify-content: center;
+
+    .fa {
+      color: #fff;
+      width:40px;
+      height:40px;
+      text-align: center;
+      line-height: 40px;
+      font-size: 23px;
+      border-radius: 50%;
+      margin:0 5px;
+      transition: all 250ms;
+
+      &.fa-facebook {
+        background: $facebook_color;
+
+        &:hover {
+          background: darken($facebook_color, 15%);
+        }
+      }
+      &.fa-envelope {
+        background: $themeColor;
+
+        &:hover {
+          background: darken($themeColor, 15%);
+        }
+      }
+    }
+  }
 }
 
 .sidemenuWrapper:hover ~ .page-layout__viewport {
@@ -48,7 +86,10 @@
 }
 
 body.menu-expanded {
-  //.sidemenuWrapper {
-  //  margin-left: -15px;
-  //}
+  .sidemenuWrapper {
+    .contact {
+      //width: 70px;
+
+    }
+  }
 }

@@ -1,7 +1,7 @@
 {
   "skills": {
     "help_text": [
-      "<h3>Vad är du bäst på?</h3><p>Här lägger du till dina kompetenser och ställer in din kunskapsnivå.</p><p>Är inte dina kompetenser med? Maila oss på support@wapcard.se så lägger vi till dem.</p>",
+      "<h3>Vad är du bäst på?</h3><p>Här lägger du till dina kompetenser och ställer in din kunskapsnivå.</p><p>Är inte dina kompetenser med? Maila oss på <a href='mailto:support@wapcard.se?subject=Kompetenser'>support@wapcard.se</a> så lägger vi till dem.</p>",
       "English"
     ]
   }

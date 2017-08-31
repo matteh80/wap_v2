@@ -142,7 +142,7 @@ class PublicProfile extends React.Component {
               </Card>
             </div>
 
-            {this.state.profile.personal_info.length > 0 &&
+            {this.state.profile.personal_info && this.state.profile.personal_info.length > 0 &&
             <div className='grid-item grid-sizer col col-lg-6 col-xl-4'>
               <Card>
                 <CardBlock>

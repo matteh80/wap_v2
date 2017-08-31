@@ -6,6 +6,7 @@ import { getAllShares, deleteShare } from '../../store/actions/shareprofile'
 import ShareForm from './ShareForm/ShareForm'
 import Masonry from 'react-masonry-component'
 import $ from 'jquery'
+import moment from 'moment'
 import {
   Container,
   Row,
@@ -24,15 +25,10 @@ class ShareProfile extends React.Component {
     super(props)
 
     this.state = {
-      loadsave: true,
-      copied: false
+      loadsave: true
     }
 
-    this.onRemove = this.onRemove.bind(this)
     this.layout = this.layout.bind(this)
-    this.onLinkClick = this.onLinkClick.bind(this)
-    this.onCopyClick = this.onCopyClick.bind(this)
-    this.closeAlert = this.closeAlert.bind(this)
   }
 
   componentDidMount () {
@@ -44,30 +40,8 @@ class ShareProfile extends React.Component {
     })
   }
 
-  onRemove (id) {
-    let { dispatch } = this.props
-    dispatch(deleteShare(id))
-  }
-
-  onLinkClick (id) {
-    window.open('/publicprofile/' + id)
-  }
-
-  onCopyClick (id) {
-    let $temp = $('<input>')
-    $('body').append($temp)
-    $temp.val('https://' + window.location.hostname + '/publicprofile/' + id).select()
-    document.execCommand('copy')
-    $temp.remove()
-    this.setState({ copied: true })
-  }
-
   layout () {
     this.masonry.layout()
-  }
-
-  closeAlert () {
-    this.setState({ copied: !this.state.copied })
   }
 
   render () {
@@ -90,24 +64,7 @@ class ShareProfile extends React.Component {
               }.bind(this)}
             >
               {this.props.shares.shares && this.props.shares.shares.map((share) => {
-                return (
-                  <Col key={share.id} xs='12' sm='6' md='4' xl='3' className='shareItem'>
-                    <Card>
-                      <ShareProfileButtons
-                        id={share.id}
-                        translate={this.props.translate}
-                        onRemove={() => this.onRemove(share.id)}
-                        onLinkClick={() => this.onLinkClick(share.id)}
-                        onCopyClick={() => this.onCopyClick(share.id)}
-                      />
-                      <CardBlock>
-                        <CardTitle>{share.name}</CardTitle>
-                        <CardSubtitle>{share.access_count} visningar</CardSubtitle>
-                        <Alert isOpen={this.state.copied} toggle={this.closeAlert} color='success'><small>Länk kopierad till klippbordet</small></Alert>
-                      </CardBlock>
-                    </Card>
-                  </Col>
-                )
+                return <ShareItem key={share.id} share={share} layout={this.layout} />
               })}
               {!this.state.loadsave &&
               <Col xs='12' sm='6' md='4' xl='3'>
@@ -123,3 +80,74 @@ class ShareProfile extends React.Component {
 }
 
 export default withRouter(connect((state) => state)(ShareProfile))
+
+class ShareItem extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      copied: false
+    }
+
+    this.onRemove = this.onRemove.bind(this)
+    this.onLinkClick = this.onLinkClick.bind(this)
+    this.onCopyClick = this.onCopyClick.bind(this)
+    this.closeAlert = this.closeAlert.bind(this)
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    if (this.state.copied !== prevState.copied) {
+      this.props.layout()
+    }
+  }
+
+  closeAlert () {
+    this.setState({ copied: !this.state.copied })
+  }
+
+  onRemove (id) {
+    let { dispatch } = this.props
+    dispatch(deleteShare(id))
+  }
+
+  onLinkClick (id) {
+    window.open('/publicprofile/' + id)
+  }
+
+  onCopyClick (id) {
+    let $temp = $('<input>')
+    $('body').append($temp)
+    $temp.val('https://' + window.location.hostname + '/publicprofile/' + id).select()
+    document.execCommand('copy')
+    $temp.remove()
+    this.setState({ copied: true })
+  }
+
+  render () {
+    let { share } = this.props
+    return (
+      <Col key={share.id} xs='12' sm='6' md='4' xl='3' className='shareItem'>
+        <Card>
+          <ShareProfileButtons
+            id={Number(share.id)}
+            translate={this.props.translate}
+            onRemove={() => this.onRemove(share.id)}
+            onLinkClick={() => this.onLinkClick(share.id)}
+            onCopyClick={() => this.onCopyClick(share.id)}
+          />
+          <CardBlock>
+            <CardTitle>{share.name}</CardTitle>
+            <CardSubtitle>{share.access_count} visningar</CardSubtitle>
+            <small style={{ color: '#999999' }}>
+              {share.expires_at
+                ? 'Synlig till ' + moment(share.expires_at).format('YYYY-MM-DD HH:MM')
+                : 'Synlighetstid visas efter första visningen'
+              }
+            </small>
+            <Alert isOpen={this.state.copied} toggle={this.closeAlert} color='success'><small>Länk kopierad till urklipp</small></Alert>
+          </CardBlock>
+        </Card>
+      </Col>
+    )
+  }
+}

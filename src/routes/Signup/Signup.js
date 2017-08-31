@@ -417,7 +417,8 @@ class Signup extends React.Component {
                     <Col xs='12' md='6'>
                       <Row>
                         <Col xs='12' md='4'>
-                          <AvField onChange={(e) => this.handleInputChange(e)} name='zip_code' label={translate('signup.zip_code')} type='text' required />
+                          <AvField onChange={(e) => this.handleInputChange(e)} name='zip_code' label={translate('signup.zip_code')} type='text' required
+                                   validate={{ number: true }} errorMessage='Endast siffror, inga mellanslag' />
                         </Col>
                         <Col xs='12' md='8'>
                           <AvField onChange={(e) => this.handleInputChange(e)} name='city' label={translate('signup.city')} type='text' required />

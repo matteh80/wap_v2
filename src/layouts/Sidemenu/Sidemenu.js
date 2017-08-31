@@ -130,6 +130,10 @@ class Sidemenu extends React.Component {
             <Menuitem to='/shareprofile' icon='fa-share-alt' title='Dela wap-profil' details='Sök jobb med wap' />
           </ul>
         </div>
+        <div className='contact my-4'>
+          <a href='https://www.facebook.com/wapcard.se'><i className='fa fa-facebook' /></a>
+          <a href='mailto:support@wapcard.se'><i className='fa fa-envelope' /></a>
+        </div>
       </div>
     )
   }

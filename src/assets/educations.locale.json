@@ -2,7 +2,7 @@
   "educations": {
     "add_education": ["Lägg till utbildning", "Add education"],
     "help_text": [
-      "Här har du möjlighet att lägga till utbildningar för att få en så komplett profil som möjligt.Ju mer du fyller på desto lättare för potentiella arbetsgivare eller rekryterare att se vilken erfarenhet du sitter på.",
+      "<p>Här har du möjlighet att lägga till utbildningar för att få en så komplett profil som möjligt.Ju mer du fyller på desto lättare för potentiella arbetsgivare eller rekryterare att se vilken erfarenhet du sitter på.</p><p>Du kan välja upp till två stycken utbildningar du vill visa på ditt wap card, väljer du ingen så visas de två senaste.</p>",
       "English"
     ]
   }

@@ -438,10 +438,10 @@ class CVBuilder extends React.Component {
                 <Card>
                   <CardHeader><CardTitle>Körkort</CardTitle></CardHeader>
                   <CardBlock>
-                    {drivinglicenses.userLicenses && drivinglicenses.userLicenses.map((license) => {
+                    {drivinglicenses && drivinglicenses.userLicenses && drivinglicenses.userLicenses.map((license) => {
                       return <CheckboxItem key={license.id} item={license} label={license.name} onChange={this.onLicenseChange} />
                     })}
-                    {drivinglicenses.userLicenses.length === 0 &&
+                    {drivinglicenses && drivinglicenses.userLicenses.length === 0 &&
                     <h6>Du har inte lagt till några körkort ännu.</h6>}
                   </CardBlock>
                 </Card>

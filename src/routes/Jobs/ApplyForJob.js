@@ -232,8 +232,8 @@ class ApplyForJob extends React.Component {
           </Col>
           <Col xs={12} lg={5}>
             <SpeechBubble pos='side'>
-              <h3>Sök jobb med wap card</h3>
-              <p>Sök det här jobbet direkt med din wap card-profil, du slipper skicka in CV eller personligt brev.</p>
+              <h3>Sök jobb med wap</h3>
+              <p>Sök det här jobbet direkt med din wap-profil, du slipper skicka in CV eller personligt brev.</p>
               <p>Se till att du har en uppdaterad profil och tryck på knappen "Ansök", svårare än så är det inte!</p>
             </SpeechBubble>
           </Col>
