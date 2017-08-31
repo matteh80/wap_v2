@@ -185,8 +185,9 @@ class Wapcard extends React.Component {
           <Col>
             <SpeechBubble hideable pos='side'>
               <CardTitle>Det här är ditt wap card</CardTitle>
-              <p>Wap card är ett helt nytt sätt att presentera sig på mot potentiella arbetsgivare, som skapas utefter din unika profil och förutsättningar</p>
-              <p> Det ger din potentiella arbetsgivare en mycket bättre bild av dig.</p>
+              <p>Wap card är ett helt nytt sätt att presentera sig på mot potentiella arbetsgivare. Det skapas utefter din profil och förutsättningar och det ger din potentiella arbetsgivare en bra överskådlig bild av dig.</p>
+              <p>Du laddar enkelt ner det som en pdf eller skapar en delbar länk tillsammans med din resumé, wap film och eventuella körkort.</p>
+              <p>Det för att du så enkelt som möjligt ska kunna söka jobb.</p>
             </SpeechBubble>
           </Col>
           <Col xs={12} sm={12} md={12} lg={7} style={{ maxWidth: 790 }}>

@@ -1,4 +1,5 @@
 @import '../../../styles/variables/colors';
+@import '../../../styles/variables/variables';
 
 .wapcardTemplateWrapper {
   width:210mm;
@@ -24,7 +25,7 @@
     color: #fff;
 
     .progress-bar {
-      background-color: $themeColor !important;
+      background-color: $pink !important;
     }
 
     .wpSection {
@@ -59,10 +60,24 @@
         text-transform: uppercase;
       }
 
-      .fa {
-        color: $themeColor;
-        width:20px;
-        text-align: center;
+      .contactInfo {
+        display: flex;
+        justify-content: flex-start;
+        align-items:center;
+        //font-family: $headings-font-family;
+
+        .fa {
+          background: $themeColor;
+          color: #fff;
+          width:24px;
+          height:24px;
+          text-align: center;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin:2px 6px 2px 0;
+          //border-radius: 12px;
+        }
       }
     }
 

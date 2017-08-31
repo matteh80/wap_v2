@@ -347,7 +347,7 @@ class Signup extends React.Component {
       <Container className='py-5'>
         <Row className='flex-column'>
           <SpeechBubble xs='12'>
-            {this.state.job && translate('signup.help_job', {jobName: this.state.jobTitle})}
+            {this.state.job && translate('signup.help_job', { jobName: this.state.jobTitle })}
             {!this.state.job && translate('signup.help')}
           </SpeechBubble>
           <Col xs='12'>

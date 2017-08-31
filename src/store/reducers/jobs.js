@@ -39,6 +39,7 @@ function jobs (state = [], action) {
 
     case REMOVE_JOB:
       index = state.savedJobs.findIndex(savedJobs => savedJobs.id === action.jobtoRemove.id)
+      console.log(index)
       if (index === -1) return state
 
       return {

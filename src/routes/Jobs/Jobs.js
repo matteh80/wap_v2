@@ -40,7 +40,7 @@ class Jobs extends React.Component {
       <Container fluid>
         <Row>
           <SpeechBubble hideable xs={12}>
-            <h3>Hej jobbletare!</h3>
+            <h3>Jobbsökare?</h3>
             <p>Här finns de tjänster som du just nu kan ansöka direkt till med ditt wap card.</p>
             <p>Tips: Se till att du har uppdaterat allt du kan i din profil innan du skickar din ansökan för att öka dina chanser till drömjobbet</p>
           </SpeechBubble>

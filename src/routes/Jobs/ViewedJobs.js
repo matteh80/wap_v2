@@ -55,8 +55,8 @@ class ViewedJobs extends React.Component {
           </Col>
           <Col xs={12} sm={12} md={12} lg={5}>
             <SpeechBubble pos='left-side top'>
-              <p>Här hittar du dina tjänster du visat denna session för att enklare kunna hitta tillbaka och skicka en ansökan.</p>
-              <p>Observera att den här listan töms om du loggar ut samt att tjänster du var inne på för över en vecka sen inte visas.</p>
+              <p>Här hittar du dina tjänster du visat under denna session. Det för att du enklare ska hitta tillbaka och kunna skicka din ansökan.</p>
+              <p>Observera att den här listan töms om du loggar ut.</p>
             </SpeechBubble>
           </Col>
         </Row>

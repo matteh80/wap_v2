@@ -135,10 +135,10 @@ class WapcardTemplate extends React.Component {
                 <h2 className='mb-0'>{profile.first_name}{' '}{profile.last_name}</h2>
                 <h3>{profile.title}</h3>
               </Col>
-              <Col xs={12} className='mt-1'><i className='fa fa-phone' /> {profile.mobile_phone_number}</Col>
-              <Col xs={12}><i className='fa fa-envelope' /> {profile.email}</Col>
-              {profile.home_page && <Col xs={12}><i className='fa fa-globe' /> {profile.home_page}</Col>}
-              <Col xs={12}><i className='fa fa-map-marker' /> {profile.city}</Col>
+              <Col xs={12} className='mt-1 contactInfo'><i className='fa fa-phone' /> {profile.mobile_phone_number}</Col>
+              <Col xs={12} className='contactInfo'><i className='fa fa-envelope' /> {profile.email}</Col>
+              {profile.home_page && <Col xs={12} className='contactInfo'><i className='fa fa-globe' /> {profile.home_page}</Col>}
+              <Col xs={12} className='contactInfo'><i className='fa fa-map-marker' /> {profile.city}</Col>
             </Row>
           </div>
 

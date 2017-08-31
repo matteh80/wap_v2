@@ -4,7 +4,7 @@ import axios from 'axios'
 import Cookies from 'universal-cookie'
 import $ from 'jquery'
 import moment from 'moment'
-import { saveJob } from '../../store/actions/jobs'
+import { saveJob, removeJob } from '../../store/actions/jobs'
 import './ApplyForJob.scss'
 
 import {
@@ -120,27 +120,26 @@ class ApplyForJob extends React.Component {
   }
 
   removeJobFromCookies () {
-    let allSavedJobs = cookies.get(this.props.profile.id + 'job')
-    let thisJob = { jaid: jaid, title: $xml.find('item title').text() }
-
-    allSavedJobs = allSavedJobs.filter(item => item.jaid !== jaid)
-    cookies.set(this.props.profile.id + 'job', allSavedJobs, { path: '/' })
+    // let allSavedJobs = cookies.get(this.props.profile.id + 'job')
+    let { dispatch } = this.props
+    let thisJob = { id: jaid, title: $xml.find('item title').text() }
+    dispatch(removeJob(thisJob))
   }
 
   applyJob () {
     let { dispatch } = this.props
-    let id_token = sessionStorage.getItem('id_token')
+    let { token } = this.props.auth
     let jobTitle = $xml.find('item title').text()
 
     // TODO: Remove when done with layout
     // this.setState({ applied: true })
-    // return
+    // this.removeJobFromCookies()
 
     axios.post('https://api.wapcard.se/api/v1/jobs/' + jaid + '/apply',
       { 'title': jobTitle },
       {
         headers: {
-          'Authorization': 'Token ' + id_token,
+          'Authorization': 'Token ' + token,
         }
       }
     ).then((response) => {
@@ -221,8 +220,9 @@ class ApplyForJob extends React.Component {
           </Col>
           <Col xs={12} lg={5}>
             <SpeechBubble pos='side'>
-              <h3>Sök jobb med ditt wap card</h3>
-              <p>Sök det här jobbet direkt med ditt wap card</p>
+              <h3>Sök jobb med wap card</h3>
+              <p>Sök det här jobbet direkt med din wap card-profil, du slipper skicka in CV eller personligt brev.</p>
+              <p>Se till att du har en uppdaterad profil och tryck på knappen "Ansök", svårare än så är det inte!</p>
             </SpeechBubble>
           </Col>
         </Row>

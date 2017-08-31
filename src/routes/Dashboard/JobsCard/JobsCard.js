@@ -19,7 +19,7 @@ class JobsCard extends React.Component {
         <DashboardButtons linkto='jobs/my' onHide={this.props.onHide} />
         <CardBlock>
           <CardTitle>Visade jobb</CardTitle>
-          {jobs.map((job) => {
+          {jobs && jobs.map((job) => {
             return <h6 key={job.id}>{job.title}</h6>
           })}
         </CardBlock>

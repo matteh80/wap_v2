@@ -139,6 +139,7 @@ class Dashboard extends React.Component {
       switch (list[i]) {
         case 'jobscard':
           this.props.jobs.savedJobs && cardsArray.push(list[i])
+          console.log('jobscard')
           break
         case 'wapfilmcard':
           !this.props.wapfilm.video && cardsArray.push(list[i])
@@ -176,15 +177,13 @@ class Dashboard extends React.Component {
     list.map((name) => {
       let c = _.find(cards, { 'name': name })
       let hidden = _.includes(hiddenItems, name)
-      console.log(c)
       if (c) {
-        c.component = React.cloneElement(
-          c.component,
-          {
-            hidden: hidden
-          },
-          '<h1>Hej</h1>'
-        )
+        // c.component = React.cloneElement(
+        //   c.component,
+        //   {
+        //     hidden: hidden
+        //   },
+        // )
         mCards.push(c)
       }
     })

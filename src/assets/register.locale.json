@@ -26,11 +26,11 @@
     "no_previous_employment": ["Jag har inte jobbat tidigare", "No previous employment"],
     "dreamjob": ["Vad är ditt drömjobb?", "What's your dreamjob?"],
     "help_job": [
-      "<h3>${ jobName }</h3>Fyll i dina uppgifter här för att söka tjänsten. När du är klar skickas din ansökan till våra rekryterare, MEN du har fortfarande möjlighet att komplettera din ansökan med mer information inne i din profil. Allt du kompletterar med inom 2 h kommer med i din ansökan.",
+      "<h3>${ jobName }</h3>För att söka tjänsten börjar du med att skapa en grundläggande profil. När du är klar kommer du till själva ansökan. Du har då möjlighet att skicka in ansökan eller komplettera med mer information. Du söker helt och hållet på den informationen du fyller på med i din profil.",
       "English"
     ],
     "help": [
-      "<h3>Slutför din registrering</h3>Fyll i dina uppgifter här. När du är klar har du möjlighet att komplettera med mer information inne i din profil som du sedan kan dela eller ladda ned i en snygg mall.",
+      "<h3>Slutför din registrering</h3>Fyll i dina uppgifter här för att skapa en grundläggande profil. När du är klar har du möjlighet att komplettera med mer information inne i din profil som du sedan kan dela eller ladda ned i en snygg mall.",
       "English"
     ]
   },
