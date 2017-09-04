@@ -57,7 +57,8 @@ class Register extends React.Component {
       linkedIn: false,
       job: _.includes(_.words(redirect), 'jobs'),
       jobTitle: null,
-      socialLogin: false
+      socialLogin: false,
+      errorMsg: null
     }
 
     this._handleRegister = this._handleRegister.bind(this)
@@ -229,15 +230,23 @@ class Register extends React.Component {
       })
 
       dispatch(register(values))
-        .catch((error) => {
-          console.log(error.response)
-          this.setState({
-            loadsave: false,
-            loginError: true
-          })
-        })
         .then((result) => {
           this.finalize()
+        })
+        .catch((error) => {
+          console.log('ERROR!')
+          console.log(error.response.data)
+          let errorMsg = ''
+          if (error.response.data.password && error.response.data.password[0]) {
+            errorMsg = error.response.data.password[0]
+          } else if (error.response.data.email && error.response.data.email[0]) {
+            errorMsg = error.response.data.email[0]
+          }
+          this.setState({
+            loadsave: false,
+            loginError: true,
+            errorMsg: errorMsg
+          })
         })
     }
   }
@@ -395,7 +404,7 @@ class Register extends React.Component {
                 </div>
                 {this.state.loginError &&
                 <Alert color='danger'>
-                  Det finns redan en användare med den här epost-adressen.
+                  {this.state.errorMsg}
                 </Alert>
                 }
                 <AvForm className='w-100 loginForm' onSubmit={this._handleRegister}>

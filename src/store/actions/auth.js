@@ -18,9 +18,6 @@ export function register (creds) {
     return axios.post('https://api.wapcard.se/api/v1/register/',
       creds
     )
-      .catch((error) => {
-        console.log(error.response)
-      })
       .then((result) => {
         return dispatch({
           type: REGISTER_SUCCESS,
