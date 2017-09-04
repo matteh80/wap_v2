@@ -1,7 +1,5 @@
 import React from 'react'
 import { Route, IndexRoute } from 'react-router'
-
-
 import CoreLayout from '../layouts/PageLayout/PageLayout'
 import Dashboard from './Dashboard/Dashboard'
 import Login from './Login/Login'
@@ -32,7 +30,7 @@ import PersonalRecruiter from './PersonalRecruiter/PersonalRecruiter'
 import PublicProfile from './PublicProfile/PublicProfile'
 import ShareProfile from './ShareProfile/ShareProfile'
 
-export const routes = ({ translate, currentLanguage }, store) => (
+export const routes = (store) => (
   <Route>
     <Route path='/' component={CoreLayout} name='Dashboard'>
       <IndexRoute component={Dashboard} name='Dashboard' />

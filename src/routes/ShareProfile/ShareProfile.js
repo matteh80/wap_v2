@@ -45,7 +45,7 @@ class ShareProfile extends React.Component {
   }
 
   render () {
-    let { shares } = this.props
+    let { shares, translate } = this.props
 
     return (
       <Container fluid>
@@ -64,7 +64,7 @@ class ShareProfile extends React.Component {
               }.bind(this)}
             >
               {this.props.shares.shares && this.props.shares.shares.map((share) => {
-                return <ShareItem key={share.id} share={share} layout={this.layout} />
+                return <ShareItem key={share.id} share={share} layout={this.layout} translate={translate} />
               })}
               {!this.state.loadsave &&
               <Col xs='12' sm='6' md='4' xl='3'>
@@ -124,13 +124,13 @@ class ShareItem extends React.Component {
   }
 
   render () {
-    let { share } = this.props
+    let { share, translate } = this.props
     return (
       <Col key={share.id} xs='12' sm='6' md='4' xl='3' className='shareItem'>
         <Card>
           <ShareProfileButtons
             id={Number(share.id)}
-            translate={this.props.translate}
+            translate={translate}
             onRemove={() => this.onRemove(share.id)}
             onLinkClick={() => this.onLinkClick(share.id)}
             onCopyClick={() => this.onCopyClick(share.id)}
