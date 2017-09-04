@@ -69,7 +69,7 @@ class PersonalRecruiter extends React.Component {
           <div>
             <h3>{translate('recruiter.speechBubble.title')}</h3>
             {translate('recruiter.speechBubble.text1')}
-            {translate('recruiter.speechBubble.text2')}
+            {/*{translate('recruiter.speechBubble.text2')}*/}
             {translate('recruiter.speechBubble.text3', {
               profileId: profile.id,
               occupationName: occupations.userOccupations[0].parent_name,
