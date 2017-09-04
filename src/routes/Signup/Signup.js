@@ -11,6 +11,7 @@ import classNames from 'classnames'
 import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble'
 import _ from 'lodash'
 import axios from 'axios'
+import { apiClient } from '../../store/axios.config'
 
 import { getProfile, updateProfile } from '../../store/actions/profile'
 import { getAllEmployments, createEmployment } from '../../store/actions/employments'

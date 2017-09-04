@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { register, socialLogin } from '../../store/actions/auth'
@@ -15,6 +14,8 @@ import { getVideoInfo } from '../../store/actions/wapfilm'
 import { getAllLicenses, getMyLicenses } from '../../store/actions/drivinglicenses'
 import { getAllReferences } from '../../store/actions/references'
 import { getAllQuestions } from '../../store/actions/dreamjob'
+import { getAllLocations } from '../../store/actions/locations'
+import { getTestStatus } from '../../store/actions/talentq'
 import ThreeDButton from '../../components/buttons/ThreeDButton'
 // import './Login.scss'
 import $ from 'jquery'
@@ -338,11 +339,25 @@ class Register extends React.Component {
       cookies.remove('redirect', redirect, { path: '/', maxAge: 60 })
 
       Promise.all([
+        dispatch(getAllEmployments()),
+        dispatch(getAllEducations()),
         dispatch(getAllOccupations()),
         dispatch(getMyOccupations()),
         dispatch(getAllSkills()),
         dispatch(getMySkills()),
+        dispatch(getAllLanguages()),
+        dispatch(getMyLanguages()),
+        dispatch(getAllMotivations()),
+        dispatch(getMyMotivations()),
+        dispatch(getAllPersonalities()),
+        dispatch(getMyPersonalities()),
+        dispatch(getVideoInfo()),
+        dispatch(getAllLicenses()),
+        dispatch(getMyLicenses()),
+        dispatch(getAllReferences()),
         dispatch(getAllQuestions()),
+        dispatch(getAllLocations()),
+        dispatch(getTestStatus()),
       ]).catch((error) => {
         console.log(error)
         this.setState({
@@ -353,9 +368,17 @@ class Register extends React.Component {
           redirect = '/'
         }
         if (redirect) {
-          this.props.router.push('/signup?redirect=' + redirect)
+          if (this.props.profile.tos_accepted) {
+            this.props.router.push(redirect || '/')
+          } else {
+            this.props.router.push('/signup?redirect=' + redirect)
+          }
         } else {
-          this.props.router.push('/signup')
+          if (this.props.profile.tos_accepted) {
+            this.props.router.push(redirect || '/')
+          } else {
+            this.props.router.push('/signup')
+          }
         }
       })
     })

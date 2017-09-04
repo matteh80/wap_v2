@@ -217,6 +217,19 @@ class ApplyForJob extends React.Component {
         }))
       }
     })
+      .catch((err) => {
+        console.log(err.response)
+        dispatch(error({
+          // uid: 'no-network', // you can specify your own uid if required
+          title: 'Fel',
+          message: err.response.data.detail,
+          autoDismiss: 20,
+          position: 'br',
+        }))
+        this.setState({
+          loadsave: false
+        })
+      })
   }
 
   makeContactPerson () {

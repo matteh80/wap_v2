@@ -168,10 +168,10 @@ class Dashboard extends React.Component {
           }
           break
         case 'educationscard':
-          this.props.educations.educations.length < 2 && cardsArray.push(list[i])
+          this.props.educations.educations && this.props.educations.educations.length < 2 && cardsArray.push(list[i])
           break
         case 'employmentscard':
-          this.props.employments.employments.length < 2 && cardsArray.push(list[i])
+          this.props.employments.employments && this.props.employments.employments.length < 2 && cardsArray.push(list[i])
           break
         default:
           cardsArray.push(list[i])
