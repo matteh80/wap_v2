@@ -17,6 +17,7 @@ import EmploymentsCard from './EmploymentsCard/EmploymentsCard'
 import WapfilmCard from './WapfilmCard/WapfilmCard'
 import SkillsCard from './SkillsCard/SkillsCard'
 import HiddenCardsController from './HiddenCardsController/HiddenCardsController'
+import DreamjobCard from "./DreamjobCard/DreamjobCard";
 
 const _ = require('lodash')
 const cookies = new Cookies()
@@ -74,6 +75,7 @@ class Dashboard extends React.Component {
       { name: 'employmentscard', component: <EmploymentsCard /> },
       { name: 'wapfilmcard', component: <WapfilmCard /> },
       { name: 'skillscard', component: <SkillsCard skills={props.skills.userSkills} /> },
+      { name: 'dreamjobcard', component: <DreamjobCard /> }
     ]
 
     let itemsFromCookie = cookies.get(props.profile.id + '_visibleCards', { path: '/' })
@@ -153,6 +155,23 @@ class Dashboard extends React.Component {
           if (this.props.skills.userSkills && this.props.skills.userSkills.length === 0) { shouldBeAdded = true }
           if (!shouldBeAdded && hasZero) { shouldBeAdded = true }
           shouldBeAdded && cardsArray.push(list[i])
+          break
+        case 'dreamjobcard':
+          let missingAnswer = false
+          for (let x = 0; x < Object.keys(this.props.dreamjob).length; x++) {
+            if (!this.props.dreamjob[x].answer) {
+              missingAnswer = true
+            }
+          }
+          if (missingAnswer) {
+            cardsArray.push(list[i])
+          }
+          break
+        case 'educationscard':
+          this.props.educations.educations.length < 2 && cardsArray.push(list[i])
+          break
+        case 'employmentscard':
+          this.props.employments.employments.length < 2 && cardsArray.push(list[i])
           break
         default:
           cardsArray.push(list[i])

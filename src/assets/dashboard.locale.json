@@ -17,5 +17,9 @@
     "title": ["Anställningar", "Employments"],
     "subtitle_empty": ["Du har inga anställningar", "You have no employments"],
     "subtitle_add_more": ["Lägg till fler anställningar", "Add more employments"]
+  },
+  "dreamjobcard": {
+    "title": ["Drömjobb", "Dream job"],
+    "subtitle_only_dreamjob": ["Ange din drömbransch och drömarbetsgivare", "We want to know mote about your dreams"]
   }
 }
