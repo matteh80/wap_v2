@@ -95,11 +95,9 @@ class Languages extends React.Component {
 
     return (
       <Container fluid>
-        <Col>
-          <SpeechBubble hideable>
-            {translate('languages.help_text')}
-          </SpeechBubble>
-        </Col>
+        <SpeechBubble hideable>
+          {translate('languages.help_text')}
+        </SpeechBubble>
         <Masonry
           onClick={this.handleClick}
           className='row'

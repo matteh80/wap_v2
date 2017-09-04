@@ -135,11 +135,9 @@ class Occupations extends React.Component {
     return (
       <Container fluid>
         <Row>
-          <Col>
-            <SpeechBubble hideable>
-              {translate('occupations.help_text')}
-            </SpeechBubble>
-          </Col>
+          <SpeechBubble hideable>
+            {translate('occupations.help_text')}
+          </SpeechBubble>
           <Col xs={12}>
             <div className='sortableWrapper'>
               {userOccupations &&

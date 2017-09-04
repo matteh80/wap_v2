@@ -269,7 +269,7 @@ class Register extends React.Component {
       mRedirectUri = 'http://localhost:3000/login/facebook'
     } else {
       // production code
-      mRedirectUri = 'https://wapcard.se/login/facebook'
+      mRedirectUri = 'https://app.wapcard.se/login/facebook'
     }
 
     graph.setVersion('2.9')
@@ -340,6 +340,9 @@ class Register extends React.Component {
           loadsave: false
         })
       }).then(() => {
+        if (redirect === 'undefined') {
+          redirect = '/'
+        }
         if (redirect) {
           this.props.router.push('/signup?redirect=' + redirect)
         } else {

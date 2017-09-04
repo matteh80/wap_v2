@@ -101,12 +101,10 @@ class Dreamjob extends React.Component {
     return (
       <Container fluid>
         <Row>
-          <Col>
-            <SpeechBubble>
-              <h3>{translate('dreamjob.speechBubble.title')}</h3>
-              <p>{translate('dreamjob.speechBubble.text')}</p>
-            </SpeechBubble>
-          </Col>
+          <SpeechBubble>
+            <h3>{translate('dreamjob.speechBubble.title')}</h3>
+            <p>{translate('dreamjob.speechBubble.text')}</p>
+          </SpeechBubble>
         </Row>
         <Masonry
           onClick={this.handleClick}

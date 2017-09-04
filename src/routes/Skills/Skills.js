@@ -99,11 +99,9 @@ class Skills extends React.Component {
 
     return (
       <Container fluid>
-        <Col>
-          <SpeechBubble hideable>
-            {translate('skills.help_text')}
-          </SpeechBubble>
-        </Col>
+        <SpeechBubble hideable>
+          {translate('skills.help_text')}
+        </SpeechBubble>
         <Masonry
           onClick={this.handleClick}
           className='row'

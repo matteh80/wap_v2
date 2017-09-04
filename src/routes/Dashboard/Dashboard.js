@@ -150,7 +150,7 @@ class Dashboard extends React.Component {
         case 'skillscard':
           let hasZero = _.find(this.props.skills.userSkills, { 'experience': 0 })
           let shouldBeAdded = false
-          if (this.props.skills.userSkills.length === 0) { shouldBeAdded = true }
+          if (this.props.skills.userSkills && this.props.skills.userSkills.length === 0) { shouldBeAdded = true }
           if (!shouldBeAdded && hasZero) { shouldBeAdded = true }
           shouldBeAdded && cardsArray.push(list[i])
           break

@@ -45,15 +45,19 @@ class ResumeCard extends React.Component {
       } catch (ex) { return string }
     }
 
-    let mText = text.replace(/(\r\n|\r|\n){2,}/g, '$1\n')
-    mText = mText.replace(/(?:\r\n|\r|\n)/g, '<br />')
+    if (text) {
+      let mText = text.replace(/(\r\n|\r|\n){2,}/g, '$1\n')
+      mText = mText.replace(/(?:\r\n|\r|\n)/g, '<br />')
 
-    let to = mText
-    to = text.replace(/\n{2}/g, '&nbsp;</p><p>')
-    to = to.replace(/\n/g, '&nbsp;<br />')
-    to = '<p>' + to + '</p>'
+      let to = mText
+      to = text.replace(/\n{2}/g, '&nbsp;</p><p>')
+      to = to.replace(/\n/g, '&nbsp;<br />')
+      to = '<p>' + to + '</p>'
 
-    return { __html: to }
+      return { __html: to }
+    }
+    return { __html: '' }
+
     // return { __html: text.replace(/(?:\r\n|\r|\n)/g, '<br />') }
   }
 

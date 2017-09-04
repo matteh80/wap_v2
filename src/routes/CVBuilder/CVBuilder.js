@@ -350,12 +350,10 @@ class CVBuilder extends React.Component {
     return (
       <Container fluid className='cvBuilder'>
         <Row>
-          <Col xs={12}>
-            <SpeechBubble hideable>
-              <CardTitle>Här skapar du ett CV</CardTitle>
-              <p>Genom att bocka i/ur dina erfarenheter och kompetenser skräddarsyr du enkelt ditt CV och kan på så sätt välja hur du vill presentera dig själv från gång till gång.</p>
-            </SpeechBubble>
-          </Col>
+          <SpeechBubble hideable xs={12}>
+            <CardTitle>Här skapar du ett CV</CardTitle>
+            <p>Genom att bocka i/ur dina erfarenheter och kompetenser skräddarsyr du enkelt ditt CV och kan på så sätt välja hur du vill presentera dig själv från gång till gång.</p>
+          </SpeechBubble>
         </Row>
         <Row>
           <Col xs={12}>

@@ -124,7 +124,7 @@ class Signup extends React.Component {
       birthday: date,
       profile: {
         ...this.state.profile,
-        birthday: date.format('L')
+        birthday: date ? date.format('L') : moment()
       }
     })
   }
@@ -347,7 +347,7 @@ class Signup extends React.Component {
 
     return (
       <Container className='py-5'>
-        <Row className='flex-column'>
+        <div className='flex-column'>
           <SpeechBubble xs='12'>
             {this.state.job && translate('signup.help_job', { jobName: this.state.jobTitle })}
             {!this.state.job && translate('signup.help')}
@@ -564,7 +564,7 @@ class Signup extends React.Component {
               </CardBlock>
             </Card>
           </Col>
-        </Row>
+        </div>
       </Container>
     )
   }

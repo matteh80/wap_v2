@@ -90,7 +90,7 @@ class WapFilm extends React.Component {
     this.setState({
       videoExists: false
     })
-    dispatch(removeVideo(this.props.wapfilm.video.id))
+    this.props.wapfilm.video && dispatch(removeVideo(this.props.wapfilm.video.id))
   }
 
   getVideoSize (bytes) {
@@ -138,10 +138,10 @@ class WapFilm extends React.Component {
             </video>
           </SpeechBubble>
 
-          <Col className='dropzone'>
-            <Card>
+          <Col xs='12' lg='7' className='dropzone'>
+            <div>
               {this.state.videoExists &&
-              <div>
+              <Card>
                 <div className='btn-wrapper'>
                   <i className='fa fa-times cancel-btn' onClick={() => this.removeVideo()} />
                 </div>
@@ -155,7 +155,7 @@ class WapFilm extends React.Component {
                 </CardHeader>
                 }
                 <Video videoSrc={this.state.videoSrc} videoid={video && video.id} content_type={video && video.content_type} />
-              </div>
+              </Card>
               }
               {!this.state.videoExists &&
               <Dropzone
@@ -166,16 +166,18 @@ class WapFilm extends React.Component {
               >
                 {/*<Loader active={this.state.loadsave} />*/}
 
-                <Row className='flex-column justify-content-center align-items-center py-5'>
+                <Row className='justify-content-center py-5'>
                   <Col xs='6'>
                     <img src='/img/upload_film.png' className='img-fluid' />
                   </Col>
-                  <h6>Dra och släpp en fil för att ladda upp</h6>
+                  <Col xs='12'>
+                    <h6 className='text-center'>Dra och släpp en fil för att ladda upp</h6>
+                  </Col>
                   <ThreeDButton small>Eller välj en fil</ThreeDButton>
                 </Row>
               </Dropzone>
               }
-            </Card>
+            </div>
           </Col>
         </Row>
       </Container>

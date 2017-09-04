@@ -7,6 +7,7 @@ import moment from 'moment'
 import { saveJob, removeJob } from '../../store/actions/jobs'
 import './ApplyForJob.scss'
 import { error, warning } from 'react-notification-system-redux'
+import ReactGA from 'react-ga'
 
 import {
   Container,
@@ -33,6 +34,7 @@ class ApplyForJob extends React.Component {
     let { dispatch } = this.props
 
     this.state = {
+      loadsave: false,
       job: null,
       fetched: false,
       addToWapStory: true,
@@ -128,9 +130,21 @@ class ApplyForJob extends React.Component {
   }
 
   applyJob () {
+
+    this.setState({
+      loadsave: true
+    })
+
     let { dispatch } = this.props
     let { token } = this.props.auth
     let jobTitle = $xml.find('item title').text()
+
+    ReactGA.event({
+      category: 'Job application',
+      action: 'Applied for job',
+      label: jobTitle,
+      value: Number(jaid)
+    })
 
     // TODO: Remove when done with layout
     // this.setState({ applied: true })
@@ -182,6 +196,9 @@ class ApplyForJob extends React.Component {
       //     // })
       //   })
       // }
+      this.setState({
+        loadsave: false
+      })
       if (response.data.status === 'already applied') {
         console.log('LREADY APPLIED')
         dispatch(warning({
@@ -191,8 +208,16 @@ class ApplyForJob extends React.Component {
           autoDismiss: 20,
           position: 'br',
         }))
-      } else {
+      } else if (response.data.status === 'ok') {
         this.setState({ applied: true })
+      } else {
+        dispatch(error({
+          // uid: 'no-network', // you can specify your own uid if required
+          title: 'Fel',
+          message: 'Något gick fel när du skickade ansökan. Ladda om sidan och försök igen.',
+          autoDismiss: 20,
+          position: 'br',
+        }))
       }
     })
   }
@@ -218,24 +243,23 @@ class ApplyForJob extends React.Component {
     return (
       <Container>
         {!this.state.applied &&
-        <Row className='flex-column-reverse flex-lg-row'>
+        <Row className='flex-lg-row-reverse'>
+          <SpeechBubble pos='side' xs={12} lg={5}>
+            <h3>Sök jobb med wap</h3>
+            <p>Sök det här jobbet direkt med din wap-profil, du slipper skicka in CV eller personligt brev.</p>
+            <p>Se till att du har en uppdaterad profil och tryck på knappen "Ansök", svårare än så är det inte!</p>
+            <p>Du hittar alltid tillbaka till den här tjänsten under <em>jobb</em> och <em>visade tjänster</em> om du väljer att uppdatera din profil innan du skickar iväg din ansökan.</p>
+          </SpeechBubble>
           <Col>
             {this.state.fetched &&
             <Card>
               <CardBlock>
                 <CardTitle>{$xml.find('item title').text()}</CardTitle>
                 <div dangerouslySetInnerHTML={this.createMarkup($xml.find('item description').first().text())} />
-                <ThreeDButton block onClick={() => this.applyJob()}>Ansök</ThreeDButton>
+                <ThreeDButton block loading={this.state.loadsave} onClick={() => this.applyJob()}>Ansök</ThreeDButton>
               </CardBlock>
             </Card>
             }
-          </Col>
-          <Col xs={12} lg={5}>
-            <SpeechBubble pos='side'>
-              <h3>Sök jobb med wap</h3>
-              <p>Sök det här jobbet direkt med din wap-profil, du slipper skicka in CV eller personligt brev.</p>
-              <p>Se till att du har en uppdaterad profil och tryck på knappen "Ansök", svårare än så är det inte!</p>
-            </SpeechBubble>
           </Col>
         </Row>
         }

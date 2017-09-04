@@ -99,11 +99,9 @@ class DrivingLicenses extends React.Component {
 
     return (
       <Container fluid>
-        <Col>
-          <SpeechBubble hideable>
-            {translate('drivinglicense.help_text')}
-          </SpeechBubble>
-        </Col>
+        <SpeechBubble hideable>
+          {translate('drivinglicense.help_text')}
+        </SpeechBubble>
         <Masonry
           onClick={this.handleClick}
           className='row'

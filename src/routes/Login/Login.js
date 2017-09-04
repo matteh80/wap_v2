@@ -119,7 +119,7 @@ class Login extends React.Component {
       mRedirectUri = 'http://localhost:3000' + this.props.route.path
     } else {
       // production code
-      mRedirectUri = 'https://wapcard.se' + this.props.route.path
+      mRedirectUri = 'https://app.wapcard.se' + this.props.route.path
     }
 
     let urlParams = new URLSearchParams(window.location.search)
@@ -254,7 +254,7 @@ class Login extends React.Component {
     // TODO: Change to prod appid
     window.fbAsyncInit = function () {
       FB.init({
-        appId      : '1999711793387146',
+        appId      : '1021816071285498',
         xfbml      : true,
         version    : 'v2.10'
       })
@@ -278,7 +278,7 @@ class Login extends React.Component {
       mRedirectUri = 'http://localhost:3000/login/facebook'
     } else {
       // production code
-      mRedirectUri = 'https://wapcard.se/login/facebook'
+      mRedirectUri = 'https://app.wapcard.se/login/facebook'
     }
 
     graph.setVersion('2.9')
@@ -374,6 +374,9 @@ class Login extends React.Component {
         // }
       })
         .then(() => {
+          if (redirect === 'undefined') {
+            redirect = '/'
+          }
           if (result.tos_accepted) {
             console.log('redirect')
             console.log(redirect)

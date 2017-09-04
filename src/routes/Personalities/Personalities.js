@@ -140,11 +140,9 @@ class Personalities extends React.Component {
     return (
       <Container fluid>
         <Row>
-          <Col>
-            <SpeechBubble hideable>
-              {translate('personality.help_text')}
-            </SpeechBubble>
-          </Col>
+          <SpeechBubble hideable>
+            {translate('personality.help_text')}
+          </SpeechBubble>
           <Col xs={12}>
             <div className='sortableWrapper'>
               {userPersonalities &&

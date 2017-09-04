@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import $ from 'jquery'
 import Menuitem from './Menuitem'
 import './Sidemenu.scss'
+import ReactGA from 'react-ga'
 
 class Sidemenu extends React.Component {
   constructor (props) {
@@ -26,6 +27,7 @@ class Sidemenu extends React.Component {
 
     this.showMenu = this.showMenu.bind(this)
     this.hideMenu = this.hideMenu.bind(this)
+    this.onSocialClick = this.onSocialClick.bind(this)
   }
 
   componentDidMount () {
@@ -87,6 +89,18 @@ class Sidemenu extends React.Component {
     })
   }
 
+  onSocialClick (e) {
+    e.preventDefault()
+    console.log(e.currentTarget)
+    ReactGA.event({
+      category: 'Social click',
+      action: 'Clicked icon in menu',
+      label: e.currentTarget.id,
+    })
+
+    window.location = e.currentTarget.href
+  }
+
   render () {
     let { translate } = this.props
 
@@ -131,8 +145,8 @@ class Sidemenu extends React.Component {
           </ul>
         </div>
         <div className='contact my-4'>
-          <a href='https://www.facebook.com/wapcard.se'><i className='fa fa-facebook' /></a>
-          <a href='mailto:support@wapcard.se'><i className='fa fa-envelope' /></a>
+          <a href='https://www.facebook.com/wapcard.se' id='facebook' onClick={this.onSocialClick}><i className='fa fa-facebook' /></a>
+          <a href='mailto:support@wapcard.se' id='mail' onClick={this.onSocialClick}><i className='fa fa-envelope' /></a>
         </div>
       </div>
     )
