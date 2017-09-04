@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import Cookies from 'universal-cookie'
 import $ from 'jquery'
-import moment from 'moment'
 import { saveJob, removeJob } from '../../store/actions/jobs'
 import './ApplyForJob.scss'
 import { error, warning } from 'react-notification-system-redux'
@@ -16,8 +15,6 @@ import {
   Card,
   CardBlock,
   CardTitle,
-  CardSubtitle,
-  CardText
 } from 'reactstrap'
 import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble'
 import ThreeDButton from '../../components/buttons/ThreeDButton'
@@ -253,11 +250,18 @@ class ApplyForJob extends React.Component {
           <Col>
             {this.state.fetched &&
             <Card>
+              {$xml.find('item title').text() &&
               <CardBlock>
                 <CardTitle>{$xml.find('item title').text()}</CardTitle>
-                <div dangerouslySetInnerHTML={this.createMarkup($xml.find('item description').first().text())} />
+                <div dangerouslySetInnerHTML={this.createMarkup($xml.find('item description').first().text())}/>
                 <ThreeDButton block loading={this.state.loadsave} onClick={() => this.applyJob()}>Ansök</ThreeDButton>
               </CardBlock>
+              }
+              {!$xml.find('item title').text() &&
+              <CardBlock>
+                <CardTitle>Hittade ingen tjänst med id {jaid}</CardTitle>
+              </CardBlock>
+              }
             </Card>
             }
           </Col>
