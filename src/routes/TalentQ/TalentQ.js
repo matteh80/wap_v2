@@ -58,15 +58,7 @@ class TalentQ extends React.Component {
     return (
       <Container fluid>
         {!completed &&
-        <Row className='flex-column-reverse flex-lg-row'>
-          <Col xs={12} lg={7}>
-            <Card>
-              <video id='loopvideo' width='100%' height='auto' controls>
-                <source src='/img/wap-test_informationsfilm.mp4' type='video/mp4' />
-                Your browser do not support this file
-              </video>
-            </Card>
-          </Col>
+        <Row className='flex-lg-row-reverse'>
           <SpeechBubble xs={12} lg={5}>
             <h3>Här får du visa vem du är!</h3>
             <p>Här kommer du att få göra ett unikt online-test som är speciellt framtaget för att du ska få visa vem du
@@ -91,6 +83,14 @@ class TalentQ extends React.Component {
             }
 
           </SpeechBubble>
+          <Col xs={12} lg={7}>
+            <Card>
+              <video id='loopvideo' width='100%' height='auto' controls>
+                <source src='/img/wap-test_informationsfilm.mp4' type='video/mp4' />
+                Your browser do not support this file
+              </video>
+            </Card>
+          </Col>
         </Row>
         }
 

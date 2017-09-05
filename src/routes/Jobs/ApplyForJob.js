@@ -208,10 +208,17 @@ class ApplyForJob extends React.Component {
       } else if (response.data.status === 'ok') {
         this.setState({ applied: true })
       } else {
-        dispatch(error({
+        // dispatch(error({
+        //   // uid: 'no-network', // you can specify your own uid if required
+        //   title: 'Fel',
+        //   message: 'Något gick fel när du skickade ansökan. Ladda om sidan och försök igen.',
+        //   autoDismiss: 20,
+        //   position: 'br',
+        // }))
+        dispatch(warning({
           // uid: 'no-network', // you can specify your own uid if required
-          title: 'Fel',
-          message: 'Något gick fel när du skickade ansökan. Ladda om sidan och försök igen.',
+          title: 'Redan ansökt',
+          message: 'Du har redan skickat en ansökan för den här tjänsten!',
           autoDismiss: 20,
           position: 'br',
         }))
@@ -260,7 +267,7 @@ class ApplyForJob extends React.Component {
             <p>Se till att du har en uppdaterad profil och tryck på knappen "Ansök", svårare än så är det inte!</p>
             <p>Du hittar alltid tillbaka till den här tjänsten under <em>jobb</em> och <em>visade tjänster</em> om du väljer att uppdatera din profil innan du skickar iväg din ansökan.</p>
           </SpeechBubble>
-          <Col>
+          <Col xs={12} lg={7}>
             {this.state.fetched &&
             <Card>
               {$xml.find('item title').text() &&

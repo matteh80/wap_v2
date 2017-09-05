@@ -21,19 +21,19 @@ class PersonalRecruiter extends React.Component {
       shouldShow = false
     }
 
-    if (this.props.educations.educations.length === 0 && shouldShow) {
+    if (this.props.educations.educations && this.props.educations.educations.length === 0 && shouldShow) {
       shouldShow = false
     }
 
-    if (this.props.locations.userLocations.length === 0 && shouldShow) {
+    if (this.props.locations.userLocations && this.props.locations.userLocations.length === 0 && shouldShow) {
       shouldShow = false
     }
 
-    if (this.props.skills.userSkills.length === 0 && shouldShow) {
+    if (this.props.skills.userSkills && this.props.skills.userSkills.length === 0 && shouldShow) {
       shouldShow = false
     }
 
-    if (this.props.occupations.userOccupations.length === 0 && shouldShow) {
+    if (this.props.occupations.userOccupations && this.props.occupations.userOccupations.length === 0 && shouldShow) {
       shouldShow = false
     }
 
