@@ -38,7 +38,11 @@ class ViewedJobs extends React.Component {
 
     return (
       <Container fluid>
-        <Row className='flex-column-reverse flex-lg-row'>
+        <Row className='flex-lg-row-reverse'>
+          <SpeechBubble xs={12} sm={12} md={12} lg={5} pos='left-side top'>
+            <p>Här hittar du dina tjänster du visat under denna session. Det för att du enklare ska hitta tillbaka och kunna skicka din ansökan.</p>
+            <p>Observera att den här listan töms om du loggar ut.</p>
+          </SpeechBubble>
           <Col>
             {savedJobs && savedJobs.map((job) => {
               return (
@@ -52,12 +56,6 @@ class ViewedJobs extends React.Component {
                 </Card>
               )
             })}
-          </Col>
-          <Col xs={12} sm={12} md={12} lg={5}>
-            <SpeechBubble pos='left-side top'>
-              <p>Här hittar du dina tjänster du visat under denna session. Det för att du enklare ska hitta tillbaka och kunna skicka din ansökan.</p>
-              <p>Observera att den här listan töms om du loggar ut.</p>
-            </SpeechBubble>
           </Col>
         </Row>
       </Container>

@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 import axios from 'axios'
 import Cookies from 'universal-cookie'
 import $ from 'jquery'
@@ -7,6 +8,7 @@ import { saveJob, removeJob } from '../../store/actions/jobs'
 import './ApplyForJob.scss'
 import { error, warning } from 'react-notification-system-redux'
 import ReactGA from 'react-ga'
+import _ from 'lodash'
 
 import {
   Container,
@@ -15,6 +17,7 @@ import {
   Card,
   CardBlock,
   CardTitle,
+  CardSubtitle
 } from 'reactstrap'
 import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble'
 import ThreeDButton from '../../components/buttons/ThreeDButton'
@@ -36,7 +39,22 @@ class ApplyForJob extends React.Component {
       fetched: false,
       addToWapStory: true,
       applied: false,
-      storyAdded: false
+      storyAdded: false,
+      undone: false,
+      wapstats: {
+        employmentCount: this.props.employments.employments ? this.props.employments.employments.length : 0,
+        educationCount: this.props.educations.educations ? this.props.educations.educations.length : 0,
+        occupationCount: this.props.occupations.userOccupations ? this.props.occupations.userOccupations.length : 0,
+        skillCount: this.props.skills.userSkills ? this.props.skills.userSkills.length : 0,
+        languageCount: this.props.languages.userLanguages ? this.props.languages.userLanguages.length : 0,
+        motivationCount: this.props.motivations.userMotivations ? this.props.motivations.userMotivations.length : 0,
+        personalityCount: this.props.personalities.userPersonalities ? this.props.personalities.userPersonalities.length : 0,
+        videoCount: this.props.wapfilm.video ? 1 : 0,
+        drivinglicenseCount: this.props.drivinglicenses.userLicenses ? this.props.drivinglicenses.userLicenses.length : 0,
+        referenceCount: this.props.references.references ? this.props.references.references.length : 0,
+        personalitytestCompleted: this.props.talentq && this.props.talentq.completed ? 1 : 0,
+        locationCount: this.props.locations.userLocations ? this.props.locations.userLocations.length : 0,
+      }
     }
 
     jaid = props.params.jobid
@@ -53,20 +71,6 @@ class ApplyForJob extends React.Component {
         this.setState({
           job: xml,
           fetched: true,
-          wapstats: {
-            employmentCount: this.props.employments.employments ? this.props.employments.employments.length : 0,
-            educationCount: this.props.educations.educations ? this.props.educations.educations.length : 0,
-            occupationCount: this.props.occupations.userOccupations ? this.props.occupations.userOccupations.length : 0,
-            skillCount: this.props.skills.userSkills ? this.props.skills.userSkills.length : 0,
-            languageCount: this.props.languages.userLanguages ? this.props.languages.userLanguages.length : 0,
-            motivationCount: this.props.motivations.userMotivations ? this.props.motivations.userMotivations.length : 0,
-            personalityCount: this.props.personalities.userPersonalities ? this.props.personalities.userPersonalities.length : 0,
-            videoCount: this.props.wapfilm.video ? 1 : 0,
-            drivinglicenseCount: this.props.drivinglicenses.userLicenses ? this.props.drivinglicenses.userLicenses.length : 0,
-            referenceCount: this.props.references.references ? this.props.references.references.length : 0,
-            personalitytestCompleted: this.props.talentq && this.props.talentq.completed ? 1 : 0,
-            locationCount: this.props.locations.userLocations ? this.props.locations.userLocations.length : 0,
-          }
         })
 
         let mJob = {
@@ -89,6 +93,7 @@ class ApplyForJob extends React.Component {
 
     this.saveJobToCookie = this.saveJobToCookie.bind(this)
     this.removeJobFromCookies = this.removeJobFromCookies.bind(this)
+    this.handleIconClick = this.handleIconClick.bind(this)
   }
 
   saveJobToCookie (pid) {
@@ -127,7 +132,6 @@ class ApplyForJob extends React.Component {
   }
 
   applyJob () {
-
     this.setState({
       loadsave: true
     })
@@ -254,6 +258,16 @@ class ApplyForJob extends React.Component {
 
   }
 
+  componentDidMount () {
+    if (Object.values(this.state.wapstats).indexOf(0) > -1) {
+      this.setState({ undone: true })
+    }
+  }
+
+  handleIconClick (link) {
+    this.props.router.push(link)
+  }
+
   render () {
     let { translate } = this.props
 
@@ -261,20 +275,20 @@ class ApplyForJob extends React.Component {
       <Container>
         {!this.state.applied &&
         <Row className='flex-lg-row-reverse'>
-          <SpeechBubble pos='side' xs={12} lg={5}>
+          <SpeechBubble pos='side' xs={12}>
             <h3>Sök jobb med wap</h3>
             <p>Sök det här jobbet direkt med din wap-profil, du slipper skicka in CV eller personligt brev.</p>
             <p>Se till att du har en uppdaterad profil och tryck på knappen "Ansök", svårare än så är det inte!</p>
             <p>Du hittar alltid tillbaka till den här tjänsten under <em>jobb</em> och <em>visade tjänster</em> om du väljer att uppdatera din profil innan du skickar iväg din ansökan.</p>
           </SpeechBubble>
-          <Col xs={12} lg={7}>
+          <Col xs={12}>
             {this.state.fetched &&
             <Card>
               {$xml.find('item title').text() &&
               <CardBlock>
                 <CardTitle>{$xml.find('item title').text()}</CardTitle>
-                <div dangerouslySetInnerHTML={this.createMarkup($xml.find('item description').first().text())}/>
-                <ThreeDButton block loading={this.state.loadsave} onClick={() => this.applyJob()}>Ansök</ThreeDButton>
+                <div dangerouslySetInnerHTML={this.createMarkup($xml.find('item description').first().text())} />
+                {!this.state.undone && <ThreeDButton block loading={this.state.loadsave} onClick={() => this.applyJob()}>Ansök</ThreeDButton>}
               </CardBlock>
               }
               {!$xml.find('item title').text() &&
@@ -282,6 +296,71 @@ class ApplyForJob extends React.Component {
                 <CardTitle>Hittade ingen tjänst med id {jaid}</CardTitle>
               </CardBlock>
               }
+            </Card>
+            }
+            {this.state.fetched && this.state.undone &&
+            <Card>
+              <CardBlock>
+                <CardTitle className='fg-red'>Din profil är ofullständing</CardTitle>
+                <CardSubtitle>
+                  För att öka dina chanser att gå vidare i urvalet rekommenderar vi dig att komplettera din profil. Det för att rekryteraren ska få en så komplett bild av dig som möjligt.
+                </CardSubtitle>
+                <Row className='justify-content-center align-content-center mt-5'>
+                  <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/work/employments')}>
+                    {this.state.wapstats.employmentCount === 0 ? <i className='fa fa-check-circle undone' />
+                      : <i className='fa fa-check-circle' />}<h6>Anställningar</h6>
+                  </Col>
+                  <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/work/educations')}>
+                    {this.state.wapstats.educationCount === 0 ? <i className='fa fa-check-circle undone' />
+                      : <i className='fa fa-check-circle' />}<h6>Utbildningar</h6>
+                  </Col>
+                  <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/work/occupations')}>
+                    {this.state.wapstats.occupationCount === 0 ? <i className='fa fa-check-circle undone' />
+                      : <i className='fa fa-check-circle' />}<h6>Befattningar</h6>
+                  </Col>
+                  <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/work/skills')}>
+                    {this.state.wapstats.skillCount === 0 ? <i className='fa fa-check-circle undone' />
+                      : <i className='fa fa-check-circle' />}<h6>Kompetenser</h6>
+                  </Col>
+                  <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/work/languages')}>
+                    {this.state.wapstats.languageCount === 0 ? <i className='fa fa-check-circle undone' />
+                      : <i className='fa fa-check-circle' />}<h6>Språk</h6>
+                  </Col>
+                  <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/work/drivinglicenses')}>
+                    {this.state.wapstats.drivinglicenseCount === 0 ? <i className='fa fa-check-circle undone' />
+                      : <i className='fa fa-check-circle' />}<h6>Körkort</h6>
+                  </Col>
+                  <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/passion/motivations')}>
+                    {this.state.wapstats.motivationCount === 0 ? <i className='fa fa-check-circle undone' />
+                      : <i className='fa fa-check-circle' />}<h6>Drivkrafter</h6>
+                  </Col>
+                  <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/passion/personalities')}>
+                    {this.state.wapstats.personalityCount === 0 ? <i className='fa fa-check-circle undone' />
+                      : <i className='fa fa-check-circle' />}<h6>Personlighet</h6>
+                  </Col>
+                  <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/wapfilm')}>
+                    {this.state.wapstats.videoCount === 0 ? <i className='fa fa-check-circle undone' />
+                      : <i className='fa fa-check-circle' />}<h6>Wap film</h6>
+                  </Col>
+                  <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/work/references')}>
+                    {this.state.wapstats.referenceCount === 0 ? <i className='fa fa-check-circle undone' />
+                      : <i className='fa fa-check-circle' />}<h6>Referenser</h6>
+                  </Col>
+                  <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/personalitytest')}>
+                    {this.state.wapstats.personalitytestCompleted === 0 ? <i className='fa fa-check-circle undone' />
+                      : <i className='fa fa-check-circle' />}<h6>Personlighetstest</h6>
+                  </Col>
+                  <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/passion/location')}>
+                    {this.state.wapstats.locationCount === 0 ? <i className='fa fa-check-circle undone' />
+                      : <i className='fa fa-check-circle' />}<h6>Arbetsorter</h6>
+                  </Col>
+                </Row>
+                <Row className='mt-4'>
+                  <Col>
+                    {this.state.undone && <ThreeDButton loading={this.state.loadsave} onClick={() => this.applyJob()}>Skicka ansökan ändå</ThreeDButton>}
+                  </Col>
+                </Row>
+              </CardBlock>
             </Card>
             }
           </Col>
@@ -298,54 +377,54 @@ class ApplyForJob extends React.Component {
                     </Col>
                   </Row>
                   <CardTitle className='mt-5'>{translate('jobs.applied_title')}</CardTitle>
-                  {translate('jobs.applied')}
+                  <CardSubtitle>{translate('jobs.applied')}</CardSubtitle>
                   {this.state.wapstats &&
                   <Row className='justify-content-center align-content-center mt-5'>
-                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/work/employments')}>
                       {this.state.wapstats.employmentCount === 0 ? <i className='fa fa-check-circle undone' />
                         : <i className='fa fa-check-circle' />}<h6>Anställningar</h6>
                     </Col>
-                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/work/educations')}>
                       {this.state.wapstats.educationCount === 0 ? <i className='fa fa-check-circle undone' />
                         : <i className='fa fa-check-circle' />}<h6>Utbildningar</h6>
                     </Col>
-                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/work/occupations')}>
                       {this.state.wapstats.occupationCount === 0 ? <i className='fa fa-check-circle undone' />
                         : <i className='fa fa-check-circle' />}<h6>Befattningar</h6>
                     </Col>
-                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/work/skills')}>
                       {this.state.wapstats.skillCount === 0 ? <i className='fa fa-check-circle undone' />
                         : <i className='fa fa-check-circle' />}<h6>Kompetenser</h6>
                     </Col>
-                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/work/languages')}>
                       {this.state.wapstats.languageCount === 0 ? <i className='fa fa-check-circle undone' />
                         : <i className='fa fa-check-circle' />}<h6>Språk</h6>
                     </Col>
-                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/work/drivinglicenses')}>
                       {this.state.wapstats.drivinglicenseCount === 0 ? <i className='fa fa-check-circle undone' />
                         : <i className='fa fa-check-circle' />}<h6>Körkort</h6>
                     </Col>
-                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/passion/motivations')}>
                       {this.state.wapstats.motivationCount === 0 ? <i className='fa fa-check-circle undone' />
                         : <i className='fa fa-check-circle' />}<h6>Drivkrafter</h6>
                     </Col>
-                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/passion/personalities')}>
                       {this.state.wapstats.personalityCount === 0 ? <i className='fa fa-check-circle undone' />
                         : <i className='fa fa-check-circle' />}<h6>Personlighet</h6>
                     </Col>
-                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/wapfilm')}>
                       {this.state.wapstats.videoCount === 0 ? <i className='fa fa-check-circle undone' />
                         : <i className='fa fa-check-circle' />}<h6>Wap film</h6>
                     </Col>
-                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
-                      {this.state.wapstats.videoCount === 0 ? <i className='fa fa-check-circle undone' />
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/work/references')}>
+                      {this.state.wapstats.referenceCount === 0 ? <i className='fa fa-check-circle undone' />
                         : <i className='fa fa-check-circle' />}<h6>Referenser</h6>
                     </Col>
-                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/personalitytest')}>
                       {this.state.wapstats.personalitytestCompleted === 0 ? <i className='fa fa-check-circle undone' />
                         : <i className='fa fa-check-circle' />}<h6>Personlighetstest</h6>
                     </Col>
-                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats'>
+                    <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/passion/location')}>
                       {this.state.wapstats.locationCount === 0 ? <i className='fa fa-check-circle undone' />
                         : <i className='fa fa-check-circle' />}<h6>Arbetsorter</h6>
                     </Col>
@@ -361,7 +440,7 @@ class ApplyForJob extends React.Component {
   }
 }
 
-export default connect((state) => state)(ApplyForJob)
+export default withRouter(connect((state) => state)(ApplyForJob))
 
 class CountdownOverlay extends React.Component {
   render () {
