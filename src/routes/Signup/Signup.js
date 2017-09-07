@@ -54,7 +54,7 @@ class Signup extends React.Component {
 
     redirect = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.query.redirect : null
 
-    document.title = 'Slutför registrering | wap card'
+    document.title = 'Slutför registrering | wap - work and passion'
 
     let { occupations } = this.props.occupations
     let categoryitem = occupations[0]

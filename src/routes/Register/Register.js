@@ -51,6 +51,8 @@ class Register extends React.Component {
   constructor (props) {
     super(props)
 
+    document.title = 'Registrera | wap - work and passion'
+
     redirect = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.query.redirect : null
 
     this.state = {

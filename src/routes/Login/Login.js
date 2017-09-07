@@ -54,6 +54,8 @@ class Login extends React.Component {
   constructor (props) {
     super(props)
 
+    document.title = 'Login | wap - work and passion'
+
     redirect = props.routing.locationBeforeTransitions ? props.routing.locationBeforeTransitions.query.redirect : null
 
     this.state = {

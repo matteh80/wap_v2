@@ -105,7 +105,7 @@ class PageLayout extends React.Component {
   render () {
     let { translate, currentLanguage } = this.props
     let activeRouteItem = Object.assign([], this.props.routes).reverse()
-    document.title = activeRouteItem[0].name + ' | wap card'
+    document.title = activeRouteItem[0].name + ' | wap - work and passion'
 
     const childrenWithProps = React.Children.map(this.props.children,
       (child) => React.cloneElement(child, {
