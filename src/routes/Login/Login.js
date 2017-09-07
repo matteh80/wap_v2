@@ -63,7 +63,8 @@ class Login extends React.Component {
       linkedIn: false,
       job: _.includes(_.words(redirect), 'jobs'),
       jobTitle: null,
-      socialLogin: false
+      socialLogin: false,
+      oldBrowser: false
     }
 
     this._handleLogin = this._handleLogin.bind(this)
@@ -80,6 +81,55 @@ class Login extends React.Component {
   }
 
   componentDidMount () {
+    const browser = require('detect-browser')
+    console.log(browser)
+
+    switch (browser.name) {
+      case 'ie':
+        this.setState({
+          oldBrowser: true,
+          oldBrowserText: 'Du använder Internet Explorer version ' + browser.version + '. Wap stöder inte Internet Explorer fullt ut så vi rekommenderar att du ' +
+          'istället använder den senaste versionen av någon av webbläsarna Google Chrome, Mozilla Firefox, Microsoft Edge, Opera eller Safari.'
+        })
+        break
+      case 'chrome':
+        if (Number(_.split(browser.version, '.', 1)) < 40) {
+          this.setState({
+            oldBrowser: true,
+            oldBrowserText: 'Du använder en gammal version av Chrome (version ' + browser.version + '). Wap stöder inte versioner under version 40 fullt ut så vi rekommenderar att du ' +
+            'du uppdaterar din version av Google Chrome innan du använder wap.'
+          })
+        }
+        break
+      case 'safari':
+        if (Number(_.split(browser.version, '.', 1)) < 9) {
+          this.setState({
+            oldBrowser: true,
+            oldBrowserText: 'Du använder en gammal version av Safari (version ' + browser.version + '). Wap stöder inte versioner under version 9 fullt ut så vi rekommenderar att du ' +
+            'du uppdaterar din version av Safari innan du använder wap.'
+          })
+        }
+        break
+      case 'opera':
+        if (Number(_.split(browser.version, '.', 1)) < 35) {
+          this.setState({
+            oldBrowser: true,
+            oldBrowserText: 'Du använder en gammal version av Opera (version ' + browser.version + '). Wap stöder inte versioner under version 35 fullt ut så vi rekommenderar att du ' +
+            'du uppdaterar din version av Opera innan du använder wap.'
+          })
+        }
+        break
+      case 'firefox':
+        if (Number(_.split(browser.version, '.', 1)) < 40) {
+          this.setState({
+            oldBrowser: true,
+            oldBrowserText: 'Du använder en gammal version av Firefox (version ' + browser.version + '). Wap stöder inte versioner under version 40 fullt ut så vi rekommenderar att du ' +
+            'du uppdaterar din version av Firefox innan du använder wap.'
+          })
+        }
+        break
+    }
+
     if (this.state.job) {
       let jobId = _.words(redirect)[1]
       axios.get('https://api.wapcard.se/api/v1/jobs/' + jobId).then((result) => {
@@ -410,6 +460,11 @@ class Login extends React.Component {
       <Col>
         <Row className='justify-content-center align-items-center flex-column' style={{ minHeight: '100vh' }}>
           <Container>
+            {this.state.oldBrowser &&
+            <Alert color='warning'>
+              {this.state.oldBrowserText}
+            </Alert>
+            }
             {this.state.job &&
             <Row className='justify-content-center align-items-center'>
               <Col xs={12} lg={8} xl={6}>

@@ -25,8 +25,6 @@ class App extends React.Component {
 
   constructor (props) {
     super(props)
-    const browser = require('detect-browser')
-    console.log(browser)
     ReactGA.initialize('UA-100067149-2')
 
     breakpoint.refreshValue = function () {
