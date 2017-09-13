@@ -77,7 +77,9 @@ class Header extends React.Component {
       <div className='header'>
         <div className='d-none d-lg-block pull-left h-100 logo'>
           <Row className='justify-content-center align-items-center h-100'>
-            <img src='/img/bee_100.png' style={{ maxHeight: '100%', width: 'auto' }} />
+            <div className='h-100 p-1'>
+              <img src='/img/header_bee_white.png' style={{ maxHeight: '100%', width: 'auto' }} />
+            </div>
           </Row>
         </div>
         <div className='navbar-toggle d-lg-none pull-xs-left collapsed' aria-label='Toggle navigation' onClick={() => this._toggleMenu()}>

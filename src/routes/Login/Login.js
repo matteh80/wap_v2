@@ -26,6 +26,7 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import _ from 'lodash'
 import axios from 'axios'
+const project = require('../../../project.config')
 
 import {
   Card,
@@ -168,7 +169,7 @@ class Login extends React.Component {
     let mRedirectUri
     if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
       // dev code
-      mRedirectUri = 'http://localhost:3000' + this.props.route.path
+      mRedirectUri = 'http://localhost:8080' + this.props.route.path
     } else {
       // production code
       mRedirectUri = 'https://app.wapcard.se' + this.props.route.path
@@ -267,7 +268,7 @@ class Login extends React.Component {
     cookies.set('redirect', redirect, { path: '/', maxAge: 60 })
     if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
       // dev code
-      window.location.assign('https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86fnbibk2t9g4m&redirect_uri=http%3A%2F%2Flocalhost:3000%2Flogin%2Flinkedin&state=987654321&scope=r_emailaddress,r_basicprofile')
+      window.location.assign('https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86fnbibk2t9g4m&redirect_uri=http%3A%2F%2Flocalhost:8080%2Flogin%2Flinkedin&state=987654321&scope=r_emailaddress,r_basicprofile')
     } else {
       // production code
       window.location.assign('https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86fnbibk2t9g4m&redirect_uri=https%3A%2F%2Fapp.wapcard.se%2Flogin%2Flinkedin&state=987654321&scope=r_emailaddress,r_basicprofile')
@@ -327,7 +328,7 @@ class Login extends React.Component {
     let mRedirectUri
     if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
       // dev code
-      mRedirectUri = 'http://localhost:3000/login/facebook'
+      mRedirectUri = 'http://localhost:8080/login/facebook'
     } else {
       // production code
       mRedirectUri = 'https://app.wapcard.se/login/facebook'

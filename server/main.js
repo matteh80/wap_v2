@@ -15,6 +15,8 @@ app.use(compress())
 if (project.env === 'development') {
   const compiler = webpack(webpackConfig)
 
+  app.set('port', project.port || 8080)
+
   logger.info('Enabling webpack development and HMR middleware')
   app.use(require('webpack-dev-middleware')(compiler, {
     publicPath  : webpackConfig.output.publicPath,

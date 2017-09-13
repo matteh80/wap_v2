@@ -16,9 +16,10 @@ import {
   Card,
   CardHeader,
   Progress,
+  Alert
 } from 'reactstrap'
 import ThreeDButton from '../../components/buttons/ThreeDButton'
-import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble';
+import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble'
 
 class WapFilm extends React.Component {
   constructor (props) {
@@ -28,7 +29,8 @@ class WapFilm extends React.Component {
     this.state = {
       videoSrc: null,
       videoExists: false,
-      loadsave: false
+      loadsave: false,
+      errorMsg: null
     }
 
     dispatch(getVideoInfo()).then(() => {
@@ -43,31 +45,34 @@ class WapFilm extends React.Component {
   }
 
   onDrop (acceptedFiles, rejectedFiles) {
-    let { dispatch } = this.props
-    this.setState({
-      videoSrc: acceptedFiles[0].preview,
-      loadsave: true
-    })
     if (acceptedFiles.length > 0) {
-      let data = new FormData()
-      data.append('file', acceptedFiles[0])
-      // dispatch(uploadVideo(data)).then(() => {
-      //   this.setState({
-      //     loadsave:false,
-      //     videoExists: true
-      //   })
-      // })
+      this.setState({
+        videoSrc: acceptedFiles[0].preview,
+        loadsave: true
+      })
+      if (acceptedFiles.length > 0) {
+        let data = new FormData()
+        data.append('file', acceptedFiles[0])
 
-      this.uploadVideoToServer(data)
+        this.uploadVideoToServer(data)
+      }
+    } else {
+      console.log(rejectedFiles)
+      if (Math.abs(276134947 / 1048576).toFixed(2) > 100) {
+        this.setState({
+          errorMsg: 'För stor fil, maxstorlek är 100 mb'
+        })
+      }
     }
   }
 
   uploadVideoToServer (data) {
     let { dispatch } = this.props
-      this.setState({
-        loadsave:true,
-        videoExists: true
-      })
+    this.setState({
+      loadsave:true,
+      videoExists: true
+    })
+    apiClient.defaults.timeout = 180000
     apiClient.post('me/videos/',
       data, {
         onUploadProgress: function (progressEvent) {
@@ -147,7 +152,7 @@ class WapFilm extends React.Component {
                 </div>
                 {this.state.loadsave &&
                 <Progress id='progress' value={0} color='#FA824F' min={0} max={100}
-                          style={{ width: '100%', padding: 0 }} />
+                  style={{ width: '100%', padding: 0 }} />
                 }
                 {video &&
                 <CardHeader>
@@ -160,13 +165,22 @@ class WapFilm extends React.Component {
               {!this.state.videoExists &&
               <Dropzone
                 accept='video/*'
+                multiple={false}
+                maxSize={100000000}
                 style={dropzoneStyle}
                 activeStyle={activeDropzoneStyle}
                 onDrop={this.onDrop}
               >
-                {/*<Loader active={this.state.loadsave} />*/}
+                {/* <Loader active={this.state.loadsave} /> */}
 
                 <Row className='justify-content-center py-5'>
+                  {this.state.errorMsg &&
+                    <Col xs={10}>
+                      <Alert color='danger'>
+                        {this.state.errorMsg}
+                      </Alert>
+                    </Col>
+                  }
                   <Col xs='6'>
                     <img src='/img/upload_film.png' className='img-fluid' />
                   </Col>

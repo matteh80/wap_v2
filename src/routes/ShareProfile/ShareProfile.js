@@ -64,7 +64,7 @@ class ShareProfile extends React.Component {
               }.bind(this)}
             >
               {this.props.shares.shares && this.props.shares.shares.map((share) => {
-                return <ShareItem key={share.id} share={share} layout={this.layout} translate={translate} />
+                return <ShareItem key={share.id} share={share} layout={this.layout} translate={translate} dispatch={this.props.dispatch} />
               })}
               {!this.state.loadsave &&
               <Col xs='12' sm='6' md='4' xl='3'>
