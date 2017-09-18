@@ -13,11 +13,12 @@ export default class EducationSection extends React.Component {
   render () {
     let { educations } = this.props
     return (
-      <section id='educations' className='cvSection'>
+      <section className='cvSection' id='educations'>
         <Row>
-          <Col>
-            {educations && educations.length > 0 && <h5 className='sectionTitle'>Utbildning</h5>}
+          <Col className='titleWrapper'>
+            {educations && educations.length > 0 && <h4 className='sectionTitle'>Utbildning</h4>}
           </Col>
+          <Col className='line' />
         </Row>
         {educations && educations.map((education) => {
           return <CVEducationItem key={education.id} education={education} />
@@ -60,10 +61,10 @@ class CVEducationItem extends React.Component {
 
     return (
       <div id='educations'>
-        <Row className='educationItem cvItem'>
-          <Col xs={12} className='leftColumn'>
-            <h6 className='l_title'>{education.orientation} ({education.school})</h6>
-            <small className='date'>{this.getStartEndDate(education.start_date, education.end_date, false)} {educationTypeString}</small>
+        <Row className='educationItem cvItem mb-4'>
+          <Col xs={12}>
+            <h6 className='title mb-0'>{education.orientation} ({education.school})</h6>
+            <small className='date'>{this.getStartEndDate(education.start_date, education.end_date, false)}</small>
             <p className='description'>{education.description}</p>
           </Col>
         </Row>

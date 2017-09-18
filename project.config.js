@@ -1,7 +1,7 @@
 const NODE_ENV = process.env.NODE_ENV || 'development'
 const appversion = require('./public/appversion.json')
 module.exports = {
-  port: 8080,
+  port: 3000,
   /** The environment to use when building the project */
   env: NODE_ENV,
   /** The full path to the project's root directory */

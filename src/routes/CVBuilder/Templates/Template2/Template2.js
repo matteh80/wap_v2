@@ -1,8 +1,10 @@
 import React from 'react'
 import '../Templates.scss'
-import './Template1.scss'
+import './Template2.scss'
 import $ from 'jquery'
 import {
+  Row,
+  Col,
   Container,
 } from 'reactstrap'
 
@@ -14,8 +16,9 @@ import HeaderSection from './components/HeaderSection'
 import DrivingLicenseSection from './components/DrivingLicenseSection'
 import ResumeSection from './components/ResumeSection'
 import ReferenceSection from './components/ReferenceSection'
+import InfoSection from './components/InfoSection'
 
-class Template1 extends React.Component {
+class Template2 extends React.Component {
   constructor (props) {
     super(props)
 
@@ -33,9 +36,9 @@ class Template1 extends React.Component {
   }
 
   alignSections (elem) {
-    console.log(elem.innerHeight())
     let long = elem[0].scrollHeight - Math.ceil(elem.innerHeight())
     let children = elem.find('.main section').toArray()
+    console.log(children)
     let removed = []
     while (long > 0 && children.length > 0) {
       let child = children.pop() // Remove last child
@@ -44,7 +47,7 @@ class Template1 extends React.Component {
       long = elem[0].scrollHeight - Math.ceil(elem.innerHeight())
     }
 
-    elem.append(removed[0])
+    elem.find('.main').append(removed[0])
     let removedOverflow = []
     let overflowChildren = $(removed[0]).children().toArray()
     long = elem[0].scrollHeight - Math.ceil(elem.innerHeight())
@@ -74,7 +77,9 @@ class Template1 extends React.Component {
       removed.unshift(clone[0])
     }
     if (removed.length > 0) {
-      let a4 = $('<div class="A4 templateWrapper container-fluid template1"><div class="h-100 main py-5 px-5"></div></div>')
+      let a4 = $('<div class="A4 templateWrapper p-0 container-fluid template2">' +
+        '<div class="row h-100 m-0"><div class="col-1 side">' +
+        '<img src="/img/bee_white_all.png" class="img-fluid wapLogo page2" /></div><div class="col-11 main py-5 px-5"></div></div></div>')
 
       a4.find('.main').append(removed)
       elem.after(a4)
@@ -86,17 +91,28 @@ class Template1 extends React.Component {
     return (
       <div id='cvWrapper'>
         <div id='hiddenCV'>
-          <Container fluid className='templateWrapper A4 template1'>
-            <div className='h-100 main py-5 px-5'>
-              <HeaderSection profile={this.props.profile} />
-              {this.props.resume && <ResumeSection profile={this.props.profile} />}
-              {this.props.employments.length > 0 && <EmploymentSection employments={this.props.employments} />}
-              {this.props.skills.length > 0 && <SkillSection skills={this.props.skills} />}
-              {this.props.educations.length > 0 && <EducationSection educations={this.props.educations} />}
-              {this.props.languages.length > 0 && <LanguageSection languages={this.props.languages} />}
-              {this.props.drivinglicenses.length > 0 && <DrivingLicenseSection drivinglicenses={this.props.drivinglicenses} />}
-              {this.props.references.length > 0 && <ReferenceSection references={this.props.references} />}
-            </div>
+          <Container fluid className='templateWrapper A4 p-0 template2'>
+            <Row className='h-100 m-0'>
+              <Col xs={4} className='side'>
+                <HeaderSection profile={this.props.profile} />
+                <div className='side-content px-2 pt-2'>
+                  <InfoSection profile={this.props.profile} />
+                  {this.props.skills.length > 0 && <SkillSection skills={this.props.skills} />}
+                  {this.props.languages.length > 0 && <LanguageSection languages={this.props.languages} />}
+                  <img src='/img/bee_white_all.png' className='img-fluid wapLogo' />
+                </div>
+              </Col>
+              <Col xs={8} className='main py-5 pr-5'>
+                {this.props.resume && <ResumeSection profile={this.props.profile} />}
+                {this.props.employments.length > 0 && <EmploymentSection employments={this.props.employments} />}
+
+                {this.props.educations.length > 0 && <EducationSection educations={this.props.educations} />}
+
+                {this.props.drivinglicenses.length > 0 && <DrivingLicenseSection drivinglicenses={this.props.drivinglicenses} />}
+                {this.props.references.length > 0 && <ReferenceSection references={this.props.references} />}
+
+              </Col>
+            </Row>
           </Container>
         </div>
       </div>
@@ -104,4 +120,4 @@ class Template1 extends React.Component {
   }
 }
 
-export default Template1
+export default Template2

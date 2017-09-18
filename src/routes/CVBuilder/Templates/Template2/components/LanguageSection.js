@@ -18,14 +18,17 @@ export default class LanguageSection extends React.Component {
   render () {
     let { languages } = this.props
     return (
-      <section id='languages' className='cvSection row'>
-        <Col xs={12}>
-          <h5 className='sectionTitle'>Språk</h5>
+      <div id='languages' className='row mt-5'>
+        <Col xs={12} className='d-flex'>
+          <Col className='titleWrapper'>
+            <h4 className='sectionTitle'>Språk</h4>
+          </Col>
+          <Col className='line' />
         </Col>
         {languages && languages.map((language) => {
           return <CVLanguageItem key={language.id} language={language} />
         })}
-      </section>
+      </div>
     )
   }
 }
@@ -34,9 +37,9 @@ class CVLanguageItem extends React.Component {
   render () {
     let { language } = this.props
     return (
-      <Col key={language.id} xs={6} className='progressItem'>
-        <h6 className='progressName'>{language.name}</h6>
-        <Col xs={12} className='progressProgressWrapper pl-0'>
+      <Col key={language.id} xs={12} className='progressItem mb-0'>
+        <Col xs={12} className='progressName'><small className='mb-0'>{language.name}</small></Col>
+        <Col xs={12} className='progressProgressWrapper'>
           <Progress
             min={1}
             max={5}

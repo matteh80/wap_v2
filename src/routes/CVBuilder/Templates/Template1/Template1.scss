@@ -1,8 +1,11 @@
 @import '../../../../styles/variables/colors';
-
-.A4 {
+$templateColor: #3480a1;
+.A4.template1 {
   //padding:5%;
 
+  .cvSection {
+    margin-bottom: 50px;
+  }
   .pageDivider {
     //page-break-before:always;
   }
@@ -14,8 +17,37 @@
 
   .sectionTitle {
     text-transform: uppercase;
-    margin-top: 20%;
-    margin-bottom: 10%;
+    margin-bottom: 20px;
+    display: inline-block;
+    padding:5px 25px 5px 10px;
+    background: $templateColor;
+    color: #fff;
+    position: relative;
+    text-align: left !important;
+
+    &:after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 15px 15px 0;
+      border-color: transparent #fff transparent transparent;
+      position: absolute;
+      top:0;
+      right:0;
+    }
+
+    &:before {
+      content: '';
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 15px 0 0 15px;
+      border-color: transparent transparent transparent lighten($templateColor, 20%);
+      position: absolute;
+      top:0;
+      right:0;
+    }
   }
 
   #header {
@@ -30,14 +62,21 @@
         font-weight: bold;
       }
       #last_name {
-        color: $themeColor;
+        color: $templateColor;
         margin-top:-3%;
       }
     }
     #contact {
-      .leftColumn {
-        font-weight: bold;
-        text-align: right;
+      font-size: 12px;
+      i {
+        width:18px;
+        height:18px;
+        font-size: 12px;
+        color: #fff;
+        background: $templateColor;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
   }
@@ -50,12 +89,12 @@
       margin-bottom: 2%;
 
       .leftColumn {
-        text-align: right;
-        text-transform: uppercase;
+        //text-align: right;
+        //text-transform: uppercase;
 
         .l_title {
           text-transform: uppercase;
-          color: $themeColor;
+          //color: $templateColor;
           margin:0;
           //word-break: break-all;
           text-overflow: ellipsis;
@@ -67,13 +106,19 @@
           color: #cdcdcd;
           display: block;
         }
+        .description {
+          color: #646464;
+          font-size: 12px;
+          line-height: 1.1 !important;
+          margin-top: 10px;
+        }
       }
       .rightColumn {
         padding-left: 3%;
         //margin-top: 0.6%;
         .r_title {
           text-transform: uppercase;
-          color: $brand-primary;
+          color: $templateColor;
           font-size: 13px;
           //line-height: auto;
           display: block;
@@ -94,8 +139,7 @@
     }
     .progressName {
       margin:0;
-      text-align: right;
-      color: #cdcdcd;
+      color: #8a8a8a;
 
       h6 {
         margin:0;

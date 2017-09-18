@@ -38,17 +38,14 @@ export default class ResumeSection extends React.Component {
     let { profile } = this.props
     $('blockquote').wrapInner('<p></p>')
     return (
-      <section className='cvSection' id='employments'>
+      <section className='cvSection mb-5' id='personal_info'>
         <Row>
-          <Col xs={4} className='titleWrapper'>
-            <h5 className='sectionTitle'>Resumé</h5>
+          <Col className='titleWrapper'>
+            {profile.personal_info && profile.personal_info.length > 0 && <h4 className='sectionTitle'>Intro</h4>}
           </Col>
+          <Col className='line' />
         </Row>
-        <Row>
-          <Col>
-            <small><div dangerouslySetInnerHTML={this.createMarkup(profile.personal_info)} /></small>
-          </Col>
-        </Row>
+        <div className='description' style={{ fontSize: 11, lineHeight: 1.1 }} dangerouslySetInnerHTML={this.createMarkup(profile.personal_info)} />
       </section>
     )
   }

@@ -24,9 +24,10 @@ export default class EmploymentSection extends React.Component {
     return (
       <section className='cvSection' id='employments'>
         <Row>
-          <Col xs={12}>
-            <h5 className='sectionTitle'>Anställningar</h5>
+          <Col className='titleWrapper'>
+            <h4 className='sectionTitle'>Anställningar</h4>
           </Col>
+          <Col className='line' />
         </Row>
         {employments && employments.map((employment) => {
           return <CVEmploymentItem key={employment.id} employment={employment} />
@@ -56,9 +57,9 @@ class CVEmploymentItem extends React.Component {
   render () {
     let { employment } = this.props
     return (
-      <Row className='employmentItem cvItem'>
-        <Col xs={12} className='leftColumn'>
-          <h6 className='l_title'>{employment.title} ({employment.employer})</h6>
+      <Row className='employmentItem cvItem mb-4'>
+        <Col xs={12}>
+          <h6 className='title mb-0'>{employment.title} ({employment.employer})</h6>
           <small className='date'>{this.getStartEndDate(employment.start_date, employment.end_date, employment.current)}</small>
           <p className='description'>{employment.description}</p>
         </Col>

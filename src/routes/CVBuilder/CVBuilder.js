@@ -8,6 +8,7 @@ import Masonry from 'react-masonry-component'
 import $ from 'jquery'
 import classNames from 'classnames'
 import Slider from 'react-slick'
+import _ from 'lodash'
 
 import {
   Container,
@@ -24,6 +25,7 @@ import {
 import ThreeDButton from '../../components/buttons/ThreeDButton'
 import Template1 from './Templates/Template1/Template1'
 import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble'
+import Template2 from './Templates/Template2/Template2'
 
 class CVBuilder extends React.Component {
   constructor (props) {
@@ -42,7 +44,8 @@ class CVBuilder extends React.Component {
       createPreview: false,
       showTemplate: false,
       showUpdatePreview: false,
-      images: []
+      images: [],
+      selectedTemplate: 'template1'
     }
 
     this.state.employments.sort(function (a, b) {
@@ -69,6 +72,8 @@ class CVBuilder extends React.Component {
     this.onReferenceChange = this.onReferenceChange.bind(this)
     this.onResumeChange = this.onResumeChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.getTemplate = this.getTemplate.bind(this)
+    this.changeTemplate = this.changeTemplate.bind(this)
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -83,6 +88,10 @@ class CVBuilder extends React.Component {
       setTimeout(function () {
         _self.createCanvas()
       }, 1500)
+    }
+
+    if (prevState.selectedTemplate !== this.state.selectedTemplate) {
+      this.preparePreview()
     }
   }
 
@@ -326,6 +335,34 @@ class CVBuilder extends React.Component {
     this.props.router.push(e.target.href)
   }
 
+  changeTemplate () {
+    this.setState({
+      selectedTemplate: 'template2',
+      showUpdatePreview: true
+    })
+  }
+
+  getTemplate () {
+    console.log('get template')
+    let template = _.find(templates, { name: this.state.selectedTemplate })
+    if (template) {
+      let mTemplate = React.cloneElement(
+        template.component,
+        {
+          employments: this.state.employments,
+          educations: this.state.educations,
+          skills: this.state.skills,
+          languages: this.state.languages,
+          drivinglicenses:this.state.drivinglicenses,
+          profile: this.props.profile,
+          references: this.state.references,
+          resume: this.props.profile.personal_info ? this.state.resume : false
+        }
+      )
+      return mTemplate
+    }
+  }
+
   render () {
     let {
       employments,
@@ -355,7 +392,20 @@ class CVBuilder extends React.Component {
             <p>Genom att bocka i/ur dina erfarenheter och kompetenser skräddarsyr du enkelt ditt CV och kan på så sätt välja hur du vill presentera dig själv från gång till gång.</p>
           </SpeechBubble>
         </Row>
-        <Row>
+        <Row className='mb-4'>
+          <Col xs={12}>
+            <h5>1. Välj designmall</h5>
+          </Col>
+          <Col xs={12}>
+            <button onClick={() => this.setState({ selectedTemplate: 'template1', showUpdatePreview: true })}>Template 1</button>
+            <button onClick={() => this.setState({ selectedTemplate: 'template2', showUpdatePreview: true })}>Template 2</button>
+          </Col>
+        </Row>
+
+        <Row className='mb-2'>
+          <Col xs={12}>
+            <h5>2. Välj vilken information du vill ha med i ditt CV</h5>
+          </Col>
           <Col xs={12}>
             <Masonry
               className='row'
@@ -379,7 +429,7 @@ class CVBuilder extends React.Component {
                 <Card>
                   <CardHeader>
                     <CardTitle>Anställningar</CardTitle>
-                {/* <i className={chevronClass} style={{ fontSize: 20 }} /> */}
+                    {/* <i className={chevronClass} style={{ fontSize: 20 }} /> */}
                   </CardHeader>
                   <CardBlock>
                     {employments.employments && employments.employments.map((employment) => {
@@ -473,28 +523,27 @@ class CVBuilder extends React.Component {
                 </Card>
               </Col>
             </Masonry>
-            <ThreeDButton onClick={() => this.preparePdf()} text='Skapa PDF' loading={this.state.createPdf} className='mb-5' />
-            {this.state.showTemplate && <Template1
-              employments={this.state.employments}
-              educations={this.state.educations}
-              skills={this.state.skills}
-              languages={this.state.languages}
-              drivinglicenses={this.state.drivinglicenses}
-              profile={this.props.profile}
-              references={this.state.references}
-              resume={this.props.profile.personal_info ? this.state.resume : false}
-        />}
+            <Row>
+              <Col xs={12}>
+                <h5 className='mb-1'>3. Skapa och ladda ner ditt CV</h5>
+              </Col>
+              <Col xs={12}>
+                <ThreeDButton onClick={() => this.preparePdf()} text='Skapa PDF' loading={this.state.createPdf} className='mb-5' />
+              </Col>
+            </Row>
 
-            {/*<Template1*/}
-              {/*employments={this.state.employments}*/}
-              {/*educations={this.state.educations}*/}
-              {/*skills={this.state.skills}*/}
-              {/*languages={this.state.languages}*/}
-              {/*drivinglicenses={this.state.drivinglicenses}*/}
-              {/*profile={this.props.profile}*/}
-              {/*references={this.state.references}*/}
-              {/*resume={this.props.profile.personal_info ? this.state.resume : false}*/}
-            {/*/>*/}
+            {this.state.showTemplate && this.getTemplate()}
+
+             {/*<Template2*/}
+             {/*employments={this.state.employments}*/}
+             {/*educations={this.state.educations}*/}
+             {/*skills={this.state.skills}*/}
+             {/*languages={this.state.languages}*/}
+             {/*drivinglicenses={this.state.drivinglicenses}*/}
+             {/*profile={this.props.profile}*/}
+             {/*references={this.state.references}*/}
+             {/*resume={this.props.profile.personal_info ? this.state.resume : false}*/}
+             {/*/>*/}
 
           </Col>
         </Row>
@@ -502,6 +551,11 @@ class CVBuilder extends React.Component {
     )
   }
 }
+
+const templates = [
+  { component: <Template1 />, name: 'template1' },
+  { component: <Template2 />, name: 'template2' }
+]
 
 export default withRouter(connect((state) => state)(CVBuilder))
 

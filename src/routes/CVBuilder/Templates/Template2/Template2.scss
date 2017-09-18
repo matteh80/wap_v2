@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
+
+$templateColor: #3480a1;
+
+.template2 {
+  h1,h2,h3,h4,h5,h6 {
+    //font-family: 'Roboto Slab', Serif;
+  }
+  header {
+    #header {
+      position: relative;
+      z-index: 2;
+      background: $templateColor;
+      padding-top:.8cm;
+      margin-bottom: 0;
+      align-items: center;
+      justify-content: center;
+      max-height: 280px !important;
+
+      &:after {
+        content: '';
+        width:100%;
+        height:100%;
+        position: absolute;
+        z-index: -1;
+        top:0;
+        left:0;
+        transform: skewY(-4deg);
+        transform-origin: top right;
+        background: inherit;
+      }
+
+      &:before {
+        content: '';
+        width:80%;
+        height:100%;
+        position: absolute;
+        z-index: -1;
+        top:0;
+        right:0;
+        transform: skewY(-8deg);
+        transform-origin: top right;
+        background: lighten($templateColor, 10%);
+      }
+
+      .profilePicture {
+        overflow: hidden;
+        position: relative;
+        width:180px;
+        height:180px;
+        border-radius: 90px;
+        border:5px solid white;
+
+
+        canvas {
+          position: relative;
+          z-index: 2;
+          width:170px;
+          height:170px;
+          border-radius: 85px;
+          //border-radius: 95px;
+          //overflow: hidden;
+        }
+      }
+
+      #info {
+        padding-left: 2cm;
+        .name {
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .titleWrapper {
+    flex-grow: 0;
+  }
+
+  .sectionTitle {
+    margin-bottom: 0.5cm;
+    color: $templateColor;
+  }
+
+  .line {
+    position: relative;
+    flex-grow:1;
+
+    &:after {
+      content: '';
+      width:100%;
+      height:2px;
+      position: absolute;
+      left:0;
+      top:30%;
+    }
+  }
+
+  .side {
+    position: relative;
+    z-index: 1;
+    height:100%;
+    background: #20465c;
+    background: linear-gradient(to bottom, #0d1e2b 0%, #20465c 100%);
+    padding: 0;
+
+    .wapLogo {
+      position: absolute;
+      bottom: 50px;
+      left: 110px;
+      max-width: 50px;
+
+      &.page2 {
+        left:18px;
+        max-width: 30px;
+      }
+    }
+
+    .sideText {
+      transform: rotate(90deg);
+      color: #fff;
+      position: absolute;
+    }
+
+    #contactInfo {
+      color: #fff;
+
+      .profileIcon {
+        width:24px;
+        height:24px;
+        background: $templateColor;
+        color: #fff;
+        border-radius: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    .sectionTitle {
+      color: #fff;
+    }
+
+    .line:after {
+      background: #fff;
+    }
+
+    .progressItem {
+      .progressName {
+        margin-bottom: -3px;
+        color: #fff;
+      }
+      .progress {
+        background: #fff;
+        height: .6rem;
+      }
+      .progress-bar {
+        background: $templateColor;
+      }
+    }
+  }
+
+  .main {
+    .cvSection {
+      position: relative;
+
+      .line:after {
+        background: $templateColor;
+      }
+
+      .cvItem {
+        .title {
+          text-transform: uppercase;
+        }
+        .date {
+          color: #7f7f7f;
+          position: relative;
+          top:-3px;
+        }
+        .description {
+          line-height: 1.1;
+          font-size: 11px;
+        }
+      }
+
+      .licenseItem {
+        .licenseIcon {
+          font-size: 50px;
+        }
+        .licenseName {
+          margin-top: -15px;
+        }
+      }
+
+      .referenceItem {
+        .contactIcon {
+          width:20px;
+          height: 20px;
+          background: $templateColor;
+          color: #fff;
+          line-height: 20px;
+          text-align: center;
+          border-radius: 10px;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}

@@ -19,14 +19,18 @@ export default class SkillSection extends React.Component {
   render () {
     let { skills } = this.props
     return (
-      <section id='skills' className='cvSection row'>
-        <Col xs={12}>
-          <h5 className='sectionTitle'>Kompetenser</h5>
+      <div id='skills' className='row'>
+        <Col xs={12} className='d-flex'>
+          <Col className='titleWrapper'>
+            <h4 className='sectionTitle'>Kompetenser</h4>
+          </Col>
+          <Col className='line' />
         </Col>
+
         {skills && skills.map((skill) => {
           return <CVSkillItem key={skill.id} skill={skill} />
         })}
-      </section>
+      </div>
     )
   }
 }
@@ -35,9 +39,9 @@ class CVSkillItem extends React.Component {
   render () {
     let { skill } = this.props
     return (
-      <Col key={skill.id} xs={6} className='progressItem'>
-        <h6 className='progressName'>{skill.name}</h6>
-        <Col xs={12} className='progressProgressWrapper pl-0'>
+      <Col key={skill.id} xs={12} className='progressItem mb-0'>
+        <Col xs={12} className='progressName'><small className='mb-0'>{skill.name}</small></Col>
+        <Col xs={12} className='progressProgressWrapper'>
           <Progress
             min={1}
             max={5}
