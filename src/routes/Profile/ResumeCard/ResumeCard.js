@@ -80,7 +80,8 @@ class ResumeCard extends React.Component {
             }
             {this.state.editMode &&
             <FormGroup>
-              <Input type='textarea' name='personal_info' id='personal_info' rows='10' placeholder='Här skriver du lite kort om vem du är, vilka styrkor du har, vad som driver dig. '
+              <Input type='textarea' name='personal_info' id='personal_info' rows='10'
+                     placeholder='Här skriver du lite kortfattat om vem du är. Du ska alltså INTE skriva ett personligt brev för en specifik tjänst, utan här vill vi veta vem du är som person.'
                      defaultValue={this.props.profile.personal_info} onChange={this.props.onChange} />
             </FormGroup>
             }

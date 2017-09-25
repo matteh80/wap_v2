@@ -10,7 +10,7 @@
   .fa {
     font-size: 60px;
 
-    &.fa-check-circle {
+    &.fa-check-circle, &.fa-times {
       color: $green;
 
       &.undone {

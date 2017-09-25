@@ -45,7 +45,7 @@ class CVBuilder extends React.Component {
       showTemplate: false,
       showUpdatePreview: false,
       images: [],
-      selectedTemplate: 'template1'
+      selectedTemplate: 'template2'
     }
 
     this.state.employments.sort(function (a, b) {
@@ -397,8 +397,8 @@ class CVBuilder extends React.Component {
             <h5>1. Välj designmall</h5>
           </Col>
           <Col xs={12}>
-            <button onClick={() => this.setState({ selectedTemplate: 'template1', showUpdatePreview: true })}>Template 1</button>
-            <button onClick={() => this.setState({ selectedTemplate: 'template2', showUpdatePreview: true })}>Template 2</button>
+            <button className={classNames('btn', this.state.selectedTemplate === 'template2' && 'btn-info')} onClick={() => this.setState({ selectedTemplate: 'template2', showUpdatePreview: true })}>Mall 1</button>
+            <button className={classNames('ml-1 btn', this.state.selectedTemplate === 'template1' && 'btn-info')} onClick={() => this.setState({ selectedTemplate: 'template1', showUpdatePreview: true })}>Mall 2</button>
           </Col>
         </Row>
 

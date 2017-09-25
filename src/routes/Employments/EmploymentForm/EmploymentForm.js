@@ -201,14 +201,14 @@ class EmploymentForm extends React.Component {
                     <AvField type='text' name='employer' id='employer'
                              ref={(input) => {
                                this.employer = input
-                             }} onChange={this._handleInputChange} required/>
+                             }} onChange={this._handleInputChange} required />
                   </AvGroup>
                   <AvGroup>
                     <Label for='title'>Befattning *</Label>
                     <AvField type='text' name='title' id='title'
                              ref={(input) => {
                                this.title = input
-                             }} onChange={this._handleInputChange} required/>
+                             }} onChange={this._handleInputChange} required />
                   </AvGroup>
                   <FormGroup>
                     <Label for='occupation'>Yrkeskategori *</Label>
@@ -221,13 +221,13 @@ class EmploymentForm extends React.Component {
                       required
                     />
                   </FormGroup>
-                  <StartEndDate withCurrent onChange={this._handleDateChange}/>
+                  <StartEndDate withCurrent onChange={this._handleDateChange} />
                   <FormGroup>
-                    <Label for='description'>Jag bidrar / bidrog med</Label>
-                    <Input type='textarea' name='description' id='description' rows='4' maxLength='500'
+                    <Label for='description'>Jag bidrar / bidrog med *</Label>
+                    <AvField type='textarea' name='description' id='description' rows='4' maxLength='500'
                            ref={(input) => {
                              this.description = input
-                           }} onChange={this._handleInputChange}/>
+                           }} onChange={this._handleInputChange} minLength={2} required />
                   </FormGroup>
                   <ThreeDButton small>Lägg till</ThreeDButton>
                 </AvForm>

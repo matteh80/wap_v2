@@ -229,7 +229,7 @@ class EmploymentItem extends React.Component {
                   <StartEndDate withCurrent foo={this.state.employment} onChange={this._handleDateChange} />
                   <AvGroup>
                     <Label for='description'>Jag bidrar / bidrog med *</Label>
-                    <AvField type='textarea' name='description' rows='4' onChange={this._handleInputChange} maxLength='500' />
+                    <AvField type='textarea' name='description' rows='4' onChange={this._handleInputChange} maxLength='500' minLength='2' required />
                   </AvGroup>
                   <AvGroup>
                     <Label check inline for='public'>

@@ -15,6 +15,7 @@ import {
   CardSubtitle,
   Form,
   FormGroup,
+  FormText,
   Input,
   Label
 } from 'reactstrap'
@@ -150,6 +151,15 @@ class InfoCard extends React.Component {
                   required
                   // withPortal
                 />
+              </FormGroup>
+              <FormGroup>
+                <Input type='checkbox' name='student' defaultChecked={profile.student} onChange={this.props.onChange} /> Student
+              </FormGroup>
+              <FormGroup>
+                <Input type='checkbox' name='actively_searching' defaultChecked={profile.actively_searching} onChange={this.props.onChange} /> Aktivt sökande
+                <FormText color='muted'>
+                  Aktivt sökande innebär att du är sökbar för rekryterare och att du blir matchad mot jobb.
+                </FormText>
               </FormGroup>
             </Form>
           </CardBlock>
