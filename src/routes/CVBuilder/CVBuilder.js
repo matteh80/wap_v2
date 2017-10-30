@@ -144,7 +144,10 @@ class CVBuilder extends React.Component {
         console.log(index)
         let $this = $(this)
         $('html,body').scrollTop(0)
-        $this.css('transform', 'scale(2, 2)')
+        $this.css({
+          transform: 'scale(2, 2)',
+          transformOrigin: 'left'
+        })
 
         let promise = new Promise((resolve, reject) => {
           return html2canvas($(this), {
@@ -558,17 +561,17 @@ class CVBuilder extends React.Component {
             </Row>
 
             {this.state.showTemplate && this.getTemplate()}
-            {/* <Template2 */}
-            {/* imageSet={this.imageSet} */}
-            {/* employments={this.state.employments} */}
-            {/* educations={this.state.educations} */}
-            {/* skills={this.state.skills} */}
-            {/* languages={this.state.languages} */}
-            {/* drivinglicenses={this.state.drivinglicenses} */}
-            {/* profile={this.props.profile} */}
-            {/* references={this.state.references} */}
-            {/* resume={this.props.profile.personal_info ? this.state.resume : false} */}
-            {/* /> */}
+             {/*<Template2*/}
+             {/*imageSet={this.imageSet}*/}
+             {/*employments={this.state.employments}*/}
+             {/*educations={this.state.educations}*/}
+             {/*skills={this.state.skills}*/}
+             {/*languages={this.state.languages}*/}
+             {/*drivinglicenses={this.state.drivinglicenses}*/}
+             {/*profile={this.props.profile}*/}
+             {/*references={this.state.references}*/}
+             {/*resume={this.props.profile.personal_info ? this.state.resume : false}*/}
+             {/*/>*/}
 
           </Col>
         </Row>
