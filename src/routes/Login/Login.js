@@ -172,7 +172,7 @@ class Login extends React.Component {
       mRedirectUri = 'http://localhost:3000' + this.props.route.path
     } else {
       // production code
-      mRedirectUri = 'https://app.wapcard.se' + this.props.route.path
+      mRedirectUri = 'https://app.workandpassion.se' + this.props.route.path
     }
 
     let urlParams = new URLSearchParams(window.location.search)
@@ -184,20 +184,23 @@ class Login extends React.Component {
         })
         let loginData = { 'provider': provider, 'code': authCode, 'redirect_uri': mRedirectUri }
         dispatch(socialLogin(loginData)).then(() => {
-          // if (provider === 'linkedin-oauth2') {
-          //   dispatch(getProfile()).then((result) => {
-          //     console.log(result)
-          //     if (result.tos_accepted) {
-          //       this.finalize()
-          //     } else {
-          //       this.setState({
-          //         linkedIn: true
-          //       })
-          //     }
-          //   })
-          // } else {
-          //   this.finalize()
-          // }
+          if (provider === 'linkedin-oauth2') {
+            dispatch(getProfile()).then((result) => {
+              // this.setState({
+              //   linkedIn: true
+              // })
+              // console.log(result)
+              // if (result.tos_accepted) {
+              //   this.finalize()
+              // } else {
+              //   this.setState({
+              //     linkedIn: true
+              //   })
+              // }
+            })
+          } else {
+            // this.finalize()
+          }
           this.finalize()
         })
       }
@@ -271,7 +274,7 @@ class Login extends React.Component {
       window.location.assign('https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86fnbibk2t9g4m&redirect_uri=http%3A%2F%2Flocalhost:3000%2Flogin%2Flinkedin&state=987654321&scope=r_emailaddress,r_basicprofile')
     } else {
       // production code
-      window.location.assign('https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86fnbibk2t9g4m&redirect_uri=https%3A%2F%2Fapp.wapcard.se%2Flogin%2Flinkedin&state=987654321&scope=r_emailaddress,r_basicprofile')
+      window.location.assign('https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86fnbibk2t9g4m&redirect_uri=https%3A%2F%2Fapp.workandpassion.se%2Flogin%2Flinkedin&state=987654321&scope=r_emailaddress,r_basicprofile')
     }
   }
 
@@ -331,7 +334,7 @@ class Login extends React.Component {
       mRedirectUri = 'http://localhost:3000/login/facebook'
     } else {
       // production code
-      mRedirectUri = 'https://app.wapcard.se/login/facebook'
+      mRedirectUri = 'https://app.workandpassion.se/login/facebook'
     }
 
     graph.setVersion('2.9')
@@ -514,7 +517,7 @@ class Login extends React.Component {
                   <ThreeDButton type='submit' className='w-100' loading={this.state.loadsave}>Logga in</ThreeDButton>
                 </Form>
                 <h5 className='text-center mt-2'>Har du inget konto? <a href='/register' className='fg-pink' onClick={(e) => this.gotoRegister(e)}>Registrera</a> dig!</h5>
-                <a href='https://app.wapcard.se/password/reset/' className='text-center fg-pink'><h6>Glömt ditt lösenord?</h6></a>
+                <a href='https://app.workandpassion.se/password/reset/' className='text-center fg-pink'><h6>Glömt ditt lösenord?</h6></a>
               </Col>
               }
               {this.state.linkedIn &&

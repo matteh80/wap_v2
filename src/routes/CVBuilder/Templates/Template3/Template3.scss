@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i');
+
+$templateColor: #9ac2bc;
+$templateTextColor: #333333;
+
+.template3 {
+  font-size: 0.9rem !important;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Serif !important;
+    font-weight: 400 !important;
+    color: $templateTextColor !important;
+
+    .italic {
+      font-style: italic !important;
+    }
+  }
+
+  .progress {
+    background-color: transparent;
+    position: relative;
+    border-radius: 7px;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      border: 1px solid $templateColor;
+      border-radius: inherit;
+    }
+
+    .progress-bar {
+      background-color: $templateColor;
+    }
+  }
+
+  header {
+    background: $templateColor;
+    padding:1.25cm;
+
+    .profilePicture {
+      overflow: hidden;
+      position: relative;
+      width:5cm;
+      height:5cm;
+      border-radius: 2.5cm;
+
+      canvas {
+        position: relative;
+        z-index: 2;
+        width:5cm;
+        height:5cm;
+        border-radius: 2.5cm;
+        //border-radius: 95px;
+        //overflow: hidden;
+      }
+    }
+
+    .name {
+      font-weight: 400;
+    }
+    .title {
+      font-style: italic;
+    }
+
+    #contactInfo {
+      margin-top: 0.3cm;
+
+      font-size: 14px;
+
+      .fa {
+        width: 0.6cm;
+        height: 0.6cm;
+        border: 1px solid $templateTextColor;
+        border-radius: 0.3cm;
+        font-size: 0.3cm;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height: 0.6cm;
+        margin-right: 0.3cm;
+      }
+    }
+  }
+
+  .main {
+    padding-left: 1.25cm;
+    padding-right: 1.25cm;
+    padding-top: 1.25cm;
+    padding-bottom: 2.5cm;
+
+    .cvSection {
+
+      margin-bottom: 0.7cm;
+
+
+      &:first-of-type {
+
+        .titleWrapper {
+          border: none;
+          padding-top: 0;
+        }
+      }
+
+      .titleWrapper {
+        padding-top: 0.7cm;
+        border-top: 1px solid #c0c2be;
+        margin-bottom: 0.7cm;
+      }
+    }
+
+    #personal_info {
+      .description {
+        font-style: italic;
+      }
+    }
+
+    .employmentItem, .educationItem {
+      .title {
+        font-weight: 700;
+        margin-bottom: 0.5cm;
+      }
+    }
+
+    #references {
+      .fa {
+        width: 0.4cm;
+        height: 0.4cm;
+        border: 1px solid $templateTextColor;
+        border-radius: 0.2cm;
+        font-size: 0.25cm;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height: 0.4cm;
+        margin-right: 0.3cm;
+      }
+    }
+
+    .licenseItem .licenseIcon {
+      font-size: 40px;
+      text-align: center;
+      line-height: .8;
+    }
+
+    .licenseName {
+      margin-top: -0.3cm;
+    }
+  }
+
+  .wapLogo {
+    position: absolute;
+    bottom: 0.5cm;
+    right: 0.5cm;
+    width: 2.2cm;
+  }
+}

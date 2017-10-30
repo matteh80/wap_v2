@@ -45,7 +45,7 @@ class ApplyForJob extends React.Component {
       employmentAndEducationMissing: false,
       onlyOneEmployment: false,
       onlyOneEducation: false,
-      showButton: props.employments.employments.length > 1 && props.educations.educations.length > 1 && props.locations.userLocations.length > 0 && props.skills.userSkills.length > 1 && props.languages.userLanguages.length > 1 && props.profile.personal_info.length > 0,
+      showButton: props.employments.employments.length > 1 && props.educations.educations.length > 1 && props.locations.userLocations.length > 0 && props.skills.userSkills.length > 1 && props.languages.userLanguages.length > 1,
       wapstats: {
         employmentCount: props.employments.employments ? props.employments.employments.length : 0,
         educationCount: props.educations.educations ? props.educations.educations.length : 0,
@@ -59,7 +59,7 @@ class ApplyForJob extends React.Component {
         referenceCount: props.references.references ? props.references.references.length : 0,
         personalitytestCompleted: props.talentq && props.talentq.completed ? 1 : 0,
         locationCount: props.locations.userLocations ? props.locations.userLocations.length : 0,
-        resumeDone: props.profile.personal_info.length > 0
+        resumeDone: props.profile.personal_info ? props.profile.personal_info.length > 0 : false
       }
     }
 
@@ -399,14 +399,15 @@ class ApplyForJob extends React.Component {
                     {this.state.wapstats.languageCount < 2 ? <i className='fa fa-times undone' />
                       : <i className='fa fa-check-circle' />}<h6>Språk (2st)</h6>
                   </Col>
-                  <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/profile')}>
-                    {!this.state.wapstats.resumeDone ? <i className='fa fa-times undone' />
-                      : <i className='fa fa-check-circle' />}<h6>Resumé</h6>
-                  </Col>
+
                 </Row>
                 <Row className='justify-content-center align-content-center mt-5'>
                   <Col xs={12}>
                     <h5>Ej obligatoriskt men rekommenderat</h5>
+                  </Col>
+                  <Col xs='6' sm='4' md='3' lg='2' className='wapStats' onClick={() => this.handleIconClick('/profile')}>
+                    {!this.state.wapstats.resumeDone ? <i className='fa fa-times undone' />
+                      : <i className='fa fa-check-circle' />}<h6>Resumé</h6>
                   </Col>
                   <Col className='wapStats' onClick={() => this.handleIconClick('/work/drivinglicenses')}>
                     {this.state.wapstats.drivinglicenseCount === 0 ? <i className='fa fa-times undone' />

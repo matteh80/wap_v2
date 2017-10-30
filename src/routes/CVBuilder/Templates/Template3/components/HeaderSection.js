@@ -71,11 +71,12 @@ export default class HeaderSection extends React.Component {
 
     return (
       <header>
-        <Row id='header' className='mx-0 mb-5'>
-          <Col xs={10}>
+        <Row id='header' className='mx-0'>
+          <Col xs={4}>
             {/* <img src={this.state.imageUrl} className='rounded-circle' /> */}
             <div className='profilePicture'>
               <canvas
+                style={{ width: '100%' }}
                 onError={this.onError}
                 id='mCanvas'
                 ref={canvas => {
@@ -84,10 +85,38 @@ export default class HeaderSection extends React.Component {
               />
             </div>
           </Col>
-          <Col xs={12} className='text-center'>
-            <h4 className='name mb-0 mt-1 fg-white'>{profile && profile.first_name}</h4>
-            <h4 className='name my-0 fg-white'>{profile && profile.last_name}</h4>
-            <h6 className='title'>{profile && profile.title}</h6>
+          <Col xs={8} className='d-flex flex-column justify-content-center'>
+            <Row>
+              <Col xs={12}>
+                <h1 className='name mb-0 mt-1'>{profile && profile.first_name + ' ' + profile.last_name}</h1>
+                <h4 className='title'>{profile && profile.title}</h4>
+              </Col>
+            </Row>
+            <div id='contactInfo' className='mb-3 pb-2'>
+              <Row>
+                <Col xs={12} className='d-flex align-items-center mb-2'>
+                  <i className='fa fa-envelope profileIcon mr-2' /><small>{profile.email}</small>
+                </Col>
+                {profile.mobile_phone_number &&
+                <Col xs={12} className='d-flex align-items-center mb-2'>
+                  <i className='fa fa-phone profileIcon mr-2' />
+                  <small>{profile.mobile_phone_number}</small>
+                </Col>
+              }
+                {profile.phone_number &&
+                <Col xs={12} className='d-flex align-items-center mb-2'>
+                  <i className='fa fa-phone profileIcon mr-2' />
+                  <small>{profile.phone_number}</small>
+                </Col>
+              }
+                {profile.home_page &&
+                <Col xs={12} className='d-flex align-items-center mb-2'>
+                  <i className='fa fa-globe profileIcon mr-2' />
+                  <small>{profile.home_page}</small>
+                </Col>
+              }
+              </Row>
+            </div>
           </Col>
         </Row>
       </header>

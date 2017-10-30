@@ -9,7 +9,7 @@ const {
 
 export function getAllLicenses () {
   return (dispatch, getState) => {
-    return apiClient.get('driving-licenses').then((result) => {
+    return apiClient.get('driving-licenses/').then((result) => {
       return dispatch({
         type: GET_ALL_LICENSES,
         licenses: result.data,
@@ -28,7 +28,7 @@ export function getAllLicenses () {
 
 export function getMyLicenses () {
   return (dispatch, getState) => {
-    return apiClient.get('me/driving-licenses').then((result) => {
+    return apiClient.get('me/driving-licenses/').then((result) => {
       return dispatch({
         type: GET_MY_LICENSES,
         userLicenses: result.data,

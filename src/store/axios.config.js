@@ -2,7 +2,13 @@ import axios from 'axios'
 import { getStore } from './createStore'
 
 let instance = axios.create()
-instance.defaults.baseURL = 'https://api.wapcard.se/api/v1/'
+if (process.env.NODE_ENV === 'development') {
+  // instance.defaults.baseURL = 'https://wapstage.leinfors.com/api/v1/'
+  instance.defaults.baseURL = 'https://api.workandpassion.se/api/v1/'
+} else {
+  instance.defaults.baseURL = 'https://api.workandpassion.se/api/v1/'
+}
+
 instance.defaults.timeout = 60000
 
 const store = getStore()

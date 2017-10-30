@@ -218,7 +218,7 @@ class Register extends React.Component {
       window.location.assign('https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86fnbibk2t9g4m&redirect_uri=http%3A%2F%2Flocalhost:8080%2Flogin%2Flinkedin&state=987654321&scope=r_emailaddress,r_basicprofile')
     } else {
       // production code
-      window.location.assign('https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86fnbibk2t9g4m&redirect_uri=https%3A%2F%2Fapp.wapcard.se%2Flogin%2Flinkedin&state=987654321&scope=r_emailaddress,r_basicprofile')
+      window.location.assign('https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86fnbibk2t9g4m&redirect_uri=https%3A%2F%2Fapp.workandpassion.se%2Flogin%2Flinkedin&state=987654321&scope=r_emailaddress,r_basicprofile')
     }
   }
 
@@ -281,7 +281,7 @@ class Register extends React.Component {
       mRedirectUri = 'http://localhost:8080/login/facebook'
     } else {
       // production code
-      mRedirectUri = 'https://app.wapcard.se/login/facebook'
+      mRedirectUri = 'https://app.workandpassion.se/login/facebook'
     }
 
     graph.setVersion('2.9')

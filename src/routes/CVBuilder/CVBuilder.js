@@ -9,6 +9,7 @@ import $ from 'jquery'
 import classNames from 'classnames'
 import Slider from 'react-slick'
 import _ from 'lodash'
+import ReactGA from 'react-ga'
 
 import {
   Container,
@@ -26,6 +27,7 @@ import ThreeDButton from '../../components/buttons/ThreeDButton'
 import Template1 from './Templates/Template1/Template1'
 import SpeechBubble from '../../components/Helpers/SpeechBubble/SpeechBubble'
 import Template2 from './Templates/Template2/Template2'
+import Template3 from './Templates/Template3/Template3'
 
 class CVBuilder extends React.Component {
   constructor (props) {
@@ -45,7 +47,8 @@ class CVBuilder extends React.Component {
       showTemplate: false,
       showUpdatePreview: false,
       images: [],
-      selectedTemplate: 'template2'
+      selectedTemplate: 'template3',
+      imageIsSet: false
     }
 
     this.state.employments.sort(function (a, b) {
@@ -74,20 +77,17 @@ class CVBuilder extends React.Component {
     this.handleClick = this.handleClick.bind(this)
     this.getTemplate = this.getTemplate.bind(this)
     this.changeTemplate = this.changeTemplate.bind(this)
+    this.imageSet = this.imageSet.bind(this)
   }
 
   componentDidUpdate (prevProps, prevState) {
     let _self = this
-    if (!prevState.createPdf && this.state.createPdf) {
-      setTimeout(function () {
-        _self.createPdf()
-      }, 1500)
+    if (!prevState.imageIsSet && this.state.createPdf && this.state.imageIsSet) {
+      this.createPdf()
     }
 
-    if (!prevState.createPreview && this.state.createPreview) {
-      setTimeout(function () {
-        _self.createCanvas()
-      }, 1500)
+    if (!prevState.imageIsSet && this.state.createPreview && this.state.imageIsSet) {
+      this.createCanvas()
     }
 
     if (prevState.selectedTemplate !== this.state.selectedTemplate) {
@@ -96,6 +96,11 @@ class CVBuilder extends React.Component {
   }
 
   preparePdf () {
+    ReactGA.event({
+      category: 'CV Builder',
+      action: 'Created PDF ' + this.props.profile.id,
+      label: this.state.selectedTemplate
+    })
     this.setState({
       createPdf: true,
       showTemplate: true
@@ -125,21 +130,30 @@ class CVBuilder extends React.Component {
 
     $content.css('visibility', 'visible')
     $body.scrollTop(0)
+    $('html,body').scrollTop(0)
 
     function getCanvas () {
-      $content.width((a4[0] * 1.33333)).css('max-width', 'none')
+      // $content.width((a4[0] * 1.33333 * 2)).css('max-width', 'none')
+      $content.css('max-width', 'none')
       let doc = new jsPDF({
-        unit: 'px',
+        unit: 'pt',
         format: 'a4'
       })
 
       $.each($('.A4'), function (index, elem) {
         console.log(index)
+        let $this = $(this)
+        $('html,body').scrollTop(0)
+        $this.css('transform', 'scale(2, 2)')
+
         let promise = new Promise((resolve, reject) => {
           return html2canvas($(this), {
             imageTimeout: 6000,
+            width: $this.width() * 2,
+            height: $this.height() * 2,
             onrendered: function (canvas) {
-              images[index] = canvas.toDataURL('image/png', 1.0)
+              images[index] = canvas.toDataURL('image/jpg', 1.0)
+              // $('body').append(canvas)
               resolve('Valid')
               console.log('Valid')
             }
@@ -157,10 +171,10 @@ class CVBuilder extends React.Component {
             doc.addPage()
             doc.setPage((index + 1))
           }
-          doc.addImage(image, 'PNG', 0, 0)
+          doc.addImage(image, 'JPG', 0, 0, a4[0], a4[1], index, 'FAST')
         })
         doc.save('cv_' + profile.first_name + '_' + profile.last_name + '.pdf')
-        _self.setState({ createPdf: false, showTemplate: false })
+        _self.setState({ createPdf: false, showTemplate: false, imageIsSet: false })
       })
     }
 
@@ -312,13 +326,13 @@ class CVBuilder extends React.Component {
         //   carouselItem = $('<div class="carousel-item active"></div>')
         // }
         let image = new Image()
-        image.src = canvas.toDataURL('image/jpg')
+        image.src = canvas.toDataURL('image/png', 1.0)
         imageArray.push(image)
         // $(image).addClass('img-fluid cvPreviewCanvas')
         // carouselItem.append(image)
         // $('.cvPreviewWrapper').append(carouselItem)
       })
-      _self.setState({ createPreview: false, showTemplate: false, showUpdatePreview:false, images: imageArray })
+      _self.setState({ createPreview: false, showTemplate: false, showUpdatePreview:false, images: imageArray, imageIsSet: false })
     })
   }
 
@@ -337,8 +351,14 @@ class CVBuilder extends React.Component {
 
   changeTemplate () {
     this.setState({
-      selectedTemplate: 'template2',
+      selectedTemplate: 'template3',
       showUpdatePreview: true
+    })
+  }
+
+  imageSet () {
+    this.setState({
+      imageIsSet: true
     })
   }
 
@@ -349,6 +369,7 @@ class CVBuilder extends React.Component {
       let mTemplate = React.cloneElement(
         template.component,
         {
+          imageSet: this.imageSet,
           employments: this.state.employments,
           educations: this.state.educations,
           skills: this.state.skills,
@@ -397,8 +418,12 @@ class CVBuilder extends React.Component {
             <h5>1. Välj designmall</h5>
           </Col>
           <Col xs={12}>
-            <button className={classNames('btn', this.state.selectedTemplate === 'template2' && 'btn-info')} onClick={() => this.setState({ selectedTemplate: 'template2', showUpdatePreview: true })}>Mall 1</button>
-            <button className={classNames('ml-1 btn', this.state.selectedTemplate === 'template1' && 'btn-info')} onClick={() => this.setState({ selectedTemplate: 'template1', showUpdatePreview: true })}>Mall 2</button>
+            <button className={classNames('btn', this.state.selectedTemplate === 'template3' && 'btn-info')} onClick={() => this.setState({ selectedTemplate: 'template3', showUpdatePreview: true })}>
+              Mall 1
+            </button>
+            <button className={classNames('ml-1 btn', this.state.selectedTemplate === 'template2' && 'btn-info')} onClick={() => this.setState({ selectedTemplate: 'template2', showUpdatePreview: true })}>
+              Mall 2
+            </button>
           </Col>
         </Row>
 
@@ -533,17 +558,17 @@ class CVBuilder extends React.Component {
             </Row>
 
             {this.state.showTemplate && this.getTemplate()}
-
-             {/*<Template2*/}
-             {/*employments={this.state.employments}*/}
-             {/*educations={this.state.educations}*/}
-             {/*skills={this.state.skills}*/}
-             {/*languages={this.state.languages}*/}
-             {/*drivinglicenses={this.state.drivinglicenses}*/}
-             {/*profile={this.props.profile}*/}
-             {/*references={this.state.references}*/}
-             {/*resume={this.props.profile.personal_info ? this.state.resume : false}*/}
-             {/*/>*/}
+            {/* <Template2 */}
+            {/* imageSet={this.imageSet} */}
+            {/* employments={this.state.employments} */}
+            {/* educations={this.state.educations} */}
+            {/* skills={this.state.skills} */}
+            {/* languages={this.state.languages} */}
+            {/* drivinglicenses={this.state.drivinglicenses} */}
+            {/* profile={this.props.profile} */}
+            {/* references={this.state.references} */}
+            {/* resume={this.props.profile.personal_info ? this.state.resume : false} */}
+            {/* /> */}
 
           </Col>
         </Row>
@@ -554,7 +579,8 @@ class CVBuilder extends React.Component {
 
 const templates = [
   { component: <Template1 />, name: 'template1' },
-  { component: <Template2 />, name: 'template2' }
+  { component: <Template2 />, name: 'template2' },
+  { component: <Template3 />, name: 'template3' }
 ]
 
 export default withRouter(connect((state) => state)(CVBuilder))

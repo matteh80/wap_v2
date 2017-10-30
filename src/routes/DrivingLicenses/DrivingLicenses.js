@@ -112,9 +112,10 @@ class DrivingLicenses extends React.Component {
           {this.state.userLicenses && this.state.userLicenses.map((license) => {
             return <LicenseItem key={license.id} license={license} onChange={this.onLicenseChange} onRemove={this.onRemove} layout={this.layout} />
           })}
-
-          <LicenseForm notEmpty={notEmpty} onAdd={this.onAdd} userLicenses={this.state.userLicenses} layout={this.layout} />
-
+          {this.state.userLicenses &&
+          <LicenseForm notEmpty={notEmpty} onAdd={this.onAdd} userLicenses={this.state.userLicenses}
+            layout={this.layout} />
+          }
         </Masonry>
       </Container>
     )
