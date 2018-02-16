@@ -37,7 +37,6 @@ export function getMySkills () {
           userSkills: result.data,
           receivedAt: Date.now()
         })
-
       })
   }
 }
